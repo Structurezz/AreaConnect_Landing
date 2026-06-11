@@ -1475,10 +1475,10 @@ export default function Home() {
                 className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-[15px] shadow-xl shadow-black/20 hover:-translate-y-0.5 w-full sm:w-auto">
                 Get started <ArrowRight size={18} />
               </Link>
-              <Link to="/contact"
+              <a href="tel:+2347089224054"
                 className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-[15px] hover:bg-white/8 w-full sm:w-auto">
                 Book a demo
-              </Link>
+              </a>
             </div>
           </Reveal>
           <Reveal delay={160}>

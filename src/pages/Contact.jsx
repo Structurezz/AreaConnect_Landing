@@ -168,10 +168,11 @@ export default function Contact() {
                 {
                   icon: Phone,
                   label: 'Call us',
-                  val: '+234 (0) 800 272-3266',
+                  val: '0708 922 4054',
                   sub: 'Mon – Fri, 9AM – 6PM WAT',
                   bg: 'bg-blue-50',
                   color: 'text-blue-600',
+                  href: 'tel:+2347089224054',
                 },
                 {
                   icon: MapPin,
@@ -191,16 +192,29 @@ export default function Contact() {
                 },
               ].map((item, i) => (
                 <Reveal key={item.label} delay={i * 60}>
-                  <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-start gap-4">
-                    <div className={`w-10 h-10 ${item.bg} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                      <item.icon size={17} className={item.color} />
+                  {item.href ? (
+                    <a href={item.href} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-start gap-4 block">
+                      <div className={`w-10 h-10 ${item.bg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                        <item.icon size={17} className={item.color} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">{item.label}</div>
+                        <div className="text-sm font-bold text-slate-800">{item.val}</div>
+                        <div className="text-xs text-slate-400 mt-0.5">{item.sub}</div>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-start gap-4">
+                      <div className={`w-10 h-10 ${item.bg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                        <item.icon size={17} className={item.color} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">{item.label}</div>
+                        <div className="text-sm font-bold text-slate-800">{item.val}</div>
+                        <div className="text-xs text-slate-400 mt-0.5">{item.sub}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">{item.label}</div>
-                      <div className="text-sm font-bold text-slate-800">{item.val}</div>
-                      <div className="text-xs text-slate-400 mt-0.5">{item.sub}</div>
-                    </div>
-                  </div>
+                  )}
                 </Reveal>
               ))}
 
@@ -212,10 +226,10 @@ export default function Contact() {
                     Book a 30-minute Zoom call. We'll walk through the full platform and answer any questions about your estate.
                   </p>
                   <a
-                    href="mailto:demo@areaconnect.pro"
+                    href="tel:+2347089224054"
                     className="inline-flex items-center gap-2 text-brand-600 font-bold text-sm hover:text-brand-700 transition-colors"
                   >
-                    Book a demo call <ArrowRight size={13} />
+                    Call us now <ArrowRight size={13} />
                   </a>
                 </div>
               </Reveal>
