@@ -38,7 +38,7 @@ export default function Press() {
           </h1>
           <p className="text-xl text-slate-400 leading-relaxed">
             Everything you need to write about AreaConnect. Press inquiries:{' '}
-            <a href="mailto:press@areaconnect.ng" className="text-brand-400 hover:text-brand-300 transition-colors font-medium">press@areaconnect.ng</a>
+            <a href="mailto:press@areaconnect.pro" className="text-brand-400 hover:text-brand-300 transition-colors font-medium">press@areaconnect.pro</a>
           </p>
         </div>
       </section>
@@ -153,8 +153,8 @@ export default function Press() {
             <p className="text-brand-100 text-sm mb-6 leading-relaxed">
               For interviews, quotes, background information, or additional assets, contact our communications team.
             </p>
-            <a href="mailto:press@areaconnect.ng" className="btn-primary-lg bg-white text-brand-700 hover:bg-brand-50 shadow-xl">
-              press@areaconnect.ng
+            <a href="mailto:press@areaconnect.pro" className="btn-primary-lg bg-white text-brand-700 hover:bg-brand-50 shadow-xl">
+              press@areaconnect.pro
             </a>
           </Reveal>
         </div>

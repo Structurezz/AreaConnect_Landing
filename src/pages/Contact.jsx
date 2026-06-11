@@ -160,7 +160,7 @@ export default function Contact() {
                 {
                   icon: Mail,
                   label: 'Email us',
-                  val: 'hello@areaconnect.ng',
+                  val: 'hello@areaconnect.pro',
                   sub: 'We respond within 2 business hours',
                   bg: 'bg-brand-50',
                   color: 'text-brand-600',
@@ -212,7 +212,7 @@ export default function Contact() {
                     Book a 30-minute Zoom call. We'll walk through the full platform and answer any questions about your estate.
                   </p>
                   <a
-                    href="mailto:demo@areaconnect.ng"
+                    href="mailto:demo@areaconnect.pro"
                     className="inline-flex items-center gap-2 text-brand-600 font-bold text-sm hover:text-brand-700 transition-colors"
                   >
                     Book a demo call <ArrowRight size={13} />

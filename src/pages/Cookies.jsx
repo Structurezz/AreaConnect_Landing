@@ -104,7 +104,7 @@ export default function Cookies() {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
                     <div className="w-2.5 h-2.5 rounded-full bg-brand-500" />
-                    <span className="ml-3 text-xs font-mono text-slate-400">areaconnect.ng — cookies</span>
+                    <span className="ml-3 text-xs font-mono text-slate-400">areaconnect.pro — cookies</span>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-xs">
@@ -179,7 +179,7 @@ export default function Cookies() {
             </DocSection>
 
             <DocSection num={6} title="Contact">
-              <p>Questions about our cookie use? Email us at <a href="mailto:privacy@areaconnect.ng" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.ng</a></p>
+              <p>Questions about our cookie use? Email us at <a href="mailto:privacy@areaconnect.pro" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.pro</a></p>
             </DocSection>
           </div>
 
@@ -189,7 +189,7 @@ export default function Cookies() {
               <div className="bg-slate-900 rounded-2xl p-6">
                 <h3 className="font-black text-white text-sm mb-1">Privacy questions?</h3>
                 <p className="text-slate-400 text-xs mb-4 leading-relaxed">We believe in radical transparency about how we handle your data.</p>
-                <a href="mailto:privacy@areaconnect.ng"
+                <a href="mailto:privacy@areaconnect.pro"
                   className="flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-colors w-full">
                   Contact privacy team <ArrowRight size={12} />
                 </a>

@@ -102,7 +102,7 @@ export default function Terms() {
 
             <div id="section-2">
               <DocSection num={2} title="Account responsibilities">
-                <p>You are responsible for maintaining the security of your account credentials. You must notify us immediately at <a href="mailto:security@areaconnect.ng" className="text-brand-600 hover:underline font-medium">security@areaconnect.ng</a> if you suspect unauthorised access.</p>
+                <p>You are responsible for maintaining the security of your account credentials. You must notify us immediately at <a href="mailto:security@areaconnect.pro" className="text-brand-600 hover:underline font-medium">security@areaconnect.pro</a> if you suspect unauthorised access.</p>
                 <p>Estate managers are responsible for the accuracy of resident and visitor data they enter. You agree not to register other estates&apos; residents or create fraudulent accounts.</p>
               </DocSection>
             </div>
@@ -131,7 +131,7 @@ export default function Terms() {
               <DocSection num={4} title="Payment terms">
                 <p>Paid plans are billed monthly or annually in advance. All payments are processed by Paystack in Nigerian Naira (&#8358;). Prices are exclusive of VAT unless stated otherwise.</p>
                 <p>We reserve the right to update pricing with 30 days&apos; notice. Existing customers on annual plans are not affected until their renewal date.</p>
-                <p>Refunds are not provided except where required by Nigerian law. If you believe you have been charged in error, contact <a href="mailto:billing@areaconnect.ng" className="text-brand-600 hover:underline font-medium">billing@areaconnect.ng</a> within 14 days.</p>
+                <p>Refunds are not provided except where required by Nigerian law. If you believe you have been charged in error, contact <a href="mailto:billing@areaconnect.pro" className="text-brand-600 hover:underline font-medium">billing@areaconnect.pro</a> within 14 days.</p>
               </DocSection>
             </div>
 
@@ -144,7 +144,7 @@ export default function Terms() {
 
             <div id="section-6">
               <DocSection num={6} title="Availability and support">
-                <p>We target 99.9% monthly uptime for all paid plans and publish status updates at status.areaconnect.ng. Scheduled maintenance is announced with at least 48 hours&apos; notice.</p>
+                <p>We target 99.9% monthly uptime for all paid plans and publish status updates at status.areaconnect.pro. Scheduled maintenance is announced with at least 48 hours&apos; notice.</p>
                 <p>Support is provided by email for all plans. Growth and Enterprise plans receive priority response within 2 business hours. Enterprise plans include a dedicated Customer Success Manager.</p>
               </DocSection>
             </div>
@@ -177,7 +177,7 @@ export default function Terms() {
             <div id="section-11">
               <DocSection num={11} title="Contact">
                 <p>AreaConnect Technologies Ltd<br />14 Admiralty Way, Lekki Phase 1, Lagos, Nigeria</p>
-                <p>Email: <a href="mailto:legal@areaconnect.ng" className="text-brand-600 hover:underline font-medium">legal@areaconnect.ng</a></p>
+                <p>Email: <a href="mailto:legal@areaconnect.pro" className="text-brand-600 hover:underline font-medium">legal@areaconnect.pro</a></p>
               </DocSection>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function Terms() {
               <div className="bg-slate-900 rounded-2xl p-6">
                 <h3 className="font-black text-white text-sm mb-1">Legal questions?</h3>
                 <p className="text-slate-400 text-xs mb-4 leading-relaxed">Our team is happy to clarify any part of these Terms before you commit.</p>
-                <a href="mailto:legal@areaconnect.ng"
+                <a href="mailto:legal@areaconnect.pro"
                   className="flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-colors w-full">
                   Contact legal <ArrowRight size={12} />
                 </a>

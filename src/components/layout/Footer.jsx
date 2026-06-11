@@ -66,7 +66,7 @@ export default function Footer() {
               <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">
                 <Instagram size={15} className="text-slate-400" />
               </a>
-              <a href="mailto:hello@areaconnect.ng" className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">
+              <a href="mailto:hello@areaconnect.pro" className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">
                 <Mail size={15} className="text-slate-400" />
               </a>
             </div>

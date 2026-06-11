@@ -137,7 +137,7 @@ export default function Careers() {
                         </div>
                       </div>
                     </div>
-                    <a href="mailto:careers@areaconnect.ng" className="btn-primary flex-shrink-0">
+                    <a href="mailto:careers@areaconnect.pro" className="btn-primary flex-shrink-0">
                       Apply <ArrowRight size={14} />
                     </a>
                   </div>
@@ -155,8 +155,8 @@ export default function Careers() {
           <Reveal delay={100}>
             <div className="text-center mt-10 p-8 bg-white rounded-2xl border border-slate-100 shadow-sm">
               <p className="text-slate-600 text-sm mb-3">Don't see a role that fits?</p>
-              <a href="mailto:careers@areaconnect.ng" className="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-700 transition-colors">
-                Send your CV to careers@areaconnect.ng <ArrowRight size={14} />
+              <a href="mailto:careers@areaconnect.pro" className="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-700 transition-colors">
+                Send your CV to careers@areaconnect.pro <ArrowRight size={14} />
               </a>
             </div>
           </Reveal>

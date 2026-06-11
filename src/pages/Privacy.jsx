@@ -167,7 +167,7 @@ export default function Privacy() {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3">To exercise these rights, contact: <a href="mailto:privacy@areaconnect.ng" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.ng</a></p>
+                <p className="mt-3">To exercise these rights, contact: <a href="mailto:privacy@areaconnect.pro" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.pro</a></p>
               </DocSection>
             </div>
 
@@ -192,7 +192,7 @@ export default function Privacy() {
             <div id="section-11">
               <DocSection num={11} title="Contact">
                 <p>AreaConnect Technologies Ltd<br />14 Admiralty Way, Lekki Phase 1, Lagos, Nigeria</p>
-                <p>Email: <a href="mailto:privacy@areaconnect.ng" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.ng</a></p>
+                <p>Email: <a href="mailto:privacy@areaconnect.pro" className="text-brand-600 hover:underline font-medium">privacy@areaconnect.pro</a></p>
               </DocSection>
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function Privacy() {
               <div className="bg-slate-900 rounded-2xl p-6">
                 <h3 className="font-black text-white text-sm mb-1">Questions about your data?</h3>
                 <p className="text-slate-400 text-xs mb-4 leading-relaxed">Our privacy team responds to all data requests within 3 business days.</p>
-                <a href="mailto:privacy@areaconnect.ng"
+                <a href="mailto:privacy@areaconnect.pro"
                   className="flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-colors w-full">
                   Contact privacy team <ArrowRight size={12} />
                 </a>

@@ -195,7 +195,7 @@ export default function ProductAdmin() {
                         className="rounded-md px-3 py-1 text-[10px] text-slate-500 text-center font-mono"
                         style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
                       >
-                        app.areaconnect.ng/dashboard
+                        app.areaconnect.pro/dashboard
                       </div>
                     </div>
                   </div>

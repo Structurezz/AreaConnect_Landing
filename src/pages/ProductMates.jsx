@@ -146,7 +146,7 @@ export default function ProductMates() {
               </div>
               <p className="text-sm text-slate-500">
                 Also at{' '}
-                <span className="text-indigo-400 font-semibold">app.areaconnect.ng</span>
+                <span className="text-indigo-400 font-semibold">app.areaconnect.pro</span>
                 {' '}on any browser
               </p>
             </div>

@@ -89,7 +89,7 @@ function HeroDashboard() {
           <div className="flex-1 mx-3">
             <div className="rounded-md px-3 py-1 text-[10px] text-slate-500 text-center font-mono"
                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              app.areaconnect.ng/dashboard
+              app.areaconnect.pro/dashboard
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@ function MobileHeroVisual() {
           </div>
           <div className="flex-1 mx-2 rounded px-2 py-0.5 text-[9px] text-slate-500 font-mono text-center"
                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            app.areaconnect.ng
+            app.areaconnect.pro
           </div>
         </div>
         {/* Stats row */}
@@ -673,7 +673,7 @@ export default function Home() {
                       <div className="mt-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
                         <div className="bg-slate-800 px-3 py-2 flex items-center gap-1.5">
                           <div className="w-2 h-2 rounded-full bg-red-400/60" /><div className="w-2 h-2 rounded-full bg-amber-400/60" /><div className="w-2 h-2 rounded-full bg-green-400/60" />
-                          <div className="flex-1 bg-white/5 rounded px-2 py-0.5 text-[8px] text-slate-500 font-mono mx-2">app.areaconnect.ng</div>
+                          <div className="flex-1 bg-white/5 rounded px-2 py-0.5 text-[8px] text-slate-500 font-mono mx-2">app.areaconnect.pro</div>
                         </div>
                         <div className="bg-slate-50 p-3">
                           <div className="flex gap-1.5 mb-2">

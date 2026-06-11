@@ -87,7 +87,7 @@ export default function Security() {
               { label: 'Database',         color: 'border-l-indigo-500', ic: 'text-indigo-500', text: 'Resident and estate data is stored in MongoDB Atlas (hosted on AWS). Automated backups are taken every 6 hours and retained for 30 days.' },
               { label: 'Payments',         color: 'border-l-blue-500',   ic: 'text-blue-500',   text: 'All payment card and bank account data is handled exclusively by Paystack, a PCI DSS Level 1 certified processor. We never see or store card numbers.' },
               { label: 'Email',            color: 'border-l-violet-500', ic: 'text-violet-500', text: 'Transactional emails (login credentials, visitor passes) are delivered via Resend, which uses DKIM and SPF authentication to prevent spoofing.' },
-              { label: 'Uptime monitoring',color: 'border-l-amber-500',  ic: 'text-amber-500',  text: 'We monitor all services continuously with PagerDuty alerting. Our target uptime SLA is 99.9% for all paid plans. Status is published at status.areaconnect.ng.' },
+              { label: 'Uptime monitoring',color: 'border-l-amber-500',  ic: 'text-amber-500',  text: 'We monitor all services continuously with PagerDuty alerting. Our target uptime SLA is 99.9% for all paid plans. Status is published at status.areaconnect.pro.' },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 50}>
                 <div className={`bg-white rounded-2xl border border-slate-100 border-l-4 ${s.color} p-6 shadow-sm hover:shadow-md transition-shadow`}>
@@ -134,8 +134,8 @@ export default function Security() {
                 <p className="text-sm text-slate-400 leading-relaxed mb-6">
                   Please email details of the vulnerability, including steps to reproduce, to our security team.
                 </p>
-                <a href="mailto:security@areaconnect.ng" className="btn-primary w-full justify-center">
-                  security@areaconnect.ng
+                <a href="mailto:security@areaconnect.pro" className="btn-primary w-full justify-center">
+                  security@areaconnect.pro
                 </a>
                 <p className="text-xs text-slate-600 mt-4 text-center">
                   Please do not disclose publicly until we've had the opportunity to investigate and fix.
