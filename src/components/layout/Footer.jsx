@@ -18,7 +18,6 @@ const COLS = [
       { label: 'About us',  to: '/about'   },
       { label: 'Blog',      to: '/blog'    },
       { label: 'Careers',   to: '/careers' },
-      { label: 'Press kit', to: '/press'   },
       { label: 'Contact',   to: '/contact' },
     ],
   },
