@@ -90,7 +90,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-800 pt-8 space-y-3">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-sm text-slate-500">© {new Date().getFullYear()} AreaConnect Technologies Ltd. All rights reserved.</p>
+            <p className="text-sm text-slate-500">© {new Date().getFullYear()} AreaConnect Technologies. All rights reserved.</p>
             <p className="text-sm text-slate-500">Made with ♥ for Nigerian estates</p>
           </div>
           <p className="text-xs text-slate-600 text-center sm:text-left">
