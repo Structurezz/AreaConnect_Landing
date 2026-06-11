@@ -290,18 +290,12 @@ export default function Navbar() {
           {/* CTA footer */}
           <div className="px-4 pb-10 pt-5 space-y-2.5 flex-shrink-0"
             style={{ borderTop: '1px solid rgba(255,255,255,0.07)', ...stagger(0, 0, 680) }}>
-            <Link to="/pricing" onClick={() => setOpen(false)}
+            <Link to="https://area-connector.areaconnect.pro/register" onClick={() => setOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-black text-sm text-white transition-all hover:-translate-y-0.5"
               style={{ background: 'linear-gradient(135deg,#10B981,#059669)', boxShadow: '0 4px 20px rgba(16,185,129,0.35)' }}>
-              Get started free <ArrowRight size={15} />
+              Get started  <ArrowRight size={15} />
             </Link>
-            <a href="#"
-              className="flex items-center justify-center w-full py-3.5 rounded-2xl font-semibold text-sm transition-all"
-              style={{ border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = '#fff'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}>
-              Sign in to your account
-            </a>
+           
           </div>
         </div>
       )}
