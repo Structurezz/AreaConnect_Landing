@@ -216,7 +216,7 @@ function HeroDashboard() {
 /* ─── Mobile Hero Visual ──────────────────────────────────────────────── */
 function MobileHeroVisual() {
   return (
-    <div className="relative mt-10 mx-auto" style={{ maxWidth: 300 }}>
+    <div className="relative mt-10 mx-auto" style={{ maxWidth: 340 }}>
       {/* Ambient glows */}
       <div className="absolute -inset-8 pointer-events-none">
         <div className="absolute top-1/4 left-0 w-48 h-48 bg-brand-500/15 rounded-full blur-3xl" />
@@ -224,9 +224,9 @@ function MobileHeroVisual() {
       </div>
 
       {/* Phone shell */}
-      <div className="relative mx-auto w-[232px]">
+      <div className="relative mx-auto w-[264px]">
         <div className="relative overflow-hidden shadow-2xl"
-             style={{ background: '#0f1117', border: '7px solid #1a1f2e', borderRadius: 40, height: 470 }}>
+             style={{ background: '#0f1117', border: '7px solid #1a1f2e', borderRadius: 40, height: 500 }}>
 
           {/* Dynamic Island */}
           <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
@@ -339,7 +339,7 @@ function MobileHeroVisual() {
       </div>
 
       {/* Floating toast — top right */}
-      <div className="absolute top-10 -right-8 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float z-10">
+      <div className="absolute top-10 -right-4 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float z-10">
         <div className="flex items-center gap-1.5">
           <div className="w-4 h-4 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
             <CheckCircle2 size={8} className="text-white" />
@@ -350,7 +350,7 @@ function MobileHeroVisual() {
       </div>
 
       {/* Floating toast — bottom left */}
-      <div className="absolute bottom-20 -left-10 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float-delayed z-10">
+      <div className="absolute bottom-20 -left-4 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float-delayed z-10">
         <div className="flex items-center gap-1.5">
           <CreditCard size={11} className="text-indigo-500" />
           <span className="text-[9px] font-bold text-slate-700">₦75,000 received</span>
@@ -594,14 +594,15 @@ export default function Home() {
                 <span className="text-brand-400 text-xs font-semibold tracking-wide">Now live across Nigeria</span>
               </div>
 
-              <h1 className="text-[2.6rem] sm:text-5xl lg:text-[68px] font-black text-white leading-[1.05] tracking-tight mb-5 sm:mb-6 animate-fade-in-up">
+              <h1 className="text-[1.85rem] sm:text-5xl lg:text-[68px] font-black text-white leading-[1.1] tracking-tight mb-4 sm:mb-6 animate-fade-in-up">
                 Nigeria&apos;s smartest<br />
                 <span className="gradient-text-brand">estate platform.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-400 leading-relaxed mb-7 sm:mb-8 animate-fade-in-up max-w-md mx-auto lg:mx-0"
+              <p className="text-sm sm:text-lg text-slate-400 leading-relaxed mb-7 sm:mb-8 animate-fade-in-up max-w-md mx-auto lg:mx-0"
                  style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-                One platform connecting estate managers, residents, and security staff. Visitor passes, dues collection, community tools — all out of the box.
+                <span className="sm:hidden">Manage residents, visitors, and dues — one app.</span>
+                <span className="hidden sm:inline">One platform connecting estate managers, residents, and security staff. Visitor passes, dues collection, community tools — all out of the box.</span>
               </p>
 
               {/* CTA buttons — full width on mobile */}
