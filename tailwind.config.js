@@ -29,6 +29,7 @@ export default {
         'shimmer':         'shimmer 2s linear infinite',
         'slide-in-right':  'slideInRight 0.5s ease-out forwards',
         'count-up':        'fadeInUp 0.5s ease-out forwards',
+        'slide-up':        'slideUp 0.35s cubic-bezier(0.32,0.72,0,1) forwards',
       },
       keyframes: {
         float: {
@@ -58,6 +59,10 @@ export default {
         slideInRight: {
           from: { opacity: '0', transform: 'translateX(20px)' },
           to:   { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideUp: {
+          from: { transform: 'translateY(100%)' },
+          to:   { transform: 'translateY(0)' },
         },
       },
     },
