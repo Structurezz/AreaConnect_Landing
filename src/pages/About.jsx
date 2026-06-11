@@ -176,8 +176,10 @@ export default function About() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Michael Orizu',  role: 'Founder, CEO & CTO',       initials: 'MO', color: 'from-brand-500 to-brand-700',   bio: 'Founder and technical lead of AreaConnect. Builds the product end-to-end with a mission to modernise estate living across Nigeria.' },
-              { name: 'Angela Okorie', role: 'Head of Customer Success', initials: 'AO', color: 'from-violet-500 to-violet-700', bio: 'Ensures every estate manager and resident gets the most out of AreaConnect. The voice of the customer inside the company.' },
+              { name: 'Michael Orizu',   role: 'Founder, CEO & CTO',        initials: 'MO', color: 'from-brand-500 to-brand-700',   bio: 'Founder and technical lead of AreaConnect. Builds the product end-to-end with a mission to modernise estate living across Nigeria.' },
+              { name: 'Angela Okorie',  role: 'Head of Customer Success',  initials: 'AO', color: 'from-violet-500 to-violet-700', bio: 'Ensures every estate manager and resident gets the most out of AreaConnect. The voice of the customer inside the company.' },
+              { name: 'Seun Adesanya',  role: 'Head of Product',           initials: 'SA', color: 'from-teal-500 to-teal-700',    bio: 'Shapes how estate managers and residents experience AreaConnect every day. Obsessed with simplicity and shipping things that matter.' },
+              { name: 'Aminu Danjuma',  role: 'Head of Marketing',         initials: 'AD', color: 'from-orange-500 to-orange-700', bio: 'Drives growth and tells the AreaConnect story across Nigeria. Former brand strategist with a track record in tech and real estate.' },
             ].map((m, i) => (
               <Reveal key={m.name} delay={i * 70}>
                 <div className="bg-white rounded-2xl border border-slate-100 p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center">
