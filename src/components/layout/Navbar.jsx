@@ -147,8 +147,8 @@ export default function Navbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="#" className={`text-sm font-semibold transition-colors ${textCls}`}>Sign in</a>
-            <Link to="/pricing" className="btn-primary">Get started free</Link>
+          
+            <Link to="https://area-connector.areaconnect.pro/register" className="btn-primary">Get started </Link>
           </div>
 
           {/* Mobile icon button */}
