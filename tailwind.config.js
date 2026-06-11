@@ -30,6 +30,8 @@ export default {
         'slide-in-right':  'slideInRight 0.5s ease-out forwards',
         'count-up':        'fadeInUp 0.5s ease-out forwards',
         'slide-up':        'slideUp 0.35s cubic-bezier(0.32,0.72,0,1) forwards',
+        'drawer-in':       'drawerIn 0.32s cubic-bezier(0.32,0.72,0,1) forwards',
+        'drawer-out':      'drawerOut 0.28s cubic-bezier(0.32,0.72,0,1) forwards',
       },
       keyframes: {
         float: {
@@ -63,6 +65,14 @@ export default {
         slideUp: {
           from: { transform: 'translateY(100%)' },
           to:   { transform: 'translateY(0)' },
+        },
+        drawerIn: {
+          from: { transform: 'translateX(100%)' },
+          to:   { transform: 'translateX(0)' },
+        },
+        drawerOut: {
+          from: { transform: 'translateX(0)' },
+          to:   { transform: 'translateX(100%)' },
         },
       },
     },
