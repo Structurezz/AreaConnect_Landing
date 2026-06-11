@@ -88,9 +88,16 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-500">© {new Date().getFullYear()} AreaConnect Technologies Ltd. All rights reserved.</p>
-          <p className="text-sm text-slate-500">Made with ♥ for Nigerian estates</p>
+        <div className="border-t border-slate-800 pt-8 space-y-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-sm text-slate-500">© {new Date().getFullYear()} AreaConnect Technologies Ltd. All rights reserved.</p>
+            <p className="text-sm text-slate-500">Made with ♥ for Nigerian estates</p>
+          </div>
+          <p className="text-xs text-slate-600 text-center sm:text-left">
+            AreaConnect is a product of{' '}
+            <span className="text-slate-500 font-medium">Area Connector Technologies</span>
+            {' '}· RC&nbsp;9607864 · Registered in Nigeria
+          </p>
         </div>
       </div>
     </footer>
