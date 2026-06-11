@@ -216,80 +216,158 @@ function HeroDashboard() {
 /* ─── Mobile Hero Visual ──────────────────────────────────────────────── */
 function MobileHeroVisual() {
   return (
-    <div className="relative mt-10 mx-auto max-w-sm">
-      {/* Glow */}
-      <div className="absolute inset-0 bg-brand-500/10 rounded-3xl blur-2xl pointer-events-none" />
-      <div className="relative rounded-2xl overflow-hidden border border-white/8"
-           style={{ background: 'linear-gradient(145deg, #1a2235 0%, #0d1424 100%)' }}>
-        {/* Browser bar */}
-        <div className="flex items-center gap-2 px-3 py-2 border-b border-white/5"
-             style={{ background: 'rgba(0,0,0,0.3)' }}>
-          <div className="flex gap-1">
-            <div className="w-2 h-2 rounded-full bg-red-400/60" />
-            <div className="w-2 h-2 rounded-full bg-amber-400/60" />
-            <div className="w-2 h-2 rounded-full bg-green-400/60" />
-          </div>
-          <div className="flex-1 mx-2 rounded px-2 py-0.5 text-[9px] text-slate-500 font-mono text-center"
-               style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            app.areaconnect.pro
-          </div>
-        </div>
-        {/* Stats row */}
-        <div className="grid grid-cols-3 gap-2 p-3">
-          {[
-            { l: 'Residents', v: '142', c: 'text-brand-400', bg: 'rgba(16,185,129,0.08)' },
-            { l: 'Visitors today', v: '23', c: 'text-blue-400', bg: 'rgba(59,130,246,0.08)' },
-            { l: 'Dues Nov', v: '₦1.2M', c: 'text-amber-400', bg: 'rgba(245,158,11,0.08)' },
-          ].map(s => (
-            <div key={s.l} className="rounded-xl p-2.5 text-center"
-                 style={{ background: s.bg, border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className={`text-sm font-black ${s.c}`}>{s.v}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5 leading-tight">{s.l}</div>
-            </div>
-          ))}
-        </div>
-        {/* Collection bar */}
-        <div className="mx-3 mb-3 rounded-xl p-3"
-             style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-          <div className="flex justify-between mb-1.5">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Nov Collection</span>
-            <span className="text-[9px] font-bold text-brand-400">76%</span>
-          </div>
-          <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full shimmer" style={{ width: '76%' }} />
-          </div>
-          <div className="text-[8px] text-slate-600 mt-1">₦2.35M of ₦3.1M collected</div>
-        </div>
-        {/* Live visitor row */}
-        <div className="px-3 pb-3">
-          <div className="flex items-center justify-between rounded-xl px-3 py-2"
-               style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <CheckCircle2 size={10} className="text-white" />
-              </div>
-              <div>
-                <div className="text-[10px] font-bold text-brand-300">Visitor verified</div>
-                <div className="text-[9px] text-slate-500">Chidi Okafor · Gate 1</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse" />
-              <span className="text-[9px] text-brand-400 font-medium">Live</span>
-            </div>
-          </div>
-        </div>
+    <div className="relative mt-10 mx-auto" style={{ maxWidth: 300 }}>
+      {/* Ambient glows */}
+      <div className="absolute -inset-8 pointer-events-none">
+        <div className="absolute top-1/4 left-0 w-48 h-48 bg-brand-500/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-40 h-40 bg-indigo-500/12 rounded-full blur-3xl" />
       </div>
-      {/* Floating pill */}
-      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-lg border border-slate-100 px-4 py-2 flex items-center gap-2 whitespace-nowrap">
+
+      {/* Phone shell */}
+      <div className="relative mx-auto w-[232px]">
+        <div className="relative overflow-hidden shadow-2xl"
+             style={{ background: '#0f1117', border: '7px solid #1a1f2e', borderRadius: 40, height: 470 }}>
+
+          {/* Dynamic Island */}
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
+               style={{ background: '#000', borderRadius: 20, padding: '4px 12px' }}>
+            <div className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
+            <span className="text-[7px] text-white/50 font-semibold tracking-wide">LIVE</span>
+          </div>
+
+          {/* App header */}
+          <div className="pt-9 pb-3.5 px-4" style={{ background: 'linear-gradient(160deg, #3730a3 0%, #1e1b4b 100%)' }}>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <div className="text-[11px] font-black text-white">AreaMates</div>
+                <div className="text-[8px] text-indigo-300">Sunrise Estate, Lekki</div>
+              </div>
+              <div className="relative">
+                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
+                  <Bell size={12} className="text-white" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full flex items-center justify-center">
+                  <span className="text-[6px] text-white font-bold">3</span>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { e: '🔐', l: 'Visitor', v: '2 active' },
+                { e: '💳', l: 'Pay dues', v: 'Nov due' },
+                { e: '💬', l: 'Chat', v: '4 unread' },
+              ].map(a => (
+                <div key={a.l} className="bg-white/10 rounded-2xl p-2 text-center">
+                  <div className="text-sm mb-0.5">{a.e}</div>
+                  <div className="text-[7px] font-bold text-white">{a.l}</div>
+                  <div className="text-[6px] text-white/50 mt-0.5">{a.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Content area */}
+          <div className="p-3 space-y-2" style={{ background: '#f1f5f9' }}>
+            {/* Live visitor card */}
+            <div className="bg-white rounded-2xl p-2.5 shadow-sm border border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CheckCircle2 size={12} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] font-bold text-slate-800">Visitor verified</div>
+                  <div className="text-[8px] text-slate-500">Chidi Okafor · Gate 1</div>
+                </div>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse" />
+                  <span className="text-[7px] font-semibold text-brand-600">Live</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Estate notice */}
+            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-2.5">
+              <div className="flex items-start gap-1.5">
+                <span className="text-sm">📢</span>
+                <div>
+                  <div className="text-[8px] font-bold text-amber-700 uppercase tracking-wide">Estate Notice</div>
+                  <div className="text-[9px] font-semibold text-slate-800">Water off Saturday 8AM–2PM</div>
+                  <div className="text-[7px] text-slate-400 mt-0.5">23 min ago</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment progress */}
+            <div className="bg-white border border-slate-100 rounded-2xl p-2.5 shadow-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[8px] font-bold text-slate-500 uppercase tracking-wide">Nov Dues</span>
+                <span className="text-[9px] font-black text-brand-600">76%</span>
+              </div>
+              <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full shimmer" style={{ width: '76%' }} />
+              </div>
+              <div className="text-[7px] text-slate-400 mt-1">₦2.35M of ₦3.1M collected</div>
+            </div>
+
+            {/* Mini stats */}
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { v: '142', l: 'Residents', c: 'text-brand-600', bg: '#ecfdf5' },
+                { v: '23',  l: 'Visitors',  c: 'text-blue-600',  bg: '#eff6ff' },
+                { v: '₦1.2M', l: 'Month',  c: 'text-amber-600', bg: '#fffbeb' },
+              ].map(s => (
+                <div key={s.l} className="rounded-2xl p-2 text-center" style={{ background: s.bg }}>
+                  <div className={`text-[11px] font-black ${s.c}`}>{s.v}</div>
+                  <div className="text-[6px] text-slate-500 mt-0.5">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom nav */}
+          <div className="absolute bottom-0 inset-x-0 bg-white border-t border-slate-100 flex justify-around items-center px-4 py-2.5">
+            {[Building2, Users, Bell, BarChart2].map((Icon, i) => (
+              <div key={i} className={`flex flex-col items-center gap-0.5 ${i === 1 ? 'text-brand-500' : 'text-slate-400'}`}>
+                <Icon size={14} />
+                {i === 1 && <div className="w-1 h-1 rounded-full bg-brand-500" />}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Home indicator bar */}
+        <div className="mx-auto mt-1.5 w-16 h-1 rounded-full bg-white/25" />
+      </div>
+
+      {/* Floating toast — top right */}
+      <div className="absolute top-10 -right-8 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float z-10">
+        <div className="flex items-center gap-1.5">
+          <div className="w-4 h-4 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <CheckCircle2 size={8} className="text-white" />
+          </div>
+          <span className="text-[9px] font-bold text-slate-700">Pass verified</span>
+        </div>
+        <div className="text-[7px] text-slate-400 mt-0.5 pl-[22px]">just now · Gate 1</div>
+      </div>
+
+      {/* Floating toast — bottom left */}
+      <div className="absolute bottom-20 -left-10 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float-delayed z-10">
+        <div className="flex items-center gap-1.5">
+          <CreditCard size={11} className="text-indigo-500" />
+          <span className="text-[9px] font-bold text-slate-700">₦75,000 received</span>
+        </div>
+        <div className="text-[7px] text-slate-400 mt-0.5">Unit 4B · Nov dues</div>
+      </div>
+
+      {/* Social proof pill */}
+      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-lg border border-slate-100 px-4 py-1.5 flex items-center gap-2 whitespace-nowrap z-10">
         <div className="flex -space-x-1.5">
-          {['bg-brand-500','bg-indigo-500','bg-blue-500'].map((c,i) => (
-            <div key={i} className={`w-5 h-5 rounded-full ${c} border-2 border-white`} />
+          {['bg-brand-500','bg-indigo-500','bg-blue-500'].map((c, i) => (
+            <div key={i} className={`w-4 h-4 rounded-full ${c} border-2 border-white`} />
           ))}
         </div>
-        <span className="text-xs font-bold text-slate-700">500+ estates live</span>
+        <span className="text-[9px] font-bold text-slate-700">500+ estates live</span>
         <div className="flex gap-0.5">
-          {[...Array(5)].map((_,i) => <Star key={i} size={9} className="text-amber-400 fill-amber-400" />)}
+          {[...Array(5)].map((_, i) => <Star key={i} size={7} className="text-amber-400 fill-amber-400" />)}
         </div>
       </div>
     </div>
@@ -589,7 +667,30 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Growing across Nigeria</h2>
             </div>
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+          {/* Mobile: horizontal scroll stat strip */}
+          <div className="sm:hidden -mx-5 overflow-x-auto hide-scrollbar pb-3">
+            <div className="flex gap-3 px-5 w-max">
+              {[
+                { target: 500,     suffix: '+',  label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
+                { target: 48000,   suffix: '+',  label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
+                { target: 1200000, suffix: '+',  label: 'Visitor passes issued', icon: UserCheck,  color: 'text-blue-500',   bg: 'bg-blue-50'    },
+                { target: 2, prefix: '₦', suffix: 'B+', label: 'In dues processed', icon: CreditCard, color: 'text-amber-500', bg: 'bg-amber-50' },
+              ].map((s, i) => (
+                <div key={s.label} className="flex-shrink-0 w-36 text-center p-4 rounded-2xl border border-slate-100 bg-white shadow-sm">
+                  <div className={`w-10 h-10 ${s.bg} rounded-xl flex items-center justify-center mx-auto mb-2.5`}>
+                    <s.icon size={16} className={s.color} />
+                  </div>
+                  <div className={`text-2xl font-black tracking-tight mb-1 ${s.color}`}>
+                    <Counter target={s.target} prefix={s.prefix || ''} suffix={s.suffix} />
+                  </div>
+                  <div className="text-xs text-slate-500 font-medium leading-snug">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: 4-column grid */}
+          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             {[
               { target: 500,     suffix: '+',           label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
               { target: 48000,   suffix: '+',           label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
@@ -624,7 +725,64 @@ export default function Home() {
               </p>
             </div>
           </Reveal>
-          <div className="grid lg:grid-cols-3 gap-5">
+          {/* Mobile: horizontal snap-scroll carousel */}
+          <div className="sm:hidden -mx-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4">
+            <div className="flex gap-4 px-5 w-max">
+              {[
+                {
+                  gradient: 'from-brand-600 to-brand-500', shadow: 'shadow-brand-500/30', accent: 'brand',
+                  icon: Building2, label: 'AreaConnect Admin', title: 'Estate Manager Portal', href: '/admin',
+                  stat: { v: '76%', l: 'Avg dues collected', sub: '₦2.35M of ₦3.1M', bg: 'bg-brand-50', c: 'text-brand-600' },
+                  features: ['Resident onboarding & bulk invites', 'Payment scheduling & Paystack wallet', 'Live analytics & collection reports'],
+                },
+                {
+                  gradient: 'from-indigo-600 to-indigo-500', shadow: 'shadow-indigo-500/30', accent: 'indigo',
+                  icon: Users, label: 'AreaMates', title: 'Resident App', href: '/mates',
+                  stat: { v: '40k+', l: 'Active residents', sub: 'Across 500+ estates', bg: 'bg-indigo-50', c: 'text-indigo-600' },
+                  features: ['QR visitor pass — shareable on WhatsApp', 'Pay estate dues via card or transfer', 'Community chat, polls & marketplace'],
+                },
+                {
+                  gradient: 'from-blue-600 to-blue-500', shadow: 'shadow-blue-500/30', accent: 'blue',
+                  icon: Shield, label: 'AreaConnect Guard', title: 'Security Staff App', href: '/guard',
+                  stat: { v: '<1s', l: 'Avg scan time', sub: '1.2M+ passes scanned', bg: 'bg-blue-50', c: 'text-blue-600' },
+                  features: ['QR scanner & 6-digit access code', 'One-tap check-in & check-out logging', 'Offline mode with auto-sync'],
+                },
+              ].map((p) => (
+                <div key={p.label} className="snap-center flex-shrink-0 w-[280px] bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex flex-col">
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 shadow-lg ${p.shadow}`}>
+                    <p.icon size={22} className="text-white" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{p.label}</span>
+                  <h3 className="text-lg font-black text-slate-900 mb-2">{p.title}</h3>
+                  <div className={`${p.stat.bg} rounded-xl p-3 mb-4`}>
+                    <div className={`text-xl font-black ${p.stat.c}`}>{p.stat.v}</div>
+                    <div className="text-xs font-semibold text-slate-700 mt-0.5">{p.stat.l}</div>
+                    <div className="text-[11px] text-slate-500">{p.stat.sub}</div>
+                  </div>
+                  <ul className="space-y-2 mb-5 flex-1">
+                    {p.features.map(f => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                        <CheckCircle2 size={13} className={`text-${p.accent}-500 flex-shrink-0 mt-0.5`} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to={p.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-slate-900 group">
+                    Learn more <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+            {/* Scroll indicator dots */}
+            <div className="flex justify-center gap-1.5 mt-3">
+              {[0,1,2].map(i => (
+                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-4' : 'w-1.5'}`} />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: 3-column grid */}
+          <div className="hidden sm:grid lg:grid-cols-3 gap-5">
             {[
               {
                 gradient: 'from-brand-600 to-brand-500',   shadow: 'shadow-brand-500/20',   accent: 'brand',
@@ -751,6 +909,7 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          {/* end hidden sm:grid */}
         </div>
       </section>
 
@@ -876,7 +1035,7 @@ export default function Home() {
               </p>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             {[
               { icon: '🔐', c: 'bg-brand-50',   title: 'Visitor Management',   desc: 'QR passes and access codes. Guards verify in under a second — no paperwork.' },
               { icon: '💳', c: 'bg-indigo-50',  title: 'Payment Collection',   desc: 'Schedule recurring dues, auto-reminders, and Paystack collection. Full reconciliation.' },
@@ -889,10 +1048,10 @@ export default function Home() {
               { icon: '📈', c: 'bg-slate-50',   title: 'Analytics Dashboard',  desc: 'Live visitor trends, payment rates, and community engagement metrics.' },
             ].map((f, i) => (
               <Reveal key={f.title} delay={i * 40}>
-                <div className={`${f.c} rounded-2xl border border-slate-100/80 p-5 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300`}>
-                  <div className="text-2xl mb-3 sm:mb-4">{f.icon}</div>
-                  <h3 className="font-black text-slate-900 mb-2">{f.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{f.desc}</p>
+                <div className={`${f.c} rounded-2xl border border-slate-100/80 p-4 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300`}>
+                  <div className="text-xl sm:text-2xl mb-2 sm:mb-4">{f.icon}</div>
+                  <h3 className="font-black text-slate-900 text-sm sm:text-base mb-1.5 sm:mb-2">{f.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{f.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -941,22 +1100,22 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Mobile: vertical list with left border line */}
-          <div className="md:hidden relative pl-10">
-            <div className="absolute left-5 top-3 bottom-3 w-px bg-gradient-to-b from-brand-500/60 via-indigo-500/40 to-amber-500/40" />
+          {/* Mobile: step cards with connector */}
+          <div className="md:hidden space-y-3">
             {[
-              { n: '01', title: 'Create your estate',    desc: 'Sign up, enter your estate details, and add your units. Takes under 3 minutes.',              color: 'bg-gradient-to-br from-brand-500 to-brand-600'   },
-              { n: '02', title: 'Invite your residents', desc: 'Upload a CSV or invite one by one. Everyone gets a branded welcome email automatically.',      color: 'bg-gradient-to-br from-indigo-500 to-indigo-600' },
-              { n: '03', title: 'Onboard your guards',   desc: 'Create accounts for gate officers. They download the Guard app and are ready instantly.',      color: 'bg-gradient-to-br from-blue-500 to-blue-600'    },
-              { n: '04', title: 'Go live',               desc: "Your estate is operational. Residents pay, register visitors, and the community is connected.", color: 'bg-gradient-to-br from-amber-500 to-amber-600'  },
+              { n: '01', title: 'Create your estate',    desc: 'Sign up, enter your estate details, and add your units. Takes under 3 minutes.',              color: 'bg-gradient-to-br from-brand-500 to-brand-600',   border: 'border-brand-500/20',   badge: 'bg-brand-500/10 text-brand-300'   },
+              { n: '02', title: 'Invite your residents', desc: 'Upload a CSV or invite one by one. Everyone gets a branded welcome email automatically.',      color: 'bg-gradient-to-br from-indigo-500 to-indigo-600', border: 'border-indigo-500/20', badge: 'bg-indigo-500/10 text-indigo-300' },
+              { n: '03', title: 'Onboard your guards',   desc: 'Create accounts for gate officers. They download the Guard app and are ready instantly.',      color: 'bg-gradient-to-br from-blue-500 to-blue-600',     border: 'border-blue-500/20',   badge: 'bg-blue-500/10 text-blue-300'     },
+              { n: '04', title: 'Go live',               desc: "Your estate is operational. Residents pay, register visitors, and the community is connected.", color: 'bg-gradient-to-br from-amber-500 to-amber-600',   border: 'border-amber-500/20',  badge: 'bg-amber-500/10 text-amber-300'   },
             ].map((s, i) => (
               <Reveal key={s.n} delay={i * 80}>
-                <div className="relative flex gap-5 pb-8 last:pb-0">
-                  <div className={`absolute -left-10 w-10 h-10 rounded-xl ${s.color} flex items-center justify-center text-white text-sm font-black flex-shrink-0 shadow-lg z-10`}>
+                <div className={`flex items-start gap-4 rounded-2xl border ${s.border} p-4`}
+                     style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <div className={`w-12 h-12 rounded-2xl ${s.color} flex items-center justify-center text-white font-black text-base flex-shrink-0 shadow-lg`}>
                     {s.n}
                   </div>
-                  <div className="pt-1">
-                    <h3 className="font-black text-white mb-1.5">{s.title}</h3>
+                  <div className="flex-1 pt-0.5">
+                    <h3 className="font-black text-white mb-1">{s.title}</h3>
                     <p className="text-sm text-slate-400 leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
@@ -977,15 +1136,51 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* Top 3 — shown on all screens */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-5 sm:mb-6">
+          {/* Mobile: horizontal scroll carousel — all 5 testimonials */}
+          <div className="sm:hidden -mx-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4">
+            <div className="flex gap-4 px-5 w-max">
+              {[
+                { quote: "Before AreaConnect I was managing visitors in a paper log book and chasing residents on WhatsApp for dues. Now everything runs automatically. I save at least 6 hours every week.", name: "Adaeze Okonkwo", role: "Estate Manager · Lekki Phase 1", initials: "AO", color: "bg-brand-500" },
+                { quote: "The visitor QR code system is brilliant. Residents love sending a pass directly from the app — no more calling security every time a guest arrives. Gate officers picked it up in 5 minutes.", name: "Babatunde Oyelaran", role: "Estate Manager · Chevron Drive", initials: "BO", color: "bg-indigo-500" },
+                { quote: "We collect over ₦4 million in estate dues every quarter with zero manual follow-up. The automated Paystack reminders are seamless. Best investment we've made for the estate.", name: "Ngozi Eze", role: "Property Manager · Abuja GRA", initials: "NE", color: "bg-blue-500" },
+                { quote: "Setup was faster than I expected. I uploaded the CSV of residents on a Saturday afternoon and by Monday morning everyone had their login and started using AreaMates. Remarkable.", name: "Emeka Adeyemi", role: "Chairman · Heritage Court, Uyo", initials: "EA", color: "bg-violet-500" },
+                { quote: "The offline mode for the Guard app is a lifesaver. Our estate has patchy network near Gate 2. Guards can still verify visitors without signal and it syncs automatically.", name: "Fatimah Suleiman", role: "Property Manager · Meadow Court", initials: "FS", color: "bg-amber-500" },
+              ].map((t, i) => (
+                <div key={t.name} className="snap-center flex-shrink-0 w-[284px] bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex flex-col">
+                  <div className="flex gap-0.5 mb-3">
+                    {[...Array(5)].map((_, j) => <Star key={j} size={12} className="text-amber-400 fill-amber-400" />)}
+                  </div>
+                  <p className="text-slate-700 text-sm leading-relaxed flex-1 italic mb-4">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-slate-50">
+                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm`}>
+                      {t.initials}
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 text-sm">{t.name}</div>
+                      <div className="text-xs text-slate-400 mt-0.5">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Scroll dots */}
+            <div className="flex justify-center gap-1.5 mt-4">
+              {[0,1,2,3,4].map(i => (
+                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-4' : 'w-1.5'}`} />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: grid layout */}
+          {/* Top 3 */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-5 sm:mb-6">
             <TestimonialCard delay={0}
               quote="Before AreaConnect I was managing visitors in a paper log book and chasing residents on WhatsApp for dues. Now everything runs automatically. I save at least 6 hours every week."
               name="Adaeze Okonkwo" role="Estate Manager · Lekki Phase 1, Lagos" initials="AO" color="bg-brand-500" />
             <TestimonialCard delay={80}
               quote="The visitor QR code system is brilliant. Residents love sending a pass directly from the app — no more calling security every time a guest arrives. Gate officers picked it up in 5 minutes."
               name="Babatunde Oyelaran" role="Estate Manager · Chevron Drive, Lekki" initials="BO" color="bg-indigo-500" />
-            {/* 3rd card hidden on mobile to keep section lean */}
+            {/* 3rd card hidden on tablet to keep section lean */}
             <div className="hidden lg:block">
               <TestimonialCard delay={160}
                 quote="We collect over ₦4 million in estate dues every quarter with zero manual follow-up. The automated Paystack reminders are seamless. Best investment we've made for the estate."
