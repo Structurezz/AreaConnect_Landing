@@ -74,8 +74,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center shadow-sm glow-sm-green">
-              <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+            <div className="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center shadow-sm glow-sm-green">
+              <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
                 <path d="M20 4L6 12v16l14 8 14-8V12L20 4z" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" fill="none"/>
                 <path d="M20 9L9 15.5v13L20 35l11-6.5v-13L20 9z" fill="rgba(255,255,255,0.2)"/>
                 <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
