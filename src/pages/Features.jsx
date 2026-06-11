@@ -111,10 +111,10 @@ export default function Features() {
         subtitle="AreaConnect ships a complete, production-ready estate management platform. Every feature below is included in the Growth plan — no extra modules, no surprise fees."
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/pricing" className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]">
+          <Link to="/pricing" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]">
             View pricing <ArrowRight size={16} />
           </Link>
-          <Link to="/contact" className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]">
+          <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]">
             Request a demo
           </Link>
         </div>
@@ -158,19 +158,19 @@ export default function Features() {
                   <span className={`inline-flex items-center gap-2 border rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-5 ${cat.tagBg}`}>
                     {cat.tag}
                   </span>
-                  <h2 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-4 max-w-2xl leading-tight">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-4 max-w-2xl leading-tight">
                     {cat.title}
                   </h2>
-                  <p className="text-lg text-slate-500 max-w-2xl leading-relaxed">{cat.desc}</p>
+                  <p className="text-sm sm:text-lg text-slate-500 max-w-2xl leading-relaxed">{cat.desc}</p>
                 </div>
               </Reveal>
 
               {/* Feature grid */}
               <Reveal delay={80}>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                   {cat.features.map((f, fi) => (
                     <Reveal key={f.title} delay={fi * 40}>
-                      <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
+                      <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
                         <div className="flex items-center gap-3 mb-3">
                           <div className={`w-7 h-7 rounded-full ${cat.color} flex items-center justify-center flex-shrink-0`}>
                             <CheckCircle2 size={14} className="text-white" />
@@ -201,10 +201,10 @@ export default function Features() {
             <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
               Start today
             </div>
-            <h2 className="text-5xl font-black text-white tracking-tight leading-tight mb-5">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-5">
               Start using every feature today
             </h2>
-            <p className="text-brand-100 text-xl mb-10 leading-relaxed">
+            <p className="text-brand-100 text-base sm:text-xl mb-10 leading-relaxed">
               The Starter plan is free forever. The Growth plan unlocks the full platform for ₦25,000/month.
             </p>
           </Reveal>

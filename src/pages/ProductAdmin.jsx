@@ -28,23 +28,26 @@ export default function ProductAdmin() {
               <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 bg-brand-500/10 border border-brand-500/20 text-brand-400">
                 AreaConnect Admin
               </span>
-              <h1 className="text-5xl lg:text-[62px] font-black leading-[1.03] tracking-tight mb-6 text-white">
+              <h1 className="text-3xl sm:text-5xl lg:text-[62px] font-black leading-[1.03] tracking-tight mb-6 text-white">
                 Your estate,<br />
                 <span className="gradient-text-brand">fully in control.</span>
               </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+              <p className="hidden sm:block text-lg text-slate-400 leading-relaxed mb-8">
                 AreaConnect Admin is the web dashboard for estate managers. Manage residents, collect dues, broadcast announcements, and see everything happening in your estate — from one place.
+              </p>
+              <p className="block sm:hidden text-sm text-slate-400 leading-relaxed mb-8">
+                The web dashboard for estate managers — residents, dues, announcements, and analytics in one place.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
                   to="/pricing"
-                  className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]"
                 >
                   Start for free <ArrowRight size={16} />
                 </Link>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]"
                 >
                   Request a demo
                 </Link>
@@ -108,14 +111,14 @@ export default function ProductAdmin() {
           <Reveal>
             <div className="text-center mb-14">
               <span className="section-tag mb-4 inline-flex">Built for managers</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
                 Everything an estate manager needs
               </h2>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {[
                 {
                   title: 'Resident management',
@@ -155,7 +158,7 @@ export default function ProductAdmin() {
                 },
               ].map((f, i) => (
                 <Reveal key={f.title} delay={i * 40}>
-                  <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
+                  <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
                     <CheckCircle2 size={18} className="text-brand-500 mb-3" />
                     <h3 className="font-bold text-slate-900 mb-2">{f.title}</h3>
                     <p className="text-sm text-slate-500 leading-relaxed">{f.desc}</p>
@@ -313,10 +316,10 @@ export default function ProductAdmin() {
             <div className="flex-1 max-w-lg">
               <Reveal>
                 <span className="section-tag mb-4 inline-flex">Dashboard showcase</span>
-                <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-5">
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mb-5">
                   Everything at a glance, nothing missed
                 </h2>
-                <p className="text-slate-500 leading-relaxed mb-8">
+                <p className="text-sm sm:text-base text-slate-500 leading-relaxed mb-8">
                   No more chasing residents on WhatsApp, paper visitor logs, or manual bank reconciliation. AreaConnect Admin puts you in full control from your browser.
                 </p>
               </Reveal>
@@ -374,17 +377,17 @@ export default function ProductAdmin() {
             <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
               Get started today
             </div>
-            <h2 className="text-5xl font-black text-white tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
               Set up your estate in minutes
             </h2>
-            <p className="text-brand-100 text-lg mb-10 leading-relaxed">
+            <p className="text-brand-100 text-base sm:text-lg mb-10 leading-relaxed">
               The Admin portal is free to start. No credit card, no commitment.
             </p>
           </Reveal>
           <Reveal delay={100}>
             <Link
               to="/pricing"
-              className="inline-flex items-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl shadow-black/20 hover:-translate-y-0.5"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl shadow-black/20 hover:-translate-y-0.5"
             >
               Get started free <ArrowRight size={18} />
             </Link>

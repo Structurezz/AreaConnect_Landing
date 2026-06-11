@@ -26,9 +26,9 @@ export default function Contact() {
       />
 
       {/* ── FORM + INFO ──────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-12">
+      <section className="py-10 sm:py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-5 gap-8 sm:gap-12">
 
             {/* ── Left: Form ─────────────────────────────────────────────── */}
             <div className="lg:col-span-3">
@@ -47,7 +47,7 @@ export default function Contact() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <h2 className="text-2xl font-black text-slate-900 mb-1">Send us a message</h2>
+                    <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1">Send us a message</h2>
                     <p className="text-sm text-slate-400">We typically reply within 2 business hours.</p>
                   </div>
 

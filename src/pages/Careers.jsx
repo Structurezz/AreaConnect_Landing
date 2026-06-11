@@ -59,12 +59,15 @@ export default function Careers() {
             </span>
             <span className="text-xs text-slate-400 font-medium">6 open roles</span>
           </div>
-          <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
             Build the future of<br />
             <span className="gradient-text-brand">estate living.</span>
           </h1>
-          <p className="text-xl text-slate-400 leading-relaxed">
+          <p className="hidden sm:block text-xl text-slate-400 leading-relaxed">
             We're a small team with big ambitions — building technology that makes life better for millions of people in Nigerian communities. Come work with us.
+          </p>
+          <p className="block sm:hidden text-base text-slate-400 leading-relaxed">
+            Small team, big mission. Building tech that improves life in Nigerian communities.
           </p>
         </div>
       </section>
@@ -72,7 +75,8 @@ export default function Careers() {
       {/* Culture strip */}
       <div className="bg-brand-600 py-10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-3 gap-8 text-center">
+          {/* Desktop */}
+          <div className="hidden sm:grid grid-cols-3 gap-8 text-center">
             {[
               { num: '27',    label: 'Team members' },
               { num: '6',     label: 'Open roles' },
@@ -84,22 +88,35 @@ export default function Careers() {
               </div>
             ))}
           </div>
+          {/* Mobile horizontal scroll */}
+          <div className="sm:hidden flex gap-6 overflow-x-auto hide-scrollbar pb-1">
+            {[
+              { num: '27',    label: 'Team members' },
+              { num: '6',     label: 'Open roles' },
+              { num: '100%',  label: "Recommend working here" },
+            ].map(s => (
+              <div key={s.label} className="flex-shrink-0 text-center min-w-[100px]">
+                <div className="text-2xl font-black text-white mb-1">{s.num}</div>
+                <div className="text-brand-100 text-xs font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Perks */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
             <div className="text-center mb-14">
               <span className="section-tag mb-4 inline-flex">Benefits</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">Why join AreaConnect?</h2>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Why join AreaConnect?</h2>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {PERKS.map((p, i) => (
               <Reveal key={p.title} delay={i * 60}>
-                <div className={`${p.bg} rounded-2xl border border-slate-100 p-7 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
+                <div className={`${p.bg} rounded-2xl border border-slate-100 p-4 sm:p-7 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}>
                   <div className="text-3xl mb-4">{p.emoji}</div>
                   <h3 className="font-black text-slate-900 mb-2 text-lg">{p.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
@@ -111,12 +128,12 @@ export default function Careers() {
       </section>
 
       {/* Open roles */}
-      <section className="py-28 bg-slate-50">
+      <section className="py-16 sm:py-28 bg-slate-50">
         <div className="max-w-5xl mx-auto px-6">
           <Reveal>
             <div className="text-center mb-14">
               <span className="section-tag mb-4 inline-flex">Open positions</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">Find your role</h2>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Find your role</h2>
             </div>
           </Reveal>
           <div className="space-y-4">
@@ -141,8 +158,8 @@ export default function Careers() {
                       Apply <ArrowRight size={14} />
                     </a>
                   </div>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-4 pl-[60px]">{role.desc}</p>
-                  <div className="flex flex-wrap gap-2 pl-[60px]">
+                  <p className="text-sm text-slate-500 leading-relaxed mb-4 sm:pl-[60px]">{role.desc}</p>
+                  <div className="flex flex-wrap gap-2 sm:pl-[60px]">
                     {role.skills.map(s => (
                       <span key={s} className="text-xs font-semibold bg-slate-100 text-slate-600 px-3 py-1 rounded-full">{s}</span>
                     ))}

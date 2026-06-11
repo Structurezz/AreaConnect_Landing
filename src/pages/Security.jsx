@@ -33,26 +33,29 @@ export default function Security() {
           <span className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
             Security
           </span>
-          <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
             Security at<br />
             <span className="gradient-text-brand">AreaConnect</span>
           </h1>
-          <p className="text-xl text-slate-400 leading-relaxed">
+          <p className="hidden sm:block text-xl text-slate-400 leading-relaxed">
             We take the security of your estate's data seriously. Here's exactly what we do to protect it.
+          </p>
+          <p className="block sm:hidden text-base text-slate-400 leading-relaxed">
+            Exactly how we protect your estate's data.
           </p>
         </div>
       </section>
 
       {/* Pillars */}
-      <section className="py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-10 sm:mb-14">
               <span className="section-tag mb-4 inline-flex">Security foundations</span>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Built secure by design</h2>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Built secure by design</h2>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {[
               { icon: Lock,        bg: 'bg-brand-50',   ic: 'text-brand-600',   title: 'Encryption in transit', desc: 'All data between clients and our servers is encrypted using TLS 1.3. No exceptions.' },
               { icon: Key,         bg: 'bg-indigo-50',  ic: 'text-indigo-600',  title: 'Password hashing',      desc: 'Passwords are hashed using bcrypt at cost factor 12. We never store plaintext passwords.' },
@@ -62,7 +65,7 @@ export default function Security() {
               { icon: AlertCircle, bg: 'bg-violet-50',  ic: 'text-violet-600',  title: 'Vulnerability reporting', desc: 'We operate a responsible disclosure programme. See below for how to report.' },
             ].map((p, i) => (
               <Reveal key={p.title} delay={i * 60}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-7 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-7 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
                   <div className={`w-12 h-12 rounded-2xl ${p.bg} flex items-center justify-center mb-5`}>
                     <p.icon size={22} className={p.ic} />
                   </div>
@@ -76,10 +79,10 @@ export default function Security() {
       </section>
 
       {/* Infrastructure */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <Reveal>
-            <h2 className="text-3xl font-black text-slate-900 mb-8">Infrastructure</h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 sm:mb-8">Infrastructure</h2>
           </Reveal>
           <div className="space-y-4">
             {[
@@ -106,11 +109,11 @@ export default function Security() {
       </section>
 
       {/* Responsible disclosure */}
-      <section className="py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
             <Reveal>
-              <h2 className="text-3xl font-black text-slate-900 mb-4">Responsible disclosure</h2>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4">Responsible disclosure</h2>
               <p className="text-slate-600 text-sm leading-relaxed mb-4">
                 If you believe you have found a security vulnerability in AreaConnect, we encourage you to report it to us responsibly. We commit to:
               </p>
@@ -147,12 +150,12 @@ export default function Security() {
       </section>
 
       {/* Compliance */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <Reveal>
-            <h2 className="text-3xl font-black text-slate-900 mb-8">Compliance & certifications</h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 sm:mb-8">Compliance & certifications</h2>
           </Reveal>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { title: 'NDPC Compliant',         desc: 'We comply with the Nigerian Data Protection Act 2023 and the regulations of the NDPC.', color: 'text-brand-600', bg: 'bg-brand-50', border: 'border-brand-100' },
               { title: 'PCI DSS (via Paystack)',  desc: 'Payment processing is handled by Paystack, which is PCI DSS Level 1 certified.', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-100' },

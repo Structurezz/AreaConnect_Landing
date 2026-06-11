@@ -233,8 +233,8 @@ export default function Pricing() {
             </div>
           </Reveal>
           <Reveal delay={60}>
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-              <table className="w-full text-sm">
+            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm overflow-x-auto">
+              <table className="w-full text-sm min-w-[400px]">
                 <thead>
                   <tr className="border-b border-slate-100 bg-slate-50/50">
                     <th className="text-left px-6 py-4 text-slate-500 font-semibold w-1/2">Feature</th>
@@ -318,10 +318,10 @@ export default function Pricing() {
             <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
               Setup in under 10 minutes
             </div>
-            <h2 className="text-5xl font-black text-white tracking-tight leading-tight mb-5">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-5">
               Ready to get started?
             </h2>
-            <p className="text-brand-100 text-xl mb-10 leading-relaxed">
+            <p className="text-brand-100 text-base sm:text-xl mb-10 leading-relaxed">
               Join 500+ estates already running on AreaConnect.<br className="hidden sm:block" />
               From ₦50,000/month — or ₦2,000/resident/month.
             </p>

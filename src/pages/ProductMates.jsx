@@ -129,18 +129,21 @@ export default function ProductMates() {
                 </div>
                 <span className="text-indigo-400 text-xs font-bold uppercase tracking-widest">AreaMates</span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
                 Your estate life,<br />
                 <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">in one app.</span>
               </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+              <p className="hidden sm:block text-lg text-slate-400 leading-relaxed mb-8">
                 Pre-register visitors, pay estate dues, chat with neighbours, and stay updated with everything happening in your community — all from your phone.
               </p>
+              <p className="block sm:hidden text-sm text-slate-400 leading-relaxed mb-8">
+                Visitors, dues, chat, and community — all in one place on your phone.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <a href="#" className="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-indigo-500/30">
+                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-indigo-500/30">
                   <Smartphone size={16} /> App Store
                 </a>
-                <a href="#" className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 bg-white/5 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
+                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 bg-white/5 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
                   <Smartphone size={16} /> Google Play
                 </a>
               </div>
@@ -160,7 +163,8 @@ export default function ProductMates() {
       {/* Stats strip */}
       <div className="bg-indigo-600 py-10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-3 gap-8 text-center">
+          {/* Desktop */}
+          <div className="hidden sm:grid grid-cols-3 gap-8 text-center">
             {[
               { num: '40,000+', label: 'Active residents' },
               { num: '1.2M+',   label: 'Visitor passes issued' },
@@ -172,23 +176,36 @@ export default function ProductMates() {
               </div>
             ))}
           </div>
+          {/* Mobile horizontal scroll */}
+          <div className="sm:hidden flex gap-6 overflow-x-auto hide-scrollbar pb-1 justify-center">
+            {[
+              { num: '40k+', label: 'Active residents' },
+              { num: '1.2M+', label: 'Visitor passes' },
+              { num: '₦2B+', label: 'Dues collected' },
+            ].map(s => (
+              <div key={s.label} className="flex-shrink-0 text-center min-w-[90px]">
+                <div className="text-2xl font-black text-white mb-1">{s.num}</div>
+                <div className="text-indigo-100 text-xs font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Features grid */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-10 sm:mb-14">
               <span className="section-tag mb-4 inline-flex">Features</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">Everything residents need</h2>
-              <p className="text-slate-500 mt-3 text-lg">One app that replaces five WhatsApp group chats.</p>
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Everything residents need</h2>
+              <p className="text-slate-500 mt-3 text-sm sm:text-lg">One app that replaces five WhatsApp group chats.</p>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {FEATURES.map((f, i) => (
               <Reveal key={f.title} delay={i * 50}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
+                <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
                   <div className="text-3xl mb-4">{f.icon}</div>
                   <h3 className="font-black text-slate-900 mb-2">{f.title}</h3>
                   <p className="text-sm text-slate-500 leading-relaxed">{f.desc}</p>
@@ -200,12 +217,12 @@ export default function ProductMates() {
       </section>
 
       {/* Showcase — visitor flow */}
-      <section className="py-28 bg-slate-50">
+      <section className="py-16 sm:py-28 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <Reveal>
               <span className="section-tag mb-4 inline-flex">Visitor management</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-6">
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mb-6">
                 Register a visitor in<br />under 30 seconds
               </h2>
               <div className="space-y-5">
@@ -257,15 +274,15 @@ export default function ProductMates() {
       </section>
 
       {/* Social proof */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-10 sm:mb-14">
               <span className="section-tag mb-4 inline-flex">Residents love it</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">What residents say</h2>
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">What residents say</h2>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { name: 'Adaeze Okonkwo', estate: 'Sunrise Estate, Lekki', quote: "I used to call my husband every time I had a visitor because I forgot the gate officer's number. Now I just send the QR and forget about it.", stars: 5 },
               { name: 'Babatunde Adeyemi', estate: 'Royal Gardens, Abuja', quote: "Paying service charge used to mean driving to the estate office on a Saturday. Now I do it from bed while watching football.", stars: 5 },
@@ -297,15 +314,15 @@ export default function ProductMates() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Users size={28} className="text-white" />
             </div>
-            <h2 className="text-4xl font-black text-white tracking-tight mb-4">AreaMates is available now</h2>
-            <p className="text-indigo-100 mb-8 text-lg leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">AreaMates is available now</h2>
+            <p className="text-indigo-100 mb-8 text-base sm:text-lg leading-relaxed">
               Ask your estate manager to set up AreaConnect, or get started for your estate today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
+              <Link to="/pricing" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
                 Get started <ArrowRight size={18} />
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
+              <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
                 Talk to sales
               </Link>
             </div>

@@ -27,12 +27,12 @@ function DocSection({ num, title, children }) {
   return (
     <div ref={ref} style={{ transitionDelay: `${num * 40}ms` }}
       className={`transition-all duration-700 ease-out ${v ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="flex items-start gap-5 mb-10">
+      <div className="flex items-start gap-4 sm:gap-5 mb-8 sm:mb-10">
         <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
           <span className="text-indigo-400 text-xs font-black">{num}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <h2 className="text-lg font-black text-slate-900 mb-3">{title}</h2>
+          <h2 className="text-base sm:text-lg font-black text-slate-900 mb-2 sm:mb-3">{title}</h2>
           <div className="text-slate-600 text-sm leading-relaxed space-y-3">{children}</div>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function Terms() {
           <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
             Legal
           </span>
-          <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-4">
             Terms of <span className="gradient-text-brand">Service</span>
           </h1>
           <p className="text-slate-400 text-sm">Last updated: 1 June 2025</p>
@@ -81,7 +81,7 @@ export default function Terms() {
       </div>
 
       {/* Body */}
-      <div className="max-w-5xl mx-auto px-6 py-20">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="grid lg:grid-cols-[1fr_280px] gap-16 items-start">
           {/* Main content */}
           <div>

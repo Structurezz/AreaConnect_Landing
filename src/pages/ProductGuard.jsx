@@ -143,18 +143,21 @@ export default function ProductGuard() {
                 </div>
                 <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">AreaConnect Guard</span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
                 Gate security,<br />
                 <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">modernised.</span>
               </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+              <p className="hidden sm:block text-lg text-slate-400 leading-relaxed mb-8">
                 Give your security officers a fast, reliable mobile tool for verifying visitors, logging entries, and escalating incidents — even when the network is down.
               </p>
+              <p className="block sm:hidden text-sm text-slate-400 leading-relaxed mb-8">
+                Fast, reliable visitor verification for gate officers — even offline.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                <a href="#" className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-blue-500/30">
+                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-blue-500/30">
                   <Smartphone size={16} /> App Store
                 </a>
-                <a href="#" className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 bg-white/5 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
+                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 bg-white/5 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
                   <Smartphone size={16} /> Google Play
                 </a>
               </div>
@@ -173,7 +176,8 @@ export default function ProductGuard() {
       {/* Stats strip */}
       <div className="bg-blue-700 py-10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-3 gap-8 text-center">
+          {/* Desktop */}
+          <div className="hidden sm:grid grid-cols-3 gap-8 text-center">
             {[
               { num: '1.2M+', label: 'QR scans processed' },
               { num: '<1s',   label: 'Average scan time' },
@@ -185,23 +189,36 @@ export default function ProductGuard() {
               </div>
             ))}
           </div>
+          {/* Mobile horizontal scroll */}
+          <div className="sm:hidden flex gap-6 overflow-x-auto hide-scrollbar pb-1 justify-center">
+            {[
+              { num: '1.2M+', label: 'QR scans processed' },
+              { num: '<1s',   label: 'Avg scan time' },
+              { num: '500+',  label: 'Estates protected' },
+            ].map(s => (
+              <div key={s.label} className="flex-shrink-0 text-center min-w-[90px]">
+                <div className="text-2xl font-black text-white mb-1">{s.num}</div>
+                <div className="text-blue-100 text-xs font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Features grid */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-10 sm:mb-14">
               <span className="section-tag mb-4 inline-flex">Features</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">Built for gate officers</h2>
-              <p className="text-slate-500 mt-3 text-lg">Everything they need. Nothing they don&apos;t.</p>
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Built for gate officers</h2>
+              <p className="text-slate-500 mt-3 text-sm sm:text-lg">Everything they need. Nothing they don&apos;t.</p>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {FEATURES.map((f, i) => (
               <Reveal key={f.title} delay={i * 50}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
+                <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
                   <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
                     <CheckCircle2 size={16} className="text-blue-600" />
                   </div>
@@ -215,7 +232,7 @@ export default function ProductGuard() {
       </section>
 
       {/* Offline highlight */}
-      <section className="py-28 bg-slate-900 relative overflow-hidden">
+      <section className="py-16 sm:py-28 bg-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="absolute top-0 left-1/3 w-96 h-64 bg-blue-500/8 rounded-full blur-3xl" />
         <div className="relative max-w-5xl mx-auto px-6">
@@ -224,10 +241,10 @@ export default function ProductGuard() {
               <span className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
                 Offline-first design
               </span>
-              <h2 className="text-4xl font-black text-white tracking-tight mb-6">
+              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-6">
                 Works when the<br />network doesn&apos;t.
               </h2>
-              <p className="text-slate-400 leading-relaxed mb-6 text-lg">
+              <p className="text-slate-400 leading-relaxed mb-6 text-sm sm:text-lg">
                 Nigerian mobile network coverage is unpredictable. The Guard app caches all visitor pre-registrations locally every time it connects — so your gate officers can still verify visitors during outages.
               </p>
               <p className="text-slate-500 leading-relaxed mb-8">
@@ -301,15 +318,15 @@ export default function ProductGuard() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Shield size={28} className="text-white" />
             </div>
-            <h2 className="text-4xl font-black text-white tracking-tight mb-4">Upgrade your gate security</h2>
-            <p className="text-blue-100 mb-8 text-lg leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Upgrade your gate security</h2>
+            <p className="text-blue-100 mb-8 text-base sm:text-lg leading-relaxed">
               The Guard app is included in all AreaConnect plans at no extra cost.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
+              <Link to="/pricing" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
                 See pricing <ArrowRight size={18} />
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
+              <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
                 Talk to sales
               </Link>
             </div>

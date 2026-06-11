@@ -43,12 +43,15 @@ export default function About() {
           <span className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
             About AreaConnect
           </span>
-          <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
             Building the digital backbone<br />of the{' '}
             <span className="gradient-text-brand">modern Nigerian estate.</span>
           </h1>
-          <p className="text-xl text-slate-400 leading-relaxed">
+          <p className="hidden sm:block text-xl text-slate-400 leading-relaxed">
             AreaConnect was founded on a simple observation: estate managers across Nigeria are still running on WhatsApp groups, paper log books, and manual bank transfers. We're here to change that.
+          </p>
+          <p className="block sm:hidden text-base text-slate-400 leading-relaxed">
+            Modernising Nigerian estate management — one community at a time.
           </p>
         </div>
       </section>
@@ -56,7 +59,8 @@ export default function About() {
       {/* Stats strip */}
       <div className="bg-brand-600 py-10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {/* Desktop grid */}
+          <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { num: '500+', label: 'Estates managed' },
               { num: '40k+', label: 'Residents onboarded' },
@@ -69,19 +73,33 @@ export default function About() {
               </div>
             ))}
           </div>
+          {/* Mobile horizontal scroll strip */}
+          <div className="sm:hidden flex gap-6 overflow-x-auto hide-scrollbar pb-1">
+            {[
+              { num: '500+', label: 'Estates managed' },
+              { num: '40k+', label: 'Residents onboarded' },
+              { num: '₦2B+', label: 'Dues collected' },
+              { num: '27',   label: 'Team members' },
+            ].map(s => (
+              <div key={s.label} className="flex-shrink-0 text-center min-w-[100px]">
+                <div className="text-2xl font-black text-white mb-1">{s.num}</div>
+                <div className="text-brand-100 text-xs font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Story */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <Reveal>
                 <span className="section-tag mb-4 inline-flex">Our story</span>
-                <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-6">Why we built AreaConnect</h2>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-6">Why we built AreaConnect</h2>
               </Reveal>
-              <div className="space-y-5 text-slate-600 leading-relaxed text-[15px]">
+              <div className="space-y-5 text-slate-600 leading-relaxed text-sm sm:text-[15px]">
                 {[
                   "It started when our co-founders — both of whom grew up in gated communities in Lagos — watched their parents deal with the same estate management frustrations year after year. Monthly dues chased via WhatsApp. Visitors calling to say security wouldn't let them in. Announcements lost in long group threads.",
                   "In 2023, we set out to build the solution we wished existed. We spent months visiting estate offices in Lekki, Abuja, and Port Harcourt — talking to managers, residents, and gate officers to understand the real workflow, not just the surface problem.",
@@ -120,13 +138,13 @@ export default function About() {
       </section>
 
       {/* Mission */}
-      <section className="relative py-28 bg-slate-900 overflow-hidden">
+      <section className="relative py-16 sm:py-28 bg-slate-900 overflow-hidden">
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-brand-500/8 rounded-full blur-3xl" />
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <Reveal>
             <div className="text-6xl text-brand-500/30 font-serif mb-4 leading-none">"</div>
-            <p className="text-2xl lg:text-3xl font-black text-white leading-relaxed mb-6 gradient-text-brand">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-relaxed mb-6 gradient-text-brand">
               To make every estate in Africa feel like a well-managed, connected community — regardless of size or budget.
             </p>
             <div className="text-slate-500 text-sm font-semibold uppercase tracking-widest">Our mission</div>
@@ -135,15 +153,15 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-28 bg-slate-50">
+      <section className="py-16 sm:py-28 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
             <div className="text-center mb-14">
               <span className="section-tag mb-4 inline-flex">What we stand for</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">Our values</h2>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Our values</h2>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               { icon: Heart,  bg: 'bg-rose-50',    ic: 'text-rose-600',    title: 'Resident-first',    desc: "Every product decision starts with: does this make life better for the people living in the estate?" },
               { icon: Zap,    bg: 'bg-amber-50',   ic: 'text-amber-600',   title: 'Radically simple',  desc: "If an estate manager's 60-year-old parent can't use it in 5 minutes, we ship it again." },
@@ -151,7 +169,7 @@ export default function About() {
               { icon: Globe,  bg: 'bg-brand-50',   ic: 'text-brand-600',   title: 'Built for Nigeria', desc: "We don't adapt foreign tools for Nigeria. We build from scratch for the Nigerian network and estate context." },
             ].map((v, i) => (
               <Reveal key={v.title} delay={i * 70}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-7 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
+                <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-7 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
                   <div className={`w-12 h-12 ${v.bg} rounded-2xl flex items-center justify-center mb-5`}>
                     <v.icon size={22} className={v.ic} />
                   </div>
@@ -165,16 +183,16 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-28 bg-white">
+      <section className="py-16 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
             <div className="text-center mb-14">
               <span className="section-tag mb-4 inline-flex">The team</span>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-3">Small team. Big mission.</h2>
-              <p className="text-slate-500 text-lg">Focused on making Nigerian estates run better.</p>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">Small team. Big mission.</h2>
+              <p className="text-slate-500 text-sm sm:text-lg">Focused on making Nigerian estates run better.</p>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               { name: 'Michael Orizu',   role: 'Founder, CEO & CTO',        initials: 'MO', color: 'from-brand-500 to-brand-700',   bio: 'Founder and technical lead of AreaConnect. Builds the product end-to-end with a mission to modernise estate living across Nigeria.' },
               { name: 'Angela Okorie',  role: 'Head of Customer Success',  initials: 'AO', color: 'from-violet-500 to-violet-700', bio: 'Ensures every estate manager and resident gets the most out of AreaConnect. The voice of the customer inside the company.' },
@@ -182,7 +200,7 @@ export default function About() {
               { name: 'Aminu Danjuma',  role: 'Head of Marketing',         initials: 'AD', color: 'from-orange-500 to-orange-700', bio: 'Drives growth and tells the AreaConnect story across Nigeria. Former brand strategist with a track record in tech and real estate.' },
             ].map((m, i) => (
               <Reveal key={m.name} delay={i * 70}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center">
+                <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center">
                   <div className={`w-18 h-18 w-[72px] h-[72px] rounded-2xl bg-gradient-to-br ${m.color} flex items-center justify-center text-white text-xl font-black mx-auto mb-5 shadow-md`}>
                     {m.initials}
                   </div>
@@ -209,13 +227,13 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-28 overflow-hidden">
+      <section className="relative py-16 sm:py-28 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-900" />
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="relative max-w-xl mx-auto px-6 text-center z-10">
           <Reveal>
-            <h2 className="text-4xl font-black text-white tracking-tight mb-4">Join us on the mission</h2>
-            <p className="text-brand-100 mb-8 text-lg leading-relaxed">Bring AreaConnect to your estate, or help us build it.</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Join us on the mission</h2>
+            <p className="text-brand-100 mb-8 text-base sm:text-lg leading-relaxed">Bring AreaConnect to your estate, or help us build it.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/pricing" className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl hover:-translate-y-0.5">
                 Get started free <ArrowRight size={18} />

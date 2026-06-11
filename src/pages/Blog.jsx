@@ -103,8 +103,8 @@ export default function Blog() {
       />
 
       {/* ── FEATURED POST ────────────────────────────────────────────────── */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-10 sm:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
               <div className="flex flex-col lg:flex-row gap-0">
@@ -124,17 +124,17 @@ export default function Blog() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 p-8 flex flex-col justify-center">
+                <div className="flex-1 p-5 sm:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
                     <span className={`text-xs font-bold px-3 py-1 rounded-full ${TAG_COLORS[featured.tag]}`}>{featured.tag}</span>
                     <span className="text-xs text-slate-400 flex items-center gap-1.5">
                       <Clock size={11} /> {featured.readTime}
                     </span>
                   </div>
-                  <h2 className="text-2xl lg:text-3xl font-black text-slate-900 leading-snug mb-4">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 leading-snug mb-4">
                     {featured.title}
                   </h2>
-                  <p className="text-slate-500 leading-relaxed mb-6 max-w-xl">{featured.excerpt}</p>
+                  <p className="text-sm sm:text-base text-slate-500 leading-relaxed mb-6 max-w-xl">{featured.excerpt}</p>
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-3">
                       <div className={`w-9 h-9 rounded-full ${featured.color} flex items-center justify-center text-white text-xs font-black flex-shrink-0`}>
@@ -158,8 +158,8 @@ export default function Blog() {
       </section>
 
       {/* ── POSTS GRID ───────────────────────────────────────────────────── */}
-      <section className="pb-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="pb-16 sm:pb-20 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="flex items-center justify-between mb-10 pt-8">
               <h2 className="text-2xl font-black text-slate-900">More articles</h2>
@@ -167,7 +167,7 @@ export default function Blog() {
             </div>
           </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {rest.map((post, i) => (
               <Reveal key={post.slug} delay={i * 70}>
                 <div className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden h-full">
