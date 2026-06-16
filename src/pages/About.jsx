@@ -235,7 +235,7 @@ export default function About() {
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Join us on the mission</h2>
             <p className="text-brand-100 mb-8 text-base sm:text-lg leading-relaxed">Bring AreaConnect to your estate, or help us build it.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl hover:-translate-y-0.5">
+              <Link to="https://area-connector.areaconnect.pro/register" className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl hover:-translate-y-0.5">
                 Get started free <ArrowRight size={18} />
               </Link>
               <Link to="/careers" className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base hover:bg-white/8">

@@ -686,7 +686,7 @@ export default function Home() {
               {/* CTA buttons — full width on mobile */}
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-7 sm:mb-8 animate-fade-in-up"
                    style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-                <Link to="/pricing"
+                <Link to="https://area-connector.areaconnect.pro/register"
                   className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px] w-full sm:w-auto">
                   Get started <ArrowRight size={16} />
                 </Link>
@@ -1372,21 +1372,21 @@ export default function Home() {
                 desc: 'Perfect for small estates up to 50 residents.',
                 badge: null,
                 items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
-                cta: 'Get started', ctaLink: '/pricing', featured: false,
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=starter', featured: false,
               },
               {
                 name: 'Growth', price: '₦47,000', sub: '/month',
                 desc: 'The full platform for estates up to 200 residents.',
                 badge: 'Most popular',
                 items: ['Up to 200 residents', '2 gates', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge', 'Analytics & reporting'],
-                cta: 'Get started', ctaLink: '/pricing', featured: true,
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=growth', featured: true,
               },
               {
                 name: 'Premium', price: '₦80,000', sub: '/month',
                 desc: 'For large estates up to 500 residents.',
                 badge: null,
                 items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
-                cta: 'Get started', ctaLink: '/pricing', featured: false,
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=premium', featured: false,
               },
               {
                 name: 'Enterprise', price: 'Custom', sub: 'pricing',
@@ -1440,21 +1440,21 @@ export default function Home() {
                 desc: 'For small estates up to 50 residents.',
                 badge: null,
                 items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
-                cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=starter', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
               },
               {
                 name: 'Growth', price: '₦47,000', sub: '/month',
                 desc: 'For estates up to 200 residents.',
                 badge: 'Most popular',
                 items: ['Up to 200 residents', '2 gates', 'Everything on the platform', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge'],
-                cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/30',
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=growth', ctaStyle: 'bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/30',
               },
               {
                 name: 'Premium', price: '₦80,000', sub: '/month',
                 desc: 'For large estates up to 500 residents.',
                 badge: null,
                 items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
-                cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
+                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=premium', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
               },
               {
                 name: 'Enterprise', price: 'Custom', sub: 'pricing',
@@ -1563,7 +1563,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={100}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link to="/pricing"
+              <Link to="https://area-connector.areaconnect.pro/register"
                 className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-[15px] shadow-xl shadow-black/20 hover:-translate-y-0.5 w-full sm:w-auto">
                 Get started <ArrowRight size={18} />
               </Link>

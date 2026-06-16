@@ -384,7 +384,7 @@ export default function ProductAdmin() {
           </Reveal>
           <Reveal delay={100}>
             <Link
-              to="/pricing"
+              to="https://area-connector.areaconnect.pro/register"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl shadow-black/20 hover:-translate-y-0.5"
             >
               Get started free <ArrowRight size={18} />
