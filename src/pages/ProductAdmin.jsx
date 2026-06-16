@@ -203,108 +203,106 @@ export default function ProductAdmin() {
                     </div>
                   </div>
 
-                  {/* Dashboard body */}
-                  <div className="flex" style={{ height: 330 }}>
+                  {/* Dashboard body — light theme matching real admin */}
+                  <div className="flex" style={{ height: 330, background: '#F8FAFC' }}>
                     {/* Sidebar */}
                     <div
-                      className="w-12 flex flex-col items-center py-4 gap-3 flex-shrink-0 border-r"
-                      style={{ background: 'rgba(0,0,0,0.25)', borderColor: 'rgba(255,255,255,0.05)' }}
+                      className="w-12 flex flex-col items-center py-3 gap-2 flex-shrink-0 border-r"
+                      style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}
                     >
-                      <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center mb-1 glow-sm-green">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1" style={{ background: '#10B981' }}>
                         <span className="text-white text-[7px] font-black">AC</span>
                       </div>
                       {[Building2, Users, UserCheck, CreditCard, Bell, BarChart2].map((Icon, i) => (
                         <div
                           key={i}
-                          className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${i === 0 ? 'bg-brand-500/20' : 'hover:bg-white/5'}`}
+                          className="w-7 h-6 rounded-lg flex items-center justify-center"
+                          style={{
+                            background: i === 0 ? 'rgba(16,185,129,0.10)' : 'transparent',
+                            boxShadow: i === 0 ? 'inset 3px 0 0 #10B981' : 'none',
+                          }}
                         >
-                          <Icon size={12} className={i === 0 ? 'text-brand-400' : 'text-slate-600'} />
+                          <Icon size={12} style={{ color: i === 0 ? '#10B981' : '#94A3B8' }} />
                         </div>
                       ))}
                     </div>
 
-                    {/* Content */}
-                    <div className="flex-1 p-4 overflow-hidden">
-                      <div className="flex items-center justify-between mb-4">
+                    {/* Main content */}
+                    <div className="flex-1 overflow-hidden flex flex-col">
+                      {/* Emerald hero strip */}
+                      <div className="px-3 pt-3 pb-3.5" style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
+                        <div className="text-[10px] font-black text-white mb-0.5">Good morning, Adaeze 👋</div>
+                        <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Sunrise Estate — here's today at a glance</div>
+                        <div className="flex gap-1">
+                          {[
+                            { l: 'Residents',     v: '142' },
+                            { l: 'Visitors Today', v: '23' },
+                            { l: 'Inside Now',    v: '8' },
+                            { l: 'Open Alerts',   v: '2', alert: true },
+                          ].map((s) => (
+                            <div
+                              key={s.l}
+                              className="flex-1 rounded-lg px-1 py-1 text-center"
+                              style={{ background: s.alert ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}
+                            >
+                              <div className="text-[10px] font-black text-white">{s.v}</div>
+                              <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.72)' }}>{s.l}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex-1 p-3 space-y-2.5 overflow-hidden">
+                        {/* Quick Actions 2×2 */}
                         <div>
-                          <div className="text-[11px] font-bold text-slate-200">Sunrise Estate</div>
-                          <div className="text-[9px] text-slate-500">Good morning, Adaeze 👋</div>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse-slow" />
-                          <span className="text-[9px] text-brand-400 font-medium">Live</span>
-                        </div>
-                      </div>
-
-                      {/* Stats row */}
-                      <div className="grid grid-cols-3 gap-2 mb-3">
-                        {[
-                          { l: 'Residents',     v: '142',   c: 'text-brand-400', bg: 'rgba(16,185,129,0.08)' },
-                          { l: "Today's visits", v: '23',   c: 'text-blue-400',  bg: 'rgba(59,130,246,0.08)' },
-                          { l: 'Dues (Nov)',    v: '₦1.2M', c: 'text-amber-400', bg: 'rgba(245,158,11,0.08)' },
-                        ].map((s) => (
-                          <div
-                            key={s.l}
-                            className="rounded-xl p-2.5"
-                            style={{ background: s.bg, border: '1px solid rgba(255,255,255,0.06)' }}
-                          >
-                            <div className={`text-[11px] font-black ${s.c}`}>{s.v}</div>
-                            <div className="text-[8px] text-slate-500 mt-0.5">{s.l}</div>
+                          <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
+                          <div className="grid grid-cols-2 gap-1.5">
+                            {[
+                              { label: 'Manage Residents', iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
+                              { label: 'Estate Units',     iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
+                              { label: 'Post Notice',      iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
+                              { label: 'View Alerts',      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
+                            ].map((a) => (
+                              <div
+                                key={a.label}
+                                className="flex items-center gap-1.5 p-1.5 rounded-xl border"
+                                style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}
+                              >
+                                <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: a.iconBg }}>
+                                  <div className="w-2 h-2 rounded-sm" style={{ background: a.iconColor }} />
+                                </div>
+                                <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        </div>
 
-                      {/* Payment progress */}
-                      <div
-                        className="rounded-xl p-3 mb-3"
-                        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Nov Collection</span>
-                          <span className="text-[9px] font-bold text-brand-400">76%</span>
-                        </div>
-                        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full shimmer"
-                            style={{ width: '76%' }}
-                          />
-                        </div>
-                        <div className="text-[8px] text-slate-600 mt-1.5">₦2.35M of ₦3.1M · 18 pending</div>
-                      </div>
-
-                      {/* Visitor list */}
-                      <div
-                        className="rounded-xl overflow-hidden"
-                        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
-                      >
-                        <div
-                          className="px-3 py-1.5 text-[8px] font-bold text-slate-500 uppercase tracking-wider border-b"
-                          style={{ borderColor: 'rgba(255,255,255,0.05)' }}
-                        >
-                          Today's visitors
-                        </div>
-                        {[
-                          { n: 'Chidi Okafor', u: 'Unit 4B', t: '10:23', s: 'IN',      c: 'bg-brand-500/15 text-brand-400' },
-                          { n: 'Fatima Bello', u: 'Unit 2A', t: '11:05', s: 'PENDING', c: 'bg-amber-500/15 text-amber-400' },
-                          { n: 'Emeka Nwosu',  u: 'Unit 7C', t: '09:44', s: 'OUT',     c: 'bg-slate-500/15 text-slate-400' },
-                        ].map((v) => (
-                          <div
-                            key={v.n}
-                            className="flex items-center justify-between px-3 py-1.5 border-b last:border-0"
-                            style={{ borderColor: 'rgba(255,255,255,0.04)' }}
-                          >
-                            <div className="flex items-center gap-1.5">
-                              <div className="w-4 h-4 rounded-full bg-slate-700 flex items-center justify-center text-[7px] font-bold text-slate-400">
+                        {/* Recent Visitors */}
+                        <div className="rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+                          <div className="px-2.5 py-1.5 text-[7px] font-bold uppercase tracking-wider border-b" style={{ color: '#94A3B8', borderColor: 'rgba(15,23,42,0.06)', background: '#FFFFFF' }}>
+                            Recent Visitors
+                          </div>
+                          {[
+                            { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)' },
+                            { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)' },
+                            { n: 'Emeka Nwosu',  u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
+                          ].map((v) => (
+                            <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white" style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
+                              <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
+                                style={{ background: 'rgba(16,185,129,0.10)', color: '#059669', border: '1px solid rgba(16,185,129,0.18)' }}>
                                 {v.n[0]}
                               </div>
-                              <div>
-                                <div className="text-[9px] font-semibold text-slate-300">{v.n}</div>
-                                <div className="text-[8px] text-slate-600">{v.u} · {v.t}</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
+                                <div className="text-[7px]" style={{ color: '#94A3B8' }}>{v.u}</div>
                               </div>
+                              <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
+                                style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                                {v.s}
+                              </span>
                             </div>
-                            <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${v.c}`}>{v.s}</span>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

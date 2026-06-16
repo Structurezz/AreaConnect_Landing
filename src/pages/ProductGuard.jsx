@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Shield, Smartphone, Wifi, WifiOff, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Shield, Smartphone, Wifi, WifiOff, Zap, QrCode, LogOut } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -32,76 +32,102 @@ function GuardPhoneMockup() {
         {/* Notch */}
         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-slate-800 rounded-full z-10" />
         <div className="absolute inset-0 flex flex-col">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-4 pt-9 pb-4">
-            <div className="flex items-center justify-between mb-1">
-              <div>
-                <div className="text-white text-[10px] font-black">AreaConnect Guard</div>
-                <div className="text-blue-200 text-[8px]">Gate 1 · Sunrise Estate</div>
+          {/* Hero strip — exact gradient from real security Dashboard */}
+          <div
+            className="px-4 pt-9 pb-4 text-center relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%)' }}
+          >
+            <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.05)' }} />
+            <div className="relative">
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center mx-auto mb-2"
+                style={{ background: 'rgba(255,255,255,0.20)', border: '1px solid rgba(255,255,255,0.30)' }}>
+                <Shield size={20} className="text-white" />
               </div>
-              <div className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
-                <span className="text-[8px] text-white font-bold">Online</span>
+              <div className="text-white text-[12px] font-bold mb-0.5">Gate Security</div>
+              <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Visitor access verification terminal</div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] font-semibold"
+                style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
+                Monday · 14:32
               </div>
             </div>
           </div>
-          {/* Content */}
-          <div className="flex-1 bg-slate-900 p-3 space-y-2.5 overflow-hidden">
-            {/* QR Scanner area */}
-            <div className="relative bg-slate-800 rounded-2xl p-4 flex flex-col items-center">
-              {/* Scanner frame */}
-              <div className="relative w-28 h-28 mb-2">
-                <div className="absolute inset-0 border-2 border-blue-500/40 rounded-xl" />
-                <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-blue-400 rounded-tl-lg" />
-                <div className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-blue-400 rounded-tr-lg" />
-                <div className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-blue-400 rounded-bl-lg" />
-                <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-blue-400 rounded-br-lg" />
-                {/* Scan line */}
-                <div className="absolute inset-x-2 top-1/2 h-0.5 bg-blue-400/60 rounded-full" style={{ boxShadow: '0 0 8px #60a5fa' }} />
-                {/* QR pattern */}
-                <div className="absolute inset-4 grid grid-cols-4 gap-0.5">
-                  {[...Array(16)].map((_, i) => (
-                    <div key={i} className={`rounded-sm ${[0,1,3,4,6,8,9,11,12,15].includes(i) ? 'bg-blue-300/60' : 'bg-transparent'}`} />
-                  ))}
+
+          {/* Content — white bg matching real security app */}
+          <div className="flex-1 p-3 space-y-2.5 overflow-hidden" style={{ background: '#F8FAFC' }}>
+            {/* Code input card */}
+            <div className="bg-white rounded-2xl p-3 border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+              <div className="text-[8px] font-medium text-center mb-2" style={{ color: '#475569' }}>
+                Visitor Access Code
+              </div>
+              <div className="relative mb-2">
+                <QrCode size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#94A3B8' }} />
+                <div className="w-full rounded-xl py-2 px-3 pl-8 text-center text-[14px] font-black tracking-[0.4em]"
+                  style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#0F172A', fontFamily: '"Courier New", monospace', letterSpacing: '0.3em' }}>
+                  AB7C1F
                 </div>
               </div>
-              <div className="text-blue-300 text-[9px] font-bold">Scanning visitor QR code…</div>
-            </div>
-            {/* Verified result */}
-            <div className="bg-brand-900/40 border border-brand-500/30 rounded-xl p-2.5">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-5 h-5 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 size={10} className="text-white" />
-                </div>
-                <div className="text-[9px] font-black text-brand-400 uppercase tracking-wide">Verified · Access granted</div>
+              {/* Progress dots */}
+              <div className="flex justify-center gap-1.5 mb-2">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="w-4 h-1.5 rounded-full transition-all"
+                    style={{ background: i < 6 ? '#3B82F6' : '#E2E8F0' }} />
+                ))}
               </div>
-              <div className="text-[11px] font-black text-white">Chidi Okafor</div>
-              <div className="text-[8px] text-slate-400">Visiting Unit 4B · Adaeze Okonkwo</div>
-              <div className="text-[8px] text-slate-500 mt-1">Expected today · Valid pass</div>
+              <div className="w-full py-1.5 rounded-xl text-[8px] font-bold text-white text-center"
+                style={{ background: '#3B82F6' }}>
+                Verify Code
+              </div>
             </div>
-            {/* Recent entries */}
-            <div>
-              <div className="text-[8px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Recent entries</div>
-              {[
-                { name: 'Fatima Bello', time: '2:34 PM', status: 'In', color: 'text-brand-400' },
-                { name: 'Emeka Nwosu',  time: '1:51 PM', status: 'Out', color: 'text-slate-400' },
-                { name: 'Kemi Adeyemi', time: '1:12 PM', status: 'In', color: 'text-brand-400' },
-              ].map(e => (
-                <div key={e.name} className="flex items-center justify-between py-1.5 border-b border-white/5 last:border-0">
-                  <div>
-                    <div className="text-[9px] font-bold text-slate-300">{e.name}</div>
-                    <div className="text-[8px] text-slate-600">{e.time}</div>
+
+            {/* Verified visitor result card */}
+            <div className="bg-white rounded-2xl p-3 border"
+              style={{ border: '1px solid rgba(16,185,129,0.18)', background: 'rgba(16,185,129,0.06)' }}>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                  style={{ background: 'rgba(59,130,246,0.10)', border: '2px solid rgba(59,130,246,0.20)', color: '#2563EB' }}>
+                  C
+                </div>
+                <div className="flex-1">
+                  <div className="text-[10px] font-black" style={{ color: '#0F172A' }}>Chidi Okafor</div>
+                  <div className="text-[8px] flex items-center gap-1" style={{ color: '#059669' }}>
+                    <CheckCircle2 size={8} /> Verified · Access granted
                   </div>
-                  <span className={`text-[8px] font-black ${e.color}`}>{e.status}</span>
                 </div>
-              ))}
+              </div>
+              {/* 2×2 info grid */}
+              <div className="grid grid-cols-2 gap-1.5 mb-2.5">
+                {[
+                  { l: 'Purpose',    v: 'Personal visit' },
+                  { l: 'Host Unit',  v: 'Unit 4B' },
+                  { l: 'Expected',   v: 'Today' },
+                  { l: 'Invited by', v: 'Adaeze O.' },
+                ].map(info => (
+                  <div key={info.l} className="rounded-xl p-2" style={{ background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                    <div className="text-[7px] mb-0.5" style={{ color: '#94A3B8' }}>{info.l}</div>
+                    <div className="text-[8px] font-medium" style={{ color: '#0F172A' }}>{info.v}</div>
+                  </div>
+                ))}
+              </div>
+              {/* Check In time cell + Check Out button */}
+              <div className="rounded-xl p-2 mb-2" style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.18)' }}>
+                <div className="text-[7px] mb-0.5" style={{ color: '#059669' }}>Checked In</div>
+                <div className="text-[9px] font-medium" style={{ color: '#0F172A' }}>2:28 PM</div>
+              </div>
+              <div className="w-full py-2 rounded-xl text-[8px] font-bold text-center flex items-center justify-center gap-1"
+                style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#64748B' }}>
+                <LogOut size={10} style={{ color: '#3B82F6' }} /> Check Out Visitor
+              </div>
             </div>
           </div>
         </div>
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/10 rounded-full" />
       </div>
       {/* Floating badges */}
-      <div className="absolute -left-6 top-16 bg-brand-500 text-white rounded-2xl shadow-xl px-3 py-2 animate-float">
+      <div className="absolute -left-6 top-16 bg-green-500 text-white rounded-2xl shadow-xl px-3 py-2 animate-float">
         <div className="text-[9px] font-black">✓ Verified in 0.8s</div>
       </div>
       <div className="absolute -right-6 bottom-24 bg-slate-800 border border-white/10 rounded-2xl shadow-xl px-3 py-2 animate-float-slow">

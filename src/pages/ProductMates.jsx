@@ -33,54 +33,89 @@ function PhoneMockup() {
         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-slate-800 rounded-full z-10" />
         {/* Screen */}
         <div className="absolute inset-0 flex flex-col">
-          {/* Status bar */}
-          <div className="bg-gradient-to-r from-indigo-600 to-violet-600 px-5 pt-9 pb-5">
-            <div className="text-white text-[11px] font-bold mb-0.5">Good morning, Adaeze 👋</div>
-            <div className="text-indigo-200 text-[9px]">Sunrise Estate · Lekki</div>
-            <div className="mt-3 flex gap-2">
-              {[{ e: '🔐', l: 'Visitor' }, { e: '💳', l: 'Pay' }, { e: '🔔', l: 'Alerts' }, { e: '💬', l: 'Chat' }].map(a => (
-                <div key={a.l} className="flex-1 bg-white/10 rounded-xl py-2 flex flex-col items-center gap-0.5">
-                  <span className="text-sm">{a.e}</span>
-                  <span className="text-[8px] text-indigo-100 font-semibold">{a.l}</span>
-                </div>
-              ))}
+          {/* Hero strip — exact gradient from real residents Dashboard */}
+          <div
+            className="px-4 pt-9 pb-4 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}
+          >
+            <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.05)' }} />
+            <div className="relative">
+              {/* Unit pill + ALERT button row */}
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[8px] font-bold rounded-full px-2 py-0.5"
+                  style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
+                  Unit 4B
+                </span>
+                <button className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
+                  style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)', minWidth: 52 }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  ALERT
+                </button>
+              </div>
+              <div className="text-white text-[12px] font-black mb-0.5">Welcome back, Adaeze</div>
+              <div className="text-[8px] mb-2.5" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
+              {/* 3 stat cells */}
+              <div className="flex gap-1.5">
+                {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
+                  <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
+                    style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
+                    <div className="text-[11px] font-black text-white">{s.v}</div>
+                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+
           {/* Content */}
-          <div className="flex-1 bg-slate-50 p-3 space-y-2.5 overflow-hidden">
-            {/* Announcement */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-2.5">
-              <div className="text-[8px] font-bold text-amber-700 mb-1">📢 ANNOUNCEMENT</div>
-              <div className="text-[9px] text-slate-800 font-semibold leading-snug">Water maintenance this Saturday 8am–2pm</div>
-              <div className="text-[8px] text-slate-400 mt-1">Estate Management · 15 min ago</div>
-            </div>
-            {/* Visitor */}
-            <div className="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm">
-              <div className="text-[8px] font-bold text-slate-400 mb-2 uppercase tracking-wide">Upcoming visitors</div>
+          <div className="flex-1 p-3 space-y-2.5 overflow-hidden" style={{ background: '#F8FAFC' }}>
+            {/* Quick nav 2×2 — exact colors from real residents Dashboard */}
+            <div className="grid grid-cols-2 gap-2">
               {[
-                { name: 'Chidi Okafor', when: 'Today · 3:00 PM', dot: 'bg-brand-400' },
-                { name: 'Fatima Bello', when: 'Tomorrow · 10:00 AM', dot: 'bg-indigo-400' },
-              ].map(v => (
-                <div key={v.name} className="flex items-center gap-2 py-1.5 border-b border-slate-50 last:border-0">
-                  <div className={`w-2 h-2 rounded-full ${v.dot} flex-shrink-0`} />
-                  <div>
-                    <div className="text-[9px] font-bold text-slate-800">{v.name}</div>
-                    <div className="text-[8px] text-slate-400">{v.when}</div>
-                  </div>
-                  <div className="ml-auto text-[8px] bg-brand-50 text-brand-700 font-bold px-1.5 py-0.5 rounded-full">QR ✓</div>
+                { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
+                { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
+                { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
+                { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)' },
+              ].map(a => (
+                <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
+                  style={{ background: a.bg, borderColor: a.border }}>
+                  <div className="w-4 h-4 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
+                  <div className="text-[7px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
                 </div>
               ))}
             </div>
-            {/* Dues */}
-            <div className="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm">
-              <div className="flex items-center justify-between mb-1">
-                <div className="text-[8px] font-bold text-slate-400 uppercase">Service charge</div>
-                <div className="text-[8px] text-rose-600 font-bold">Due 30 Jun</div>
+
+            {/* My Visitor Passes panel */}
+            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b" style={{ borderColor: 'rgba(15,23,42,0.06)' }}>
+                <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.10)' }}>
+                  <div className="w-2 h-2 rounded-sm" style={{ background: '#4F46E5' }} />
+                </div>
+                <div className="text-[8px] font-bold" style={{ color: '#0F172A' }}>My Visitor Passes</div>
               </div>
-              <div className="text-[13px] font-black text-slate-900 mb-2">₦45,000</div>
-              <div className="bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-[8px] font-bold text-center py-1.5 rounded-lg">
-                Pay now with Paystack
-              </div>
+              {[
+                { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',   se: 'rgba(99,102,241,0.22)' },
+                { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',   se: 'rgba(16,185,129,0.22)' },
+              ].map(v => (
+                <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-2 border-b last:border-0"
+                  style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
+                    style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
+                    {v.n[0]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
+                    <div className="text-[7px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
+                  </div>
+                  <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
+                    style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                    {v.s}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -76,96 +76,116 @@ function HeroDashboard() {
         <div className="absolute top-10 left-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl" />
         <div className="absolute bottom-5 right-5 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl" />
       </div>
-      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/8 w-full max-w-md mx-auto"
-           style={{ background: 'linear-gradient(145deg, #1a2235 0%, #0d1424 100%)' }}>
+      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 w-full max-w-md mx-auto"
+           style={{ background: '#F8FAFC' }}>
         {/* Browser chrome */}
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5"
-             style={{ background: 'rgba(0,0,0,0.3)' }}>
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200"
+             style={{ background: '#FFFFFF' }}>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
             <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
             <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
           </div>
           <div className="flex-1 mx-3">
-            <div className="rounded-md px-3 py-1 text-[10px] text-slate-500 text-center font-mono"
-                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="rounded-md px-3 py-1 text-[10px] text-slate-400 text-center font-mono"
+                 style={{ background: '#F1F5F9', border: '1px solid #E2E8F0' }}>
               app.areaconnect.pro/dashboard
             </div>
           </div>
         </div>
-        {/* Dashboard body */}
+        {/* Dashboard body — light theme matching real admin app */}
         <div className="flex" style={{ height: 330 }}>
           {/* Sidebar */}
-          <div className="w-12 flex flex-col items-center py-4 gap-3 flex-shrink-0 border-r"
-               style={{ background: 'rgba(0,0,0,0.25)', borderColor: 'rgba(255,255,255,0.05)' }}>
-            <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center mb-1 glow-sm-green">
+          <div className="w-12 flex flex-col items-center py-3 gap-2 flex-shrink-0 border-r"
+               style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1"
+                 style={{ background: '#10B981' }}>
               <span className="text-white text-[7px] font-black">AC</span>
             </div>
             {[Building2, Users, UserCheck, CreditCard, Bell, BarChart2].map((Icon, i) => (
-              <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${i === 0 ? 'bg-brand-500/20' : 'hover:bg-white/5'}`}>
-                <Icon size={12} className={i === 0 ? 'text-brand-400' : 'text-slate-600'} />
+              <div key={i} className="w-7 h-6 rounded-lg flex items-center justify-center"
+                   style={{
+                     background: i === 0 ? 'rgba(16,185,129,0.10)' : 'transparent',
+                     boxShadow: i === 0 ? 'inset 3px 0 0 #10B981' : 'none',
+                   }}>
+                <Icon size={12} style={{ color: i === 0 ? '#10B981' : '#94A3B8' }} />
               </div>
             ))}
           </div>
-          {/* Content */}
-          <div className="flex-1 p-4 overflow-hidden">
-            <div className="flex items-center justify-between mb-4">
+          {/* Main content */}
+          <div className="flex-1 overflow-hidden flex flex-col">
+            {/* Emerald hero strip */}
+            <div className="px-3 pt-3 pb-3.5"
+                 style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
+              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Adaeze 👋</div>
+              <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                Sunrise Estate — here's today at a glance
+              </div>
+              <div className="flex gap-1">
+                {[
+                  { l: 'Residents',      v: '142' },
+                  { l: 'Visitors Today', v: '23'  },
+                  { l: 'Inside Now',     v: '8'   },
+                  { l: 'Open Alerts',    v: '2', alert: true },
+                ].map(s => (
+                  <div key={s.l} className="flex-1 rounded-lg px-1 py-1 text-center"
+                       style={{ background: s.alert ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
+                    <div className="text-[10px] font-black text-white">{s.v}</div>
+                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.72)' }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex-1 p-3 space-y-2.5 overflow-hidden">
+              {/* Quick Actions 2×2 */}
               <div>
-                <div className="text-[11px] font-bold text-slate-200">Sunrise Estate</div>
-                <div className="text-[9px] text-slate-500">Good morning, Adaeze 👋</div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse-slow" />
-                <span className="text-[9px] text-brand-400 font-medium">Live</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-2 mb-3">
-              {[
-                { l: 'Residents',    v: '142',   c: 'text-brand-400',  bg: 'rgba(16,185,129,0.08)'  },
-                { l: "Today's visits", v: '23',  c: 'text-blue-400',   bg: 'rgba(59,130,246,0.08)'  },
-                { l: 'Dues (Nov)',   v: '₦1.2M', c: 'text-amber-400',  bg: 'rgba(245,158,11,0.08)'  },
-              ].map(s => (
-                <div key={s.l} className="rounded-xl p-2.5"
-                     style={{ background: s.bg, border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className={`text-[11px] font-black ${s.c}`}>{s.v}</div>
-                  <div className="text-[8px] text-slate-500 mt-0.5">{s.l}</div>
+                <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {[
+                    { label: 'Manage Residents', iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
+                    { label: 'Estate Units',     iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
+                    { label: 'Post Notice',      iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
+                    { label: 'View Alerts',      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
+                  ].map(a => (
+                    <div key={a.label} className="flex items-center gap-1.5 p-1.5 rounded-xl border"
+                         style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}>
+                      <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
+                           style={{ background: a.iconBg }}>
+                        <div className="w-2 h-2 rounded-sm" style={{ background: a.iconColor }} />
+                      </div>
+                      <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="rounded-xl p-3 mb-3"
-                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Nov Collection</span>
-                <span className="text-[9px] font-bold text-brand-400">76%</span>
               </div>
-              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full shimmer" style={{ width: '76%' }} />
-              </div>
-              <div className="text-[8px] text-slate-600 mt-1.5">₦2.35M of ₦3.1M · 18 pending</div>
-            </div>
-            <div className="rounded-xl overflow-hidden"
-                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="px-3 py-1.5 text-[8px] font-bold text-slate-500 uppercase tracking-wider border-b"
-                   style={{ borderColor: 'rgba(255,255,255,0.05)' }}>Today's visitors</div>
-              {[
-                { n: 'Chidi Okafor',  u: 'Unit 4B', t: '10:23', s: 'IN',      c: 'bg-brand-500/15 text-brand-400' },
-                { n: 'Fatima Bello',  u: 'Unit 2A', t: '11:05', s: 'PENDING', c: 'bg-amber-500/15 text-amber-400' },
-                { n: 'Emeka Nwosu',   u: 'Unit 7C', t: '09:44', s: 'OUT',     c: 'bg-slate-500/15 text-slate-400' },
-              ].map(v => (
-                <div key={v.n} className="flex items-center justify-between px-3 py-1.5 border-b last:border-0"
-                     style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-4 h-4 rounded-full bg-slate-700 flex items-center justify-center text-[7px] font-bold text-slate-400">
+              {/* Recent Visitors */}
+              <div className="rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+                <div className="px-2.5 py-1.5 text-[7px] font-bold uppercase tracking-wider border-b"
+                     style={{ color: '#94A3B8', borderColor: 'rgba(15,23,42,0.06)', background: '#FFFFFF' }}>
+                  Recent Visitors
+                </div>
+                {[
+                  { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)'  },
+                  { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)'  },
+                  { n: 'Emeka Nwosu',  u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
+                ].map(v => (
+                  <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white"
+                       style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
+                         style={{ background: 'rgba(16,185,129,0.10)', color: '#059669', border: '1px solid rgba(16,185,129,0.18)' }}>
                       {v.n[0]}
                     </div>
-                    <div>
-                      <div className="text-[9px] font-semibold text-slate-300">{v.n}</div>
-                      <div className="text-[8px] text-slate-600">{v.u} · {v.t}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
+                      <div className="text-[7px]" style={{ color: '#94A3B8' }}>{v.u}</div>
                     </div>
+                    <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
+                          style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                      {v.s}
+                    </span>
                   </div>
-                  <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${v.c}`}>{v.s}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -235,58 +255,92 @@ function MobileHeroVisual() {
             <span className="text-[7px] text-white/50 font-semibold tracking-wide">LIVE</span>
           </div>
 
-          {/* App header */}
-          <div className="pt-9 pb-3.5 px-4" style={{ background: 'linear-gradient(160deg, #3730a3 0%, #1e1b4b 100%)' }}>
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <div className="text-[11px] font-black text-white">AreaMates</div>
-                <div className="text-[8px] text-indigo-300">Sunrise Estate, Lekki</div>
+          {/* Hero strip — real residents Dashboard gradient */}
+          <div className="pt-9 pb-4 px-4 relative overflow-hidden"
+               style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}>
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
+                 style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full pointer-events-none"
+                 style={{ background: 'rgba(255,255,255,0.05)' }} />
+            <div className="relative">
+              {/* Unit pill + ALERT row */}
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[8px] font-bold rounded-full px-2 py-0.5"
+                      style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
+                  Unit 4B
+                </span>
+                <button className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
+                        style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)', minWidth: 52 }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  ALERT
+                </button>
               </div>
-              <div className="relative">
-                <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
-                  <Bell size={12} className="text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full flex items-center justify-center">
-                  <span className="text-[6px] text-white font-bold">3</span>
-                </div>
+              <div className="text-white text-[12px] font-black mb-0.5">Welcome back, Adaeze</div>
+              <div className="text-[8px] mb-2.5" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
+              {/* 3 stat cells */}
+              <div className="flex gap-1.5">
+                {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
+                  <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
+                       style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
+                    <div className="text-[11px] font-black text-white">{s.v}</div>
+                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5">
-              {[
-                { e: '🔐', l: 'Visitor', v: '2 active' },
-                { e: '💳', l: 'Pay dues', v: 'Nov due' },
-                { e: '💬', l: 'Chat', v: '4 unread' },
-              ].map(a => (
-                <div key={a.l} className="bg-white/10 rounded-2xl p-2 text-center">
-                  <div className="text-sm mb-0.5">{a.e}</div>
-                  <div className="text-[7px] font-bold text-white">{a.l}</div>
-                  <div className="text-[6px] text-white/50 mt-0.5">{a.v}</div>
-                </div>
-              ))}
             </div>
           </div>
 
           {/* Content area */}
-          <div className="p-3 space-y-2" style={{ background: '#f1f5f9' }}>
-            {/* Live visitor card */}
-            <div className="bg-white rounded-2xl p-2.5 shadow-sm border border-slate-100">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 size={12} className="text-white" />
+          <div className="p-3 space-y-2" style={{ background: '#F8FAFC' }}>
+            {/* Quick nav 2×2 */}
+            <div className="grid grid-cols-2 gap-1.5">
+              {[
+                { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
+                { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
+                { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
+                { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
+              ].map(a => (
+                <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
+                     style={{ background: a.bg, borderColor: a.border }}>
+                  <div className="w-4 h-4 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
+                  <div className="text-[7px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[10px] font-bold text-slate-800">Visitor verified</div>
-                  <div className="text-[8px] text-slate-500">Chidi Okafor · Gate 1</div>
-                </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
-                  <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse" />
-                  <span className="text-[7px] font-semibold text-brand-600">Live</span>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Estate notice */}
-            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-2.5">
+            {/* My Visitor Passes */}
+            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b" style={{ borderColor: 'rgba(15,23,42,0.06)' }}>
+                <div className="w-4 h-4 rounded flex items-center justify-center"
+                     style={{ background: 'rgba(99,102,241,0.10)' }}>
+                  <div className="w-2 h-2 rounded-sm" style={{ background: '#4F46E5' }} />
+                </div>
+                <div className="text-[8px] font-bold" style={{ color: '#0F172A' }}>My Visitor Passes</div>
+              </div>
+              {[
+                { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',  se: 'rgba(99,102,241,0.22)'  },
+                { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.22)'  },
+              ].map(v => (
+                <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-2 border-b last:border-0"
+                     style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
+                       style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
+                    {v.n[0]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
+                    <div className="text-[7px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
+                  </div>
+                  <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
+                        style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                    {v.s}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Estate Notice */}
+            <div className="bg-amber-50 border border-amber-100 rounded-xl p-2.5">
               <div className="flex items-start gap-1.5">
                 <span className="text-sm">📢</span>
                 <div>
@@ -296,42 +350,6 @@ function MobileHeroVisual() {
                 </div>
               </div>
             </div>
-
-            {/* Payment progress */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-2.5 shadow-sm">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[8px] font-bold text-slate-500 uppercase tracking-wide">Nov Dues</span>
-                <span className="text-[9px] font-black text-brand-600">76%</span>
-              </div>
-              <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full shimmer" style={{ width: '76%' }} />
-              </div>
-              <div className="text-[7px] text-slate-400 mt-1">₦2.35M of ₦3.1M collected</div>
-            </div>
-
-            {/* Mini stats */}
-            <div className="grid grid-cols-3 gap-1.5">
-              {[
-                { v: '142', l: 'Residents', c: 'text-brand-600', bg: '#ecfdf5' },
-                { v: '23',  l: 'Visitors',  c: 'text-blue-600',  bg: '#eff6ff' },
-                { v: '₦1.2M', l: 'Month',  c: 'text-amber-600', bg: '#fffbeb' },
-              ].map(s => (
-                <div key={s.l} className="rounded-2xl p-2 text-center" style={{ background: s.bg }}>
-                  <div className={`text-[11px] font-black ${s.c}`}>{s.v}</div>
-                  <div className="text-[6px] text-slate-500 mt-0.5">{s.l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Bottom nav */}
-          <div className="absolute bottom-0 inset-x-0 bg-white border-t border-slate-100 flex justify-around items-center px-4 py-2.5">
-            {[Building2, Users, Bell, BarChart2].map((Icon, i) => (
-              <div key={i} className={`flex flex-col items-center gap-0.5 ${i === 1 ? 'text-brand-500' : 'text-slate-400'}`}>
-                <Icon size={14} />
-                {i === 1 && <div className="w-1 h-1 rounded-full bg-brand-500" />}
-              </div>
-            ))}
           </div>
         </div>
         {/* Home indicator bar */}
@@ -381,26 +399,84 @@ function PhoneMockup() {
       <div className="absolute -inset-8 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl" />
       </div>
-      <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-56 sm:w-60 animate-float-slow"
-           style={{ height: 480 }}>
-        <div className="bg-indigo-600 px-5 pt-7 pb-5">
-          <div className="text-white text-[11px] font-black mb-0.5">Good morning, Adaeze 👋</div>
-          <div className="text-indigo-300 text-[9px]">Sunrise Estate, Lekki</div>
-          <div className="grid grid-cols-3 gap-1.5 mt-4">
+      <div className="relative rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-56 sm:w-60 animate-float-slow"
+           style={{ height: 480, background: '#F8FAFC' }}>
+        {/* Hero strip — real residents gradient */}
+        <div className="px-4 pt-7 pb-4 relative overflow-hidden"
+             style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}>
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
+               style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="relative">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[9px] font-bold rounded-full px-2 py-0.5"
+                    style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
+                Unit 4B
+              </span>
+              <button className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black text-white"
+                      style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                ALERT
+              </button>
+            </div>
+            <div className="text-white text-[13px] font-black mb-0.5">Welcome back, Adaeze</div>
+            <div className="text-[9px] mb-3" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
+            <div className="flex gap-2">
+              {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
+                <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
+                     style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
+                  <div className="text-[12px] font-black text-white">{s.v}</div>
+                  <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="p-3 space-y-2.5">
+          {/* Quick nav 2×2 */}
+          <div className="grid grid-cols-2 gap-2">
             {[
-              { e: '🔐', l: 'Visitor', v: '2 active' },
-              { e: '💳', l: 'Pay dues', v: '1 pending' },
-              { e: '🔔', l: 'Alerts', v: 'All clear' },
+              { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
+              { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
+              { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
+              { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
             ].map(a => (
-              <div key={a.l} className="bg-white/10 rounded-xl p-2 text-center">
-                <div className="text-base mb-0.5">{a.e}</div>
-                <div className="text-[8px] font-bold text-white/90">{a.l}</div>
-                <div className="text-[7px] text-white/50">{a.v}</div>
+              <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
+                   style={{ background: a.bg, borderColor: a.border }}>
+                <div className="w-5 h-5 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
+                <div className="text-[8px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
               </div>
             ))}
           </div>
-        </div>
-        <div className="p-4 space-y-3">
+
+          {/* My Visitor Passes */}
+          <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+            <div className="px-3 py-2 border-b text-[9px] font-bold" style={{ color: '#0F172A', borderColor: 'rgba(15,23,42,0.06)' }}>
+              My Visitor Passes
+            </div>
+            {[
+              { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',  se: 'rgba(99,102,241,0.22)'  },
+              { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.22)'  },
+            ].map(v => (
+              <div key={v.n} className="flex items-center gap-2 px-3 py-2 border-b last:border-0"
+                   style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0"
+                     style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
+                  {v.n[0]}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[9px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
+                  <div className="text-[8px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
+                </div>
+                <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
+                      style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                  {v.s}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Estate notice */}
           <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
             <div className="flex items-start gap-2">
               <span className="text-sm">📢</span>
@@ -410,37 +486,6 @@ function PhoneMockup() {
                 <div className="text-[9px] text-slate-400 mt-0.5">8AM – 2PM · 23 min ago</div>
               </div>
             </div>
-          </div>
-          <div className="bg-white border border-slate-100 rounded-xl p-3 shadow-sm">
-            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mb-2">MY VISITORS</div>
-            {[
-              { n: 'Chidi Okafor', t: 'Today, 3PM', s: 'Active' },
-              { n: 'Emeka Nwosu',  t: 'Tomorrow',   s: 'Pending' },
-            ].map(v => (
-              <div key={v.n} className="flex items-center justify-between py-1.5 border-b border-slate-50 last:border-0">
-                <div>
-                  <div className="text-[10px] font-semibold text-slate-700">{v.n}</div>
-                  <div className="text-[8px] text-slate-400">{v.t}</div>
-                </div>
-                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${v.s === 'Active' ? 'bg-brand-50 text-brand-600' : 'bg-slate-50 text-slate-500'}`}>
-                  {v.s}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="bg-white border border-slate-100 rounded-xl p-3 shadow-sm">
-            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mb-2">ESTATE CHAT</div>
-            {[
-              { a: 'TM', msg: "Who knows a good plumber around here?", color: 'bg-violet-400' },
-              { a: 'KB', msg: "The pool is open on Saturdays now 🎉",  color: 'bg-blue-400'   },
-            ].map((c, i) => (
-              <div key={i} className="flex items-start gap-2 mb-1.5 last:mb-0">
-                <div className={`w-4 h-4 ${c.color} rounded-full flex items-center justify-center text-[7px] text-white font-bold flex-shrink-0 mt-0.5`}>
-                  {c.a}
-                </div>
-                <div className="text-[9px] text-slate-600 leading-snug">{c.msg}</div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -455,48 +500,81 @@ function GuardMockup() {
       <div className="absolute -inset-8 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/12 rounded-full blur-3xl" />
       </div>
-      <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-52 sm:w-56 animate-float"
-           style={{ height: 400 }}>
-        <div className="bg-blue-700 px-4 pt-6 pb-4">
-          <div className="text-white text-[10px] font-black mb-0.5">AreaConnect Guard</div>
-          <div className="text-blue-300 text-[8px]">Gate 1 · Sunrise Estate</div>
+      <div className="relative rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-52 sm:w-56 animate-float"
+           style={{ height: 430, background: '#F8FAFC' }}>
+        {/* Hero strip — real security Dashboard gradient */}
+        <div className="px-4 pt-6 pb-4 text-center relative overflow-hidden"
+             style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%)' }}>
+          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
+               style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="relative">
+            <div className="w-10 h-10 rounded-2xl flex items-center justify-center mx-auto mb-2"
+                 style={{ background: 'rgba(255,255,255,0.20)', border: '1px solid rgba(255,255,255,0.30)' }}>
+              <Shield size={18} className="text-white" />
+            </div>
+            <div className="text-white text-[12px] font-bold mb-0.5">Gate Security</div>
+            <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Visitor access verification terminal</div>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] font-semibold"
+                 style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
+              Monday · 14:32
+            </div>
+          </div>
         </div>
-        <div className="p-3 space-y-3">
-          <div className="bg-slate-900 rounded-2xl p-4 flex flex-col items-center">
-            <div className="border-2 border-blue-400 rounded-xl w-20 h-20 flex items-center justify-center mb-2 relative overflow-hidden">
-              <div className="grid grid-cols-3 gap-0.5">
-                {[...Array(9)].map((_, i) => (
-                  <div key={i} className={`w-5 h-5 rounded-sm ${i % 3 === 0 || i === 4 ? 'bg-blue-400' : 'bg-slate-700'}`} />
-                ))}
+
+        <div className="p-3 space-y-2.5">
+          {/* Code input */}
+          <div className="bg-white rounded-2xl p-3 border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
+            <div className="text-[8px] font-medium text-center mb-2" style={{ color: '#475569' }}>Visitor Access Code</div>
+            <div className="w-full rounded-xl py-2 px-3 text-center text-[14px] font-black"
+                 style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#0F172A', fontFamily: '"Courier New", monospace', letterSpacing: '0.3em' }}>
+              AB7C1F
+            </div>
+            {/* Progress dots */}
+            <div className="flex justify-center gap-1.5 my-2">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="w-4 h-1.5 rounded-full" style={{ background: '#3B82F6' }} />
+              ))}
+            </div>
+            <div className="w-full py-1.5 rounded-xl text-[8px] font-bold text-white text-center"
+                 style={{ background: '#3B82F6' }}>
+              Verify Code
+            </div>
+          </div>
+
+          {/* Verified visitor result card */}
+          <div className="bg-white rounded-2xl p-3 border"
+               style={{ border: '1px solid rgba(16,185,129,0.18)', background: 'rgba(16,185,129,0.06)' }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-7 h-7 rounded-xl flex items-center justify-center text-[10px] font-bold flex-shrink-0"
+                   style={{ background: 'rgba(59,130,246,0.10)', border: '2px solid rgba(59,130,246,0.20)', color: '#2563EB' }}>
+                C
               </div>
-              <div className="absolute inset-x-0 h-0.5 bg-blue-400/60 animate-bounce" style={{ top: '40%' }} />
-            </div>
-            <div className="text-white text-[9px] font-bold">Scanning visitor pass…</div>
-          </div>
-          <div className="bg-brand-50 border border-brand-200 rounded-xl p-3">
-            <div className="flex items-center gap-2 mb-1.5">
-              <CheckCircle2 size={12} className="text-brand-500" />
-              <span className="text-[9px] font-bold text-brand-700">VERIFIED — ALLOW ENTRY</span>
-            </div>
-            <div className="text-[11px] font-bold text-slate-800">Chidi Okafor</div>
-            <div className="text-[9px] text-slate-500">Visiting Unit 4B · Adaeze Okonkwo</div>
-          </div>
-          <div>
-            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Recent entries</div>
-            {[
-              { n: 'Fatima Bello', t: '11:05', s: 'IN' },
-              { n: 'Emeka Nwosu',  t: '09:44', s: 'OUT' },
-            ].map(e => (
-              <div key={e.n} className="flex justify-between items-center py-1 border-b border-slate-50">
-                <div>
-                  <div className="text-[9px] font-semibold text-slate-700">{e.n}</div>
-                  <div className="text-[8px] text-slate-400">{e.t}</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] font-black" style={{ color: '#0F172A' }}>Chidi Okafor</div>
+                <div className="text-[8px] flex items-center gap-1" style={{ color: '#059669' }}>
+                  <CheckCircle2 size={8} /> Verified · Access granted
                 </div>
-                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${e.s === 'IN' ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}`}>
-                  {e.s}
-                </span>
               </div>
-            ))}
+            </div>
+            {/* 2×2 info grid */}
+            <div className="grid grid-cols-2 gap-1.5 mb-2">
+              {[
+                { l: 'Host Unit',  v: 'Unit 4B'       },
+                { l: 'Invited by', v: 'Adaeze O.'      },
+                { l: 'Expected',   v: 'Today'          },
+                { l: 'Checked in', v: '2:28 PM'        },
+              ].map(info => (
+                <div key={info.l} className="rounded-lg p-1.5" style={{ background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                  <div className="text-[7px]" style={{ color: '#94A3B8' }}>{info.l}</div>
+                  <div className="text-[8px] font-medium" style={{ color: '#0F172A' }}>{info.v}</div>
+                </div>
+              ))}
+            </div>
+            <div className="w-full py-1.5 rounded-xl text-[8px] font-bold text-center flex items-center justify-center gap-1"
+                 style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#64748B' }}>
+              Check Out Visitor
+            </div>
           </div>
         </div>
       </div>
@@ -1282,7 +1360,7 @@ export default function Home() {
                 Pricing
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Simple, honest pricing</h2>
-              <p className="text-slate-400 text-base sm:text-lg">From ₦50,000/month — or ₦2,000/resident/month. No hidden fees.</p>
+              <p className="text-slate-400 text-base sm:text-lg">Starting from ₦20,000/month. Four plans to fit every estate. No hidden fees.</p>
             </div>
           </Reveal>
 
@@ -1290,24 +1368,31 @@ export default function Home() {
           <div className="flex flex-col sm:hidden gap-4">
             {[
               {
-                name: 'Growth', price: '₦50,000', sub: '/month',
-                desc: 'The full platform for up to 150 residents.',
+                name: 'Starter', price: '₦20,000', sub: '/month',
+                desc: 'Perfect for small estates up to 50 residents.',
+                badge: null,
+                items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
+                cta: 'Get started', ctaLink: '/pricing', featured: false,
+              },
+              {
+                name: 'Growth', price: '₦47,000', sub: '/month',
+                desc: 'The full platform for estates up to 200 residents.',
                 badge: 'Most popular',
-                items: ['Up to 150 residents', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge', 'Analytics & reporting'],
+                items: ['Up to 200 residents', '2 gates', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge', 'Analytics & reporting'],
                 cta: 'Get started', ctaLink: '/pricing', featured: true,
               },
               {
-                name: 'Per resident', price: '₦2,000', sub: '/resident/month',
-                desc: 'Pay only for the residents you have.',
+                name: 'Premium', price: '₦80,000', sub: '/month',
+                desc: 'For large estates up to 500 residents.',
                 badge: null,
-                items: ['All Growth features', 'Scale with your estate', 'No resident limit', 'Same great platform'],
-                cta: 'Contact us', ctaLink: '/contact', featured: false,
+                items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
+                cta: 'Get started', ctaLink: '/pricing', featured: false,
               },
               {
                 name: 'Enterprise', price: 'Custom', sub: 'pricing',
                 desc: 'For large estates and property portfolios.',
                 badge: null,
-                items: ['Multi-estate management', 'Dedicated onboarding support', 'Custom SLA & branding', 'API access & priority support'],
+                items: ['Unlimited residents & gates', 'Multi-estate management', 'Dedicated onboarding support', 'Custom SLA & branding', 'API access & priority support'],
                 cta: 'Talk to sales', ctaLink: '/contact', featured: false,
               },
             ].map((p, i) => (
@@ -1347,55 +1432,62 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Desktop: original 3-column dark cards */}
-          <div className="hidden sm:grid sm:grid-cols-3 gap-5">
+          {/* Desktop: 4-column dark cards */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
-                name: 'Growth',     price: '₦50,000', sub: '/month',
-                desc: 'For estates up to 150 residents.',
+                name: 'Starter', price: '₦20,000', sub: '/month',
+                desc: 'For small estates up to 50 residents.',
+                badge: null,
+                items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
+                cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
+              },
+              {
+                name: 'Growth', price: '₦47,000', sub: '/month',
+                desc: 'For estates up to 200 residents.',
                 badge: 'Most popular',
-                items: ['Up to 150 residents', 'Everything on the platform', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge', 'Analytics & reporting'],
+                items: ['Up to 200 residents', '2 gates', 'Everything on the platform', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge'],
                 cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/30',
               },
               {
-                name: 'Per resident', price: '₦2,000', sub: '/resident/month',
-                desc: 'Pay per resident — ideal for growing estates.',
+                name: 'Premium', price: '₦80,000', sub: '/month',
+                desc: 'For large estates up to 500 residents.',
                 badge: null,
-                items: ['All Growth features', 'Scales with your estate', 'No fixed resident cap', 'Same full platform'],
-                cta: 'Contact us', ctaLink: '/contact', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
+                items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
+                cta: 'Get started', ctaLink: '/pricing', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
               },
               {
                 name: 'Enterprise', price: 'Custom', sub: 'pricing',
                 desc: 'For large estates and property portfolios.',
                 badge: null,
-                items: ['Multi-estate management', 'Custom SLA & uptime guarantee', 'Dedicated onboarding support', 'White-label branding option', 'API access', 'Priority support'],
+                items: ['Unlimited residents & gates', 'Multi-estate management', 'Custom SLA & uptime guarantee', 'Dedicated onboarding support', 'White-label branding', 'API access'],
                 cta: 'Talk to sales', ctaLink: '/contact', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
               },
             ].map((p, i) => (
               <Reveal key={p.name} delay={i * 80}>
-                <div className={`relative rounded-2xl p-7 flex flex-col h-full ${p.badge ? 'border-brand-500/40 shadow-xl shadow-brand-500/10' : 'border-white/8'} border`}
+                <div className={`relative rounded-2xl p-5 flex flex-col h-full ${p.badge ? 'border-brand-500/40 shadow-xl shadow-brand-500/10' : 'border-white/8'} border`}
                      style={{ background: p.badge ? 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(6,78,59,0.12) 100%)' : 'rgba(255,255,255,0.03)' }}>
                   {p.badge && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
                       {p.badge}
                     </div>
                   )}
-                  <div className="mb-6">
+                  <div className="mb-5">
                     <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">{p.name}</div>
-                    <div className="flex items-baseline gap-1.5 mb-1">
-                      <span className="text-4xl font-black text-white">{p.price}</span>
-                      <span className="text-slate-400 text-sm">{p.sub}</span>
+                    <div className="mb-1">
+                      <span className="text-3xl font-black text-white block leading-tight">{p.price}</span>
+                      <span className="text-slate-400 text-xs mt-0.5 block">{p.sub}</span>
                     </div>
-                    <div className="text-sm text-slate-400">{p.desc}</div>
+                    <div className="text-xs text-slate-400 mt-2">{p.desc}</div>
                   </div>
-                  <ul className="space-y-2.5 flex-1 mb-7">
+                  <ul className="space-y-2 flex-1 mb-5">
                     {p.items.map(item => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-slate-300">
-                        <CheckCircle2 size={14} className="text-brand-500 flex-shrink-0 mt-0.5" />{item}
+                      <li key={item} className="flex items-start gap-2 text-xs text-slate-300">
+                        <CheckCircle2 size={12} className="text-brand-500 flex-shrink-0 mt-0.5" />{item}
                       </li>
                     ))}
                   </ul>
-                  <Link to={p.ctaLink} className={`w-full text-center py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${p.ctaStyle}`}>
+                  <Link to={p.ctaLink} className={`w-full text-center py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 ${p.ctaStyle}`}>
                     {p.cta}
                   </Link>
                 </div>
@@ -1429,7 +1521,7 @@ export default function Home() {
           <div className="space-y-3">
             {[
               { q: 'How much does AreaConnect cost?',
-                a: 'Plans start at ₦50,000/month (flat fee) for up to 150 residents, or ₦400,000/year. If you prefer per-resident pricing, it\'s ₦2,000/resident/month. Enterprise pricing is custom for large portfolios. See the full pricing page for details.' },
+                a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. See the full pricing page for details.' },
               { q: 'How do residents get their login credentials?',
                 a: "When an estate manager invites a resident — individually or via CSV — the system instantly creates an account and emails the resident a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
               { q: 'How does the visitor QR code system work?',
@@ -1483,8 +1575,8 @@ export default function Home() {
           </Reveal>
           <Reveal delay={160}>
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-8 sm:mt-10 text-sm text-brand-200">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> From ₦50k/month</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> Or ₦2,000/resident</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> From ₦20k/month</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> 4 plans available</span>
               <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> Setup in 10 minutes</span>
             </div>
           </Reveal>
