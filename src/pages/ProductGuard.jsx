@@ -32,7 +32,7 @@ function GuardPhoneMockup() {
         {/* Notch */}
         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-slate-800 rounded-full z-10" />
         <div className="absolute inset-0 flex flex-col">
-          {/* Hero strip — exact gradient from real security Dashboard */}
+          {/* Hero strip */}
           <div
             className="px-4 pt-9 pb-4 text-center relative overflow-hidden"
             style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%)' }}
@@ -56,7 +56,7 @@ function GuardPhoneMockup() {
             </div>
           </div>
 
-          {/* Content — white bg matching real security app */}
+          {/* Content */}
           <div className="flex-1 p-3 space-y-2.5 overflow-hidden" style={{ background: '#F8FAFC' }}>
             {/* Code input card */}
             <div className="bg-white rounded-2xl p-3 border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
@@ -112,7 +112,7 @@ function GuardPhoneMockup() {
                   </div>
                 ))}
               </div>
-              {/* Check In time cell + Check Out button */}
+              {/* Check In / Check Out */}
               <div className="rounded-xl p-2 mb-2" style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.18)' }}>
                 <div className="text-[7px] mb-0.5" style={{ color: '#059669' }}>Checked In</div>
                 <div className="text-[9px] font-medium" style={{ color: '#0F172A' }}>2:28 PM</div>

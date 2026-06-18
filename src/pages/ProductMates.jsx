@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Users, Smartphone } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Users, Smartphone, Home as HomeIcon, UserPlus, MessageCircle, ShoppingBag, LayoutGrid, ShieldCheck } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -25,104 +25,142 @@ function Reveal({ children, delay = 0, className = '' }) {
 function PhoneMockup() {
   return (
     <div className="relative flex justify-center">
-      {/* Glow */}
-      <div className="absolute -inset-8 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
-      {/* Phone body */}
-      <div className="relative bg-slate-900 rounded-[2.5rem] shadow-2xl border border-white/10 overflow-hidden w-[240px]" style={{ height: 500 }}>
+      {/* Glow — blue matching real AreaMates brand */}
+      <div className="absolute -inset-8 rounded-full blur-3xl pointer-events-none"
+           style={{ background: 'rgba(43,108,176,0.20)' }} />
+      {/* Phone body — light theme #F7F5F1 matching real app C.bg */}
+      <div className="relative rounded-[2.5rem] shadow-2xl overflow-hidden w-[240px]"
+           style={{ height: 500, background: '#F7F5F1', border: '1px solid rgba(0,0,0,0.10)' }}>
         {/* Notch */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-slate-800 rounded-full z-10" />
-        {/* Screen */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full z-10"
+             style={{ background: '#E2E0DC' }} />
         <div className="absolute inset-0 flex flex-col">
-          {/* Hero strip — exact gradient from real residents Dashboard */}
-          <div
-            className="px-4 pt-9 pb-4 relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}
-          >
-            <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full pointer-events-none"
-              style={{ background: 'rgba(255,255,255,0.07)' }} />
-            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full pointer-events-none"
-              style={{ background: 'rgba(255,255,255,0.05)' }} />
+
+          {/* Hero card — C.blue #2B6CB0 solid, matching heroCard style */}
+          <div className="px-3 pt-9 pb-3 relative overflow-hidden"
+               style={{ background: '#2B6CB0' }}>
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
+                 style={{ background: 'rgba(255,255,255,0.07)' }} />
             <div className="relative">
-              {/* Unit pill + ALERT button row */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[8px] font-bold rounded-full px-2 py-0.5"
-                  style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
-                  Unit 4B
+              {/* Estate chip + ALERT pill */}
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[8px] font-semibold rounded-full px-2 py-0.5 uppercase tracking-wide"
+                      style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)' }}>
+                  Sunrise Estate
                 </span>
-                <button className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
-                  style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)', minWidth: 52 }}>
+                <div className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
+                     style={{ background: 'rgba(197,48,48,0.90)' }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                   ALERT
-                </button>
+                </div>
               </div>
-              <div className="text-white text-[12px] font-black mb-0.5">Welcome back, Adaeze</div>
-              <div className="text-[8px] mb-2.5" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
-              {/* 3 stat cells */}
+              {/* Greeting */}
+              <div className="text-[9px] mb-0.5" style={{ color: 'rgba(255,255,255,0.75)' }}>Good morning,</div>
+              <div className="text-[15px] font-bold text-white mb-0.5">Adaeze 👋</div>
+              <div className="flex items-center gap-1 mb-2.5">
+                <div className="w-2 h-2 rounded-full" style={{ background: 'rgba(255,255,255,0.5)' }} />
+                <span className="text-[8px]" style={{ color: 'rgba(255,255,255,0.65)' }}>Unit 4B · Block C</span>
+              </div>
+              {/* 3 stat boxes — rgba(255,255,255,0.12) matching statBox */}
               <div className="flex gap-1.5">
-                {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
+                {[
+                  { l: 'Active Passes', v: '2' },
+                  { l: 'All Visitors',  v: '14' },
+                  { l: 'Notices',       v: '3' },
+                ].map(s => (
                   <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
-                    style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
-                    <div className="text-[11px] font-black text-white">{s.v}</div>
-                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
+                       style={{ background: 'rgba(255,255,255,0.12)' }}>
+                    <div className="text-[12px] font-bold text-white">{s.v}</div>
+                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.65)' }}>{s.l}</div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="flex-1 p-3 space-y-2.5 overflow-hidden" style={{ background: '#F8FAFC' }}>
-            {/* Quick nav 2×2 — exact colors from real residents Dashboard */}
-            <div className="grid grid-cols-2 gap-2">
+          {/* Content — linen bg #F7F5F1 */}
+          <div className="flex-1 px-2.5 pt-2.5 space-y-2 overflow-hidden" style={{ background: '#F7F5F1' }}>
+            {/* Section heading */}
+            <div className="text-[7px] font-bold uppercase tracking-widest" style={{ color: '#4A5568' }}>
+              Quick Actions
+            </div>
+            {/* Quick Actions 2×2 — exact QUICK_ACTIONS icons + colors from real app */}
+            <div className="grid grid-cols-2 gap-1.5">
               {[
-                { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
-                { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
-                { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
-                { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)' },
-              ].map(a => (
-                <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
-                  style={{ background: a.bg, borderColor: a.border }}>
-                  <div className="w-4 h-4 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
-                  <div className="text-[7px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
+                { label: 'Invite Visitor', Icon: UserPlus,     color: '#276749', bg: 'rgba(39,103,73,0.10)'  },
+                { label: 'Marketplace',    Icon: ShoppingBag,  color: '#2B6CB0', bg: 'rgba(43,108,176,0.10)' },
+                { label: 'Community',      Icon: MessageCircle,color: '#6B46C1', bg: 'rgba(107,70,193,0.10)' },
+                { label: 'Alert Security', Icon: ShieldCheck,  color: '#C53030', bg: 'rgba(197,48,48,0.10)'  },
+              ].map(({ label, Icon, color, bg }) => (
+                <div key={label} className="flex flex-col items-center py-2.5 rounded-xl bg-white border text-center"
+                     style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-1"
+                       style={{ background: bg }}>
+                    <Icon size={16} style={{ color }} />
+                  </div>
+                  <div className="text-[7px] font-semibold" style={{ color }}>{label}</div>
                 </div>
               ))}
             </div>
 
-            {/* My Visitor Passes panel */}
-            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b" style={{ borderColor: 'rgba(15,23,42,0.06)' }}>
-                <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.10)' }}>
-                  <div className="w-2 h-2 rounded-sm" style={{ background: '#4F46E5' }} />
+            {/* Recent Visitors card — white surface matching C.surface */}
+            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+              <div className="flex items-center justify-between px-2.5 py-1.5 border-b"
+                   style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded flex items-center justify-center"
+                       style={{ background: 'rgba(43,108,176,0.10)' }}>
+                    <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#2B6CB0' }} />
+                  </div>
+                  <span className="text-[8px] font-bold" style={{ color: '#1A202C' }}>Recent Visitors</span>
                 </div>
-                <div className="text-[8px] font-bold" style={{ color: '#0F172A' }}>My Visitor Passes</div>
+                <span className="text-[7px] font-semibold" style={{ color: '#2B6CB0' }}>View all →</span>
               </div>
               {[
-                { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',   se: 'rgba(99,102,241,0.22)' },
-                { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',   se: 'rgba(16,185,129,0.22)' },
+                { n: 'Chidi Okafor', d: 'Jun 20 · 3:00 PM', s: 'active',     sc: '#276749', sb: 'rgba(39,103,73,0.10)'  },
+                { n: 'Fatima Bello', d: 'Jun 18 · 1:30 PM', s: 'checked-in', sc: '#2B6CB0', sb: 'rgba(43,108,176,0.10)' },
               ].map(v => (
-                <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-2 border-b last:border-0"
-                  style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
-                    style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
+                <div key={v.n} className="flex items-center gap-2 px-2.5 py-2 border-b last:border-0"
+                     style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0"
+                       style={{ background: 'rgba(43,108,176,0.10)', color: '#2B6CB0' }}>
                     {v.n[0]}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
-                    <div className="text-[7px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
+                    <div className="text-[8px] font-semibold truncate" style={{ color: '#1A202C' }}>{v.n}</div>
+                    <div className="text-[7px]" style={{ color: '#A0AEC0' }}>{v.d}</div>
                   </div>
-                  <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
-                    style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
+                  <span className="text-[7px] font-semibold px-1.5 py-0.5 rounded-full"
+                        style={{ background: v.sb, color: v.sc }}>
                     {v.s}
                   </span>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Tab bar — white bg, C.blue active, matching real _layout.jsx tabs */}
+          <div className="flex items-center justify-around px-1 py-1.5 border-t"
+               style={{ background: '#FFFFFF', borderColor: 'rgba(0,0,0,0.07)', minHeight: 46 }}>
+            {[
+              { label: 'Home',     Icon: HomeIcon,      active: true  },
+              { label: 'Visitors', Icon: UserPlus,      active: false },
+              { label: 'Chat',     Icon: MessageCircle, active: false },
+              { label: 'Market',   Icon: ShoppingBag,   active: false },
+              { label: 'More',     Icon: LayoutGrid,    active: false },
+            ].map(({ label, Icon, active }) => (
+              <div key={label} className="flex flex-col items-center gap-0.5">
+                <Icon size={16} style={{ color: active ? '#2B6CB0' : '#A0AEC0' }} />
+                <span className="text-[7px] font-semibold"
+                      style={{ color: active ? '#2B6CB0' : '#A0AEC0' }}>{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* Home indicator */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full" />
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-20 h-1 rounded-full"
+             style={{ background: 'rgba(0,0,0,0.10)' }} />
       </div>
-      {/* Floating notification */}
+      {/* Floating notifications */}
       <div className="absolute -right-4 top-20 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 w-36 animate-float">
         <div className="text-[9px] font-bold text-slate-800 mb-0.5">✅ Visitor arrived</div>
         <div className="text-[8px] text-slate-500">Chidi Okafor · Gate 1</div>
@@ -184,7 +222,7 @@ export default function ProductMates() {
               </div>
               <p className="text-sm text-slate-500">
                 Also at{' '}
-                <span className="text-indigo-400 font-semibold">app.areaconnect.pro</span>
+                <span className="text-indigo-400 font-semibold">area-connector.areaconnect.pro</span>
                 {' '}on any browser
               </p>
             </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Shield, QrCode, LogOut } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Shield, QrCode, LogOut, LayoutDashboard, UserCheck, Users, Home as HomeIcon, Megaphone, CreditCard, Bell } from 'lucide-react';
 import { Reveal, PageHero } from '../components/ui/Reveal';
 
 /* ─── Reusable phone shell ────────────────────────────────────────────── */
@@ -41,12 +41,14 @@ function VisitorMockup() {
           {/* Purpose chips */}
           <div>
             <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Purpose of Visit *</div>
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-3 gap-1.5">
               {[
-                { label: 'Personal Visit', icon: '👤', sel: true },
-                { label: 'Delivery',       icon: '📦', sel: false },
-                { label: 'Service Work',   icon: '🔧', sel: false },
-                { label: 'Official',       icon: '💼', sel: false },
+                { label: 'Visit',       icon: '👤', sel: true },
+                { label: 'Delivery',    icon: '📦', sel: false },
+                { label: 'Maintenance', icon: '🔧', sel: false },
+                { label: 'Meeting',     icon: '💼', sel: false },
+                { label: 'Moving',      icon: '🚚', sel: false },
+                { label: 'Other',       icon: '📋', sel: false },
               ].map(p => (
                 <div key={p.label} className="flex flex-col items-center gap-1 py-2 rounded-xl border text-center"
                   style={p.sel
@@ -71,7 +73,7 @@ function VisitorMockup() {
               ))}
             </div>
             <div className="flex gap-1">
-              {['1 Day', '3 Days', '1 Week', 'Custom'].map((d, i) => (
+              {['30m', '1h', '2h', '4h', 'All day'].map((d, i) => (
                 <div key={d} className="flex-1 text-center py-1 rounded-full text-[7px] font-bold border"
                   style={i === 0
                     ? { background: '#6366F1', borderColor: '#6366F1', color: '#fff' }
@@ -101,7 +103,7 @@ function VisitorMockup() {
 
       {/* Floating pass preview */}
       <div className="absolute -right-6 bottom-16 bg-white rounded-2xl shadow-xl border border-slate-100 p-3 w-36 animate-float">
-        <div className="text-[8px] font-bold text-center mb-1.5" style={{ color: '#6366F1' }}>VISITOR PASS</div>
+        <div className="text-[8px] font-bold text-center mb-1.5" style={{ color: '#6366F1' }}>GUEST PASS</div>
         <div className="inline-grid grid-cols-5 gap-0.5 mx-auto mb-1.5">
           {[...Array(25)].map((_, i) => (
             <div key={i} className={`w-3.5 h-3.5 rounded-sm ${[0,2,4,10,12,14,20,22,24].includes(i) ? 'bg-slate-900' : i % 5 === 0 ? 'bg-slate-700' : 'bg-slate-200'}`} />
@@ -475,7 +477,7 @@ function CommunityMockup() {
       {/* Announcement card */}
       <div className="px-4 pt-9 pb-3 border-b" style={{ borderColor: '#E2E8F0', background: '#fff' }}>
         <div className="text-[13px] font-bold" style={{ color: '#0F172A', letterSpacing: '-0.02em' }}>Announcements</div>
-        <div className="text-[9px] mt-0.5" style={{ color: '#94A3B8' }}>Estate-wide broadcasts from management</div>
+        <div className="text-[9px] mt-0.5" style={{ color: '#94A3B8' }}>Post notices and updates for residents</div>
       </div>
 
       <div className="flex-1 overflow-hidden p-3 space-y-2.5" style={{ background: '#F8FAFC' }}>
@@ -512,44 +514,6 @@ function CommunityMockup() {
           <div className="text-[7px] mt-1.5" style={{ color: '#94A3B8' }}>Estate Management · Yesterday</div>
         </div>
 
-        {/* Chat section header */}
-        <div className="text-[8px] font-bold uppercase tracking-wider" style={{ color: '#94A3B8' }}>
-          Estate Chat
-        </div>
-
-        {/* Chat bubbles */}
-        <div className="space-y-2">
-          {[
-            { name: 'Tunde M.', init: 'T', msg: 'Anyone know a good generator repair technician?', mine: false, color: '#6366F1' },
-            { name: 'Amaka E.', init: 'A', msg: 'Yes! Kelechi on Block C is great. I can share his number.', mine: false, color: '#10B981' },
-            { name: 'You',      init: 'Y', msg: 'Please send his number, need mine looked at too 🙏', mine: true,  color: '#059669' },
-          ].map((m, i) => (
-            <div key={i} className={`flex items-end gap-1.5 ${m.mine ? 'flex-row-reverse' : ''}`}>
-              {!m.mine && (
-                <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold text-white flex-shrink-0"
-                  style={{ background: m.color }}>{m.init}</div>
-              )}
-              <div className="max-w-[70%]">
-                {!m.mine && <div className="text-[7px] pl-1 mb-0.5" style={{ color: '#94A3B8' }}>{m.name}</div>}
-                <div className="rounded-2xl px-2.5 py-1.5 text-[8px] leading-snug"
-                  style={m.mine
-                    ? { background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', color: '#fff' }
-                    : { background: '#F1F5F9', border: '1px solid #E2E8F0', color: '#0F172A' }}>
-                  {m.msg}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Input bar */}
-        <div className="flex items-center gap-2 bg-white rounded-xl border px-2.5 py-2" style={{ borderColor: '#E2E8F0' }}>
-          <div className="flex-1 text-[8px]" style={{ color: '#CBD5E1' }}>Type a message…</div>
-          <div className="w-6 h-6 rounded-full flex items-center justify-center text-white flex-shrink-0"
-            style={{ background: '#10B981' }}>
-            <ArrowRight size={10} />
-          </div>
-        </div>
       </div>
     </PhoneFrame>
   );
@@ -571,7 +535,7 @@ function AdminMockup() {
           <div className="flex-1 mx-3">
             <div className="rounded-md px-3 py-1 text-[10px] text-slate-400 text-center font-mono"
               style={{ background: '#F1F5F9', border: '1px solid #E2E8F0' }}>
-              app.areaconnect.pro/dashboard
+              area-connector.areaconnect.pro
             </div>
           </div>
         </div>
@@ -582,10 +546,10 @@ function AdminMockup() {
             <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1" style={{ background: '#10B981' }}>
               <span className="text-white text-[7px] font-black">AC</span>
             </div>
-            {['🏠', '👥', '🚪', '💳', '🔔', '📊'].map((icon, i) => (
-              <div key={i} className="w-7 h-6 rounded-lg flex items-center justify-center text-sm"
+            {[LayoutDashboard, UserCheck, Users, HomeIcon, Megaphone, CreditCard, Shield, Bell].map((Icon, i) => (
+              <div key={i} className="w-7 h-6 rounded-lg flex items-center justify-center"
                 style={{ background: i === 0 ? 'rgba(16,185,129,0.10)' : 'transparent', boxShadow: i === 0 ? 'inset 3px 0 0 #10B981' : 'none' }}>
-                {icon}
+                <Icon size={12} style={{ color: i === 0 ? '#10B981' : '#94A3B8' }} />
               </div>
             ))}
           </div>

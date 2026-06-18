@@ -176,7 +176,7 @@ export default function Terms() {
 
             <div id="section-11">
               <DocSection num={11} title="Contact">
-                <p>AreaConnect Technologies Ltd<br />14 Admiralty Way, Lekki Phase 1, Lagos, Nigeria</p>
+                <p>AreaConnect Technologies Ltd</p>
                 <p>Email: <a href="mailto:legal@areaconnect.pro" className="text-brand-600 hover:underline font-medium">legal@areaconnect.pro</a></p>
               </DocSection>
             </div>

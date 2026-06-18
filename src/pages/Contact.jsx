@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Mail, Phone, Clock, Send, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Reveal, PageHero } from '../components/ui/Reveal';
 
 export default function Contact() {
@@ -173,14 +173,6 @@ export default function Contact() {
                   bg: 'bg-blue-50',
                   color: 'text-blue-600',
                   href: 'tel:+2347089224054',
-                },
-                {
-                  icon: MapPin,
-                  label: 'Visit us',
-                  val: '14 Admiralty Way, Lekki Phase 1',
-                  sub: 'Lagos, Nigeria · By appointment only',
-                  bg: 'bg-indigo-50',
-                  color: 'text-indigo-600',
                 },
                 {
                   icon: Clock,

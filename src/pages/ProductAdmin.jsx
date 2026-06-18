@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, CheckCircle2, Users, CreditCard, UserCheck, BarChart2,
-  Building2, Bell, Settings, Shield, TrendingUp, Megaphone,
+  Bell, Shield, Megaphone, LayoutDashboard, Home as HomeIcon,
+  Music, MessageSquare,
 } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
 
@@ -198,31 +199,58 @@ export default function ProductAdmin() {
                         className="rounded-md px-3 py-1 text-[10px] text-slate-500 text-center font-mono"
                         style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
                       >
-                        app.areaconnect.pro/dashboard
+                        area-connector.areaconnect.pro
                       </div>
                     </div>
                   </div>
 
                   {/* Dashboard body — light theme matching real admin */}
                   <div className="flex" style={{ height: 330, background: '#F8FAFC' }}>
-                    {/* Sidebar */}
-                    <div
-                      className="w-12 flex flex-col items-center py-3 gap-2 flex-shrink-0 border-r"
-                      style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}
-                    >
-                      <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1" style={{ background: '#10B981' }}>
-                        <span className="text-white text-[7px] font-black">AC</span>
+                    {/* Sidebar — matches real app: sections + labels */}
+                    <div className="w-28 flex flex-col py-2 flex-shrink-0 border-r overflow-hidden"
+                         style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
+                      {/* Logo */}
+                      <div className="flex items-center gap-1.5 px-2 pb-2 mb-1 border-b" style={{ borderColor: '#E2E8F0' }}>
+                        <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#10B981' }}>
+                          <span className="text-white text-[6px] font-black">AC</span>
+                        </div>
+                        <span className="text-[7px] font-black" style={{ color: '#0F172A' }}>AreaConnect</span>
                       </div>
-                      {[Building2, Users, UserCheck, CreditCard, Bell, BarChart2].map((Icon, i) => (
-                        <div
-                          key={i}
-                          className="w-7 h-6 rounded-lg flex items-center justify-center"
+                      {/* MANAGEMENT */}
+                      <div className="px-2 mt-1 mb-0.5">
+                        <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Management</span>
+                      </div>
+                      {[
+                        { Icon: LayoutDashboard, label: 'Dashboard',     active: true  },
+                        { Icon: UserCheck,        label: 'Visitors',      active: false },
+                        { Icon: Users,            label: 'Residents',     active: false },
+                        { Icon: HomeIcon,         label: 'Units',         active: false },
+                        { Icon: Megaphone,        label: 'Announcements', active: false },
+                        { Icon: CreditCard,       label: 'Payments',      active: false },
+                        { Icon: Shield,           label: 'Guards',        active: false },
+                      ].map(({ Icon, label, active }) => (
+                        <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
                           style={{
-                            background: i === 0 ? 'rgba(16,185,129,0.10)' : 'transparent',
-                            boxShadow: i === 0 ? 'inset 3px 0 0 #10B981' : 'none',
-                          }}
-                        >
-                          <Icon size={12} style={{ color: i === 0 ? '#10B981' : '#94A3B8' }} />
+                            background: active ? 'rgba(16,185,129,0.10)' : 'transparent',
+                            borderLeft: active ? '2px solid #10B981' : '2px solid transparent',
+                          }}>
+                          <Icon size={8} style={{ color: active ? '#10B981' : '#94A3B8' }} />
+                          <span className="text-[6px] font-medium truncate" style={{ color: active ? '#0F172A' : '#64748B' }}>{label}</span>
+                        </div>
+                      ))}
+                      {/* COMMUNITY */}
+                      <div className="px-2 mt-1 mb-0.5">
+                        <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Community</span>
+                      </div>
+                      {[
+                        { Icon: Music,          label: 'Lounge & Events' },
+                        { Icon: MessageSquare,  label: 'Community Chat'  },
+                        { Icon: Bell,           label: 'Alerts'          },
+                      ].map(({ Icon, label }) => (
+                        <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
+                          style={{ borderLeft: '2px solid transparent' }}>
+                          <Icon size={8} style={{ color: '#94A3B8' }} />
+                          <span className="text-[6px] font-medium truncate" style={{ color: '#64748B' }}>{label}</span>
                         </div>
                       ))}
                     </div>
@@ -258,18 +286,15 @@ export default function ProductAdmin() {
                           <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
                           <div className="grid grid-cols-2 gap-1.5">
                             {[
-                              { label: 'Manage Residents', iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
-                              { label: 'Estate Units',     iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
-                              { label: 'Post Notice',      iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
-                              { label: 'View Alerts',      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
+                              { label: 'Manage Residents', Icon: Users,     iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
+                              { label: 'Estate Units',     Icon: HomeIcon,  iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
+                              { label: 'Post Notice',      Icon: Megaphone, iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
+                              { label: 'View Alerts',      Icon: Bell,      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
                             ].map((a) => (
-                              <div
-                                key={a.label}
-                                className="flex items-center gap-1.5 p-1.5 rounded-xl border"
-                                style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}
-                              >
+                              <div key={a.label} className="flex items-center gap-1.5 p-1.5 rounded-xl border"
+                                style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}>
                                 <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: a.iconBg }}>
-                                  <div className="w-2 h-2 rounded-sm" style={{ background: a.iconColor }} />
+                                  <a.Icon size={9} style={{ color: a.iconColor }} />
                                 </div>
                                 <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
                               </div>

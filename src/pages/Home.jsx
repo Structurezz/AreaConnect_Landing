@@ -4,6 +4,9 @@ import {
   ArrowRight, CheckCircle2, Users, Shield, Building2,
   CreditCard, Bell, BarChart2, ChevronDown, Star,
   Zap, Lock, Globe, MapPin, UserCheck, Play, Wifi,
+  LayoutDashboard, Home as HomeIcon, Megaphone,
+  UserPlus, MessageCircle, ShoppingBag, LayoutGrid, ShieldCheck,
+  Music, MessageSquare,
 } from 'lucide-react';
 
 /* ─── Scroll-reveal hook ──────────────────────────────────────────────── */
@@ -89,26 +92,57 @@ function HeroDashboard() {
           <div className="flex-1 mx-3">
             <div className="rounded-md px-3 py-1 text-[10px] text-slate-400 text-center font-mono"
                  style={{ background: '#F1F5F9', border: '1px solid #E2E8F0' }}>
-              app.areaconnect.pro/dashboard
+              area-connector.areaconnect.pro
             </div>
           </div>
         </div>
         {/* Dashboard body — light theme matching real admin app */}
         <div className="flex" style={{ height: 330 }}>
-          {/* Sidebar */}
-          <div className="w-12 flex flex-col items-center py-3 gap-2 flex-shrink-0 border-r"
+          {/* Sidebar — matches real estatemanager: sections + labels */}
+          <div className="w-28 flex flex-col py-2 flex-shrink-0 border-r overflow-hidden"
                style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1"
-                 style={{ background: '#10B981' }}>
-              <span className="text-white text-[7px] font-black">AC</span>
+            {/* Logo */}
+            <div className="flex items-center gap-1.5 px-2 pb-2 mb-1 border-b" style={{ borderColor: '#E2E8F0' }}>
+              <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#10B981' }}>
+                <span className="text-white text-[6px] font-black">AC</span>
+              </div>
+              <span className="text-[7px] font-black" style={{ color: '#0F172A' }}>AreaConnect</span>
             </div>
-            {[Building2, Users, UserCheck, CreditCard, Bell, BarChart2].map((Icon, i) => (
-              <div key={i} className="w-7 h-6 rounded-lg flex items-center justify-center"
+            {/* MANAGEMENT */}
+            <div className="px-2 mt-1 mb-0.5">
+              <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Management</span>
+            </div>
+            {[
+              { Icon: LayoutDashboard, label: 'Dashboard',     active: true  },
+              { Icon: UserCheck,       label: 'Visitors',      active: false },
+              { Icon: Users,           label: 'Residents',     active: false },
+              { Icon: HomeIcon,        label: 'Units',         active: false },
+              { Icon: Megaphone,       label: 'Announcements', active: false },
+              { Icon: CreditCard,      label: 'Payments',      active: false },
+              { Icon: Shield,          label: 'Guards',        active: false },
+            ].map(({ Icon, label, active }) => (
+              <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
                    style={{
-                     background: i === 0 ? 'rgba(16,185,129,0.10)' : 'transparent',
-                     boxShadow: i === 0 ? 'inset 3px 0 0 #10B981' : 'none',
+                     background: active ? 'rgba(16,185,129,0.10)' : 'transparent',
+                     borderLeft: active ? '2px solid #10B981' : '2px solid transparent',
                    }}>
-                <Icon size={12} style={{ color: i === 0 ? '#10B981' : '#94A3B8' }} />
+                <Icon size={8} style={{ color: active ? '#10B981' : '#94A3B8' }} />
+                <span className="text-[6px] font-medium truncate" style={{ color: active ? '#0F172A' : '#64748B' }}>{label}</span>
+              </div>
+            ))}
+            {/* COMMUNITY */}
+            <div className="px-2 mt-1 mb-0.5">
+              <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Community</span>
+            </div>
+            {[
+              { Icon: Music,         label: 'Lounge & Events' },
+              { Icon: MessageSquare, label: 'Community Chat'  },
+              { Icon: Bell,          label: 'Alerts'          },
+            ].map(({ Icon, label }) => (
+              <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
+                   style={{ borderLeft: '2px solid transparent' }}>
+                <Icon size={8} style={{ color: '#94A3B8' }} />
+                <span className="text-[6px] font-medium truncate" style={{ color: '#64748B' }}>{label}</span>
               </div>
             ))}
           </div>
@@ -142,16 +176,16 @@ function HeroDashboard() {
                 <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
                 <div className="grid grid-cols-2 gap-1.5">
                   {[
-                    { label: 'Manage Residents', iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
-                    { label: 'Estate Units',     iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
-                    { label: 'Post Notice',      iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
-                    { label: 'View Alerts',      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
+                    { label: 'Manage Residents', Icon: Users,     iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
+                    { label: 'Estate Units',     Icon: HomeIcon,  iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
+                    { label: 'Post Notice',      Icon: Megaphone, iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
+                    { label: 'View Alerts',      Icon: Bell,      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
                   ].map(a => (
                     <div key={a.label} className="flex items-center gap-1.5 p-1.5 rounded-xl border"
                          style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}>
                       <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
                            style={{ background: a.iconBg }}>
-                        <div className="w-2 h-2 rounded-sm" style={{ background: a.iconColor }} />
+                        <a.Icon size={9} style={{ color: a.iconColor }} />
                       </div>
                       <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
                     </div>
@@ -396,96 +430,119 @@ function MobileHeroVisual() {
 function PhoneMockup() {
   return (
     <div className="relative flex justify-center">
-      <div className="absolute -inset-8 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl" />
-      </div>
-      <div className="relative rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-56 sm:w-60 animate-float-slow"
-           style={{ height: 480, background: '#F8FAFC' }}>
-        {/* Hero strip — real residents gradient */}
-        <div className="px-4 pt-7 pb-4 relative overflow-hidden"
-             style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}>
-          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
-               style={{ background: 'rgba(255,255,255,0.07)' }} />
-          <div className="relative">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[9px] font-bold rounded-full px-2 py-0.5"
-                    style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
-                Unit 4B
-              </span>
-              <button className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black text-white"
-                      style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                ALERT
-              </button>
+      <div className="absolute -inset-8 rounded-full blur-3xl pointer-events-none"
+           style={{ background: 'rgba(43,108,176,0.18)' }} />
+      <div className="relative rounded-[2.5rem] shadow-2xl overflow-hidden w-56 sm:w-60 animate-float-slow"
+           style={{ height: 500, background: '#F7F5F1', border: '1px solid rgba(0,0,0,0.10)' }}>
+        {/* Notch */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full z-10"
+             style={{ background: '#E2E0DC' }} />
+        <div className="absolute inset-0 flex flex-col">
+          {/* Hero card — #2B6CB0 matching real AreaMates */}
+          <div className="px-4 pt-9 pb-3 relative overflow-hidden"
+               style={{ background: '#2B6CB0' }}>
+            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
+                 style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="relative">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[8px] font-semibold rounded-full px-2 py-0.5 uppercase tracking-wide"
+                      style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)' }}>
+                  Sunrise Estate
+                </span>
+                <div className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
+                     style={{ background: 'rgba(197,48,48,0.90)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  ALERT
+                </div>
+              </div>
+              <div className="text-[9px] mb-0.5" style={{ color: 'rgba(255,255,255,0.75)' }}>Good morning,</div>
+              <div className="text-[15px] font-bold text-white mb-0.5">Adaeze 👋</div>
+              <div className="flex items-center gap-1 mb-2.5">
+                <div className="w-2 h-2 rounded-full" style={{ background: 'rgba(255,255,255,0.5)' }} />
+                <span className="text-[8px]" style={{ color: 'rgba(255,255,255,0.65)' }}>Unit 4B · Block C</span>
+              </div>
+              <div className="flex gap-1.5">
+                {[
+                  { l: 'Active Passes', v: '2' },
+                  { l: 'All Visitors',  v: '14' },
+                  { l: 'Notices',       v: '3' },
+                ].map(s => (
+                  <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
+                       style={{ background: 'rgba(255,255,255,0.12)' }}>
+                    <div className="text-[12px] font-bold text-white">{s.v}</div>
+                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.65)' }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="text-white text-[13px] font-black mb-0.5">Welcome back, Adaeze</div>
-            <div className="text-[9px] mb-3" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
-            <div className="flex gap-2">
-              {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
-                <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
-                     style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
-                  <div className="text-[12px] font-black text-white">{s.v}</div>
-                  <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 px-3 pt-2.5 space-y-2 overflow-hidden" style={{ background: '#F7F5F1' }}>
+            <div className="text-[7px] font-bold uppercase tracking-widest" style={{ color: '#4A5568' }}>Quick Actions</div>
+            <div className="grid grid-cols-2 gap-1.5">
+              {[
+                { label: 'Invite Visitor', Icon: UserPlus,      color: '#276749', bg: 'rgba(39,103,73,0.10)'   },
+                { label: 'Marketplace',    Icon: ShoppingBag,   color: '#2B6CB0', bg: 'rgba(43,108,176,0.10)'  },
+                { label: 'Community',      Icon: MessageCircle, color: '#6B46C1', bg: 'rgba(107,70,193,0.10)'  },
+                { label: 'Alert Security', Icon: ShieldCheck,   color: '#C53030', bg: 'rgba(197,48,48,0.10)'   },
+              ].map(({ label, Icon, color, bg }) => (
+                <div key={label} className="flex flex-col items-center py-2.5 rounded-xl bg-white border text-center"
+                     style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-1"
+                       style={{ background: bg }}>
+                    <Icon size={16} style={{ color }} />
+                  </div>
+                  <div className="text-[7px] font-semibold" style={{ color }}>{label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+              <div className="flex items-center justify-between px-2.5 py-1.5 border-b"
+                   style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+                <span className="text-[8px] font-bold" style={{ color: '#1A202C' }}>Recent Visitors</span>
+                <span className="text-[7px] font-semibold" style={{ color: '#2B6CB0' }}>View all →</span>
+              </div>
+              {[
+                { n: 'Chidi Okafor', d: 'Jun 20 · 3:00 PM', s: 'active',     sc: '#276749', sb: 'rgba(39,103,73,0.10)'  },
+                { n: 'Fatima Bello', d: 'Jun 18 · 1:30 PM', s: 'checked-in', sc: '#2B6CB0', sb: 'rgba(43,108,176,0.10)' },
+              ].map(v => (
+                <div key={v.n} className="flex items-center gap-2 px-2.5 py-2 border-b last:border-0"
+                     style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0"
+                       style={{ background: 'rgba(43,108,176,0.10)', color: '#2B6CB0' }}>
+                    {v.n[0]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[8px] font-semibold truncate" style={{ color: '#1A202C' }}>{v.n}</div>
+                    <div className="text-[7px]" style={{ color: '#A0AEC0' }}>{v.d}</div>
+                  </div>
+                  <span className="text-[7px] font-semibold px-1.5 py-0.5 rounded-full"
+                        style={{ background: v.sb, color: v.sc }}>
+                    {v.s}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
 
-        <div className="p-3 space-y-2.5">
-          {/* Quick nav 2×2 */}
-          <div className="grid grid-cols-2 gap-2">
+          {/* Tab bar */}
+          <div className="flex items-center justify-around px-1 py-1.5 border-t"
+               style={{ background: '#FFFFFF', borderColor: 'rgba(0,0,0,0.07)', minHeight: 46 }}>
             {[
-              { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
-              { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
-              { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
-              { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
-            ].map(a => (
-              <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
-                   style={{ background: a.bg, borderColor: a.border }}>
-                <div className="w-5 h-5 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
-                <div className="text-[8px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
+              { label: 'Home',     Icon: HomeIcon,      active: true  },
+              { label: 'Visitors', Icon: UserPlus,      active: false },
+              { label: 'Chat',     Icon: MessageCircle, active: false },
+              { label: 'Market',   Icon: ShoppingBag,   active: false },
+              { label: 'More',     Icon: LayoutGrid,    active: false },
+            ].map(({ label, Icon, active }) => (
+              <div key={label} className="flex flex-col items-center gap-0.5">
+                <Icon size={16} style={{ color: active ? '#2B6CB0' : '#A0AEC0' }} />
+                <span className="text-[7px] font-semibold"
+                      style={{ color: active ? '#2B6CB0' : '#A0AEC0' }}>{label}</span>
               </div>
             ))}
-          </div>
-
-          {/* My Visitor Passes */}
-          <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-            <div className="px-3 py-2 border-b text-[9px] font-bold" style={{ color: '#0F172A', borderColor: 'rgba(15,23,42,0.06)' }}>
-              My Visitor Passes
-            </div>
-            {[
-              { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',  se: 'rgba(99,102,241,0.22)'  },
-              { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.22)'  },
-            ].map(v => (
-              <div key={v.n} className="flex items-center gap-2 px-3 py-2 border-b last:border-0"
-                   style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
-                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0"
-                     style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
-                  {v.n[0]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[9px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
-                  <div className="text-[8px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
-                </div>
-                <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
-                      style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
-                  {v.s}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Estate notice */}
-          <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
-            <div className="flex items-start gap-2">
-              <span className="text-sm">📢</span>
-              <div>
-                <div className="text-[9px] font-bold text-amber-700">ESTATE NOTICE</div>
-                <div className="text-[10px] font-semibold text-slate-800 mt-0.5">Water maintenance Saturday</div>
-                <div className="text-[9px] text-slate-400 mt-0.5">8AM – 2PM · 23 min ago</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1204,80 +1261,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <span className="section-tag mb-4 inline-flex">Loved by estate managers</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">Don&apos;t just take our word for it</h2>
-              <p className="text-slate-500 text-base sm:text-lg">Real managers. Real results. Across Nigeria.</p>
-            </div>
-          </Reveal>
-
-          {/* Mobile: horizontal scroll carousel — all 5 testimonials */}
-          <div className="sm:hidden -mx-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4">
-            <div className="flex gap-4 px-5 w-max">
-              {[
-                { quote: "Before AreaConnect I was managing visitors in a paper log book and chasing residents on WhatsApp for dues. Now everything runs automatically. I save at least 6 hours every week.", name: "Adaeze Okonkwo", role: "Estate Manager · Lekki Phase 1", initials: "AO", color: "bg-brand-500" },
-                { quote: "The visitor QR code system is brilliant. Residents love sending a pass directly from the app — no more calling security every time a guest arrives. Gate officers picked it up in 5 minutes.", name: "Babatunde Oyelaran", role: "Estate Manager · Chevron Drive", initials: "BO", color: "bg-indigo-500" },
-                { quote: "We collect over ₦4 million in estate dues every quarter with zero manual follow-up. The automated Paystack reminders are seamless. Best investment we've made for the estate.", name: "Ngozi Eze", role: "Property Manager · Abuja GRA", initials: "NE", color: "bg-blue-500" },
-                { quote: "Setup was faster than I expected. I uploaded the CSV of residents on a Saturday afternoon and by Monday morning everyone had their login and started using AreaMates. Remarkable.", name: "Emeka Adeyemi", role: "Chairman · Heritage Court, Uyo", initials: "EA", color: "bg-violet-500" },
-                { quote: "The offline mode for the Guard app is a lifesaver. Our estate has patchy network near Gate 2. Guards can still verify visitors without signal and it syncs automatically.", name: "Fatimah Suleiman", role: "Property Manager · Meadow Court", initials: "FS", color: "bg-amber-500" },
-              ].map((t, i) => (
-                <div key={t.name} className="snap-center flex-shrink-0 w-[284px] bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex flex-col">
-                  <div className="flex gap-0.5 mb-3">
-                    {[...Array(5)].map((_, j) => <Star key={j} size={12} className="text-amber-400 fill-amber-400" />)}
-                  </div>
-                  <p className="text-slate-700 text-sm leading-relaxed flex-1 italic mb-4">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-slate-50">
-                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm`}>
-                      {t.initials}
-                    </div>
-                    <div>
-                      <div className="font-bold text-slate-900 text-sm">{t.name}</div>
-                      <div className="text-xs text-slate-400 mt-0.5">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* Scroll dots */}
-            <div className="flex justify-center gap-1.5 mt-4">
-              {[0,1,2,3,4].map(i => (
-                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-4' : 'w-1.5'}`} />
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop: grid layout */}
-          {/* Top 3 */}
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-5 sm:mb-6">
-            <TestimonialCard delay={0}
-              quote="Before AreaConnect I was managing visitors in a paper log book and chasing residents on WhatsApp for dues. Now everything runs automatically. I save at least 6 hours every week."
-              name="Adaeze Okonkwo" role="Estate Manager · Lekki Phase 1, Lagos" initials="AO" color="bg-brand-500" />
-            <TestimonialCard delay={80}
-              quote="The visitor QR code system is brilliant. Residents love sending a pass directly from the app — no more calling security every time a guest arrives. Gate officers picked it up in 5 minutes."
-              name="Babatunde Oyelaran" role="Estate Manager · Chevron Drive, Lekki" initials="BO" color="bg-indigo-500" />
-            {/* 3rd card hidden on tablet to keep section lean */}
-            <div className="hidden lg:block">
-              <TestimonialCard delay={160}
-                quote="We collect over ₦4 million in estate dues every quarter with zero manual follow-up. The automated Paystack reminders are seamless. Best investment we've made for the estate."
-                name="Ngozi Eze" role="Property Manager · Abuja GRA, FCT" initials="NE" color="bg-blue-500" />
-            </div>
-          </div>
-
-          {/* Bottom 2 — desktop only */}
-          <div className="hidden md:grid md:grid-cols-2 gap-6">
-            {[
-              { quote: "Setup was faster than I expected. I uploaded the CSV of residents on a Saturday afternoon and by Monday morning everyone had their login and had already started using AreaMates. Remarkable.", name: "Emeka Adeyemi",    role: "Chairman · Heritage Court, Uyo",        initials: "EA", color: "bg-violet-500" },
-              { quote: "The offline mode for the Guard app is a lifesaver. Our estate has patchy network near Gate 2. Guards can still verify visitors without signal and it syncs when they walk closer to the office.", name: "Fatimah Suleiman", role: "Property Manager · Meadow Court, Abuja", initials: "FS", color: "bg-amber-500"  },
-            ].map((t, i) => (
-              <TestimonialCard key={t.name} delay={i * 80} {...t} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── BUILT FOR NIGERIA ─────────────────────────────────────────── */}
       <section className="py-20 sm:py-28 bg-white">

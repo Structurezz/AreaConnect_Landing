@@ -1,33 +1,38 @@
 import { Link } from 'react-router-dom';
-import { Mail, Twitter, Linkedin, Instagram } from 'lucide-react';
+import {
+  Mail, Twitter, Linkedin, Instagram,
+  Zap, CreditCard, LayoutDashboard, Users, Shield,
+  Info, BookOpen, Briefcase, MessageCircle,
+  Lock, FileText, Cookie, ShieldCheck,
+} from 'lucide-react';
 
 const COLS = [
   {
     title: 'Product',
     links: [
-      { label: 'Features',          to: '/features' },
-      { label: 'Pricing',           to: '/pricing'  },
-      { label: 'AreaConnect Admin', to: '/admin'    },
-      { label: 'AreaMates',         to: '/mates'    },
-      { label: 'AreaConnect Guard', to: '/guard'    },
+      { label: 'Features',          to: '/features', icon: Zap            },
+      { label: 'Pricing',           to: '/pricing',  icon: CreditCard     },
+      { label: 'AreaConnect Admin', to: '/admin',    icon: LayoutDashboard },
+      { label: 'AreaMates',         to: '/mates',    icon: Users          },
+      { label: 'AreaConnect Guard', to: '/guard',    icon: Shield         },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About us',  to: '/about'   },
-      { label: 'Blog',      to: '/blog'    },
-      { label: 'Careers',   to: '/careers' },
-      { label: 'Contact',   to: '/contact' },
+      { label: 'About us',  to: '/about',    icon: Info          },
+      { label: 'Blog',      to: '/blog',     icon: BookOpen      },
+      { label: 'Careers',   to: '/careers',  icon: Briefcase     },
+      { label: 'Contact',   to: '/contact',  icon: MessageCircle },
     ],
   },
   {
     title: 'Legal',
     links: [
-      { label: 'Privacy policy',  to: '/privacy'  },
-      { label: 'Terms of service',to: '/terms'    },
-      { label: 'Cookie policy',   to: '/cookies'  },
-      { label: 'Security',        to: '/security' },
+      { label: 'Privacy policy',   to: '/privacy',  icon: Lock       },
+      { label: 'Terms of service', to: '/terms',    icon: FileText   },
+      { label: 'Cookie policy',    to: '/cookies',  icon: Cookie     },
+      { label: 'Security',         to: '/security', icon: ShieldCheck },
     ],
   },
 ];
@@ -78,7 +83,8 @@ export default function Footer() {
               <ul className="space-y-3">
                 {col.links.map(l => (
                   <li key={l.label}>
-                    <Link to={l.to} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    <Link to={l.to} className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors group">
+                      <l.icon size={13} className="flex-shrink-0 text-slate-600 group-hover:text-brand-400 transition-colors" />
                       {l.label}
                     </Link>
                   </li>
