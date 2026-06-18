@@ -338,7 +338,7 @@ function MarketplaceMockup() {
             { title: 'Jollof Rice (large pot)', price: '₦8,500', seller: 'Amaka E.', emoji: '🍛', tag: 'Food',     tc: '#F59E0B' },
             { title: 'AC repair & servicing',  price: '₦15,000', seller: 'Kelechi T.', emoji: '❄️', tag: 'Services', tc: '#60A5FA' },
             { title: 'iPhone 13 Pro Max',      price: '₦380,000', seller: 'Tunde A.', emoji: '📱', tag: 'For Sale', tc: '#34D399' },
-            { title: 'Lesson: JAMB Maths',     price: 'Free',    seller: 'Ngozi I.', emoji: '📚', tag: 'Skills',   tc: '#A78BFA' },
+            { title: 'Lesson: JAMB Maths',     price: 'Free',    seller: 'Hauwa I.', emoji: '📚', tag: 'Skills',   tc: '#A78BFA' },
           ].map((l, i) => (
             <div key={i} className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
               {/* Image area */}
@@ -426,9 +426,9 @@ function LoungeMockup() {
         <div className="bg-white rounded-xl border p-2.5" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
           <div className="flex items-center gap-2 mb-2">
             <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
-              style={{ background: '#10B981' }}>N</div>
+              style={{ background: '#10B981' }}>T</div>
             <div>
-              <div className="text-[9px] font-bold" style={{ color: '#0F172A' }}>Ngozi Eze</div>
+              <div className="text-[9px] font-bold" style={{ color: '#0F172A' }}>Tonye Briggs</div>
               <div className="text-[7px]" style={{ color: '#94A3B8' }}>Unit 1D · 12 min ago</div>
             </div>
           </div>
@@ -557,7 +557,7 @@ function AdminMockup() {
           <div className="flex-1 overflow-hidden flex flex-col">
             {/* Emerald hero */}
             <div className="px-3 pt-3 pb-3" style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
-              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Adaeze 👋</div>
+              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Taiwo 👋</div>
               <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Sunrise Estate — here's today at a glance</div>
               <div className="flex gap-1">
                 {[
@@ -603,7 +603,7 @@ function AdminMockup() {
                 {[
                   { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)'  },
                   { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)'  },
-                  { n: 'Emeka Nwosu',  u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
+                  { n: 'Seun Afolabi', u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
                 ].map(v => (
                   <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white" style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
                     <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"

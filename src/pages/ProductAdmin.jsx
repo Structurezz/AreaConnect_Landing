@@ -259,7 +259,7 @@ export default function ProductAdmin() {
                     <div className="flex-1 overflow-hidden flex flex-col">
                       {/* Emerald hero strip */}
                       <div className="px-3 pt-3 pb-3.5" style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
-                        <div className="text-[10px] font-black text-white mb-0.5">Good morning, Adaeze 👋</div>
+                        <div className="text-[10px] font-black text-white mb-0.5">Good morning, Taiwo 👋</div>
                         <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Sunrise Estate — here's today at a glance</div>
                         <div className="flex gap-1">
                           {[
@@ -310,7 +310,7 @@ export default function ProductAdmin() {
                           {[
                             { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)' },
                             { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)' },
-                            { n: 'Emeka Nwosu',  u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
+                            { n: 'Seun Afolabi', u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
                           ].map((v) => (
                             <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white" style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
                               <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"

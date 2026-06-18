@@ -151,7 +151,7 @@ function HeroDashboard() {
             {/* Emerald hero strip */}
             <div className="px-3 pt-3 pb-3.5"
                  style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
-              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Adaeze 👋</div>
+              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Taiwo 👋</div>
               <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>
                 Sunrise Estate — here's today at a glance
               </div>
@@ -201,7 +201,7 @@ function HeroDashboard() {
                 {[
                   { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)'  },
                   { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)'  },
-                  { n: 'Emeka Nwosu',  u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
+                  { n: 'Seun Afolabi', u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
                 ].map(v => (
                   <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white"
                        style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
@@ -252,7 +252,7 @@ function HeroDashboard() {
           </div>
           <span className="text-[9px] font-bold text-blue-700 uppercase tracking-wide">New resident</span>
         </div>
-        <div className="text-[11px] font-bold text-slate-800">Ngozi Eze joined</div>
+        <div className="text-[11px] font-bold text-slate-800">Emem Bassey joined</div>
         <div className="text-[9px] text-slate-400 mt-0.5">Unit 1D · 2 min ago</div>
       </div>
       <div className="absolute top-3 right-1/4 bg-white rounded-2xl shadow-xl p-3 w-40 animate-float-delayed2 border border-slate-100 hidden xl:block z-20">
@@ -640,22 +640,21 @@ function GuardMockup() {
 }
 
 /* ─── Marquee ─────────────────────────────────────────────────────────── */
-const ESTATES = [
-  'Sunrise Estate, Lekki', 'Meadow Court, Abuja', 'Palm Grove, Port Harcourt',
-  'Kings Court, Victoria Island', 'Emerald Gardens, Enugu', 'Royal Palms, Ikeja',
-  'Diamond Estate, Warri', 'Green Park, Ibadan', 'Heritage Court, Uyo',
-  'Lighthouse Estate, Calabar', 'Riviera Heights, Ikoyi', 'Crescent View, Maiduguri',
-  'Oakwood Estate, Jos', 'Blue Ridge, Asaba', 'Hilltop Gardens, Benin City',
+const FEATURES = [
+  'Visitor QR Passes', 'Service Charge Collection', 'Gate & Guard App', 'Resident Portal',
+  'Estate Announcements', 'Community Chat', 'Resident Marketplace', 'Security Alerts',
+  'Estate Analytics', 'Payment Tracking', 'Community Polls', 'Offline Guard Mode',
+  'WhatsApp Pass Sharing', 'Multi-Gate Support', 'Real-Time Notifications',
 ];
 function Marquee() {
-  const items = [...ESTATES, ...ESTATES];
+  const items = [...FEATURES, ...FEATURES];
   return (
     <div className="overflow-hidden whitespace-nowrap">
       <div className="inline-flex animate-marquee">
-        {items.map((e, i) => (
+        {items.map((f, i) => (
           <span key={i} className="inline-flex items-center gap-3 px-6 text-sm font-medium text-slate-400">
             <span className="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0" />
-            {e}
+            {f}
           </span>
         ))}
       </div>
@@ -789,7 +788,7 @@ export default function Home() {
       {/* ── MARQUEE ──────────────────────────────────────────────────── */}
       <div className="bg-[#050d1a] border-t border-white/5 py-5">
         <div className="text-center mb-3">
-          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em]">Trusted by estates across Nigeria</span>
+          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em]">Top features we offer</span>
         </div>
         <Marquee />
       </div>
@@ -986,7 +985,7 @@ export default function Home() {
                     {i === 1 && (
                       <div className="mt-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
                         <div className="bg-indigo-600 p-3">
-                          <div className="text-[9px] font-bold text-white mb-0.5">Good morning, Adaeze 👋</div>
+                          <div className="text-[9px] font-bold text-white mb-0.5">Good morning, Taiwo 👋</div>
                           <div className="text-[8px] text-indigo-300">Sunrise Estate · 3 notifications</div>
                         </div>
                         <div className="bg-slate-50 p-3 space-y-1.5">

@@ -222,7 +222,7 @@ export default function ProductMates() {
               </div>
               <p className="text-sm text-slate-500">
                 Also at{' '}
-                <span className="text-indigo-400 font-semibold">area-connector.areaconnect.pro</span>
+                <span className="text-indigo-400 font-semibold">area-mates.areaconnect.pro</span>
                 {' '}on any browser
               </p>
             </div>
@@ -357,9 +357,9 @@ export default function ProductMates() {
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
-              { name: 'Adaeze Okonkwo', estate: 'Sunrise Estate, Lekki', quote: "I used to call my husband every time I had a visitor because I forgot the gate officer's number. Now I just send the QR and forget about it.", stars: 5 },
-              { name: 'Babatunde Adeyemi', estate: 'Royal Gardens, Abuja', quote: "Paying service charge used to mean driving to the estate office on a Saturday. Now I do it from bed while watching football.", stars: 5 },
-              { name: 'Chioma Nwachukwu', estate: 'Harbour View, Port Harcourt', quote: "The community chat was unexpected. I found a plumber, sold my old AC, and made two new friends — all from the app.", stars: 5 },
+              { name: 'Preye Diri', quote: "I used to call my husband every time I had a visitor because I forgot the gate officer's number. Now I just send the QR and forget about it.", stars: 5 },
+              { name: 'Babatunde Adeyemi', quote: "Paying service charge used to mean driving to the estate office on a Saturday. Now I do it from bed while watching football.", stars: 5 },
+              { name: 'Zainab Umar', quote: "The community chat was unexpected. I found a plumber, sold my old AC, and made two new friends — all from the app.", stars: 5 },
             ].map((t, i) => (
               <Reveal key={t.name} delay={i * 70}>
                 <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
@@ -369,7 +369,6 @@ export default function ProductMates() {
                   <p className="text-sm text-slate-700 leading-relaxed mb-5 italic">&ldquo;{t.quote}&rdquo;</p>
                   <div>
                     <div className="font-black text-slate-900 text-sm">{t.name}</div>
-                    <div className="text-xs text-slate-400">{t.estate}</div>
                   </div>
                 </div>
               </Reveal>
@@ -392,7 +391,7 @@ export default function ProductMates() {
               Ask your estate manager to set up AreaConnect, or get started for your estate today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="https://area-connector.areaconnect.pro/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
+              <Link to="https://area-mates.areaconnect.pro/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
                 Get started <ArrowRight size={18} />
               </Link>
               <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
