@@ -1,0 +1,12 @@
+{
+  "name": "AreaConnect",
+  "short_name": "AreaConnect",
+  "description": "Smart estate management platform for Nigeria — visitor passes, payments, community tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10B981",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

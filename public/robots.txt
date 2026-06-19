@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://areaconnect.pro/sitemap.xml

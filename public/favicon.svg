@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#10B981"/>
+  <path d="M32 7L10 19.5v25L32 57l22-12.5v-25L32 7z" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="2"/>
+  <path d="M32 14L14 24.5v19L32 54l18-10.5v-19L32 14z" fill="rgba(255,255,255,0.18)"/>
+  <text x="32" y="40" text-anchor="middle" fill="white" font-size="18" font-weight="800" font-family="system-ui,-apple-system,sans-serif" letter-spacing="-0.5">AC</text>
+</svg>
