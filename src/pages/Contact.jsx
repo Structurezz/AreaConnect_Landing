@@ -6,13 +6,28 @@ export default function Contact() {
   const [form, setForm]     = useState({ name: '', email: '', company: '', subject: '', message: '' });
   const [sent, setSent]     = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError]   = useState('');
+
+  const API = import.meta.env.VITE_API_URL || 'https://areaconnectapi-production.up.railway.app/api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1200));
-    setLoading(false);
-    setSent(true);
+    setError('');
+    try {
+      const res = await fetch(`${API}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      setSent(true);
+    } catch (err) {
+      setError(err.message || 'Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -126,6 +141,10 @@ export default function Contact() {
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-sm text-red-500 bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
+                  )}
+
                   <button
                     type="submit"
                     disabled={loading}
@@ -164,6 +183,7 @@ export default function Contact() {
                   sub: 'We respond within 2 business hours',
                   bg: 'bg-brand-50',
                   color: 'text-brand-600',
+                  href: 'mailto:hello@areaconnect.pro',
                 },
                 {
                   icon: Phone,
