@@ -25,9 +25,9 @@ function Reveal({ children, delay = 0, className = '' }) {
 function PhoneMockup() {
   return (
     <div className="relative flex justify-center">
-      {/* Glow — blue matching real AreaMates brand */}
+      {/* Glow — purple matching real AreaMates brand */}
       <div className="absolute -inset-8 rounded-full blur-3xl pointer-events-none"
-           style={{ background: 'rgba(43,108,176,0.20)' }} />
+           style={{ background: 'rgba(124,58,237,0.20)' }} />
       {/* Phone body — light theme #F7F5F1 matching real app C.bg */}
       <div className="relative rounded-[2.5rem] shadow-2xl overflow-hidden w-[240px]"
            style={{ height: 500, background: '#F7F5F1', border: '1px solid rgba(0,0,0,0.10)' }}>
@@ -36,9 +36,9 @@ function PhoneMockup() {
              style={{ background: '#E2E0DC' }} />
         <div className="absolute inset-0 flex flex-col">
 
-          {/* Hero card — C.blue #2B6CB0 solid, matching heroCard style */}
+          {/* Hero card — C.blue #7C3AED solid, matching heroCard style */}
           <div className="px-3 pt-9 pb-3 relative overflow-hidden"
-               style={{ background: '#2B6CB0' }}>
+               style={{ background: '#7C3AED' }}>
             <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
                  style={{ background: 'rgba(255,255,255,0.07)' }} />
             <div className="relative">
@@ -88,7 +88,7 @@ function PhoneMockup() {
             <div className="grid grid-cols-2 gap-1.5">
               {[
                 { label: 'Invite Visitor', Icon: UserPlus,     color: '#276749', bg: 'rgba(39,103,73,0.10)'  },
-                { label: 'Marketplace',    Icon: ShoppingBag,  color: '#2B6CB0', bg: 'rgba(43,108,176,0.10)' },
+                { label: 'Marketplace',    Icon: ShoppingBag,  color: '#7C3AED', bg: 'rgba(124,58,237,0.10)' },
                 { label: 'Community',      Icon: MessageCircle,color: '#6B46C1', bg: 'rgba(107,70,193,0.10)' },
                 { label: 'Alert Security', Icon: ShieldCheck,  color: '#C53030', bg: 'rgba(197,48,48,0.10)'  },
               ].map(({ label, Icon, color, bg }) => (
@@ -109,21 +109,21 @@ function PhoneMockup() {
                    style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
                 <div className="flex items-center gap-1.5">
                   <div className="w-5 h-5 rounded flex items-center justify-center"
-                       style={{ background: 'rgba(43,108,176,0.10)' }}>
-                    <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#2B6CB0' }} />
+                       style={{ background: 'rgba(124,58,237,0.10)' }}>
+                    <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#7C3AED' }} />
                   </div>
                   <span className="text-[8px] font-bold" style={{ color: '#1A202C' }}>Recent Visitors</span>
                 </div>
-                <span className="text-[7px] font-semibold" style={{ color: '#2B6CB0' }}>View all →</span>
+                <span className="text-[7px] font-semibold" style={{ color: '#7C3AED' }}>View all →</span>
               </div>
               {[
                 { n: 'Chidi Okafor', d: 'Jun 20 · 3:00 PM', s: 'active',     sc: '#276749', sb: 'rgba(39,103,73,0.10)'  },
-                { n: 'Fatima Bello', d: 'Jun 18 · 1:30 PM', s: 'checked-in', sc: '#2B6CB0', sb: 'rgba(43,108,176,0.10)' },
+                { n: 'Fatima Bello', d: 'Jun 18 · 1:30 PM', s: 'checked-in', sc: '#7C3AED', sb: 'rgba(124,58,237,0.10)' },
               ].map(v => (
                 <div key={v.n} className="flex items-center gap-2 px-2.5 py-2 border-b last:border-0"
                      style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
                   <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0"
-                       style={{ background: 'rgba(43,108,176,0.10)', color: '#2B6CB0' }}>
+                       style={{ background: 'rgba(124,58,237,0.10)', color: '#7C3AED' }}>
                     {v.n[0]}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -150,9 +150,9 @@ function PhoneMockup() {
               { label: 'More',     Icon: LayoutGrid,    active: false },
             ].map(({ label, Icon, active }) => (
               <div key={label} className="flex flex-col items-center gap-0.5">
-                <Icon size={16} style={{ color: active ? '#2B6CB0' : '#A0AEC0' }} />
+                <Icon size={16} style={{ color: active ? '#7C3AED' : '#A0AEC0' }} />
                 <span className="text-[7px] font-semibold"
-                      style={{ color: active ? '#2B6CB0' : '#A0AEC0' }}>{label}</span>
+                      style={{ color: active ? '#7C3AED' : '#A0AEC0' }}>{label}</span>
               </div>
             ))}
           </div>
