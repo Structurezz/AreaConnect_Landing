@@ -190,21 +190,21 @@ export default function ProductMates() {
     <div>
       {/* Hero */}
       <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#050d1a' }}>
-        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-20 right-0 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="relative max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
                   <Users size={22} className="text-white" />
                 </div>
-                <span className="text-indigo-400 text-xs font-bold uppercase tracking-widest">AreaMates</span>
+                <span className="text-purple-400 text-xs font-bold uppercase tracking-widest">AreaMates</span>
               </div>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
                 Your estate life,<br />
-                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">in one app.</span>
+                <span className="bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">in one app.</span>
               </h1>
               <p className="hidden sm:block text-lg text-slate-400 leading-relaxed mb-8">
                 Pre-register visitors, pay estate dues, chat with neighbours, and stay updated with everything happening in your community — all from your phone.
@@ -213,7 +213,7 @@ export default function ProductMates() {
                 Visitors, dues, chat, and community — all in one place on your phone.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-indigo-500/30">
+                <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-purple-500/30">
                   <Smartphone size={16} /> App Store
                 </a>
                 <a href="#" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 bg-white/5 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
@@ -222,7 +222,7 @@ export default function ProductMates() {
               </div>
               <p className="text-sm text-slate-500">
                 Also at{' '}
-                <span className="text-indigo-400 font-semibold">area-mates.areaconnect.pro</span>
+                <span className="text-purple-400 font-semibold">area-mates.areaconnect.pro</span>
                 {' '}on any browser
               </p>
             </div>
@@ -234,7 +234,7 @@ export default function ProductMates() {
       </section>
 
       {/* Stats strip */}
-      <div className="bg-indigo-600 py-10">
+      <div className="bg-purple-600 py-10">
         <div className="max-w-4xl mx-auto px-6">
           {/* Desktop */}
           <div className="hidden sm:grid grid-cols-3 gap-8 text-center">
@@ -245,7 +245,7 @@ export default function ProductMates() {
             ].map(s => (
               <div key={s.label}>
                 <div className="text-3xl font-black text-white mb-1">{s.num}</div>
-                <div className="text-indigo-100 text-sm font-medium">{s.label}</div>
+                <div className="text-purple-100 text-sm font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -258,7 +258,7 @@ export default function ProductMates() {
             ].map(s => (
               <div key={s.label} className="flex-shrink-0 text-center min-w-[90px]">
                 <div className="text-2xl font-black text-white mb-1">{s.num}</div>
-                <div className="text-indigo-100 text-xs font-medium">{s.label}</div>
+                <div className="text-purple-100 text-xs font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -305,7 +305,7 @@ export default function ProductMates() {
                   { num: '03', title: 'Guard scans at the gate', desc: 'One-second scan confirms identity, host, and validity. Gate opens. Entry logged.' },
                 ].map(s => (
                   <div key={s.num} className="flex items-start gap-5">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white text-sm font-black flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-purple-600 text-white text-sm font-black flex items-center justify-center flex-shrink-0 shadow-sm">
                       {s.num}
                     </div>
                     <div>
@@ -329,7 +329,7 @@ export default function ProductMates() {
                     ))}
                   </div>
                   <div className="text-xs text-slate-400 mb-2">Or enter access code</div>
-                  <div className="text-3xl font-black tracking-[0.3em] text-indigo-600">847 291</div>
+                  <div className="text-3xl font-black tracking-[0.3em] text-purple-600">847 291</div>
                   <div className="mt-4 text-[10px] text-slate-400">Valid: Today · 3:00 PM – 11:59 PM</div>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-slate-400">
@@ -379,7 +379,7 @@ export default function ProductMates() {
 
       {/* CTA */}
       <section className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-violet-700 to-indigo-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-violet-700 to-purple-900" />
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="relative max-w-lg mx-auto px-6 text-center z-10">
           <Reveal>
@@ -387,11 +387,11 @@ export default function ProductMates() {
               <Users size={28} className="text-white" />
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">AreaMates is available now</h2>
-            <p className="text-indigo-100 mb-8 text-base sm:text-lg leading-relaxed">
+            <p className="text-purple-100 mb-8 text-base sm:text-lg leading-relaxed">
               Ask your estate manager to set up AreaConnect, or get started for your estate today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="https://area-mates.areaconnect.pro/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
+              <Link to="https://area-mates.areaconnect.pro/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition-all duration-200 hover:-translate-y-0.5 shadow-xl text-base">
                 Get started <ArrowRight size={18} />
               </Link>
               <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base">
