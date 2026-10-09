@@ -702,6 +702,20 @@ function City({ name, tag, color, active }) {
 
 /* ─── Main page ───────────────────────────────────────────────────────── */
 export default function Home() {
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const fn = () => {
+      // show after passing hero (~70% of a mobile viewport), hide near page bottom
+      const y = window.scrollY;
+      const h = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      setShowStickyCta(y > h * 0.6 && y + h < docH - 400);
+    };
+    window.addEventListener('scroll', fn, { passive: true });
+    fn();
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
   return (
     <div>
 
@@ -714,13 +728,99 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 dot-grid opacity-40" />
 
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-28 pb-16 lg:py-36 w-full">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-20 pb-14 sm:pt-28 sm:pb-16 lg:py-36 w-full">
+
+          {/* ── Mobile / tablet layout: app-first ──────────────────── */}
+          <div className="lg:hidden flex flex-col items-center z-10 relative">
+
+            {/* Status pills row — feels like app header */}
+            <div className="flex items-center gap-2 mb-5 animate-fade-in">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-500/15 border border-brand-500/30 pl-1 pr-3 py-1 backdrop-blur-sm">
+                <span className="relative flex items-center justify-center w-5 h-5 rounded-full bg-brand-500">
+                  <span className="absolute inset-0 rounded-full bg-brand-400 animate-ping-slow opacity-60" />
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-white" />
+                </span>
+                <span className="text-brand-300 text-[11px] font-bold tracking-wide">Live now</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-2.5 py-1 backdrop-blur-sm">
+                <MapPin size={10} className="text-white/60" />
+                <span className="text-white/75 text-[11px] font-semibold">Nigeria</span>
+              </span>
+            </div>
+
+            {/* Big app-style headline */}
+            <h1 className="text-[2.4rem] sm:text-[2.8rem] font-black text-white leading-[1.03] tracking-tight text-center animate-fade-in-up">
+              Your estate.<br />
+              <span className="gradient-text-brand">In your pocket.</span>
+            </h1>
+
+            <p className="text-[13px] sm:text-sm text-slate-400 leading-relaxed mt-4 mb-6 text-center max-w-[300px] animate-fade-in-up"
+               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              Visitor passes, dues collection, community chat — one AreaConnect app for everyone.
+            </p>
+
+            {/* Phone mockup — hero focal point, bigger */}
+            <div className="animate-fade-in-up w-full flex justify-center" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+              <MobileHeroVisual />
+            </div>
+
+            {/* App-style CTA stack */}
+            <div className="w-full max-w-sm mt-14 space-y-2.5 animate-fade-in-up px-1"
+                 style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+              <Link to="https://area-connector.areaconnect.pro/register"
+                    className="flex items-center justify-between w-full bg-gradient-to-r from-brand-500 to-brand-600 text-white font-bold pl-4 pr-2.5 py-3 rounded-2xl shadow-xl shadow-brand-500/30 active:scale-[0.98] transition-all">
+                <span className="flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center flex-shrink-0">
+                    <Zap size={17} className="text-white" fill="white" />
+                  </span>
+                  <span className="text-left">
+                    <span className="block text-[15px] leading-tight">Start free trial</span>
+                    <span className="block text-[10.5px] text-white/70 font-medium leading-tight mt-0.5">Setup in 10 min · no card</span>
+                  </span>
+                </span>
+                <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+                  <ArrowRight size={16} />
+                </span>
+              </Link>
+              <Link to="/features"
+                    className="flex items-center justify-center gap-2 w-full border border-white/15 text-white/85 font-semibold py-3 rounded-2xl text-[13px] active:bg-white/10 active:scale-[0.98] transition-all">
+                <Play size={12} className="fill-white/80" /> See how it works
+              </Link>
+            </div>
+
+            {/* Trust row */}
+            <div className="flex items-center gap-3 mt-6 animate-fade-in-up"
+                 style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <div className="flex -space-x-2">
+                {[['AO','bg-brand-500'],['BT','bg-indigo-500'],['NK','bg-blue-500'],['FN','bg-violet-500']].map(([i, c]) => (
+                  <div key={i} className={`w-7 h-7 rounded-full ${c} border-2 border-[#050d1a] flex items-center justify-center text-white text-[9px] font-bold`}>{i}</div>
+                ))}
+              </div>
+              <div className="text-xs text-left">
+                <div className="flex items-center gap-1 mb-0.5">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={9} className="text-amber-400 fill-amber-400" />)}
+                  <span className="text-white font-bold ml-1 text-[11px]">4.9</span>
+                </div>
+                <div className="text-slate-500 text-[11px]">500+ estates trust us</div>
+              </div>
+            </div>
+
+            {/* Scroll hint */}
+            <div className="mt-10 flex flex-col items-center gap-1.5 opacity-70 animate-fade-in"
+                 style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Swipe to explore</span>
+              <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+                <span className="w-1 h-2 rounded-full bg-white/50 animate-bounce" style={{ animationDuration: '1.5s' }} />
+              </div>
+            </div>
+          </div>
+
+          {/* ── Desktop layout: untouched ─────────────────────────── */}
+          <div className="hidden lg:flex flex-row items-center gap-20">
 
             {/* Left copy */}
-            <div className="flex-1 max-w-xl text-center lg:text-left z-10 w-full">
-              {/* Live badge */}
-              <div className="inline-flex items-center gap-2.5 border border-brand-500/30 bg-brand-500/10 rounded-full px-4 py-1.5 mb-6 sm:mb-8 animate-fade-in">
+            <div className="flex-1 max-w-xl text-left z-10 w-full">
+              <div className="inline-flex items-center gap-2.5 border border-brand-500/30 bg-brand-500/10 rounded-full px-4 py-1.5 mb-8 animate-fade-in">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
@@ -728,32 +828,29 @@ export default function Home() {
                 <span className="text-brand-400 text-xs font-semibold tracking-wide">Now live across Nigeria</span>
               </div>
 
-              <h1 className="text-[1.85rem] sm:text-5xl lg:text-[68px] font-black text-white leading-[1.1] tracking-tight mb-4 sm:mb-6 animate-fade-in-up">
+              <h1 className="text-[68px] font-black text-white leading-[1.1] tracking-tight mb-6 animate-fade-in-up">
                 Nigeria&apos;s smartest<br />
                 <span className="gradient-text-brand">estate platform.</span>
               </h1>
 
-              <p className="text-sm sm:text-lg text-slate-400 leading-relaxed mb-7 sm:mb-8 animate-fade-in-up max-w-md mx-auto lg:mx-0"
+              <p className="text-lg text-slate-400 leading-relaxed mb-8 animate-fade-in-up max-w-md"
                  style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-                <span className="sm:hidden">Manage residents, visitors, and dues — one app.</span>
-                <span className="hidden sm:inline">One platform connecting estate managers, residents, and security staff. Visitor passes, dues collection, community tools — all out of the box.</span>
+                One platform connecting estate managers, residents, and security staff. Visitor passes, dues collection, community tools — all out of the box.
               </p>
 
-              {/* CTA buttons — full width on mobile */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-7 sm:mb-8 animate-fade-in-up"
+              <div className="flex flex-row gap-3 justify-start mb-8 animate-fade-in-up"
                    style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
                 <Link to="https://area-connector.areaconnect.pro/register"
-                  className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px] w-full sm:w-auto">
+                  className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]">
                   Get started <ArrowRight size={16} />
                 </Link>
                 <Link to="/features"
-                  className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px] w-full sm:w-auto">
+                  className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]">
                   <Play size={13} className="fill-white/80" /> See how it works
                 </Link>
               </div>
 
-              {/* Social proof — wraps cleanly on mobile */}
-              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start animate-fade-in-up"
+              <div className="flex flex-wrap items-center gap-3 justify-start animate-fade-in-up"
                    style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                 <div className="flex -space-x-2">
                   {[['AO','bg-brand-500'],['BT','bg-indigo-500'],['NK','bg-blue-500'],['FN','bg-violet-500'],['EM','bg-amber-500']].map(([i, c]) => (
@@ -770,14 +867,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Desktop dashboard */}
-            <div className="flex-1 w-full hidden lg:flex justify-center z-10">
+            <div className="flex-1 w-full flex justify-center z-10">
               <HeroDashboard />
-            </div>
-
-            {/* Mobile dashboard — compact version */}
-            <div className="w-full lg:hidden z-10">
-              <MobileHeroVisual />
             </div>
           </div>
         </div>
@@ -794,7 +885,7 @@ export default function Home() {
       </div>
 
       {/* ── STATS ────────────────────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-24 border-b border-slate-100">
+      <section className="bg-white py-12 sm:py-24 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <Reveal>
             <div className="text-center mb-10 sm:mb-16">
@@ -809,7 +900,6 @@ export default function Home() {
                 { target: 500,     suffix: '+',  label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
                 { target: 48000,   suffix: '+',  label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
                 { target: 1200000, suffix: '+',  label: 'Visitor passes issued', icon: UserCheck,  color: 'text-blue-500',   bg: 'bg-blue-50'    },
-                { target: 2, prefix: '₦', suffix: 'B+', label: 'In dues processed', icon: CreditCard, color: 'text-amber-500', bg: 'bg-amber-50' },
               ].map((s, i) => (
                 <div key={s.label} className="flex-shrink-0 w-36 text-center p-4 rounded-2xl border border-slate-100 bg-white shadow-sm">
                   <div className={`w-10 h-10 ${s.bg} rounded-xl flex items-center justify-center mx-auto mb-2.5`}>
@@ -824,13 +914,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Desktop: 4-column grid */}
-          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+          {/* Desktop: 3-column grid */}
+          <div className="hidden sm:grid sm:grid-cols-3 gap-4 sm:gap-8">
             {[
               { target: 500,     suffix: '+',           label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
               { target: 48000,   suffix: '+',           label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
               { target: 1200000, suffix: '+',           label: 'Visitor passes issued', icon: UserCheck,  color: 'text-blue-500',   bg: 'bg-blue-50'    },
-              { target: 2, prefix: '₦', suffix: 'B+ collected', label: 'In dues processed', icon: CreditCard, color: 'text-amber-500', bg: 'bg-amber-50' },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="text-center p-4 sm:p-6 rounded-2xl border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
@@ -849,13 +938,13 @@ export default function Home() {
       </section>
 
       {/* ── PRODUCTS ─────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-50">
+      <section className="py-14 sm:py-28 bg-slate-50">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <span className="section-tag mb-4 inline-flex">Three apps. One platform.</span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">Built for every role in your estate</h2>
-              <p className="text-base sm:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
+            <div className="text-center mb-8 sm:mb-16">
+              <span className="section-tag mb-3 sm:mb-4 inline-flex text-[10px] sm:text-xs">Three apps · One platform</span>
+              <h2 className="text-[26px] sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4 leading-tight">Built for every role in your estate</h2>
+              <p className="text-sm sm:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
                 Purpose-built tools for managers, residents, and security — all connected in real time.
               </p>
             </div>
@@ -883,7 +972,7 @@ export default function Home() {
                   features: ['QR scanner & 6-digit access code', 'One-tap check-in & check-out logging', 'Offline mode with auto-sync'],
                 },
               ].map((p) => (
-                <div key={p.label} className="snap-center flex-shrink-0 w-[280px] bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex flex-col">
+                <Link to={p.href} key={p.label} className="snap-center flex-shrink-0 w-[280px] bg-white rounded-3xl border border-slate-100 p-5 shadow-sm flex flex-col active:scale-[0.98] transition-transform">
                   <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 shadow-lg ${p.shadow}`}>
                     <p.icon size={22} className="text-white" />
                   </div>
@@ -902,16 +991,16 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <Link to={p.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-slate-900 group">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 group">
                     Learn more <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </div>
+                  </span>
+                </Link>
               ))}
             </div>
             {/* Scroll indicator dots */}
-            <div className="flex justify-center gap-1.5 mt-3">
+            <div className="flex justify-center gap-1.5 mt-4">
               {[0,1,2].map(i => (
-                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-4' : 'w-1.5'}`} />
+                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-5' : 'w-1.5'}`} />
               ))}
             </div>
           </div>
@@ -1049,7 +1138,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURE SHOWCASE: ADMIN ───────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white overflow-hidden">
+      <section className="py-14 sm:py-28 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             <Reveal className="flex-1 w-full">
@@ -1101,7 +1190,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURE SHOWCASE: MOBILE APPS ─────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-50 overflow-hidden">
+      <section className="py-14 sm:py-28 bg-slate-50 overflow-hidden">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
             {/* Phone mockups — single on mobile, both on desktop */}
@@ -1159,7 +1248,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES GRID ────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-14 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <Reveal>
             <div className="text-center mb-12 sm:mb-16">
@@ -1202,7 +1291,7 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-900">
+      <section className="py-14 sm:py-28 bg-slate-900">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <Reveal>
             <div className="text-center mb-12 sm:mb-16">
@@ -1262,7 +1351,7 @@ export default function Home() {
 
 
       {/* ── BUILT FOR NIGERIA ─────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-14 sm:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
@@ -1334,7 +1423,7 @@ export default function Home() {
       </section>
 
       {/* ── PRICING PREVIEW ──────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-900">
+      <section className="py-14 sm:py-28 bg-slate-900">
         <div className="max-w-5xl mx-auto px-5 sm:px-6">
           <Reveal>
             <div className="text-center mb-12 sm:mb-16">
@@ -1488,7 +1577,7 @@ export default function Home() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-14 sm:py-28 bg-white">
         <div className="max-w-3xl mx-auto px-5 sm:px-6">
           <Reveal>
             <div className="text-center mb-10 sm:mb-12">
@@ -1524,7 +1613,7 @@ export default function Home() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
+      <section className="relative py-16 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-900" />
         <div className="absolute inset-0 dot-grid opacity-20" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4" />
@@ -1564,6 +1653,31 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* ── MOBILE: sticky app-launch bar ───────────────────────────── */}
+      <div
+        className={`lg:hidden fixed inset-x-0 bottom-0 z-40 px-3 pb-3 pt-6 pointer-events-none transition-all duration-300 ${
+          showStickyCta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'
+        }`}
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}
+      >
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none" />
+        <div className="relative flex items-center gap-2.5 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-2 pr-2 shadow-2xl shadow-slate-900/25 pointer-events-auto">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-md shadow-brand-500/30">
+            <Shield size={19} className="text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[13px] font-black text-slate-900 leading-tight">Launch AreaConnect</div>
+            <div className="text-[10.5px] text-slate-500 leading-tight mt-0.5">Free trial · 10-min setup</div>
+          </div>
+          <Link
+            to="https://area-connector.areaconnect.pro/register"
+            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-[12px] px-4 py-2.5 rounded-xl active:scale-95 transition-all flex-shrink-0"
+          >
+            Get started <ArrowRight size={12} />
+          </Link>
+        </div>
+      </div>
 
     </div>
   );
