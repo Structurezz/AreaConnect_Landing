@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
+import UpdateBanner from './components/ui/UpdateBanner';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import Features from './pages/Features';
@@ -55,6 +56,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <UpdateBanner />
     </BrowserRouter>
     </>
   );
