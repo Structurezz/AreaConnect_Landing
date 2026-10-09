@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
 import UpdateBanner from './components/ui/UpdateBanner';
 import Footer from './components/layout/Footer';
+import { useVisitBeacon } from './hooks/useVisitBeacon';
 import Home from './pages/Home';
 import Features from './pages/Features';
 import Pricing from './pages/Pricing';
@@ -26,6 +27,13 @@ function ScrollToTop() {
   return null;
 }
 
+// Fires the GA4 pageview + our own /analytics/visit beacon on every route
+// change. Mounted inside BrowserRouter so useLocation works.
+function Analytics() {
+  useVisitBeacon();
+  return null;
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const handleDone = useCallback(() => setLoading(false), []);
@@ -35,6 +43,7 @@ export default function App() {
       {loading && <LoadingScreen onDone={handleDone} />}
     <BrowserRouter>
       <ScrollToTop />
+      <Analytics />
       <Navbar />
       <main>
         <Routes>
