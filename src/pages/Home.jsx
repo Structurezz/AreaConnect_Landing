@@ -329,14 +329,17 @@ function MobileHeroVisual() {
             {/* Quick nav 2×2 */}
             <div className="grid grid-cols-2 gap-1.5">
               {[
-                { label: 'Invite Visitor',  bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
-                { label: 'Marketplace',     bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
-                { label: 'Community Chat',  bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
-                { label: 'Alert Center',    bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
+                { label: 'Invite Visitor',  Icon: UserPlus,      bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
+                { label: 'Marketplace',     Icon: ShoppingBag,   bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
+                { label: 'Community Chat',  Icon: MessageCircle, bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
+                { label: 'Alert Center',    Icon: ShieldCheck,   bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
               ].map(a => (
                 <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
                      style={{ background: a.bg, borderColor: a.border }}>
-                  <div className="w-4 h-4 rounded-full mb-1" style={{ background: a.color, opacity: 0.85 }} />
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center mb-1"
+                       style={{ background: a.bg }}>
+                    <a.Icon size={10} style={{ color: a.color }} strokeWidth={2.25} />
+                  </div>
                   <div className="text-[7px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
                 </div>
               ))}
