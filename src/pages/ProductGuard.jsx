@@ -163,7 +163,7 @@ export default function ProductGuard() {
         keywords="security guard app Nigeria, gate management, QR scanner estate, visitor verification app, estate security officer"
       />
       {/* Hero */}
-      <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#050d1a' }}>
+      <section className="relative pt-20 pb-14 sm:pt-32 sm:pb-24 overflow-hidden" style={{ background: '#050d1a' }}>
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-32 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 dot-grid opacity-20" />
@@ -176,7 +176,7 @@ export default function ProductGuard() {
                 </div>
                 <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">AreaConnect Guard</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.05] mb-6">
                 Gate security,<br />
                 <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">modernised.</span>
               </h1>

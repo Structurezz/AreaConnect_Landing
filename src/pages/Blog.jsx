@@ -189,7 +189,7 @@ export default function Blog() {
             <span className="inline-flex items-center gap-2 bg-brand-500/15 border border-brand-500/30 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
               Insights & News
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5 max-w-3xl">
+            <h1 className="text-4xl sm:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5 max-w-3xl">
               Estate management<br />
               <span className="text-brand-400">insights for Nigeria</span>
             </h1>

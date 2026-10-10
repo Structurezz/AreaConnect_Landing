@@ -28,7 +28,7 @@ export default function ProductAdmin() {
         {/* Dot grid */}
         <div className="absolute inset-0 dot-grid opacity-40" />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-32 w-full">
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-24 lg:py-32 w-full">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
 
             {/* Left copy */}
@@ -114,7 +114,7 @@ export default function ProductAdmin() {
       </section>
 
       {/* ── FEATURES GRID ────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-14 sm:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
             <div className="text-center mb-14">
@@ -179,7 +179,7 @@ export default function ProductAdmin() {
       </section>
 
       {/* ── DASHBOARD SHOWCASE ───────────────────────────────────────── */}
-      <section className="py-24 bg-slate-50 overflow-hidden">
+      <section className="py-14 sm:py-24 bg-slate-50 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
 
@@ -407,7 +407,7 @@ export default function ProductAdmin() {
             <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
               Get started today
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
               Set up your estate in minutes
             </h2>
             <p className="text-brand-100 text-base sm:text-lg mb-10 leading-relaxed">

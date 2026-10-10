@@ -32,7 +32,7 @@ export default function Press() {
         keywords="AreaConnect press, Nigerian proptech news, estate management media kit"
       />
       {/* Hero */}
-      <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
+      <section className="relative bg-slate-900 pt-20 pb-14 sm:pt-32 sm:pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 dot-grid opacity-30" />
@@ -40,10 +40,10 @@ export default function Press() {
           <span className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
             Press & Media
           </span>
-          <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
             Press <span className="gradient-text-brand">kit</span>
           </h1>
-          <p className="text-xl text-slate-400 leading-relaxed">
+          <p className="text-base sm:text-xl text-slate-400 leading-relaxed">
             Everything you need to write about AreaConnect. Press inquiries:{' '}
             <a href="mailto:press@areaconnect.pro" className="text-brand-400 hover:text-brand-300 transition-colors font-medium">press@areaconnect.pro</a>
           </p>

@@ -28,7 +28,7 @@ export function Reveal({ children, delay = 0, className = '' }) {
 
 export function PageHero({ tag, title, subtitle, children, dark = true }) {
   return (
-    <section className={`relative overflow-hidden ${dark ? 'bg-slate-900' : 'bg-white'} pt-32 pb-20`}>
+    <section className={`relative overflow-hidden ${dark ? 'bg-slate-900' : 'bg-white'} pt-20 pb-10 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20`}>
       {dark && (
         <>
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -36,23 +36,23 @@ export function PageHero({ tag, title, subtitle, children, dark = true }) {
           <div className="absolute inset-0 dot-grid opacity-30" />
         </>
       )}
-      <div className="relative max-w-3xl mx-auto px-6 text-center">
+      <div className="relative max-w-3xl mx-auto px-5 sm:px-6 text-center">
         {tag && (
-          <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5 ${
+          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-4 sm:mb-5 ${
             dark
               ? 'bg-brand-500/10 border border-brand-500/20 text-brand-400'
               : 'bg-brand-50 text-brand-700 border border-brand-200'
           }`}>{tag}</span>
         )}
-        <h1 className={`text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] mb-5 ${dark ? 'text-white' : 'text-slate-900'}`}>
+        <h1 className={`text-[2rem] sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] mb-4 sm:mb-5 ${dark ? 'text-white' : 'text-slate-900'}`}>
           {title}
         </h1>
         {subtitle && (
-          <p className={`text-xl leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+          <p className={`text-sm sm:text-lg lg:text-xl leading-relaxed max-w-[520px] mx-auto ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
             {subtitle}
           </p>
         )}
-        {children && <div className="mt-8">{children}</div>}
+        {children && <div className="mt-6 sm:mt-8">{children}</div>}
       </div>
     </section>
   );

@@ -50,7 +50,7 @@ export default function Cookies() {
         path="/cookies"
       />
       {/* Hero */}
-      <section className="relative bg-slate-900 pt-32 pb-20 overflow-hidden noise">
+      <section className="relative bg-slate-900 pt-20 pb-12 sm:pt-32 sm:pb-20 overflow-hidden noise">
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-brand-500/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 dot-grid opacity-25" />
@@ -58,7 +58,7 @@ export default function Cookies() {
           <span className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-5">
             Legal
           </span>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.05] mb-4">
             Cookie <span className="gradient-text-brand">Policy</span>
           </h1>
           <p className="text-slate-400 text-sm">Last updated: 1 June 2025</p>

@@ -51,7 +51,7 @@ export default function Careers() {
         keywords="AreaConnect careers, Nigerian proptech jobs, Lagos tech jobs, estate management startup jobs"
       />
       {/* Hero */}
-      <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
+      <section className="relative bg-slate-900 pt-20 pb-14 sm:pt-32 sm:pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 dot-grid opacity-30" />
@@ -66,11 +66,11 @@ export default function Careers() {
             </span>
             <span className="text-xs text-slate-400 font-medium">6 open roles</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.05] mb-6">
             Build the future of<br />
             <span className="gradient-text-brand">estate living.</span>
           </h1>
-          <p className="hidden sm:block text-xl text-slate-400 leading-relaxed">
+          <p className="hidden sm:block text-base sm:text-xl text-slate-400 leading-relaxed">
             We're a small team with big ambitions — building technology that makes life better for millions of people in Nigerian communities. Come work with us.
           </p>
           <p className="block sm:hidden text-base text-slate-400 leading-relaxed">
