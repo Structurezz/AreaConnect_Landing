@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { FileText, ArrowRight } from 'lucide-react';
+import Seo from '../components/Seo';
 
 function useReveal() {
   const ref = useRef(null);
@@ -50,6 +51,11 @@ const TOC = [
 export default function Terms() {
   return (
     <div>
+      <Seo
+        title="Terms of Service"
+        description="The terms governing use of the AreaConnect platform by estate managers, residents and security staff."
+        path="/terms"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-20 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />

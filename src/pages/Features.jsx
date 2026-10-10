@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Shield, QrCode, LogOut, LayoutDashboard, UserCheck, Users, Home as HomeIcon, Megaphone, CreditCard, Bell } from 'lucide-react';
+import Seo from '../components/Seo';
 import { Reveal, PageHero } from '../components/ui/Reveal';
 
 /* ─── Reusable phone shell ────────────────────────────────────────────── */
@@ -752,6 +753,12 @@ const SECTIONS = [
 export default function Features() {
   return (
     <div className="pt-16">
+      <Seo
+        title="Features — Visitor QR Passes, Dues Collection, Community Tools"
+        description="Every feature your estate needs: visitor QR passes, service-charge collection, resident app, security alerts, community chat, polls and marketplace. All built for Nigeria."
+        path="/features"
+        keywords="estate features Nigeria, visitor management, QR passes, service charge collection, community chat estate, estate security alerts"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <PageHero

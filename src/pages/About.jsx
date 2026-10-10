@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Zap, Shield, Globe } from 'lucide-react';
+import Seo from '../components/Seo';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -34,6 +35,12 @@ const MILESTONES = [
 export default function About() {
   return (
     <div>
+      <Seo
+        title="About AreaConnect — Built for Nigerian Estates"
+        description="AreaConnect is the all-in-one estate management platform built in Nigeria, for Nigerian estates. Our story, mission and the team behind the platform."
+        path="/about"
+        keywords="about AreaConnect, Nigerian proptech, estate management company, AreaConnect Technologies"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />

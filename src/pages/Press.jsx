@@ -1,5 +1,6 @@
 import { Download, FileText, Image, Link2, Mail, ArrowRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import Seo from '../components/Seo';
 
 function useReveal() {
   const ref = useRef(null);
@@ -24,6 +25,12 @@ function Reveal({ children, delay = 0, className = '' }) {
 export default function Press() {
   return (
     <div>
+      <Seo
+        title="Press & Media — AreaConnect Resources"
+        description="Logos, screenshots, press releases and leadership bios for journalists covering AreaConnect and Nigeria's proptech industry."
+        path="/press"
+        keywords="AreaConnect press, Nigerian proptech news, estate management media kit"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />

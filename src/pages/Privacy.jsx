@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import Seo from '../components/Seo';
 import { Shield, ArrowRight } from 'lucide-react';
 
 function useReveal() {
@@ -49,6 +50,11 @@ const TOC = [
 export default function Privacy() {
   return (
     <div>
+      <Seo
+        title="Privacy Policy"
+        description="How AreaConnect collects, uses and protects personal data for residents, estate managers and security staff."
+        path="/privacy"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-20 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />

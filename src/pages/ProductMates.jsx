@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Users, Smartphone, Home as HomeIcon, UserPlus, MessageCircle, ShoppingBag, LayoutGrid, ShieldCheck } from 'lucide-react';
+import Seo from '../components/Seo';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -188,6 +189,12 @@ const FEATURES = [
 export default function ProductMates() {
   return (
     <div>
+      <Seo
+        title="AreaMates — Resident App for Nigerian Estates"
+        description="Pre-register visitors, pay service charges, chat with neighbours and get real-time estate updates — all on one app. AreaMates works on any Android or iPhone."
+        path="/mates"
+        keywords="resident app Nigeria, estate resident portal, visitor pre-registration, levy payment app, estate community chat"
+      />
       {/* Hero */}
       <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#050d1a' }}>
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />

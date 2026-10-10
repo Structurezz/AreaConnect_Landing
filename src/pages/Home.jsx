@@ -8,6 +8,7 @@ import {
   UserPlus, MessageCircle, ShoppingBag, LayoutGrid, ShieldCheck,
   Music, MessageSquare,
 } from 'lucide-react';
+import Seo from '../components/Seo';
 
 /* ─── Scroll-reveal hook ──────────────────────────────────────────────── */
 function useReveal(threshold = 0.12) {
@@ -721,6 +722,12 @@ export default function Home() {
 
   return (
     <div>
+      <Seo
+        title="AreaConnect — Estate Management Platform Nigeria | Visitor Passes, Payments & Community"
+        description="Nigeria's leading estate management platform. Manage residents, collect service charges via Paystack, issue visitor QR passes and keep your community connected — all in one place."
+        path="/"
+        keywords="AreaConnect, estate management Nigeria, property management software Nigeria, visitor management system, estate manager app, resident portal Nigeria, service charge collection, Lagos estate management"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen bg-[#050d1a] flex items-center overflow-hidden noise">

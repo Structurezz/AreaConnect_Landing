@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Mail, Phone, Clock, Send, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Reveal, PageHero } from '../components/ui/Reveal';
+import Seo from '../components/Seo';
 
 export default function Contact() {
   const [form, setForm]     = useState({ name: '', email: '', company: '', subject: '', message: '' });
@@ -32,6 +33,12 @@ export default function Contact() {
 
   return (
     <div className="pt-16">
+      <Seo
+        title="Contact Us — Talk to the AreaConnect Team"
+        description="Questions about pricing, demos or partnerships? Reach the AreaConnect team by email, phone or form. We reply within a few hours on working days."
+        path="/contact"
+        keywords="AreaConnect contact, estate management demo Nigeria, estate software support"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <PageHero

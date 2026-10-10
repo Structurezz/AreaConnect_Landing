@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { Cookie, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
+import Seo from '../components/Seo';
 
 function useReveal() {
   const ref = useRef(null);
@@ -43,6 +44,11 @@ function DocSection({ num, title, children }) {
 export default function Cookies() {
   return (
     <div>
+      <Seo
+        title="Cookie Policy"
+        description="How AreaConnect uses cookies and local storage to keep you signed in, remember preferences and measure usage."
+        path="/cookies"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-20 overflow-hidden noise">
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />

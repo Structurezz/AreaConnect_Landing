@@ -5,10 +5,17 @@ import {
   Music, MessageSquare,
 } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
+import Seo from '../components/Seo';
 
 export default function ProductAdmin() {
   return (
     <div className="pt-16">
+      <Seo
+        title="Estate Manager Portal — Dashboard, Payments, Visitors, Analytics"
+        description="AreaConnect Admin is the command centre for your estate. Manage residents, collect dues via Paystack, broadcast alerts, and monitor everything from one dashboard."
+        path="/admin"
+        keywords="estate manager dashboard, estate admin portal Nigeria, resident management software, Paystack dues collection, estate analytics"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] bg-[#050d1a] flex items-center overflow-hidden noise">

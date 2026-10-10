@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, X, ArrowRight, ChevronDown, Zap, Building2, Shield, Star } from 'lucide-react';
 import { Reveal, PageHero } from '../components/ui/Reveal';
+import Seo from '../components/Seo';
 
 /* ─── Plan definitions ────────────────────────────────────────────────── */
 const PLANS = [
@@ -250,6 +251,12 @@ export default function Pricing() {
 
   return (
     <div className="pt-16">
+      <Seo
+        title="Pricing — Plans from ₦20,000/month"
+        description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnect apps included — no hidden fees, Paystack-native."
+        path="/pricing"
+        keywords="estate management pricing Nigeria, AreaConnect price, service charge software cost, estate app plans"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <PageHero

@@ -1,5 +1,6 @@
 import { Shield, Lock, Server, Eye, Key, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import Seo from '../components/Seo';
 
 function useReveal() {
   const ref = useRef(null);
@@ -24,6 +25,12 @@ function Reveal({ children, delay = 0, className = '' }) {
 export default function Security() {
   return (
     <div>
+      <Seo
+        title="Security — How We Protect Your Estate Data"
+        description="Data isolation per estate, TLS 1.3 in transit, bcrypt password hashing, JWT auth and Paystack-handled payment data. Enterprise-grade security for every plan."
+        path="/security"
+        keywords="estate data security, SaaS data isolation, Paystack PCI compliance, bcrypt JWT authentication"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />

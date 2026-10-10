@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Shield, Smartphone, Wifi, WifiOff, Zap, QrCode, LogOut } from 'lucide-react';
+import Seo from '../components/Seo';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -155,6 +156,12 @@ const FEATURES = [
 export default function ProductGuard() {
   return (
     <div>
+      <Seo
+        title="AreaConnect Guard — Security Officer App"
+        description="QR scanner, 6-digit code lookup, one-tap check-in/out, offline mode. The fast, reliable gate-management app Nigerian security officers actually use."
+        path="/guard"
+        keywords="security guard app Nigeria, gate management, QR scanner estate, visitor verification app, estate security officer"
+      />
       {/* Hero */}
       <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#050d1a' }}>
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />

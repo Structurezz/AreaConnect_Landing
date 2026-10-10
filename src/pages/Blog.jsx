@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Clock, Mail, MapPin, TrendingUp, ExternalLink, Calendar } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
+import Seo from '../components/Seo';
 
 /* ── Data ─────────────────────────────────────────────────────────────────── */
 
@@ -166,6 +167,12 @@ export default function Blog() {
 
   return (
     <div className="pt-16 bg-[#F8FAFC]">
+      <Seo
+        title="Blog — Insights for Nigerian Estate Managers"
+        description="Guides, case studies and product updates for estate managers in Nigeria. Learn how top estates run visitor management, dues collection and community engagement."
+        path="/blog"
+        keywords="estate management blog Nigeria, estate manager guides, proptech Nigeria, service charge collection tips"
+      />
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative bg-slate-900 overflow-hidden">

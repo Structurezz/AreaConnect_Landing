@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Clock } from 'lucide-react';
+import Seo from '../components/Seo';
 import { useState, useEffect, useRef } from 'react';
 
 function useReveal() {
@@ -43,6 +44,12 @@ const PERKS = [
 export default function Careers() {
   return (
     <div>
+      <Seo
+        title="Careers — Join the AreaConnect Team"
+        description="Help build Nigeria's leading estate management platform. Open roles for engineers, designers, and estate success managers in Lagos and remote."
+        path="/careers"
+        keywords="AreaConnect careers, Nigerian proptech jobs, Lagos tech jobs, estate management startup jobs"
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-24 overflow-hidden noise">
         <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
