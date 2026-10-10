@@ -71,7 +71,7 @@ export default function About() {
             {[
               { num: '500+', label: 'Estates managed' },
               { num: '40k+', label: 'Residents onboarded' },
-              { num: '₦2B+', label: 'Dues collected' },
+              { num: '1.2M+', label: 'Visitor passes issued' },
               { num: '27',   label: 'Team members' },
             ].map(s => (
               <div key={s.label}>
@@ -85,7 +85,7 @@ export default function About() {
             {[
               { num: '500+', label: 'Estates managed' },
               { num: '40k+', label: 'Residents onboarded' },
-              { num: '₦2B+', label: 'Dues collected' },
+              { num: '1.2M+', label: 'Visitor passes issued' },
               { num: '27',   label: 'Team members' },
             ].map(s => (
               <div key={s.label} className="flex-shrink-0 text-center min-w-[100px]">

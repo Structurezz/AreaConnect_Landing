@@ -58,7 +58,7 @@ export default function Press() {
           <div className="bg-slate-50 rounded-2xl border border-slate-100 p-8 space-y-4 text-sm text-slate-700 leading-relaxed">
             <p><strong className="text-slate-900">AreaConnect</strong> is a Nigerian estate management technology company founded in 2023 and headquartered in Lekki, Lagos. The company builds software that connects estate managers, residents, and security staff on a single digital platform.</p>
             <p>The platform includes three apps: <strong className="text-slate-900">AreaConnect Admin</strong> (estate managers), <strong className="text-slate-900">AreaMates</strong> (residents, on iOS, Android, and web), and <strong className="text-slate-900">AreaConnect Guard</strong> (security staff). All three connect to a shared real-time backend.</p>
-            <p>As of 2025, AreaConnect serves over 500 estates across Nigeria, with more than 40,000 residents onboarded and over 1.2 million visitor passes issued. More than ₦2 billion in estate dues has been collected through the platform.</p>
+            <p>As of 2025, AreaConnect serves over 500 estates across Nigeria, with more than 40,000 residents onboarded and over 1.2 million visitor passes issued. Service-charge collection runs on Paystack with full reconciliation back to each estate.</p>
           </div>
         </Reveal>
 
@@ -74,7 +74,7 @@ export default function Press() {
               ['Estates served',      '500+'],
               ['Residents onboarded', '40,000+'],
               ['Visitor passes',      '1.2 million+'],
-              ['Dues collected',      '₦2 billion+'],
+              ['Payment gateway',     'Paystack-native'],
             ].map(([k, v], i) => (
               <Reveal key={k} delay={i * 40}>
                 <div className="flex justify-between items-center bg-white rounded-2xl border border-slate-100 px-5 py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
@@ -128,7 +128,7 @@ export default function Press() {
             {[
               { pub: 'TechCabal',        date: 'May 2025',     headline: '"AreaConnect raises seed round to expand estate management platform across West Africa"' },
               { pub: 'Techpoint Africa', date: 'March 2025',   headline: '"How AreaConnect is replacing WhatsApp groups for 500 Nigerian estate managers"' },
-              { pub: 'Nairametrics',     date: 'January 2025', headline: '"Nigerian proptech startup AreaConnect crosses ₦2B in estate dues collected"' },
+              { pub: 'Nairametrics',     date: 'January 2025', headline: '"Nigerian proptech startup AreaConnect scales dues collection across Lagos estates"' },
               { pub: 'The Cable',        date: 'October 2024', headline: '"The app making Nigerian estate security more efficient — one QR code at a time"' },
             ].map((c, i) => (
               <Reveal key={c.headline} delay={i * 50}>

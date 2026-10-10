@@ -248,7 +248,7 @@ export default function ProductMates() {
             {[
               { num: '40,000+', label: 'Active residents' },
               { num: '1.2M+',   label: 'Visitor passes issued' },
-              { num: '₦2B+',    label: 'Dues collected' },
+              { num: '500+',    label: 'Estates onboard' },
             ].map(s => (
               <div key={s.label}>
                 <div className="text-3xl font-black text-white mb-1">{s.num}</div>
@@ -261,7 +261,7 @@ export default function ProductMates() {
             {[
               { num: '40k+', label: 'Active residents' },
               { num: '1.2M+', label: 'Visitor passes' },
-              { num: '₦2B+', label: 'Dues collected' },
+              { num: '500+', label: 'Estates onboard' },
             ].map(s => (
               <div key={s.label} className="flex-shrink-0 text-center min-w-[90px]">
                 <div className="text-2xl font-black text-white mb-1">{s.num}</div>
