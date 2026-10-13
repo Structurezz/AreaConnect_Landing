@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
@@ -20,6 +20,7 @@ import Security from './pages/Security';
 import ProductAdmin from './pages/ProductAdmin';
 import ProductMates from './pages/ProductMates';
 import ProductGuard from './pages/ProductGuard';
+import NotFound from './pages/NotFound';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +35,8 @@ function Analytics() {
   return null;
 }
 
+// The router is supplied by the caller: BrowserRouter in main.jsx, and
+// StaticRouter in entry-server.jsx when pages are prerendered at build time.
 export default function App() {
   const [loading, setLoading] = useState(true);
   const handleDone = useCallback(() => setLoading(false), []);
@@ -41,7 +44,6 @@ export default function App() {
   return (
     <>
       {loading && <LoadingScreen onDone={handleDone} />}
-    <BrowserRouter>
       <ScrollToTop />
       <Analytics />
       <Navbar />
@@ -62,11 +64,11 @@ export default function App() {
           <Route path="/admin"       element={<ProductAdmin />} />
           <Route path="/mates"       element={<ProductMates />} />
           <Route path="/guard"       element={<ProductGuard />} />
+          <Route path="*"            element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
       <UpdateBanner />
-    </BrowserRouter>
     </>
   );
 }

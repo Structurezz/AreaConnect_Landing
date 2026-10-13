@@ -145,6 +145,34 @@ const PLANS = [
   },
 ];
 
+// Plans as schema.org Offers so Google can show pricing in rich results.
+// Built from PLANS so the markup never drifts from what's on the page.
+const toNumber = (s) => s && s.replace(/[^\d]/g, '');
+const PRICING_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://areaconnect.pro/#software',
+  name: 'AreaConnect',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web, Android, iOS',
+  url: 'https://areaconnect.pro/pricing',
+  offers: PLANS.filter(p => toNumber(p.price?.monthly)).map(p => ({
+    '@type': 'Offer',
+    name: `${p.name} plan`,
+    description: p.tagline,
+    price: toNumber(p.price.monthly),
+    priceCurrency: 'NGN',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: toNumber(p.price.monthly),
+      priceCurrency: 'NGN',
+      unitCode: 'MON',
+      billingDuration: 'P1M',
+    },
+    url: 'https://areaconnect.pro/pricing',
+  })),
+};
+
 /* ─── Comparison rows ─────────────────────────────────────────────────── */
 const COMPARE_ROWS = [
   { label: 'Residents',                   vals: ['50', '200', '500', 'Unlimited'] },
@@ -256,6 +284,7 @@ export default function Pricing() {
         description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnect apps included — no hidden fees, Paystack-native."
         path="/pricing"
         keywords="estate management pricing Nigeria, AreaConnect price, service charge software cost, estate app plans"
+        jsonLd={PRICING_SCHEMA}
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}

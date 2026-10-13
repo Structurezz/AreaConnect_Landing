@@ -8,7 +8,9 @@ const BUILD_VERSION = String(Date.now());
 function emitVersionFile() {
   return {
     name: 'emit-version-file',
-    apply: 'build',
+    // Client build only — the SSR prerender build runs in a separate process
+    // with a different BUILD_VERSION and must not overwrite version.json.
+    apply: (_config, { command, isSsrBuild }) => command === 'build' && !isSsrBuild,
     closeBundle() {
       const out = path.resolve('dist/version.json');
       fs.mkdirSync(path.dirname(out), { recursive: true });
@@ -59,6 +61,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), emitVersionFile(), injectGoogleTags(env)],
+    // Bundle deps into the prerender (SSR) build — react-helmet-async is CJS
+    // and can't be imported by name from native Node ESM.
+    ssr: { noExternal: ['react-helmet-async', 'react-router-dom', 'react-router', 'lucide-react'] },
     define: {
       __APP_VERSION__: JSON.stringify(BUILD_VERSION),
       __GA_MEASUREMENT_ID__: JSON.stringify((env.VITE_GA_MEASUREMENT_ID || '').trim()),

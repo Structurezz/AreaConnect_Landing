@@ -1,0 +1,6 @@
+# Pin the build so Netlify always runs the prerender step (npm run build =
+# client build + SSR build + scripts/prerender.mjs). Without it, pages ship as
+# a bare SPA and every URL looks like the homepage to crawlers.
+[build]
+  command = "npm run build"
+  publish = "dist"

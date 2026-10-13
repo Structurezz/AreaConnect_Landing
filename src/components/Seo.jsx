@@ -4,6 +4,19 @@ const SITE_URL  = 'https://areaconnect.pro';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 const SITE_NAME = 'AreaConnect';
 
+// Breadcrumb trail for every page except the homepage — gives Google the
+// "AreaConnect › Pricing" path display in search results.
+function breadcrumbSchema(title, url) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: title.split(/ [—|] /)[0], item: url },
+    ],
+  };
+}
+
 /**
  * Per-page SEO tags. Overrides what index.html sets as the baseline so each
  * route in the SPA ships its own title / description / canonical / OG card.
@@ -13,7 +26,7 @@ const SITE_NAME = 'AreaConnect';
  *   description — 150–160 chars, keyword-rich, action-oriented
  *   path        — "/features" (leading slash); builds canonical + og:url
  *   image       — absolute URL; falls back to the shared og-image.png
- *   noindex     — true for legal pages you'd rather not have crawled
+ *   noindex     — true for pages that shouldn't appear in search (e.g. 404)
  *   keywords    — optional override
  *   jsonLd      — optional schema.org object(s) emitted as application/ld+json
  */
@@ -28,27 +41,37 @@ export default function Seo({
 }) {
   const url = `${SITE_URL}${path.startsWith('/') ? path : '/' + path}`;
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-  const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+  const schemas = Array.isArray(jsonLd) ? [...jsonLd] : jsonLd ? [jsonLd] : [];
+  if (path !== '/' && !noindex) schemas.push(breadcrumbSchema(title, url));
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords ? <meta name="keywords" content={keywords} /> : null}
-      <link rel="canonical" href={url} />
-      {noindex && <meta name="robots" content="noindex, follow" />}
+      {!noindex && <link rel="canonical" href={url} />}
+      <meta
+        name="robots"
+        content={noindex
+          ? 'noindex, follow'
+          : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'}
+      />
 
       {/* Open Graph */}
       <meta property="og:title"       content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url"         content={url} />
       <meta property="og:image"       content={image} />
+      <meta property="og:image:width"  content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt"   content={fullTitle} />
       <meta property="og:type"        content="website" />
       <meta property="og:site_name"   content={SITE_NAME} />
       <meta property="og:locale"      content="en_NG" />
 
       {/* Twitter */}
       <meta name="twitter:card"        content="summary_large_image" />
+      <meta name="twitter:site"        content="@areaconnectpro" />
       <meta name="twitter:title"       content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image"       content={image} />

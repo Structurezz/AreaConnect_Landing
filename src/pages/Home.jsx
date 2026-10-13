@@ -54,6 +54,32 @@ function Counter({ target, prefix = '', suffix = '' }) {
   return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
 }
 
+/* ─── FAQ content — rendered on the page and mirrored into FAQPage schema ─ */
+const FAQS = [
+  { q: 'How much does AreaConnect cost?',
+    a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. See the full pricing page for details.' },
+  { q: 'How do residents get their login credentials?',
+    a: "When an estate manager invites a resident — individually or via CSV — the system instantly creates an account and emails the resident a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
+  { q: 'How does the visitor QR code system work?',
+    a: "A resident pre-registers their guest from the AreaMates app in under 30 seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate, the security officer scans or types the code into the Guard app to verify and check in the visitor." },
+  { q: 'How are payments processed?',
+    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Residents pay directly from within the AreaMates app by card or bank transfer. Funds are settled to the estate's registered bank account." },
+  { q: 'Is our estate data safe?',
+    a: "Yes. Every estate's data is completely isolated from other estates on the platform. All traffic runs over TLS 1.3. Passwords are hashed with bcrypt. Auth tokens are short-lived and rotating. Payment card data is never stored on our servers — it is handled exclusively by Paystack." },
+  { q: 'Do I need any technical skills to get started?',
+    a: 'None at all. The setup wizard walks you through creating your estate, adding units, and inviting residents step by step. Most estate managers are fully operational in under 10 minutes. We also offer a free onboarding call for all customers.' },
+];
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+
 /* ─── FAQ item ────────────────────────────────────────────────────────── */
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false);
@@ -727,6 +753,7 @@ export default function Home() {
         description="Nigeria's leading estate management platform. Manage residents, collect service charges via Paystack, issue visitor QR passes and keep your community connected — all in one place."
         path="/"
         keywords="AreaConnect, estate management Nigeria, property management software Nigeria, visitor management system, estate manager app, resident portal Nigeria, service charge collection, Lagos estate management"
+        jsonLd={FAQ_SCHEMA}
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -759,10 +786,13 @@ export default function Home() {
             </div>
 
             {/* Big app-style headline */}
-            <h1 className="text-[2.4rem] sm:text-[2.8rem] font-black text-white leading-[1.03] tracking-tight text-center animate-fade-in-up">
+            {/* Mobile-only hero heading. role="heading" keeps it a level-1 heading
+                for screen readers while leaving the desktop <h1> as the page's only
+                <h1> tag for search engines. */}
+            <p role="heading" aria-level="1" className="text-[2.4rem] sm:text-[2.8rem] font-black text-white leading-[1.03] tracking-tight text-center animate-fade-in-up">
               Your estate.<br />
               <span className="gradient-text-brand">In your pocket.</span>
-            </h1>
+            </p>
 
             <p className="text-[13px] sm:text-sm text-slate-400 leading-relaxed mt-4 mb-6 text-center max-w-[300px] animate-fade-in-up"
                style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
@@ -1600,20 +1630,7 @@ export default function Home() {
             </div>
           </Reveal>
           <div className="space-y-3">
-            {[
-              { q: 'How much does AreaConnect cost?',
-                a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. See the full pricing page for details.' },
-              { q: 'How do residents get their login credentials?',
-                a: "When an estate manager invites a resident — individually or via CSV — the system instantly creates an account and emails the resident a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
-              { q: 'How does the visitor QR code system work?',
-                a: "A resident pre-registers their guest from the AreaMates app in under 30 seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate, the security officer scans or types the code into the Guard app to verify and check in the visitor." },
-              { q: 'How are payments processed?',
-                a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Residents pay directly from within the AreaMates app by card or bank transfer. Funds are settled to the estate's registered bank account." },
-              { q: 'Is our estate data safe?',
-                a: "Yes. Every estate's data is completely isolated from other estates on the platform. All traffic runs over TLS 1.3. Passwords are hashed with bcrypt. Auth tokens are short-lived and rotating. Payment card data is never stored on our servers — it is handled exclusively by Paystack." },
-              { q: 'Do I need any technical skills to get started?',
-                a: 'None at all. The setup wizard walks you through creating your estate, adding units, and inviting residents step by step. Most estate managers are fully operational in under 10 minutes. We also offer a free onboarding call for all customers.' },
-            ].map((faq, i) => (
+            {FAQS.map((faq, i) => (
               <Reveal key={faq.q} delay={i * 50}>
                 <FaqItem q={faq.q} a={faq.a} />
               </Reveal>
