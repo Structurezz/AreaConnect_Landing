@@ -23,8 +23,13 @@ import ProductGuard from './pages/ProductGuard';
 import NotFound from './pages/NotFound';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) { window.scrollTo(0, 0); return; }
+    // Wait a tick so the target page has rendered before jumping to the anchor.
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 50);
+    return () => clearTimeout(t);
+  }, [pathname, hash]);
   return null;
 }
 

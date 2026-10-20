@@ -1,73 +1,30 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ArrowRight, CheckCircle2, Users, Shield, Building2,
-  CreditCard, Bell, BarChart2, ChevronDown, Star,
-  Zap, Lock, Globe, MapPin, UserCheck, Play, Wifi,
-  LayoutDashboard, Home as HomeIcon, Megaphone,
-  UserPlus, MessageCircle, ShoppingBag, LayoutGrid, ShieldCheck,
-  Music, MessageSquare,
+  ArrowRight, ArrowUpRight, Check, Plus, QrCode, Wallet, ShoppingBag, Vote, PhoneCall,
+  Siren, ShieldCheck, Smartphone, LayoutDashboard, ScanLine, WifiOff, Lock, Globe,
+  Sparkles, MapPin, Music, CreditCard, Shield, Users, Package, UserRound, UserPlus, MessagesSquare, Bell,
+  Home as HomeIcon, LayoutGrid, Phone, Signal, BatteryFull,
 } from 'lucide-react';
 import Seo from '../components/Seo';
-
-/* ─── Scroll-reveal hook ──────────────────────────────────────────────── */
-function useReveal(threshold = 0.12) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, visible];
-}
-
-function Reveal({ children, delay = 0, className = '' }) {
-  const [ref, visible] = useReveal();
-  return (
-    <div ref={ref} style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-/* ─── Animated counter ────────────────────────────────────────────────── */
-function Counter({ target, prefix = '', suffix = '' }) {
-  const [count, setCount] = useState(0);
-  const [ref, visible] = useReveal(0.3);
-  useEffect(() => {
-    if (!visible) return;
-    const dur = 2000;
-    const start = performance.now();
-    const tick = (now) => {
-      const p = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setCount(Math.round(eased * target));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [visible, target]);
-  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
-}
+import AreaMatesPhone from '../components/mockups/AreaMatesPhone';
+import { Reveal, useReveal } from '../components/ui/Reveal';
+import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
 
 /* ─── FAQ content — rendered on the page and mirrored into FAQPage schema ─ */
 const FAQS = [
   { q: 'How much does AreaConnect cost?',
-    a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. See the full pricing page for details.' },
+    a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. Every new estate starts with a 14-day free trial.' },
   { q: 'How do residents get their login credentials?',
     a: "When an estate manager invites a resident — individually or via CSV — the system instantly creates an account and emails the resident a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
   { q: 'How does the visitor QR code system work?',
-    a: "A resident pre-registers their guest from the AreaMates app in under 30 seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate, the security officer scans or types the code into the Guard app to verify and check in the visitor." },
+    a: "A resident pre-registers their guest from the AreaMates app in seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate, the security officer types the code into the Guard app to verify and check in the visitor." },
   { q: 'How are payments processed?',
-    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Residents pay directly from within the AreaMates app by card or bank transfer. Funds are settled to the estate's registered bank account." },
+    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Residents pay directly from within the AreaMates app by card or bank transfer, and get an invoice and receipt for every payment. Funds are settled to the estate's registered bank account." },
   { q: 'Is our estate data safe?',
-    a: "Yes. Every estate's data is completely isolated from other estates on the platform. All traffic runs over TLS 1.3. Passwords are hashed with bcrypt. Auth tokens are short-lived and rotating. Payment card data is never stored on our servers — it is handled exclusively by Paystack." },
+    a: "Yes. Every estate's data is completely isolated from other estates on the platform. All traffic is encrypted in transit, passwords are hashed with bcrypt, and payment card data is never stored on our servers — it is handled exclusively by Paystack." },
   { q: 'Do I need any technical skills to get started?',
-    a: 'None at all. The setup wizard walks you through creating your estate, adding units, and inviting residents step by step. Most estate managers are fully operational in under 10 minutes. We also offer a free onboarding call for all customers.' },
+    a: 'None at all. The setup wizard walks you through creating your estate, adding units, and inviting residents step by step. If you would like a hand, book a call and we will walk you through it.' },
 ];
 
 const FAQ_SCHEMA = {
@@ -80,662 +37,274 @@ const FAQ_SCHEMA = {
   })),
 };
 
-/* ─── FAQ item ────────────────────────────────────────────────────────── */
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false);
+/* ─── Content ─────────────────────────────────────────────────────────── */
+
+const WORDS = ['one app.', 'connected.', 'secured.', 'sorted.'];
+
+// Illustrative notifications that float around the hero phone.
+
+const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app calls', 'Dues on autopilot', 'Invoices & receipts', 'Escrow marketplace', 'Live location sharing', 'Polls & events', 'Community DJ', 'Guard app', 'Offline gate mode'];
+
+const APPS = [
+  {
+    id: 'admin', name: 'AreaConnect Admin', who: 'For estate managers', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
+    desc: 'Run the whole estate from any browser — residents, units, guards, dues and reports in one dashboard.',
+    points: ['Resident onboarding & CSV bulk invites', 'Payment schedules & estate wallet', 'Guard management & audit logs', 'Live analytics & collection reports'],
+  },
+  {
+    id: 'mates', name: 'AreaMates', who: 'For residents', icon: Smartphone, accent: '#6366f1', to: '/mates',
+    desc: 'The resident app — invite visitors, pay dues, call the gate and join the community, all from one place.',
+    points: ['Visitor passes in seconds', 'Pay dues with Paystack', 'In-app calls & messaging', 'Marketplace, lounge, polls & events'],
+  },
+  {
+    id: 'guard', name: 'AreaConnect Guard', who: 'For security', icon: ShieldCheck, accent: '#0ea5e9', to: '/guard',
+    desc: 'The gate app — verify guests by code, respond to panic alerts and keep working even offline.',
+    points: ['6-digit code verification', 'Siren on panic alerts', 'Offline mode with auto-sync', 'Incident escalation'],
+  },
+];
+
+const STEPS = [
+  { title: 'Create your estate',    desc: 'Sign up, add your estate details and units.' },
+  { title: 'Invite your residents', desc: 'Upload a CSV or invite one by one — everyone gets a welcome email.' },
+  { title: 'Onboard your guards',   desc: 'Create gate officer accounts. They sign in to the Guard app and go.' },
+  { title: 'Go live',               desc: 'Residents pay, register visitors and connect with neighbours.' },
+];
+
+const NIGERIA = [
+  { icon: CreditCard, title: 'Paystack-native',      desc: 'Dues, marketplace checkout and payouts all run on Paystack.' },
+  { icon: WifiOff,    title: 'Offline-first gate',   desc: 'The Guard app keeps working without signal and syncs later.' },
+  { icon: Lock,       title: 'Total data isolation', desc: 'No estate can ever see another estate’s data.' },
+  { icon: Globe,      title: 'Works on any device',  desc: 'Light enough for everyday Android phones; Admin runs in any browser.' },
+];
+
+const PLANS = [
+  { name: 'Starter', price: '₦20,000', residents: 'Up to 50 residents',  note: 'Visitors, alerts & announcements' },
+  { name: 'Growth',  price: '₦47,000', residents: 'Up to 200 residents', note: 'Adds payments, marketplace & community', featured: true },
+  { name: 'Premium', price: '₦80,000', residents: 'Up to 500 residents', note: 'Adds the lounge, exports & priority support' },
+];
+
+/* ─── Hero visual ─────────────────────────────────────────────────────── */
+
+function RotatingWord() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI(n => (n + 1) % WORDS.length), 2400);
+    return () => clearInterval(t);
+  }, []);
   return (
-    <div className={`rounded-2xl border overflow-hidden transition-all duration-200 bg-white ${open ? 'border-brand-200 shadow-sm' : 'border-slate-200 hover:border-slate-300'}`}>
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-start justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5 text-left">
-        <span className="font-semibold text-slate-900 text-sm sm:text-[15px] leading-relaxed">{q}</span>
-        <ChevronDown size={16} className={`text-slate-400 flex-shrink-0 mt-0.5 transition-transform duration-200 ${open ? 'rotate-180 text-brand-500' : ''}`} />
-      </button>
-      {open && (
-        <div className="px-5 pb-4 sm:px-6 sm:pb-5 text-sm text-slate-500 leading-relaxed border-t border-slate-100 pt-4">
-          {a}
-        </div>
-      )}
-    </div>
+    <span className="block h-[1.2em] overflow-hidden">
+      <span key={i} className="about-word-in inline-block bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+        {WORDS[i]}
+      </span>
+    </span>
   );
 }
 
-/* ─── Hero Dashboard Mockup (desktop) ────────────────────────────────── */
-function HeroDashboard() {
+/* ─── Apps tabs ───────────────────────────────────────────────────────── */
+
+function AppsTabs() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => setActive(a => (a + 1) % APPS.length), 6000);
+    return () => clearTimeout(t);
+  }, [active, paused]);
+  const app = APPS[active];
+
   return (
-    <div className="relative">
-      <div className="absolute -inset-10 pointer-events-none">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-5 right-5 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl" />
-      </div>
-      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 w-full max-w-md mx-auto"
-           style={{ background: '#F8FAFC' }}>
-        {/* Browser chrome */}
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200"
-             style={{ background: '#FFFFFF' }}>
-          <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
-          </div>
-          <div className="flex-1 mx-3">
-            <div className="rounded-md px-3 py-1 text-[10px] text-slate-400 text-center font-mono"
-                 style={{ background: '#F1F5F9', border: '1px solid #E2E8F0' }}>
-              area-connector.areaconnect.pro
-            </div>
-          </div>
-        </div>
-        {/* Dashboard body — light theme matching real admin app */}
-        <div className="flex" style={{ height: 330 }}>
-          {/* Sidebar — matches real estatemanager: sections + labels */}
-          <div className="w-28 flex flex-col py-2 flex-shrink-0 border-r overflow-hidden"
-               style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
-            {/* Logo */}
-            <div className="flex items-center gap-1.5 px-2 pb-2 mb-1 border-b" style={{ borderColor: '#E2E8F0' }}>
-              <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#10B981' }}>
-                <span className="text-white text-[6px] font-black">AC</span>
-              </div>
-              <span className="text-[7px] font-black" style={{ color: '#0F172A' }}>AreaConnect</span>
-            </div>
-            {/* MANAGEMENT */}
-            <div className="px-2 mt-1 mb-0.5">
-              <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Management</span>
-            </div>
-            {[
-              { Icon: LayoutDashboard, label: 'Dashboard',     active: true  },
-              { Icon: UserCheck,       label: 'Visitors',      active: false },
-              { Icon: Users,           label: 'Residents',     active: false },
-              { Icon: HomeIcon,        label: 'Units',         active: false },
-              { Icon: Megaphone,       label: 'Announcements', active: false },
-              { Icon: CreditCard,      label: 'Payments',      active: false },
-              { Icon: Shield,          label: 'Guards',        active: false },
-            ].map(({ Icon, label, active }) => (
-              <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
-                   style={{
-                     background: active ? 'rgba(16,185,129,0.10)' : 'transparent',
-                     borderLeft: active ? '2px solid #10B981' : '2px solid transparent',
-                   }}>
-                <Icon size={8} style={{ color: active ? '#10B981' : '#94A3B8' }} />
-                <span className="text-[6px] font-medium truncate" style={{ color: active ? '#0F172A' : '#64748B' }}>{label}</span>
-              </div>
-            ))}
-            {/* COMMUNITY */}
-            <div className="px-2 mt-1 mb-0.5">
-              <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Community</span>
-            </div>
-            {[
-              { Icon: Music,         label: 'Lounge & Events' },
-              { Icon: MessageSquare, label: 'Community Chat'  },
-              { Icon: Bell,          label: 'Alerts'          },
-            ].map(({ Icon, label }) => (
-              <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
-                   style={{ borderLeft: '2px solid transparent' }}>
-                <Icon size={8} style={{ color: '#94A3B8' }} />
-                <span className="text-[6px] font-medium truncate" style={{ color: '#64748B' }}>{label}</span>
-              </div>
-            ))}
-          </div>
-          {/* Main content */}
-          <div className="flex-1 overflow-hidden flex flex-col">
-            {/* Emerald hero strip */}
-            <div className="px-3 pt-3 pb-3.5"
-                 style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
-              <div className="text-[10px] font-black text-white mb-0.5">Good morning, Taiwo 👋</div>
-              <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                Sunrise Estate — here's today at a glance
-              </div>
-              <div className="flex gap-1">
-                {[
-                  { l: 'Residents',      v: '142' },
-                  { l: 'Visitors Today', v: '23'  },
-                  { l: 'Inside Now',     v: '8'   },
-                  { l: 'Open Alerts',    v: '2', alert: true },
-                ].map(s => (
-                  <div key={s.l} className="flex-1 rounded-lg px-1 py-1 text-center"
-                       style={{ background: s.alert ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
-                    <div className="text-[10px] font-black text-white">{s.v}</div>
-                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.72)' }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="flex-1 p-3 space-y-2.5 overflow-hidden">
-              {/* Quick Actions 2×2 */}
-              <div>
-                <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {[
-                    { label: 'Manage Residents', Icon: Users,     iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
-                    { label: 'Estate Units',     Icon: HomeIcon,  iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
-                    { label: 'Post Notice',      Icon: Megaphone, iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
-                    { label: 'View Alerts',      Icon: Bell,      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
-                  ].map(a => (
-                    <div key={a.label} className="flex items-center gap-1.5 p-1.5 rounded-xl border"
-                         style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}>
-                      <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
-                           style={{ background: a.iconBg }}>
-                        <a.Icon size={9} style={{ color: a.iconColor }} />
-                      </div>
-                      <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
-                    </div>
-                  ))}
+    <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
+        {APPS.map((a, i) => {
+          const on = i === active;
+          return (
+            <button key={a.id} type="button" onClick={() => setActive(i)}
+              className={`relative overflow-hidden text-left rounded-2xl border p-3 sm:p-4 transition-all duration-300 ${on ? 'bg-white border-slate-200 shadow-lg shadow-slate-900/5' : 'bg-white/50 border-slate-200/60 hover:bg-white'}`}>
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: on ? a.accent : '#f1f5f9' }}>
+                  <a.icon size={16} style={{ color: on ? '#fff' : a.accent }} />
                 </div>
-              </div>
-              {/* Recent Visitors */}
-              <div className="rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-                <div className="px-2.5 py-1.5 text-[7px] font-bold uppercase tracking-wider border-b"
-                     style={{ color: '#94A3B8', borderColor: 'rgba(15,23,42,0.06)', background: '#FFFFFF' }}>
-                  Recent Visitors
+                <div className="min-w-0 hidden sm:block">
+                  <div className="text-sm font-semibold text-slate-900 truncate">{a.name}</div>
+                  <div className="text-[11px] text-slate-400">{a.who}</div>
                 </div>
-                {[
-                  { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)'  },
-                  { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)'  },
-                  { n: 'Seun Afolabi', u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
-                ].map(v => (
-                  <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white"
-                       style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
-                         style={{ background: 'rgba(16,185,129,0.10)', color: '#059669', border: '1px solid rgba(16,185,129,0.18)' }}>
-                      {v.n[0]}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
-                      <div className="text-[7px]" style={{ color: '#94A3B8' }}>{v.u}</div>
-                    </div>
-                    <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
-                          style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
-                      {v.s}
-                    </span>
-                  </div>
-                ))}
+                <div className="sm:hidden text-[12px] font-semibold text-slate-900 leading-tight">{a.name.replace('AreaConnect ', '')}</div>
               </div>
-            </div>
-          </div>
-        </div>
+              {on && (
+                <span key={`${active}-${paused}`} className="absolute left-0 bottom-0 h-0.5 home-progress" style={{ background: a.accent, animationPlayState: paused ? 'paused' : 'running' }} />
+              )}
+            </button>
+          );
+        })}
       </div>
-      {/* Floating cards — desktop only */}
-      <div className="absolute -top-5 -right-5 bg-white rounded-2xl shadow-2xl p-3 w-44 animate-float border border-slate-100 hidden lg:block z-20">
-        <div className="flex items-center gap-2 mb-1.5">
-          <div className="w-5 h-5 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <CheckCircle2 size={10} className="text-white" />
-          </div>
-          <span className="text-[9px] font-bold text-brand-700 uppercase tracking-wide">Visitor verified</span>
+
+      <div key={app.id} className="about-feed-in grid md:grid-cols-[1.1fr_1fr] gap-6 md:gap-10 items-center rounded-[1.75rem] bg-white border border-slate-200/80 p-6 sm:p-8 shadow-xl shadow-slate-900/5">
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: app.accent }}>{app.who}</div>
+          <h3 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-slate-900">{app.name}</h3>
+          <p className="mt-3 text-[15px] text-slate-500 leading-relaxed">{app.desc}</p>
+          <Link to={app.to} className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold group" style={{ color: app.accent }}>
+            Explore {app.name.replace('AreaConnect ', '')} <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+          </Link>
         </div>
-        <div className="text-[11px] font-bold text-slate-800">Chidi Okafor</div>
-        <div className="text-[9px] text-slate-400 mt-0.5">Gate 1 · just now</div>
-      </div>
-      <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-2xl p-3 w-48 animate-float-delayed border border-slate-100 hidden lg:block z-20">
-        <div className="flex items-center gap-2 mb-1.5">
-          <div className="w-5 h-5 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <CreditCard size={10} className="text-white" />
-          </div>
-          <span className="text-[9px] font-bold text-indigo-700 uppercase tracking-wide">Payment received</span>
-        </div>
-        <div className="text-[11px] font-bold text-slate-800">₦75,000 · Unit 4B</div>
-        <div className="text-[9px] text-slate-400 mt-0.5">Service charge · Nov</div>
-      </div>
-      <div className="absolute top-1/3 -left-12 bg-white rounded-2xl shadow-xl p-3 w-40 animate-float-slow border border-slate-100 hidden xl:block z-20">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <Users size={9} className="text-white" />
-          </div>
-          <span className="text-[9px] font-bold text-blue-700 uppercase tracking-wide">New resident</span>
-        </div>
-        <div className="text-[11px] font-bold text-slate-800">Emem Bassey joined</div>
-        <div className="text-[9px] text-slate-400 mt-0.5">Unit 1D · 2 min ago</div>
-      </div>
-      <div className="absolute top-3 right-1/4 bg-white rounded-2xl shadow-xl p-3 w-40 animate-float-delayed2 border border-slate-100 hidden xl:block z-20">
-        <div className="flex items-center gap-1.5 mb-1">
-          <Bell size={10} className="text-amber-500" />
-          <span className="text-[9px] font-bold text-amber-700 uppercase tracking-wide">Alert resolved</span>
-        </div>
-        <div className="text-[10px] text-slate-600">Gate 2 incident cleared</div>
-        <div className="text-[9px] text-slate-400 mt-0.5">by Musa · 5 min ago</div>
+        <ul className="space-y-2.5">
+          {app.points.map((p, i) => (
+            <li key={p} className="about-feed-in flex items-center gap-3 rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3 text-sm text-slate-700" style={{ animationDelay: `${120 + i * 90}ms` }}>
+              <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-white" style={{ background: app.accent }}>
+                <Check size={12} strokeWidth={3} />
+              </span>
+              {p}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
-/* ─── Mobile Hero Visual ──────────────────────────────────────────────── */
-function MobileHeroVisual() {
+/* ─── Bento tiles ─────────────────────────────────────────────────────── */
+
+function Bento() {
+  const [ref, on] = useReveal(0.2);
   return (
-    <div className="relative mt-10 mx-auto" style={{ maxWidth: 340 }}>
-      {/* Ambient glows */}
-      <div className="absolute -inset-8 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-48 h-48 bg-brand-500/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-40 h-40 bg-indigo-500/12 rounded-full blur-3xl" />
-      </div>
-
-      {/* Phone shell */}
-      <div className="relative mx-auto w-[264px]">
-        <div className="relative overflow-hidden shadow-2xl"
-             style={{ background: '#0f1117', border: '7px solid #1a1f2e', borderRadius: 40, height: 500 }}>
-
-          {/* Dynamic Island */}
-          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
-               style={{ background: '#000', borderRadius: 20, padding: '4px 12px' }}>
-            <div className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
-            <span className="text-[7px] text-white/50 font-semibold tracking-wide">LIVE</span>
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-6 gap-3 sm:gap-4">
+      {/* Visitors — large */}
+      <SpotlightCard glow="rgba(16,185,129,.14)" className="md:col-span-4 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+        <div className="flex flex-col sm:flex-row gap-6 sm:items-center">
+          <div className="flex-1">
+            <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-5"><ScanLine size={18} /></div>
+            <h3 className="text-lg font-semibold text-slate-900">Visitors in, in seconds.</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed max-w-sm">QR passes, 6-digit codes, instant passes and early-arrival approvals — guards verify them in seconds.</p>
           </div>
-
-          {/* Hero strip — real residents Dashboard gradient */}
-          <div className="pt-9 pb-4 px-4 relative overflow-hidden"
-               style={{ background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 60%, #4338CA 100%)' }}>
-            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
-                 style={{ background: 'rgba(255,255,255,0.07)' }} />
-            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full pointer-events-none"
-                 style={{ background: 'rgba(255,255,255,0.05)' }} />
-            <div className="relative">
-              {/* Unit pill + ALERT row */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[8px] font-bold rounded-full px-2 py-0.5"
-                      style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
-                  Unit 4B
-                </span>
-                <button className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
-                        style={{ background: 'rgba(239,68,68,0.90)', border: '2px solid rgba(255,255,255,0.30)', minWidth: 52 }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  ALERT
-                </button>
-              </div>
-              <div className="text-white text-[12px] font-black mb-0.5">Welcome back, Adaeze</div>
-              <div className="text-[8px] mb-2.5" style={{ color: 'rgba(255,255,255,0.70)' }}>Sunrise Estate · Lekki</div>
-              {/* 3 stat cells */}
-              <div className="flex gap-1.5">
-                {[{ l: 'Active Passes', v: '2' }, { l: 'Total Visitors', v: '14' }, { l: 'Notices', v: '3' }].map(s => (
-                  <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
-                       style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}>
-                    <div className="text-[11px] font-black text-white">{s.v}</div>
-                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.70)' }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Content area */}
-          <div className="p-3 space-y-2" style={{ background: '#F8FAFC' }}>
-            {/* Quick nav 2×2 */}
-            <div className="grid grid-cols-2 gap-1.5">
-              {[
-                { label: 'Invite Visitor',  Icon: UserPlus,      bg: 'rgba(99,102,241,0.08)',  color: '#4F46E5', border: 'rgba(99,102,241,0.20)' },
-                { label: 'Marketplace',     Icon: ShoppingBag,   bg: 'rgba(245,158,11,0.08)',  color: '#D97706', border: 'rgba(245,158,11,0.20)' },
-                { label: 'Community Chat',  Icon: MessageCircle, bg: 'rgba(59,130,246,0.08)',  color: '#2563EB', border: 'rgba(59,130,246,0.20)' },
-                { label: 'Alert Center',    Icon: ShieldCheck,   bg: 'rgba(239,68,68,0.08)',   color: '#DC2626', border: 'rgba(239,68,68,0.20)'  },
-              ].map(a => (
-                <div key={a.label} className="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center border"
-                     style={{ background: a.bg, borderColor: a.border }}>
-                  <div className="w-5 h-5 rounded-md flex items-center justify-center mb-1"
-                       style={{ background: a.bg }}>
-                    <a.Icon size={10} style={{ color: a.color }} strokeWidth={2.25} />
-                  </div>
-                  <div className="text-[7px] font-medium leading-tight" style={{ color: '#475569' }}>{a.label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* My Visitor Passes */}
-            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b" style={{ borderColor: 'rgba(15,23,42,0.06)' }}>
-                <div className="w-4 h-4 rounded flex items-center justify-center"
-                     style={{ background: 'rgba(99,102,241,0.10)' }}>
-                  <div className="w-2 h-2 rounded-sm" style={{ background: '#4F46E5' }} />
-                </div>
-                <div className="text-[8px] font-bold" style={{ color: '#0F172A' }}>My Visitor Passes</div>
-              </div>
-              {[
-                { n: 'Chidi Okafor', c: 'QR4B2A', s: 'active',     sc: '#4F46E5', sb: 'rgba(99,102,241,0.10)',  se: 'rgba(99,102,241,0.22)'  },
-                { n: 'Fatima Bello', c: 'QR1F9C', s: 'checked-in', sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.22)'  },
-              ].map(v => (
-                <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-2 border-b last:border-0"
-                     style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
-                       style={{ background: 'rgba(99,102,241,0.10)', border: '1px solid rgba(99,102,241,0.22)', color: '#4F46E5' }}>
-                    {v.n[0]}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
-                    <div className="text-[7px] font-mono" style={{ color: '#6366F1' }}>{v.c}</div>
-                  </div>
-                  <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
-                        style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
-                    {v.s}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Estate Notice */}
-            <div className="bg-amber-50 border border-amber-100 rounded-xl p-2.5">
-              <div className="flex items-start gap-1.5">
-                <span className="text-sm">📢</span>
-                <div>
-                  <div className="text-[8px] font-bold text-amber-700 uppercase tracking-wide">Estate Notice</div>
-                  <div className="text-[9px] font-semibold text-slate-800">Water off Saturday 8AM–2PM</div>
-                  <div className="text-[7px] text-slate-400 mt-0.5">23 min ago</div>
-                </div>
-              </div>
-            </div>
+          <div className="flex gap-2 sm:flex-col">
+            {['Expected · 12', 'On-site · 5', 'Checked out · 31'].map((t, i) => (
+              <span key={t} className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-500 ${on ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'} ${
+                i === 1 ? 'bg-brand-500 border-brand-500 text-white' : 'bg-white border-slate-200 text-slate-600'
+              }`} style={{ transitionDelay: `${300 + i * 120}ms` }}>{t}</span>
+            ))}
           </div>
         </div>
-        {/* Home indicator bar */}
-        <div className="mx-auto mt-1.5 w-16 h-1 rounded-full bg-white/25" />
-      </div>
+      </SpotlightCard>
 
-      {/* Floating toast — top right */}
-      <div className="absolute top-10 -right-4 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float z-10">
-        <div className="flex items-center gap-1.5">
-          <div className="w-4 h-4 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <CheckCircle2 size={8} className="text-white" />
-          </div>
-          <span className="text-[9px] font-bold text-slate-700">Pass verified</span>
+      {/* Panic */}
+      <SpotlightCard glow="rgba(244,63,94,.14)" className="md:col-span-2 rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-7 text-white">
+        <div className="relative w-10 h-10 mb-5">
+          <span className="absolute inset-0 rounded-xl bg-rose-500 animate-ping opacity-40" />
+          <div className="relative w-10 h-10 rounded-xl bg-rose-500 flex items-center justify-center"><Siren size={18} /></div>
         </div>
-        <div className="text-[7px] text-slate-400 mt-0.5 pl-[22px]">just now · Gate 1</div>
-      </div>
+        <h3 className="text-lg font-semibold">Panic alerts with a siren.</h3>
+        <p className="mt-2 text-sm text-slate-400 leading-relaxed">One tap and every guard’s phone sounds the alarm.</p>
+      </SpotlightCard>
 
-      {/* Floating toast — bottom left */}
-      <div className="absolute bottom-20 -left-4 bg-white rounded-2xl shadow-xl border border-slate-100 px-3 py-2 animate-float-delayed z-10">
-        <div className="flex items-center gap-1.5">
-          <CreditCard size={11} className="text-indigo-500" />
-          <span className="text-[9px] font-bold text-slate-700">₦75,000 received</span>
+      {/* Dues */}
+      <SpotlightCard glow="rgba(245,158,11,.14)" className="md:col-span-2 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+        <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-5"><Wallet size={18} /></div>
+        <h3 className="text-lg font-semibold text-slate-900">Dues on autopilot.</h3>
+        <p className="mt-2 text-sm text-slate-500 leading-relaxed">Schedules, reminders, receipts and payouts.</p>
+        <div className="mt-5 h-2 rounded-full bg-slate-100 overflow-hidden">
+          <div className="h-full rounded-full bg-gradient-to-r from-amber-400 to-brand-500 transition-[width] duration-[1600ms] ease-out" style={{ width: on ? '82%' : '0%' }} />
         </div>
-        <div className="text-[7px] text-slate-400 mt-0.5">Unit 4B · Nov dues</div>
-      </div>
+        <div className="mt-2 text-[11px] text-slate-400">82% collected · example</div>
+      </SpotlightCard>
 
-      {/* Social proof pill */}
-      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-lg border border-slate-100 px-4 py-1.5 flex items-center gap-2 whitespace-nowrap z-10">
-        <div className="flex -space-x-1.5">
-          {['bg-brand-500','bg-indigo-500','bg-blue-500'].map((c, i) => (
-            <div key={i} className={`w-4 h-4 rounded-full ${c} border-2 border-white`} />
+      {/* Calls */}
+      <SpotlightCard glow="rgba(14,165,233,.14)" className="md:col-span-2 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+        <div className="relative w-10 h-10 mb-5">
+          <span className="absolute -inset-1.5 rounded-2xl border-2 border-sky-300 home-ring" />
+          <div className="relative w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center"><PhoneCall size={18} /></div>
+        </div>
+        <h3 className="text-lg font-semibold text-slate-900">Call the gate in-app.</h3>
+        <p className="mt-2 text-sm text-slate-500 leading-relaxed">Neighbours, security and managers — no numbers exposed.</p>
+      </SpotlightCard>
+
+      {/* Community */}
+      <SpotlightCard glow="rgba(139,92,246,.14)" className="md:col-span-2 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+        <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-500 flex items-center justify-center mb-5"><Music size={18} /></div>
+        <h3 className="text-lg font-semibold text-slate-900">A lounge for the estate.</h3>
+        <p className="mt-2 text-sm text-slate-500 leading-relaxed">Feed, stories, events, polls and a shared DJ queue.</p>
+        <div className="mt-5 flex items-end gap-1 h-6">
+          {[0, 1, 2, 3, 4, 5, 6].map(i => (
+            <span key={i} className="w-1.5 rounded-full bg-violet-400 home-eq" style={{ animationDelay: `${i * 0.12}s` }} />
           ))}
         </div>
-        <span className="text-[9px] font-bold text-slate-700">500+ estates live</span>
-        <div className="flex gap-0.5">
-          {[...Array(5)].map((_, i) => <Star key={i} size={7} className="text-amber-400 fill-amber-400" />)}
-        </div>
-      </div>
-    </div>
-  );
-}
+      </SpotlightCard>
 
-/* ─── Resident App Phone Mockup ───────────────────────────────────────── */
-function PhoneMockup() {
-  return (
-    <div className="relative flex justify-center">
-      <div className="absolute -inset-8 rounded-full blur-3xl pointer-events-none"
-           style={{ background: 'rgba(43,108,176,0.18)' }} />
-      <div className="relative rounded-[2.5rem] shadow-2xl overflow-hidden w-56 sm:w-60 animate-float-slow"
-           style={{ height: 500, background: '#F7F5F1', border: '1px solid rgba(0,0,0,0.10)' }}>
-        {/* Notch */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full z-10"
-             style={{ background: '#E2E0DC' }} />
-        <div className="absolute inset-0 flex flex-col">
-          {/* Hero card — #2B6CB0 matching real AreaMates */}
-          <div className="px-4 pt-9 pb-3 relative overflow-hidden"
-               style={{ background: '#2B6CB0' }}>
-            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
-                 style={{ background: 'rgba(255,255,255,0.07)' }} />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[8px] font-semibold rounded-full px-2 py-0.5 uppercase tracking-wide"
-                      style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)' }}>
-                  Sunrise Estate
-                </span>
-                <div className="flex items-center gap-1 rounded-full px-2 py-1 text-[8px] font-black text-white"
-                     style={{ background: 'rgba(197,48,48,0.90)' }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  ALERT
-                </div>
-              </div>
-              <div className="text-[9px] mb-0.5" style={{ color: 'rgba(255,255,255,0.75)' }}>Good morning,</div>
-              <div className="text-[15px] font-bold text-white mb-0.5">Adaeze 👋</div>
-              <div className="flex items-center gap-1 mb-2.5">
-                <div className="w-2 h-2 rounded-full" style={{ background: 'rgba(255,255,255,0.5)' }} />
-                <span className="text-[8px]" style={{ color: 'rgba(255,255,255,0.65)' }}>Unit 4B · Block C</span>
-              </div>
-              <div className="flex gap-1.5">
-                {[
-                  { l: 'Active Passes', v: '2' },
-                  { l: 'All Visitors',  v: '14' },
-                  { l: 'Notices',       v: '3' },
-                ].map(s => (
-                  <div key={s.l} className="flex-1 rounded-xl py-1.5 text-center"
-                       style={{ background: 'rgba(255,255,255,0.12)' }}>
-                    <div className="text-[12px] font-bold text-white">{s.v}</div>
-                    <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.65)' }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
+      {/* Marketplace — wide */}
+      <SpotlightCard glow="rgba(249,115,22,.14)" className="md:col-span-6 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-800 p-6 sm:p-7 text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center flex-shrink-0"><ShoppingBag size={18} /></div>
+            <div>
+              <h3 className="text-lg font-semibold">A marketplace your neighbours can trust.</h3>
+              <p className="mt-1 text-sm text-slate-400">Escrow checkout holds the money until the buyer confirms delivery.</p>
             </div>
           </div>
-
-          {/* Content */}
-          <div className="flex-1 px-3 pt-2.5 space-y-2 overflow-hidden" style={{ background: '#F7F5F1' }}>
-            <div className="text-[7px] font-bold uppercase tracking-widest" style={{ color: '#4A5568' }}>Quick Actions</div>
-            <div className="grid grid-cols-2 gap-1.5">
-              {[
-                { label: 'Invite Visitor', Icon: UserPlus,      color: '#276749', bg: 'rgba(39,103,73,0.10)'   },
-                { label: 'Marketplace',    Icon: ShoppingBag,   color: '#2B6CB0', bg: 'rgba(43,108,176,0.10)'  },
-                { label: 'Community',      Icon: MessageCircle, color: '#6B46C1', bg: 'rgba(107,70,193,0.10)'  },
-                { label: 'Alert Security', Icon: ShieldCheck,   color: '#C53030', bg: 'rgba(197,48,48,0.10)'   },
-              ].map(({ label, Icon, color, bg }) => (
-                <div key={label} className="flex flex-col items-center py-2.5 rounded-xl bg-white border text-center"
-                     style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-1"
-                       style={{ background: bg }}>
-                    <Icon size={16} style={{ color }} />
-                  </div>
-                  <div className="text-[7px] font-semibold" style={{ color }}>{label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-white rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-              <div className="flex items-center justify-between px-2.5 py-1.5 border-b"
-                   style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-                <span className="text-[8px] font-bold" style={{ color: '#1A202C' }}>Recent Visitors</span>
-                <span className="text-[7px] font-semibold" style={{ color: '#2B6CB0' }}>View all →</span>
-              </div>
-              {[
-                { n: 'Chidi Okafor', d: 'Jun 20 · 3:00 PM', s: 'active',     sc: '#276749', sb: 'rgba(39,103,73,0.10)'  },
-                { n: 'Fatima Bello', d: 'Jun 18 · 1:30 PM', s: 'checked-in', sc: '#2B6CB0', sb: 'rgba(43,108,176,0.10)' },
-              ].map(v => (
-                <div key={v.n} className="flex items-center gap-2 px-2.5 py-2 border-b last:border-0"
-                     style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0"
-                       style={{ background: 'rgba(43,108,176,0.10)', color: '#2B6CB0' }}>
-                    {v.n[0]}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[8px] font-semibold truncate" style={{ color: '#1A202C' }}>{v.n}</div>
-                    <div className="text-[7px]" style={{ color: '#A0AEC0' }}>{v.d}</div>
-                  </div>
-                  <span className="text-[7px] font-semibold px-1.5 py-0.5 rounded-full"
-                        style={{ background: v.sb, color: v.sc }}>
-                    {v.s}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tab bar */}
-          <div className="flex items-center justify-around px-1 py-1.5 border-t"
-               style={{ background: '#FFFFFF', borderColor: 'rgba(0,0,0,0.07)', minHeight: 46 }}>
-            {[
-              { label: 'Home',     Icon: HomeIcon,      active: true  },
-              { label: 'Visitors', Icon: UserPlus,      active: false },
-              { label: 'Chat',     Icon: MessageCircle, active: false },
-              { label: 'Market',   Icon: ShoppingBag,   active: false },
-              { label: 'More',     Icon: LayoutGrid,    active: false },
-            ].map(({ label, Icon, active }) => (
-              <div key={label} className="flex flex-col items-center gap-0.5">
-                <Icon size={16} style={{ color: active ? '#2B6CB0' : '#A0AEC0' }} />
-                <span className="text-[7px] font-semibold"
-                      style={{ color: active ? '#2B6CB0' : '#A0AEC0' }}>{label}</span>
-              </div>
+          <div className="flex items-center gap-2 text-xs">
+            {['Paid', 'Held in escrow', 'Delivered', 'Released'].map((s, i) => (
+              <span key={s} className={`flex items-center gap-2 transition-all duration-500 ${on ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: `${400 + i * 250}ms` }}>
+                <span className={`rounded-full px-2.5 py-1 font-medium whitespace-nowrap ${i === 3 ? 'bg-brand-500 text-white' : 'bg-white/10 text-slate-300'}`}>{s}</span>
+                {i < 3 && <span className="hidden sm:block w-4 h-px bg-white/20" />}
+              </span>
             ))}
           </div>
         </div>
-      </div>
+      </SpotlightCard>
     </div>
   );
 }
 
-/* ─── Guard App Mockup ────────────────────────────────────────────────── */
-function GuardMockup() {
+/* ─── Steps ───────────────────────────────────────────────────────────── */
+
+function Steps() {
+  const [ref, on] = useReveal(0.3);
   return (
-    <div className="relative flex justify-center">
-      <div className="absolute -inset-8 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/12 rounded-full blur-3xl" />
-      </div>
-      <div className="relative rounded-3xl shadow-2xl border border-slate-200 overflow-hidden w-52 sm:w-56 animate-float"
-           style={{ height: 430, background: '#F8FAFC' }}>
-        {/* Hero strip — real security Dashboard gradient */}
-        <div className="px-4 pt-6 pb-4 text-center relative overflow-hidden"
-             style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%)' }}>
-          <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full pointer-events-none"
-               style={{ background: 'rgba(255,255,255,0.07)' }} />
-          <div className="relative">
-            <div className="w-10 h-10 rounded-2xl flex items-center justify-center mx-auto mb-2"
-                 style={{ background: 'rgba(255,255,255,0.20)', border: '1px solid rgba(255,255,255,0.30)' }}>
-              <Shield size={18} className="text-white" />
-            </div>
-            <div className="text-white text-[12px] font-bold mb-0.5">Gate Security</div>
-            <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Visitor access verification terminal</div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[8px] font-semibold"
-                 style={{ background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.95)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
-              Monday · 14:32
-            </div>
-          </div>
-        </div>
-
-        <div className="p-3 space-y-2.5">
-          {/* Code input */}
-          <div className="bg-white rounded-2xl p-3 border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-            <div className="text-[8px] font-medium text-center mb-2" style={{ color: '#475569' }}>Visitor Access Code</div>
-            <div className="w-full rounded-xl py-2 px-3 text-center text-[14px] font-black"
-                 style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#0F172A', fontFamily: '"Courier New", monospace', letterSpacing: '0.3em' }}>
-              AB7C1F
-            </div>
-            {/* Progress dots */}
-            <div className="flex justify-center gap-1.5 my-2">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="w-4 h-1.5 rounded-full" style={{ background: '#3B82F6' }} />
-              ))}
-            </div>
-            <div className="w-full py-1.5 rounded-xl text-[8px] font-bold text-white text-center"
-                 style={{ background: '#3B82F6' }}>
-              Verify Code
-            </div>
-          </div>
-
-          {/* Verified visitor result card */}
-          <div className="bg-white rounded-2xl p-3 border"
-               style={{ border: '1px solid rgba(16,185,129,0.18)', background: 'rgba(16,185,129,0.06)' }}>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-7 h-7 rounded-xl flex items-center justify-center text-[10px] font-bold flex-shrink-0"
-                   style={{ background: 'rgba(59,130,246,0.10)', border: '2px solid rgba(59,130,246,0.20)', color: '#2563EB' }}>
-                C
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[10px] font-black" style={{ color: '#0F172A' }}>Chidi Okafor</div>
-                <div className="text-[8px] flex items-center gap-1" style={{ color: '#059669' }}>
-                  <CheckCircle2 size={8} /> Verified · Access granted
-                </div>
-              </div>
-            </div>
-            {/* 2×2 info grid */}
-            <div className="grid grid-cols-2 gap-1.5 mb-2">
-              {[
-                { l: 'Host Unit',  v: 'Unit 4B'       },
-                { l: 'Invited by', v: 'Adaeze O.'      },
-                { l: 'Expected',   v: 'Today'          },
-                { l: 'Checked in', v: '2:28 PM'        },
-              ].map(info => (
-                <div key={info.l} className="rounded-lg p-1.5" style={{ background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                  <div className="text-[7px]" style={{ color: '#94A3B8' }}>{info.l}</div>
-                  <div className="text-[8px] font-medium" style={{ color: '#0F172A' }}>{info.v}</div>
-                </div>
-              ))}
-            </div>
-            <div className="w-full py-1.5 rounded-xl text-[8px] font-bold text-center flex items-center justify-center gap-1"
-                 style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#64748B' }}>
-              Check Out Visitor
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Marquee ─────────────────────────────────────────────────────────── */
-const FEATURES = [
-  'Visitor QR Passes', 'Service Charge Collection', 'Gate & Guard App', 'Resident Portal',
-  'Estate Announcements', 'Community Chat', 'Resident Marketplace', 'Security Alerts',
-  'Estate Analytics', 'Payment Tracking', 'Community Polls', 'Offline Guard Mode',
-  'WhatsApp Pass Sharing', 'Multi-Gate Support', 'Real-Time Notifications',
-];
-function Marquee() {
-  const items = [...FEATURES, ...FEATURES];
-  return (
-    <div className="overflow-hidden whitespace-nowrap">
-      <div className="inline-flex animate-marquee">
-        {items.map((f, i) => (
-          <span key={i} className="inline-flex items-center gap-3 px-6 text-sm font-medium text-slate-400">
-            <span className="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0" />
-            {f}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Testimonial card ────────────────────────────────────────────────── */
-function TestimonialCard({ quote, name, role, initials, color, delay }) {
-  return (
-    <Reveal delay={delay}>
-      <div className="bg-white rounded-2xl border border-slate-100 p-6 sm:p-8 flex flex-col h-full shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-        <div className="flex gap-1 mb-4 sm:mb-5">
-          {[...Array(5)].map((_, i) => <Star key={i} size={13} className="text-amber-400 fill-amber-400" />)}
-        </div>
-        <p className="text-slate-700 text-sm leading-relaxed flex-1 mb-5 sm:mb-6 italic">&ldquo;{quote}&rdquo;</p>
-        <div className="flex items-center gap-3 pt-4 sm:pt-5 border-t border-slate-50">
-          <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full ${color} flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-sm`}>
-            {initials}
+    <div ref={ref} className="relative grid md:grid-cols-4 gap-4 md:gap-6">
+      <div className="hidden md:block absolute top-5 left-[12%] right-[12%] h-px bg-slate-200" />
+      <div className="hidden md:block absolute top-5 left-[12%] right-[12%] h-px bg-gradient-to-r from-brand-400 to-brand-600 origin-left transition-transform duration-[1800ms] ease-out"
+        style={{ transform: `scaleX(${on ? 1 : 0})` }} />
+      {STEPS.map((s, i) => (
+        <div key={s.title}
+          className={`relative flex md:flex-col items-start md:items-center gap-4 md:text-center transition-all duration-700 ${on ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          style={{ transitionDelay: `${i * 300}ms` }}>
+          <div className="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-brand-500 text-brand-600 text-sm font-bold flex items-center justify-center flex-shrink-0 shadow-[0_0_0_6px_white]">
+            {i + 1}
           </div>
           <div>
-            <div className="font-bold text-slate-900 text-sm">{name}</div>
-            <div className="text-xs text-slate-400 mt-0.5">{role}</div>
+            <h3 className="text-[15px] font-semibold text-slate-900">{s.title}</h3>
+            <p className="mt-1 text-[13px] text-slate-500 leading-relaxed md:max-w-[200px] md:mx-auto">{s.desc}</p>
           </div>
         </div>
-      </div>
-    </Reveal>
+      ))}
+    </div>
   );
 }
 
-/* ─── City dot ────────────────────────────────────────────────────────── */
-function City({ name, tag, color, active }) {
+function FaqItem({ q, a, open, onToggle }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className={`relative flex-shrink-0 w-2.5 h-2.5 rounded-full ${color}`}>
-        {active && <span className={`absolute inset-0 rounded-full ${color} animate-ping-slow opacity-75`} />}
-      </div>
-      <div>
-        <div className="text-sm font-semibold text-slate-800">{name}</div>
-        <div className="text-xs text-slate-400">{tag}</div>
+    <div className={`rounded-2xl border transition-all duration-300 ${open ? 'bg-white border-slate-200 shadow-lg shadow-slate-900/5' : 'bg-white/60 border-slate-200/70 hover:bg-white'}`}>
+      <button type="button" onClick={onToggle} className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
+        <span className="text-sm sm:text-[15px] font-semibold text-slate-900">{q}</span>
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${open ? 'bg-brand-500 text-white rotate-45' : 'bg-slate-100 text-slate-500'}`}>
+          <Plus size={14} />
+        </span>
+      </button>
+      <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-sm text-slate-500 leading-relaxed">{a}</p>
+        </div>
       </div>
     </div>
   );
 }
 
-/* ─── Main page ───────────────────────────────────────────────────────── */
+/* ─── Page ────────────────────────────────────────────────────────────── */
+
 export default function Home() {
+  const [openFaq, setOpenFaq] = useState(0);
   const [showStickyCta, setShowStickyCta] = useState(false);
+
   useEffect(() => {
     const fn = () => {
-      // show after passing hero (~70% of a mobile viewport), hide near page bottom
       const y = window.scrollY;
       const h = window.innerHeight;
       const docH = document.documentElement.scrollHeight;
@@ -747,965 +316,280 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-clip">
       <Seo
         title="AreaConnect — Estate Management Platform Nigeria | Visitor Passes, Payments & Community"
-        description="Nigeria's leading estate management platform. Manage residents, collect service charges via Paystack, issue visitor QR passes and keep your community connected — all in one place."
+        description="The estate management platform built in Nigeria. Issue visitor QR passes, collect service charges via Paystack, call the gate in-app and keep your community connected — all in one place."
         path="/"
         keywords="AreaConnect, estate management Nigeria, property management software Nigeria, visitor management system, estate manager app, resident portal Nigeria, service charge collection, Lagos estate management"
         jsonLd={FAQ_SCHEMA}
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen bg-[#050d1a] flex items-center overflow-hidden noise">
-        <div className="absolute pointer-events-none inset-0">
-          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 -right-32 w-[400px] h-[400px] bg-indigo-600/12 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-500/5 rounded-full blur-3xl" />
-        </div>
-        <div className="absolute inset-0 dot-grid opacity-40" />
-
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-20 pb-14 sm:pt-28 sm:pb-16 lg:py-36 w-full">
-
-          {/* ── Mobile / tablet layout: app-first ──────────────────── */}
-          <div className="lg:hidden flex flex-col items-center z-10 relative">
-
-            {/* Status pills row — feels like app header */}
-            <div className="flex items-center gap-2 mb-5 animate-fade-in">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-500/15 border border-brand-500/30 pl-1 pr-3 py-1 backdrop-blur-sm">
-                <span className="relative flex items-center justify-center w-5 h-5 rounded-full bg-brand-500">
-                  <span className="absolute inset-0 rounded-full bg-brand-400 animate-ping-slow opacity-60" />
-                  <span className="relative w-1.5 h-1.5 rounded-full bg-white" />
-                </span>
-                <span className="text-brand-300 text-[11px] font-bold tracking-wide">Live now</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-2.5 py-1 backdrop-blur-sm">
-                <MapPin size={10} className="text-white/60" />
-                <span className="text-white/75 text-[11px] font-semibold">Nigeria</span>
-              </span>
-            </div>
-
-            {/* Big app-style headline */}
-            {/* Mobile-only hero heading. role="heading" keeps it a level-1 heading
-                for screen readers while leaving the desktop <h1> as the page's only
-                <h1> tag for search engines. */}
-            <p role="heading" aria-level="1" className="text-[2.4rem] sm:text-[2.8rem] font-black text-white leading-[1.03] tracking-tight text-center animate-fade-in-up">
-              Your estate.<br />
-              <span className="gradient-text-brand">In your pocket.</span>
-            </p>
-
-            <p className="text-[13px] sm:text-sm text-slate-400 leading-relaxed mt-4 mb-6 text-center max-w-[300px] animate-fade-in-up"
-               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-              Visitor passes, dues collection, community chat — one AreaConnect app for everyone.
-            </p>
-
-            {/* Phone mockup — hero focal point, bigger */}
-            <div className="animate-fade-in-up w-full flex justify-center" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-              <MobileHeroVisual />
-            </div>
-
-            {/* App-style CTA stack */}
-            <div className="w-full max-w-sm mt-14 space-y-2.5 animate-fade-in-up px-1"
-                 style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-              <Link to="https://area-connector.areaconnect.pro/register"
-                    className="flex items-center justify-between w-full bg-gradient-to-r from-brand-500 to-brand-600 text-white font-bold pl-4 pr-2.5 py-3 rounded-2xl shadow-xl shadow-brand-500/30 active:scale-[0.98] transition-all">
-                <span className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center flex-shrink-0">
-                    <Zap size={17} className="text-white" fill="white" />
-                  </span>
-                  <span className="text-left">
-                    <span className="block text-[15px] leading-tight">Start free trial</span>
-                    <span className="block text-[10.5px] text-white/70 font-medium leading-tight mt-0.5">Setup in 10 min · no card</span>
-                  </span>
-                </span>
-                <span className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
-                  <ArrowRight size={16} />
-                </span>
-              </Link>
-              <Link to="/features"
-                    className="flex items-center justify-center gap-2 w-full border border-white/15 text-white/85 font-semibold py-3 rounded-2xl text-[13px] active:bg-white/10 active:scale-[0.98] transition-all">
-                <Play size={12} className="fill-white/80" /> See how it works
-              </Link>
-            </div>
-
-            {/* Trust row */}
-            <div className="flex items-center gap-3 mt-6 animate-fade-in-up"
-                 style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-              <div className="flex -space-x-2">
-                {[['AO','bg-brand-500'],['BT','bg-indigo-500'],['NK','bg-blue-500'],['FN','bg-violet-500']].map(([i, c]) => (
-                  <div key={i} className={`w-7 h-7 rounded-full ${c} border-2 border-[#050d1a] flex items-center justify-center text-white text-[9px] font-bold`}>{i}</div>
-                ))}
-              </div>
-              <div className="text-xs text-left">
-                <div className="flex items-center gap-1 mb-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={9} className="text-amber-400 fill-amber-400" />)}
-                  <span className="text-white font-bold ml-1 text-[11px]">4.9</span>
-                </div>
-                <div className="text-slate-500 text-[11px]">500+ estates trust us</div>
-              </div>
-            </div>
-
-            {/* Scroll hint */}
-            <div className="mt-10 flex flex-col items-center gap-1.5 opacity-70 animate-fade-in"
-                 style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Swipe to explore</span>
-              <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
-                <span className="w-1 h-2 rounded-full bg-white/50 animate-bounce" style={{ animationDuration: '1.5s' }} />
-              </div>
-            </div>
-          </div>
-
-          {/* ── Desktop layout: untouched ─────────────────────────── */}
-          <div className="hidden lg:flex flex-row items-center gap-20">
-
-            {/* Left copy */}
-            <div className="flex-1 max-w-xl text-left z-10 w-full">
-              <div className="inline-flex items-center gap-2.5 border border-brand-500/30 bg-brand-500/10 rounded-full px-4 py-1.5 mb-8 animate-fade-in">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
-                </span>
-                <span className="text-brand-400 text-xs font-semibold tracking-wide">Now live across Nigeria</span>
-              </div>
-
-              <h1 className="text-[68px] font-black text-white leading-[1.1] tracking-tight mb-6 animate-fade-in-up">
-                Nigeria&apos;s smartest<br />
-                <span className="gradient-text-brand">estate platform.</span>
+      <section className="relative bg-white pt-24 pb-16 sm:pt-32 sm:pb-24">
+        <HeroBackdrop />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[1.1fr_1fr] gap-16 lg:gap-8 items-center">
+          <div className="text-center lg:text-left">
+            <Reveal><Pill badge="New">In-app calls & safety tools</Pill></Reveal>
+            <Reveal delay={80}>
+              <h1 className="mt-6 text-[2.2rem] sm:text-[2.9rem] lg:text-[3.4rem] font-extrabold tracking-[-0.03em] leading-[1.06] text-slate-900">
+                Your whole estate,
+                <RotatingWord />
               </h1>
-
-              <p className="text-lg text-slate-400 leading-relaxed mb-8 animate-fade-in-up max-w-md"
-                 style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-                One platform connecting estate managers, residents, and security staff. Visitor passes, dues collection, community tools — all out of the box.
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
+                Visitor passes, dues, security and community — one platform connecting estate managers, residents and guards.
               </p>
-
-              <div className="flex flex-row gap-3 justify-start mb-8 animate-fade-in-up"
-                   style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-                <Link to="https://area-connector.areaconnect.pro/register"
-                  className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]">
-                  Get started <ArrowRight size={16} />
-                </Link>
-                <Link to="/features"
-                  className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]">
-                  <Play size={13} className="fill-white/80" /> See how it works
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                <PrimaryButton to="https://area-connector.areaconnect.pro/register">Start 14-day free trial</PrimaryButton>
+                <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
+                  Book a demo <ArrowUpRight size={14} />
                 </Link>
               </div>
-
-              <div className="flex flex-wrap items-center gap-3 justify-start animate-fade-in-up"
-                   style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-                <div className="flex -space-x-2">
-                  {[['AO','bg-brand-500'],['BT','bg-indigo-500'],['NK','bg-blue-500'],['FN','bg-violet-500'],['EM','bg-amber-500']].map(([i, c]) => (
-                    <div key={i} className={`w-8 h-8 rounded-full ${c} border-2 border-[#050d1a] flex items-center justify-center text-white text-[9px] font-bold`}>{i}</div>
-                  ))}
-                </div>
-                <div className="text-sm">
-                  <span className="text-white font-semibold">500+ estates</span>
-                  <span className="text-slate-400"> trust AreaConnect</span>
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={11} className="text-amber-400 fill-amber-400" />)}
-                </div>
+            </Reveal>
+            <Reveal delay={320}>
+              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-400">
+                <span className="inline-flex items-center gap-1.5"><Sparkles size={13} className="text-brand-500" /> 3 apps, one platform</span>
+                <span className="inline-flex items-center gap-1.5"><CreditCard size={13} className="text-brand-500" /> Paystack-native</span>
+                <span className="inline-flex items-center gap-1.5"><MapPin size={13} className="text-brand-500" /> Built in Lagos</span>
               </div>
-            </div>
-
-            <div className="flex-1 w-full flex justify-center z-10">
-              <HeroDashboard />
-            </div>
+            </Reveal>
           </div>
+          <Reveal delay={200}>
+            <AreaMatesPhone />
+          </Reveal>
         </div>
-
-        <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050d1a] to-transparent pointer-events-none" />
       </section>
 
       {/* ── MARQUEE ──────────────────────────────────────────────────── */}
-      <div className="bg-[#050d1a] border-t border-white/5 py-5">
-        <div className="text-center mb-3">
-          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em]">Top features we offer</span>
+      <div className="relative bg-slate-900 py-4 overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
+        <div className="flex w-max animate-marquee">
+          {[...MARQUEE, ...MARQUEE].map((m, i) => (
+            <span key={i} className="flex items-center gap-6 px-3 text-sm font-medium text-slate-400 whitespace-nowrap">
+              {m}<span className="w-1 h-1 rounded-full bg-brand-500" />
+            </span>
+          ))}
         </div>
-        <Marquee />
       </div>
 
-      {/* ── STATS ────────────────────────────────────────────────────── */}
-      <section className="bg-white py-12 sm:py-24 border-b border-slate-100">
+      {/* ── APPS ─────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-10 sm:mb-16">
-              <span className="section-tag mb-4 inline-flex">By the numbers</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Growing across Nigeria</h2>
-            </div>
-          </Reveal>
-          {/* Mobile: horizontal scroll stat strip */}
-          <div className="sm:hidden -mx-5 overflow-x-auto hide-scrollbar pb-3">
-            <div className="flex gap-3 px-5 w-max">
-              {[
-                { target: 500,     suffix: '+',  label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
-                { target: 48000,   suffix: '+',  label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
-                { target: 1200000, suffix: '+',  label: 'Visitor passes issued', icon: UserCheck,  color: 'text-blue-500',   bg: 'bg-blue-50'    },
-              ].map((s, i) => (
-                <div key={s.label} className="flex-shrink-0 w-36 text-center p-4 rounded-2xl border border-slate-100 bg-white shadow-sm">
-                  <div className={`w-10 h-10 ${s.bg} rounded-xl flex items-center justify-center mx-auto mb-2.5`}>
-                    <s.icon size={16} className={s.color} />
-                  </div>
-                  <div className={`text-2xl font-black tracking-tight mb-1 ${s.color}`}>
-                    <Counter target={s.target} prefix={s.prefix || ''} suffix={s.suffix} />
-                  </div>
-                  <div className="text-xs text-slate-500 font-medium leading-snug">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop: 3-column grid */}
-          <div className="hidden sm:grid sm:grid-cols-3 gap-4 sm:gap-8">
-            {[
-              { target: 500,     suffix: '+',           label: 'Active estates',       icon: Building2,  color: 'text-brand-500',  bg: 'bg-brand-50'   },
-              { target: 48000,   suffix: '+',           label: 'Residents onboarded',  icon: Users,      color: 'text-indigo-500', bg: 'bg-indigo-50'  },
-              { target: 1200000, suffix: '+',           label: 'Visitor passes issued', icon: UserCheck,  color: 'text-blue-500',   bg: 'bg-blue-50'    },
-            ].map((s, i) => (
-              <Reveal key={s.label} delay={i * 80}>
-                <div className="text-center p-4 sm:p-6 rounded-2xl border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                  <div className={`w-10 h-10 sm:w-12 sm:h-12 ${s.bg} rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4`}>
-                    <s.icon size={18} className={s.color} />
-                  </div>
-                  <div className={`text-2xl sm:text-4xl font-black tracking-tight mb-1 ${s.color}`}>
-                    <Counter target={s.target} prefix={s.prefix || ''} suffix={s.suffix} />
-                  </div>
-                  <div className="text-xs sm:text-sm text-slate-500 font-medium leading-snug">{s.label}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRODUCTS ─────────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-8 sm:mb-16">
-              <span className="section-tag mb-3 sm:mb-4 inline-flex text-[10px] sm:text-xs">Three apps · One platform</span>
-              <h2 className="text-[26px] sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-3 sm:mb-4 leading-tight">Built for every role in your estate</h2>
-              <p className="text-sm sm:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
-                Purpose-built tools for managers, residents, and security — all connected in real time.
-              </p>
-            </div>
-          </Reveal>
-          {/* Mobile: horizontal snap-scroll carousel */}
-          <div className="sm:hidden -mx-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4">
-            <div className="flex gap-4 px-5 w-max">
-              {[
-                {
-                  gradient: 'from-brand-600 to-brand-500', shadow: 'shadow-brand-500/30', accent: 'brand',
-                  icon: Building2, label: 'AreaConnect Admin', title: 'Estate Manager Portal', href: '/admin',
-                  stat: { v: '76%', l: 'Avg dues collected', sub: '₦2.35M of ₦3.1M', bg: 'bg-brand-50', c: 'text-brand-600' },
-                  features: ['Resident onboarding & bulk invites', 'Payment scheduling & Paystack wallet', 'Live analytics & collection reports'],
-                },
-                {
-                  gradient: 'from-indigo-600 to-indigo-500', shadow: 'shadow-indigo-500/30', accent: 'indigo',
-                  icon: Users, label: 'AreaMates', title: 'Resident App', href: '/mates',
-                  stat: { v: '40k+', l: 'Active residents', sub: 'Across 500+ estates', bg: 'bg-indigo-50', c: 'text-indigo-600' },
-                  features: ['QR visitor pass — shareable on WhatsApp', 'Pay estate dues via card or transfer', 'Community chat, polls & marketplace'],
-                },
-                {
-                  gradient: 'from-blue-600 to-blue-500', shadow: 'shadow-blue-500/30', accent: 'blue',
-                  icon: Shield, label: 'AreaConnect Guard', title: 'Security Staff App', href: '/guard',
-                  stat: { v: '<1s', l: 'Avg scan time', sub: '1.2M+ passes scanned', bg: 'bg-blue-50', c: 'text-blue-600' },
-                  features: ['QR scanner & 6-digit access code', 'One-tap check-in & check-out logging', 'Offline mode with auto-sync'],
-                },
-              ].map((p) => (
-                <Link to={p.href} key={p.label} className="snap-center flex-shrink-0 w-[280px] bg-white rounded-3xl border border-slate-100 p-5 shadow-sm flex flex-col active:scale-[0.98] transition-transform">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 shadow-lg ${p.shadow}`}>
-                    <p.icon size={22} className="text-white" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{p.label}</span>
-                  <h3 className="text-lg font-black text-slate-900 mb-2">{p.title}</h3>
-                  <div className={`${p.stat.bg} rounded-xl p-3 mb-4`}>
-                    <div className={`text-xl font-black ${p.stat.c}`}>{p.stat.v}</div>
-                    <div className="text-xs font-semibold text-slate-700 mt-0.5">{p.stat.l}</div>
-                    <div className="text-[11px] text-slate-500">{p.stat.sub}</div>
-                  </div>
-                  <ul className="space-y-2 mb-5 flex-1">
-                    {p.features.map(f => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
-                        <CheckCircle2 size={13} className={`text-${p.accent}-500 flex-shrink-0 mt-0.5`} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 group">
-                    Learn more <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-            {/* Scroll indicator dots */}
-            <div className="flex justify-center gap-1.5 mt-4">
-              {[0,1,2].map(i => (
-                <div key={i} className={`h-1.5 rounded-full bg-slate-300 ${i === 0 ? 'w-5' : 'w-1.5'}`} />
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop: 3-column grid */}
-          <div className="hidden sm:grid lg:grid-cols-3 gap-5">
-            {[
-              {
-                gradient: 'from-brand-600 to-brand-500',   shadow: 'shadow-brand-500/20',   accent: 'brand',
-                label: 'AreaConnect Admin', title: 'Estate Manager Portal', href: '/admin',
-                icon: Building2,
-                desc: 'The command centre for your estate. Manage residents, collect payments, broadcast notices, and monitor everything from one dashboard.',
-                items: ['Resident onboarding & bulk invites', 'Payment scheduling & Paystack wallet', 'Announcements with media attachments', 'Full visitor log & pre-registration', 'Community polls, events & oversight', 'Live analytics & collection reports'],
-                mobileHighlight: { v: '76%', l: 'Nov dues collected', sub: '₦2.35M of ₦3.1M', c: 'text-brand-600', bg: 'bg-brand-50' },
-              },
-              {
-                gradient: 'from-indigo-600 to-indigo-500', shadow: 'shadow-indigo-500/20', accent: 'indigo',
-                label: 'AreaMates', title: 'Resident App', href: '/mates',
-                icon: Users,
-                desc: 'Everything residents need. Pre-register visitors, pay dues, chat with neighbours, and stay updated with community life.',
-                items: ['QR visitor pass — shareable via WhatsApp', 'Pay estate dues via card or bank transfer', 'Estate-wide & direct community chat', 'Resident marketplace for buying & selling', 'Polls, events, lounge & more', 'Security alert button — one tap'],
-                mobileHighlight: { v: '40,000+', l: 'Active residents', sub: 'Across 500+ estates', c: 'text-indigo-600', bg: 'bg-indigo-50' },
-              },
-              {
-                gradient: 'from-blue-600 to-blue-500',     shadow: 'shadow-blue-500/20',   accent: 'blue',
-                label: 'AreaConnect Guard', title: 'Security Staff App', href: '/guard',
-                icon: Shield,
-                desc: 'Fast, focused, reliable. Verify visitors by QR or access code, log all entries, and escalate incidents with one tap.',
-                items: ['QR scanner & 6-digit access code lookup', 'One-tap check-in & check-out logging', 'Full entry log — searchable by name, date', 'Blacklist lookup before granting entry', 'Security alert broadcast to all residents', 'Offline mode with auto-sync when back online'],
-                mobileHighlight: { v: '<1s', l: 'Avg scan time', sub: '1.2M+ passes scanned', c: 'text-blue-600', bg: 'bg-blue-50' },
-              },
-            ].map((p, i) => (
-              <Reveal key={p.label} delay={i * 100}>
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 sm:p-7 flex flex-col h-full shadow-sm hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1 transition-all duration-300">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-5 shadow-lg ${p.shadow}`}>
-                    <p.icon size={22} className="text-white" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">{p.label}</span>
-                  <h3 className="text-xl font-black text-slate-900 mb-3">{p.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-5">{p.desc}</p>
-
-                  {/* Mobile: compact stat highlight instead of full mockup */}
-                  <div className={`${p.mobileHighlight.bg} rounded-xl p-4 mb-5 lg:hidden`}>
-                    <div className={`text-2xl font-black ${p.mobileHighlight.c} mb-0.5`}>{p.mobileHighlight.v}</div>
-                    <div className="text-sm font-bold text-slate-800">{p.mobileHighlight.l}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{p.mobileHighlight.sub}</div>
-                  </div>
-
-                  {/* Desktop: full inline mockup */}
-                  <div className="hidden lg:block">
-                    {i === 0 && (
-                      <div className="mt-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-                        <div className="bg-slate-800 px-3 py-2 flex items-center gap-1.5">
-                          <div className="w-2 h-2 rounded-full bg-red-400/60" /><div className="w-2 h-2 rounded-full bg-amber-400/60" /><div className="w-2 h-2 rounded-full bg-green-400/60" />
-                          <div className="flex-1 bg-white/5 rounded px-2 py-0.5 text-[8px] text-slate-500 font-mono mx-2">app.areaconnect.pro</div>
-                        </div>
-                        <div className="bg-slate-50 p-3">
-                          <div className="flex gap-1.5 mb-2">
-                            {[{ v: '142', l: 'Residents', c: 'text-brand-600 bg-brand-50' }, { v: '₦1.2M', l: 'Collected', c: 'text-amber-600 bg-amber-50' }, { v: '23', l: 'Visitors', c: 'text-blue-600 bg-blue-50' }].map(s => (
-                              <div key={s.l} className={`flex-1 rounded-lg p-1.5 text-center ${s.c}`}>
-                                <div className="text-[10px] font-black">{s.v}</div>
-                                <div className="text-[7px]">{s.l}</div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div className="h-full bg-brand-500 rounded-full" style={{ width: '76%' }} /></div>
-                          <div className="text-[8px] text-slate-400 mt-1">76% dues collected this month</div>
-                        </div>
-                      </div>
-                    )}
-                    {i === 1 && (
-                      <div className="mt-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-                        <div className="bg-indigo-600 p-3">
-                          <div className="text-[9px] font-bold text-white mb-0.5">Good morning, Taiwo 👋</div>
-                          <div className="text-[8px] text-indigo-300">Sunrise Estate · 3 notifications</div>
-                        </div>
-                        <div className="bg-slate-50 p-3 space-y-1.5">
-                          <div className="bg-amber-50 border border-amber-100 rounded-lg p-2 text-[9px] font-medium text-amber-800">📢 Water maintenance Saturday 8AM</div>
-                          <div className="bg-white border border-slate-100 rounded-lg p-2">
-                            <div className="text-[8px] text-slate-400 mb-1">MY VISITORS</div>
-                            <div className="text-[9px] font-semibold text-slate-700">Chidi Okafor · Today, 3PM</div>
-                            <div className="flex items-center gap-1 mt-0.5"><span className="w-1 h-1 bg-brand-500 rounded-full" /><span className="text-[8px] text-brand-600">Active pass</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {i === 2 && (
-                      <div className="mt-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-                        <div className="bg-blue-700 p-3">
-                          <div className="text-[9px] font-bold text-white mb-0.5">AreaConnect Guard</div>
-                          <div className="text-[8px] text-blue-300">Gate 1 · Sunrise Estate</div>
-                        </div>
-                        <div className="bg-slate-50 p-3">
-                          <div className="bg-slate-900 rounded-lg p-2.5 flex items-center gap-2.5">
-                            <div className="w-10 h-10 border border-blue-400 rounded-lg grid grid-cols-3 gap-0.5 p-1 flex-shrink-0">
-                              {[...Array(9)].map((_, j) => (
-                                <div key={j} className={`w-2 h-2 rounded-sm ${j % 3 === 0 || j === 4 ? 'bg-blue-400' : 'bg-slate-700'}`} />
-                              ))}
-                            </div>
-                            <div>
-                              <div className="text-[9px] font-bold text-white">Scanning…</div>
-                              <div className="text-[8px] text-slate-500">Hold pass up to camera</div>
-                            </div>
-                          </div>
-                          <div className="mt-2 bg-brand-50 border border-brand-100 rounded-lg p-2 flex items-center gap-2">
-                            <CheckCircle2 size={12} className="text-brand-500 flex-shrink-0" />
-                            <div>
-                              <div className="text-[9px] font-bold text-brand-700">VERIFIED</div>
-                              <div className="text-[8px] text-slate-600">Chidi Okafor · Unit 4B</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <ul className="space-y-2 sm:space-y-2.5 mt-5 mb-6">
-                    {p.items.map(item => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-slate-600">
-                        <CheckCircle2 size={14} className={`text-${p.accent}-500 flex-shrink-0 mt-0.5`} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link to={p.href} className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors group">
-                    Learn more <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          {/* end hidden sm:grid */}
-        </div>
-      </section>
-
-      {/* ── FEATURE SHOWCASE: ADMIN ───────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-            <Reveal className="flex-1 w-full">
-              <div className="relative">
-                <div className="absolute -inset-8 bg-gradient-to-br from-brand-50 to-emerald-50 rounded-3xl" />
-                <div className="relative">
-                  <HeroDashboard />
-                </div>
-              </div>
+          <div className="max-w-xl mb-10">
+            <Reveal><Eyebrow>Three apps · One platform</Eyebrow></Reveal>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Built for every role in your estate.</h2>
             </Reveal>
-            <div className="flex-1 max-w-lg w-full">
-              <Reveal>
-                <span className="section-tag mb-4 inline-flex">Estate Manager Dashboard</span>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-5">
-                  Everything you need to run your estate — in one place
-                </h2>
-                <p className="text-slate-500 leading-relaxed mb-8">
-                  No more chasing residents on WhatsApp, paper visitor logs, or manual bank reconciliation. AreaConnect Admin puts you in full control from your browser.
-                </p>
-              </Reveal>
-              <div className="space-y-3 sm:space-y-4">
-                {[
-                  { icon: Users,      title: 'Resident onboarding',       desc: 'Invite residents one-by-one or bulk-upload via CSV. Each gets a branded welcome email with login credentials.' },
-                  { icon: CreditCard, title: 'Automated dues collection',  desc: 'Schedule monthly levies, send reminders, and collect via Paystack. Full reconciliation and receipt generation.' },
-                  { icon: BarChart2,  title: 'Live analytics',             desc: 'Real-time dashboard for visitor trends, payment rates, and community engagement metrics.' },
-                  { icon: Bell,       title: 'Broadcast alerts',           desc: 'Send estate-wide security alerts with one click. Track who has acknowledged each broadcast.' },
-                ].map((f, i) => (
-                  <Reveal key={f.title} delay={i * 60}>
-                    <div className="flex gap-4 p-3 sm:p-4 rounded-2xl hover:bg-slate-50 transition-colors duration-200 cursor-default">
-                      <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <f.icon size={18} className="text-brand-600" />
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm mb-1">{f.title}</div>
-                        <div className="text-sm text-slate-500 leading-relaxed">{f.desc}</div>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-              <Reveal delay={250}>
-                <Link to="/admin" className="btn-primary mt-6 sm:mt-8 inline-flex">
-                  Explore Admin features <ArrowRight size={15} />
-                </Link>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURE SHOWCASE: MOBILE APPS ─────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-slate-50 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16">
-            {/* Phone mockups — single on mobile, both on desktop */}
-            <Reveal className="flex-1 w-full">
-              {/* Mobile: single phone centred */}
-              <div className="flex justify-center lg:hidden">
-                <PhoneMockup />
-              </div>
-              {/* Desktop: both phones */}
-              <div className="hidden lg:flex justify-center items-end gap-10">
-                <div className="lg:mb-12"><PhoneMockup /></div>
-                <div className="lg:mt-12"><GuardMockup /></div>
-              </div>
+            <Reveal delay={120}>
+              <p className="mt-3 text-[15px] text-slate-500">Managers, residents and security — all connected in real time.</p>
             </Reveal>
-
-            <div className="flex-1 max-w-lg w-full">
-              <Reveal>
-                <span className="section-tag mb-4 inline-flex">Mobile Apps</span>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-5">
-                  Apps your residents and security staff will actually use
-                </h2>
-                <p className="text-slate-500 leading-relaxed mb-8">
-                  AreaMates is the resident app for everything estate-related. AreaConnect Guard gives security officers a fast, reliable tool for gate management — even offline.
-                </p>
-              </Reveal>
-              <div className="space-y-4 sm:space-y-5">
-                {[
-                  { icon: '🔐', title: 'Visitor QR passes — shareable on WhatsApp', desc: 'Residents create a visitor pass in 30 seconds. A QR code and 6-digit access code are emailed to the guest automatically.' },
-                  { icon: '📶', title: 'Guard app works offline', desc: "Nigerian networks are unreliable. The Guard app caches all visitor data locally and syncs automatically when connection returns." },
-                  { icon: '💬', title: 'Community tools residents love', desc: 'Chat, polls, marketplace, events, and a communal music lounge — all scoped to your estate with no cross-estate mixing.' },
-                  { icon: '📱', title: 'Works on any Android from version 8', desc: 'No expensive hardware required. Guards can use affordable Android phones — AreaConnect Guard is optimised for low-end devices.' },
-                ].map((f, i) => (
-                  <Reveal key={f.title} delay={i * 60}>
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-100 text-xl">
-                        {f.icon}
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm mb-1">{f.title}</div>
-                        <div className="text-sm text-slate-500 leading-relaxed">{f.desc}</div>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-              <Reveal delay={260}>
-                <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
-                  <Link to="/mates" className="btn-outline">AreaMates <ArrowRight size={14} /></Link>
-                  <Link to="/guard" className="btn-outline">Guard app <ArrowRight size={14} /></Link>
-                </div>
-              </Reveal>
-            </div>
           </div>
+          <Reveal delay={100}><AppsTabs /></Reveal>
         </div>
       </section>
 
-      {/* ── FEATURES GRID ────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-white">
+      {/* ── HIGHLIGHTS ───────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <span className="section-tag mb-4 inline-flex">Everything included</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">Every tool your estate needs</h2>
-              <p className="text-base sm:text-lg text-slate-500 max-w-xl mx-auto">
-                No integrations required. AreaConnect is a complete estate management platform out of the box.
-              </p>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-            {[
-              { icon: '🔐', c: 'bg-brand-50',   title: 'Visitor Management',   desc: 'QR passes and access codes. Guards verify in under a second — no paperwork.' },
-              { icon: '💳', c: 'bg-indigo-50',  title: 'Payment Collection',   desc: 'Schedule recurring dues, auto-reminders, and Paystack collection. Full reconciliation.' },
-              { icon: '📢', c: 'bg-amber-50',   title: 'Announcements',        desc: 'Broadcast with images. Residents get push notifications and can acknowledge receipt.' },
-              { icon: '🔔', c: 'bg-red-50',     title: 'Security Alerts',      desc: 'One-tap incident escalation to managers and all residents. Instantly.' },
-              { icon: '💬', c: 'bg-violet-50',  title: 'Community Chat',       desc: 'Estate-wide group chat plus direct messaging — scoped to your estate only.' },
-              { icon: '🛒', c: 'bg-blue-50',    title: 'Resident Marketplace', desc: 'Buy, sell, and trade within your estate — furniture, food, services.' },
-              { icon: '📊', c: 'bg-teal-50',    title: 'Polls & Voting',       desc: 'Run transparent votes on estate decisions. Results tallied in real time.' },
-              { icon: '🎉', c: 'bg-pink-50',    title: 'Events Board',         desc: 'Post community events with RSVP. Send automatic reminders to attendees.' },
-              { icon: '📈', c: 'bg-slate-50',   title: 'Analytics Dashboard',  desc: 'Live visitor trends, payment rates, and community engagement metrics.' },
-            ].map((f, i) => (
-              <Reveal key={f.title} delay={i * 40}>
-                <div className={`${f.c} rounded-2xl border border-slate-100/80 p-4 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300`}>
-                  <div className="text-xl sm:text-2xl mb-2 sm:mb-4">{f.icon}</div>
-                  <h3 className="font-black text-slate-900 text-sm sm:text-base mb-1.5 sm:mb-2">{f.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{f.desc}</p>
-                </div>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div className="max-w-xl">
+              <Reveal><Eyebrow>Highlights</Eyebrow></Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Everything your estate runs on.</h2>
               </Reveal>
-            ))}
-          </div>
-          <Reveal delay={100}>
-            <div className="text-center mt-10 sm:mt-12">
-              <Link to="/features" className="btn-outline inline-flex">
-                See all features <ArrowRight size={15} />
+            </div>
+            <Reveal delay={120}>
+              <Link to="/features" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 group">
+                See all features <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
+          <Bento />
         </div>
       </section>
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-slate-900">
+      <section className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <span className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4">
-                Simple setup
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Live in under 10 minutes</h2>
-              <p className="text-base sm:text-lg text-slate-400 max-w-md mx-auto">No technical skills required. Just sign up and follow the guided setup.</p>
-            </div>
-          </Reveal>
-
-          {/* Desktop: 4-column with horizontal connector */}
-          <div className="hidden md:grid md:grid-cols-4 gap-6 relative">
-            <div className="absolute top-[34px] left-[14%] right-[14%] h-px bg-gradient-to-r from-brand-500/50 via-indigo-500/50 to-blue-500/50" />
-            {[
-              { n: '01', title: 'Create your estate',    desc: 'Sign up, enter your estate details, and add your units. Takes under 3 minutes.',                         color: 'bg-gradient-to-br from-brand-500 to-brand-600',   shadow: 'shadow-brand-500/30'  },
-              { n: '02', title: 'Invite your residents', desc: 'Upload a CSV or invite one by one. Everyone gets a branded welcome email automatically.',                 color: 'bg-gradient-to-br from-indigo-500 to-indigo-600', shadow: 'shadow-indigo-500/30' },
-              { n: '03', title: 'Onboard your guards',   desc: 'Create accounts for gate officers. They download the Guard app and are ready instantly.',                 color: 'bg-gradient-to-br from-blue-500 to-blue-600',    shadow: 'shadow-blue-500/30'   },
-              { n: '04', title: 'Go live',               desc: 'Your estate is operational. Residents pay, register visitors, and the community is connected.',           color: 'bg-gradient-to-br from-amber-500 to-amber-600',  shadow: 'shadow-amber-500/30'  },
-            ].map((s, i) => (
-              <Reveal key={s.n} delay={i * 100}>
-                <div className="flex flex-col items-center text-center">
-                  <div className={`w-[68px] h-[68px] rounded-2xl ${s.color} flex items-center justify-center text-white text-lg font-black mb-5 shadow-lg ${s.shadow} relative z-10`}>
-                    {s.n}
-                  </div>
-                  <h3 className="font-black text-white mb-2 text-lg">{s.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{s.desc}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="text-center max-w-xl mx-auto mb-12 sm:mb-16">
+            <Reveal><Eyebrow>Simple setup</Eyebrow></Reveal>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">From sign-up to live in four steps.</h2>
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="mt-3 text-[15px] text-slate-500">No technical skills needed — the setup wizard guides you through.</p>
+            </Reveal>
           </div>
-
-          {/* Mobile: step cards with connector */}
-          <div className="md:hidden space-y-3">
-            {[
-              { n: '01', title: 'Create your estate',    desc: 'Sign up, enter your estate details, and add your units. Takes under 3 minutes.',              color: 'bg-gradient-to-br from-brand-500 to-brand-600',   border: 'border-brand-500/20',   badge: 'bg-brand-500/10 text-brand-300'   },
-              { n: '02', title: 'Invite your residents', desc: 'Upload a CSV or invite one by one. Everyone gets a branded welcome email automatically.',      color: 'bg-gradient-to-br from-indigo-500 to-indigo-600', border: 'border-indigo-500/20', badge: 'bg-indigo-500/10 text-indigo-300' },
-              { n: '03', title: 'Onboard your guards',   desc: 'Create accounts for gate officers. They download the Guard app and are ready instantly.',      color: 'bg-gradient-to-br from-blue-500 to-blue-600',     border: 'border-blue-500/20',   badge: 'bg-blue-500/10 text-blue-300'     },
-              { n: '04', title: 'Go live',               desc: "Your estate is operational. Residents pay, register visitors, and the community is connected.", color: 'bg-gradient-to-br from-amber-500 to-amber-600',   border: 'border-amber-500/20',  badge: 'bg-amber-500/10 text-amber-300'   },
-            ].map((s, i) => (
-              <Reveal key={s.n} delay={i * 80}>
-                <div className={`flex items-start gap-4 rounded-2xl border ${s.border} p-4`}
-                     style={{ background: 'rgba(255,255,255,0.03)' }}>
-                  <div className={`w-12 h-12 rounded-2xl ${s.color} flex items-center justify-center text-white font-black text-base flex-shrink-0 shadow-lg`}>
-                    {s.n}
-                  </div>
-                  <div className="flex-1 pt-0.5">
-                    <h3 className="font-black text-white mb-1">{s.title}</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">{s.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Steps />
         </div>
       </section>
 
-
-      {/* ── BUILT FOR NIGERIA ─────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              <Reveal>
-                <span className="section-tag mb-4 inline-flex">Built for Nigeria</span>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-5">
-                  Designed for the way Nigerian estates actually work
-                </h2>
-                <p className="text-slate-500 leading-relaxed mb-8 sm:mb-10">
-                  We didn&apos;t build a generic platform and adapt it for Nigeria. We built AreaConnect specifically for the Nigerian estate context — from Paystack-native payments to erratic mobile networks.
-                </p>
-              </Reveal>
-              <div className="space-y-3 sm:space-y-4">
-                {[
-                  { icon: Zap,   title: 'Paystack-native payments',  desc: "Dues collection and wallet payouts run entirely on Paystack — Nigeria's most trusted payment gateway." },
-                  { icon: Wifi,  title: 'Offline-first Guard app',    desc: 'Caches all visitor data locally. Works without signal and syncs automatically when connected.' },
-                  { icon: Lock,  title: 'Complete data isolation',    desc: 'Every estate is fully isolated. No resident can ever see data from another estate.' },
-                  { icon: Globe, title: 'Works on any device',        desc: 'Guard app runs on Android 8+ phones. Admin portal works on any browser — no app download needed.' },
-                ].map((w, i) => (
-                  <Reveal key={w.title} delay={i * 60}>
-                    <div className="flex gap-4 p-3 sm:p-4 rounded-2xl hover:bg-brand-50/50 transition-colors duration-200">
-                      <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <w.icon size={18} className="text-brand-600" />
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm mb-1">{w.title}</div>
-                        <div className="text-sm text-slate-500 leading-relaxed">{w.desc}</div>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-
-            <Reveal delay={100}>
-              <div className="bg-slate-50 rounded-2xl sm:rounded-3xl border border-slate-100 p-6 sm:p-8">
-                <div className="flex items-center gap-2 mb-5 sm:mb-6">
-                  <MapPin size={16} className="text-brand-500" />
-                  <span className="text-sm font-bold text-slate-900">Active across Nigeria</span>
-                </div>
-                <div className="grid grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 mb-5 sm:mb-6">
-                  {[
-                    { name: 'Lagos',         tag: '230+ estates', color: 'bg-brand-500',  active: true  },
-                    { name: 'Abuja (FCT)',   tag: '95+ estates',  color: 'bg-brand-500',  active: true  },
-                    { name: 'Port Harcourt', tag: '48+ estates',  color: 'bg-brand-500',  active: true  },
-                    { name: 'Enugu',         tag: '22+ estates',  color: 'bg-indigo-400', active: true  },
-                    { name: 'Ibadan',        tag: '18+ estates',  color: 'bg-indigo-400', active: false },
-                    { name: 'Warri',         tag: '14+ estates',  color: 'bg-blue-400',   active: false },
-                    { name: 'Uyo',           tag: '11+ estates',  color: 'bg-blue-400',   active: false },
-                    { name: 'Kano',          tag: 'Coming soon',  color: 'bg-amber-400',  active: false },
-                  ].map(c => <City key={c.name} {...c} />)}
-                </div>
-                <div className="border-t border-slate-200 pt-4 sm:pt-5 space-y-2">
-                  {[
-                    { c: 'bg-brand-500',  l: 'Fully operational' },
-                    { c: 'bg-indigo-400', l: 'Growing' },
-                    { c: 'bg-amber-400',  l: 'Coming soon' },
-                  ].map(l => (
-                    <div key={l.l} className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${l.c}`} />
-                      <span className="text-xs text-slate-500">{l.l}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* ── BUILT FOR NIGERIA ────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
+            <Reveal><Eyebrow>Built for Nigeria</Eyebrow></Reveal>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight leading-tight text-slate-900">
+                Designed for the way Nigerian estates actually work.
+              </h2>
             </Reveal>
+            <div className="mt-8 grid sm:grid-cols-2 gap-3">
+              {NIGERIA.map((w, i) => (
+                <Reveal key={w.title} delay={i * 70} className="h-full">
+                  <SpotlightCard className="h-full rounded-2xl bg-white border border-slate-200/80 p-5 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+                    <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                      <w.icon size={16} />
+                    </div>
+                    <h3 className="text-[15px] font-semibold text-slate-900">{w.title}</h3>
+                    <p className="mt-1 text-[13px] text-slate-500 leading-relaxed">{w.desc}</p>
+                  </SpotlightCard>
+                </Reveal>
+              ))}
+            </div>
           </div>
+
+          <Reveal delay={120}>
+            <Link to="/about" className="group relative block mx-auto w-full max-w-md">
+              <div className="absolute -inset-3 rounded-[2.25rem] bg-gradient-to-br from-brand-400/40 via-transparent to-indigo-400/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative rounded-[2rem] overflow-hidden bg-slate-900 aspect-[4/5] shadow-2xl shadow-slate-900/20">
+                <img src="/team/michael-orizu.jpg" alt="Michael Orizu, founder of AreaConnect" loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-[50%_20%] scale-105 group-hover:scale-110 transition-transform duration-[1200ms] ease-out" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/20 to-transparent" />
+                <div className="absolute left-6 right-6 bottom-6">
+                  <p className="text-white text-[15px] sm:text-base font-medium leading-snug">
+                    “Estates deserve better than WhatsApp groups and paper log books.”
+                  </p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div>
+                      <div className="text-white text-sm font-semibold">Michael Orizu</div>
+                      <div className="text-slate-400 text-xs">Founder, AreaConnect</div>
+                    </div>
+                    <span className="w-9 h-9 rounded-full bg-white/10 backdrop-blur border border-white/15 text-white flex items-center justify-center group-hover:bg-brand-500 group-hover:border-brand-500 transition-colors">
+                      <ArrowUpRight size={15} />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </Reveal>
         </div>
       </section>
 
       {/* ── PRICING PREVIEW ──────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-slate-900">
-        <div className="max-w-5xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <span className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4">
-                Pricing
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">Simple, honest pricing</h2>
-              <p className="text-slate-400 text-base sm:text-lg">Starting from ₦20,000/month. Four plans to fit every estate. No hidden fees.</p>
+      <section className="py-16 sm:py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div className="max-w-xl">
+              <Reveal><Eyebrow>Pricing</Eyebrow></Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Simple plans. All three apps included.</h2>
+              </Reveal>
             </div>
-          </Reveal>
-
-          {/* Mobile: stacked cards with featured first */}
-          <div className="flex flex-col sm:hidden gap-4">
-            {[
-              {
-                name: 'Starter', price: '₦20,000', sub: '/month',
-                desc: 'Perfect for small estates up to 50 residents.',
-                badge: null,
-                items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=starter', featured: false,
-              },
-              {
-                name: 'Growth', price: '₦47,000', sub: '/month',
-                desc: 'The full platform for estates up to 200 residents.',
-                badge: 'Most popular',
-                items: ['Up to 200 residents', '2 gates', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge', 'Analytics & reporting'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=growth', featured: true,
-              },
-              {
-                name: 'Premium', price: '₦80,000', sub: '/month',
-                desc: 'For large estates up to 500 residents.',
-                badge: null,
-                items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=premium', featured: false,
-              },
-              {
-                name: 'Enterprise', price: 'Custom', sub: 'pricing',
-                desc: 'For large estates and property portfolios.',
-                badge: null,
-                items: ['Unlimited residents & gates', 'Multi-estate management', 'Dedicated onboarding support', 'Custom SLA & branding', 'API access & priority support'],
-                cta: 'Talk to sales', ctaLink: '/contact', featured: false,
-              },
-            ].map((p, i) => (
-              <Reveal key={p.name} delay={i * 60}>
-                <div className={`relative rounded-2xl p-6 ${p.featured ? 'border-brand-500/40 shadow-xl shadow-brand-500/10' : 'border-white/8'} border`}
-                     style={{ background: p.featured ? 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(6,78,59,0.12) 100%)' : 'rgba(255,255,255,0.03)' }}>
-                  {p.badge && (
-                    <div className="absolute -top-3 left-5 bg-brand-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
-                      {p.badge}
-                    </div>
-                  )}
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">{p.name}</div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-black text-white">{p.price}</span>
-                        <span className="text-slate-400 text-sm">{p.sub}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-slate-400 mb-4">{p.desc}</p>
-                  <ul className="space-y-2 mb-5">
-                    {p.items.map(item => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
-                        <CheckCircle2 size={13} className="text-brand-500 flex-shrink-0 mt-0.5" />{item}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to={p.ctaLink}
-                    className={`block text-center py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-                      p.featured ? 'bg-brand-500 hover:bg-brand-400 text-white' : 'border border-white/15 text-white hover:bg-white/8'
-                    }`}>
-                    {p.cta}
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Desktop: 4-column dark cards */}
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              {
-                name: 'Starter', price: '₦20,000', sub: '/month',
-                desc: 'For small estates up to 50 residents.',
-                badge: null,
-                items: ['Up to 50 residents', '1 gate', 'Visitor management (QR + codes)', 'Dues collection via Paystack', 'All 3 apps included'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=starter', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
-              },
-              {
-                name: 'Growth', price: '₦47,000', sub: '/month',
-                desc: 'For estates up to 200 residents.',
-                badge: 'Most popular',
-                items: ['Up to 200 residents', '2 gates', 'Everything on the platform', 'Dues collection via Paystack', 'Resident marketplace', 'Polls, events & lounge'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=growth', ctaStyle: 'bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/30',
-              },
-              {
-                name: 'Premium', price: '₦80,000', sub: '/month',
-                desc: 'For large estates up to 500 residents.',
-                badge: null,
-                items: ['Up to 500 residents', '4 gates', 'All Growth features', 'Priority support', 'Advanced analytics', 'Custom branding'],
-                cta: 'Get started', ctaLink: 'https://area-connector.areaconnect.pro/register?plan=premium', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
-              },
-              {
-                name: 'Enterprise', price: 'Custom', sub: 'pricing',
-                desc: 'For large estates and property portfolios.',
-                badge: null,
-                items: ['Unlimited residents & gates', 'Multi-estate management', 'Custom SLA & uptime guarantee', 'Dedicated onboarding support', 'White-label branding', 'API access'],
-                cta: 'Talk to sales', ctaLink: '/contact', ctaStyle: 'border border-white/15 text-white hover:bg-white/8',
-              },
-            ].map((p, i) => (
-              <Reveal key={p.name} delay={i * 80}>
-                <div className={`relative rounded-2xl p-5 flex flex-col h-full ${p.badge ? 'border-brand-500/40 shadow-xl shadow-brand-500/10' : 'border-white/8'} border`}
-                     style={{ background: p.badge ? 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(6,78,59,0.12) 100%)' : 'rgba(255,255,255,0.03)' }}>
-                  {p.badge && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
-                      {p.badge}
-                    </div>
-                  )}
-                  <div className="mb-5">
-                    <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">{p.name}</div>
-                    <div className="mb-1">
-                      <span className="text-3xl font-black text-white block leading-tight">{p.price}</span>
-                      <span className="text-slate-400 text-xs mt-0.5 block">{p.sub}</span>
-                    </div>
-                    <div className="text-xs text-slate-400 mt-2">{p.desc}</div>
-                  </div>
-                  <ul className="space-y-2 flex-1 mb-5">
-                    {p.items.map(item => (
-                      <li key={item} className="flex items-start gap-2 text-xs text-slate-300">
-                        <CheckCircle2 size={12} className="text-brand-500 flex-shrink-0 mt-0.5" />{item}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to={p.ctaLink} className={`w-full text-center py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 ${p.ctaStyle}`}>
-                    {p.cta}
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={150}>
-            <div className="text-center mt-6 sm:mt-8">
-              <Link to="/pricing" className="text-slate-400 hover:text-white text-sm transition-colors inline-flex items-center gap-1.5">
-                See full pricing comparison <ArrowRight size={13} />
+            <Reveal delay={120}>
+              <Link to="/pricing" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700 group">
+                Compare all plans <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
-            </div>
+            </Reveal>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {PLANS.map((p, i) => (
+              <Reveal key={p.name} delay={i * 80} className="h-full">
+                {p.featured ? (
+                  <div className="relative h-full rounded-[1.75rem] p-px overflow-hidden">
+                    <div className="about-glow-border absolute inset-[-50%]" />
+                    <div className="relative h-full rounded-[calc(1.75rem-1px)] bg-slate-950 text-white p-6">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[15px] font-semibold">{p.name}</span>
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-300 bg-brand-500/15 border border-brand-500/25 rounded-full px-2 py-0.5">Popular</span>
+                      </div>
+                      <div className="mt-5 text-[2rem] font-bold tracking-tight leading-none">{p.price}<span className="text-sm font-normal text-slate-400">/mo</span></div>
+                      <div className="mt-2 text-xs text-brand-300">{p.residents}</div>
+                      <p className="mt-4 text-[13px] text-slate-400">{p.note}</p>
+                      <Link to="/pricing" className="mt-6 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold py-2.5 transition-colors">
+                        See details <ArrowRight size={14} />
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <SpotlightCard className="h-full rounded-[1.75rem] bg-white border border-slate-200/80 p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+                    <span className="text-[15px] font-semibold text-slate-900">{p.name}</span>
+                    <div className="mt-5 text-[2rem] font-bold tracking-tight leading-none text-slate-900">{p.price}<span className="text-sm font-normal text-slate-400">/mo</span></div>
+                    <div className="mt-2 text-xs text-slate-400">{p.residents}</div>
+                    <p className="mt-4 text-[13px] text-slate-500">{p.note}</p>
+                    <Link to="/pricing" className="mt-6 inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-slate-200 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800 text-sm font-semibold py-2.5 transition-all">
+                      See details <ArrowRight size={14} />
+                    </Link>
+                  </SpotlightCard>
+                )}
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={120}>
+            <p className="text-center text-xs sm:text-sm text-slate-400 mt-6">Every new estate starts with a 14-day free trial. Enterprise pricing for portfolios.</p>
           </Reveal>
         </div>
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-28 bg-white">
-        <div className="max-w-3xl mx-auto px-5 sm:px-6">
-          <Reveal>
-            <div className="text-center mb-10 sm:mb-12">
-              <span className="section-tag mb-4 inline-flex">FAQ</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">Common questions</h2>
-              <p className="text-slate-500">
-                Still have questions?{' '}
-                <Link to="/contact" className="text-brand-600 hover:underline font-semibold">Our team is here to help.</Link>
-              </p>
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
+          <div>
+            <div className="lg:sticky lg:top-28">
+              <Reveal><Eyebrow>FAQ</Eyebrow></Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Questions, answered.</h2>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="mt-3 text-[15px] text-slate-500">
+                  Anything else? <Link to="/contact#book-demo" className="text-brand-600 font-medium hover:underline">Book a 30-minute call</Link>.
+                </p>
+              </Reveal>
             </div>
-          </Reveal>
-          <div className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <Reveal key={faq.q} delay={i * 50}>
-                <FaqItem q={faq.q} a={faq.a} />
+          </div>
+          <div className="space-y-2.5">
+            {FAQS.map((f, i) => (
+              <Reveal key={f.q} delay={i * 40}>
+                <FaqItem q={f.q} a={f.a} open={openFaq === i} onToggle={() => setOpenFaq(o => (o === i ? -1 : i))} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <section className="relative py-16 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-900" />
-        <div className="absolute inset-0 dot-grid opacity-20" />
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/10 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4" />
+      <GlowCTA title="Bring your estate onto AreaConnect." subtitle="Start with a 14-day free trial — residents, guards and managers on one platform.">
+        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Start free trial</PrimaryButton>
+        <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
+          Book a demo
+        </Link>
+      </GlowCTA>
 
-        <div className="relative max-w-3xl mx-auto px-5 sm:px-6 text-center z-10">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
-              Get started today
-            </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5">
-              Ready to modernise<br />your estate?
-            </h2>
-            <p className="text-brand-100 text-base sm:text-xl mb-8 sm:mb-10 leading-relaxed">
-              Join 500+ estates already running on AreaConnect.<br className="hidden sm:block" />
-              Setup takes under 10 minutes.
-            </p>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link to="https://area-connector.areaconnect.pro/register"
-                className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-[15px] shadow-xl shadow-black/20 hover:-translate-y-0.5 w-full sm:w-auto">
-                Get started <ArrowRight size={18} />
-              </Link>
-              <a href="tel:+2347089224054"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-[15px] hover:bg-white/8 w-full sm:w-auto">
-                Book a demo
-              </a>
-            </div>
-          </Reveal>
-          <Reveal delay={160}>
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-8 sm:mt-10 text-sm text-brand-200">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> From ₦20k/month</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> 4 plans available</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> Setup in 10 minutes</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── MOBILE: sticky app-launch bar ───────────────────────────── */}
+      {/* ── MOBILE: sticky launch bar ────────────────────────────────── */}
       <div
-        className={`lg:hidden fixed inset-x-0 bottom-0 z-40 px-3 pb-3 pt-6 pointer-events-none transition-all duration-300 ${
+        className={`lg:hidden fixed inset-x-0 bottom-0 z-40 px-3 pt-6 transition-all duration-300 ${
           showStickyCta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'
         }`}
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}
       >
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none" />
-        <div className="relative flex items-center gap-2.5 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-2 pr-2 shadow-2xl shadow-slate-900/25 pointer-events-auto">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0 shadow-md shadow-brand-500/30">
-            <Shield size={19} className="text-white" />
+        <div className="relative flex items-center gap-2.5 bg-white/95 backdrop-blur-xl border border-slate-200 rounded-full p-1.5 pl-2 shadow-2xl shadow-slate-900/20">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center flex-shrink-0">
+            <Shield size={16} className="text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-black text-slate-900 leading-tight">Launch AreaConnect</div>
-            <div className="text-[10.5px] text-slate-500 leading-tight mt-0.5">Free trial · 10-min setup</div>
+            <div className="text-[13px] font-semibold text-slate-900 leading-tight">AreaConnect</div>
+            <div className="text-[11px] text-slate-500 leading-tight">14-day free trial</div>
           </div>
-          <Link
-            to="https://area-connector.areaconnect.pro/register"
-            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-[12px] px-4 py-2.5 rounded-xl active:scale-95 transition-all flex-shrink-0"
-          >
+          <Link to="https://area-connector.areaconnect.pro/register"
+            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[12px] px-4 py-2.5 rounded-full active:scale-95 transition-all flex-shrink-0">
             Get started <ArrowRight size={12} />
           </Link>
         </div>
       </div>
-
     </div>
   );
 }

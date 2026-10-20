@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, X, ArrowRight, ChevronDown, Zap, Building2, Shield, Star } from 'lucide-react';
-import { Reveal, PageHero } from '../components/ui/Reveal';
+import { Check, X, ArrowRight, Plus, Zap, Building2, Shield, Star, Users, LayoutDashboard, Smartphone, ShieldCheck } from 'lucide-react';
+import { Reveal } from '../components/ui/Reveal';
+import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
 import Seo from '../components/Seo';
 
 /* ─── Plan definitions ────────────────────────────────────────────────── */
@@ -121,7 +122,7 @@ const PLANS = [
     accent: '#0F172A',
     icon: Shield,
     cta: 'Contact sales',
-    ctaTo: '/contact',
+    ctaTo: '/contact#book-demo',
     features: [
       { label: 'Unlimited residents',               yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -242,43 +243,166 @@ const FAQS = [
   },
 ];
 
-/* ─── FAQ item ────────────────────────────────────────────────────────── */
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false);
+const APPS = [
+  { name: 'AreaConnect Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estate managers — residents, units, payments, visitors and analytics.', bullets: ['Resident & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
+  { name: 'AreaMates',         icon: Smartphone,      color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)', desc: 'The resident app — invite visitors, pay dues, read announcements and chat with neighbours.', bullets: ['Visitor pre-registration & QR', 'Pay dues with Paystack', 'Community chat & marketplace', 'Emergency panic button'] },
+  { name: 'AreaConnect Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'The gate app — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
+];
+
+// Resident count → recommended plan index.
+const LIMITS = [50, 200, 500, Infinity];
+const planFor = (n) => LIMITS.findIndex(l => n <= l);
+
+/* ─── Pieces ──────────────────────────────────────────────────────────── */
+
+function BillingToggle({ annual, setAnnual }) {
   return (
-    <div className={`rounded-2xl border overflow-hidden transition-all duration-200 bg-white ${open ? 'border-brand-200 shadow-sm' : 'border-slate-200 hover:border-slate-300'}`}>
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left"
-      >
-        <span className="font-semibold text-slate-900 text-sm sm:text-[15px] leading-relaxed">{q}</span>
-        <ChevronDown
-          size={16}
-          className={`text-slate-400 flex-shrink-0 mt-0.5 transition-transform duration-200 ${open ? 'rotate-180 text-brand-500' : ''}`}
-        />
+    <div className="relative inline-grid grid-cols-2 rounded-full bg-slate-100 border border-slate-200 p-1 text-sm font-semibold">
+      <span className={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-white shadow-sm transition-transform duration-300 ease-out ${annual ? 'translate-x-full' : ''}`} />
+      <button type="button" onClick={() => setAnnual(false)} className={`relative z-10 px-5 py-2 transition-colors ${annual ? 'text-slate-500' : 'text-slate-900'}`}>
+        Monthly
       </button>
-      {open && (
-        <div className="px-6 pb-5 text-sm text-slate-500 leading-relaxed border-t border-slate-100 pt-4">
-          {a}
-        </div>
-      )}
+      <button type="button" onClick={() => setAnnual(true)} className={`relative z-10 px-5 py-2 transition-colors flex items-center gap-1.5 ${annual ? 'text-slate-900' : 'text-slate-500'}`}>
+        Annual <span className="text-[10px] font-bold text-brand-600 bg-brand-50 rounded-full px-1.5 py-0.5">−20%</span>
+      </button>
     </div>
   );
 }
 
-/* ─── Cell renderer for comparison table ────────────────────────────────── */
+function SizeSlider({ residents, setResidents }) {
+  const pct = ((residents - 10) / (1000 - 10)) * 100;
+  const plan = PLANS[planFor(residents)];
+  return (
+    <div className="w-full max-w-md mx-auto lg:mx-0 rounded-2xl bg-white/80 backdrop-blur border border-slate-200 shadow-sm p-4 sm:p-5">
+      <div className="flex items-center justify-between text-sm mb-3">
+        <span className="flex items-center gap-2 text-slate-500"><Users size={15} className="text-brand-500" /> Residents in your estate</span>
+        <span className="font-semibold text-slate-900 tabular-nums">{residents >= 1000 ? '1,000+' : residents}</span>
+      </div>
+      <input type="range" min={10} max={1000} step={10} value={residents}
+        onChange={e => setResidents(Number(e.target.value))}
+        aria-label="Number of residents"
+        className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-brand-500"
+        style={{ background: `linear-gradient(to right, #10b981 ${pct}%, #e2e8f0 ${pct}%)` }} />
+      <div className="mt-3 text-xs text-slate-500">
+        We'd recommend <span key={plan.id} className="about-word-in inline-block font-semibold text-slate-900">{plan.name}</span>
+      </div>
+    </div>
+  );
+}
+
+function PlanCard({ plan, annual, recommended, i }) {
+  const isCustom = plan.price.monthly === 'Custom';
+  const dark = plan.featured;
+  const included = plan.features.filter(f => f.yes);
+  const Icon = plan.icon;
+  const price = annual ? plan.perMonth.annual : plan.perMonth.monthly;
+
+  const body = (
+    <div className={`relative h-full flex flex-col rounded-[calc(1.75rem-1px)] p-6 ${dark ? 'bg-slate-950 text-white' : 'bg-white'}`}>
+      {dark && <div className="absolute -top-20 -right-16 w-56 h-56 bg-brand-500/25 rounded-full blur-3xl pointer-events-none" />}
+      <div className="relative flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2.5">
+          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${dark ? 'bg-white/10' : 'bg-slate-50 border border-slate-100'}`}>
+            <Icon size={16} style={{ color: dark ? '#34d399' : plan.accent }} />
+          </div>
+          <span className={`text-[15px] font-semibold ${dark ? 'text-white' : 'text-slate-900'}`}>{plan.name}</span>
+        </div>
+        {plan.featured && (
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-300 bg-brand-500/15 border border-brand-500/25 rounded-full px-2 py-0.5">Popular</span>
+        )}
+      </div>
+
+      <div className="relative">
+        {isCustom ? (
+          <div className={`text-[2rem] font-bold tracking-tight leading-none ${dark ? 'text-white' : 'text-slate-900'}`}>Custom</div>
+        ) : (
+          <div className="flex items-baseline gap-1 h-9 overflow-hidden">
+            <span key={price} className={`about-word-in inline-block text-[2rem] font-bold tracking-tight leading-none ${dark ? 'text-white' : 'text-slate-900'}`}>{price}</span>
+            <span className={`text-sm ${dark ? 'text-slate-400' : 'text-slate-400'}`}>/mo</span>
+          </div>
+        )}
+        <div className={`mt-2 text-xs min-h-[16px] ${dark ? 'text-brand-300' : annual ? 'text-brand-600' : 'text-slate-400'}`}>
+          {isCustom ? 'Tailored to your portfolio' : annual ? `${plan.price.annual}/yr · ${plan.annualNote}` : `or ${plan.price.annual}/yr — save 20%`}
+        </div>
+        <p className={`mt-4 text-[13px] leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{plan.tagline}</p>
+      </div>
+
+      <Link to={plan.ctaTo}
+        className={`relative mt-5 inline-flex items-center justify-center gap-1.5 rounded-full text-sm font-semibold py-2.5 transition-all ${
+          dark ? 'bg-brand-500 hover:bg-brand-400 text-white'
+               : 'border border-slate-200 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800'
+        }`}>
+        {plan.cta} <ArrowRight size={14} />
+      </Link>
+
+      <div className={`relative mt-6 pt-5 border-t flex-1 ${dark ? 'border-white/10' : 'border-slate-100'}`}>
+        <div className={`text-[11px] font-semibold uppercase tracking-[0.14em] mb-3 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+          {plan.residents} residents · {plan.gates}
+        </div>
+        <ul className="space-y-2">
+          {included.slice(1).map(f => (
+            <li key={f.label} className={`flex items-start gap-2 text-[13px] leading-snug ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${dark ? 'bg-brand-500/20 text-brand-300' : 'bg-brand-50 text-brand-600'}`}>
+                <Check size={10} strokeWidth={3} />
+              </span>
+              {f.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+  return (
+    <Reveal delay={i * 80} className="h-full">
+      <div className={`relative h-full rounded-[1.75rem] p-px transition-all duration-500 ${
+        recommended ? 'lg:-translate-y-2 shadow-2xl shadow-brand-500/15' : 'hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5'
+      } ${dark ? 'overflow-hidden' : recommended ? 'bg-gradient-to-b from-brand-400 to-brand-200' : 'bg-slate-200/80'}`}>
+        {dark && <div className="about-glow-border absolute inset-[-50%]" />}
+        {recommended && (
+          <div className="absolute -top-px left-1/2 -translate-x-1/2 z-20 about-feed-in rounded-b-xl bg-brand-500 text-white text-[10px] font-semibold uppercase tracking-wider px-3 py-1">
+            Best fit for you
+          </div>
+        )}
+        {body}
+      </div>
+    </Reveal>
+  );
+}
+
 function Cell({ val }) {
-  if (val === true)  return <CheckCircle2 size={16} className="text-brand-500 mx-auto" />;
-  if (val === false) return <X size={15} className="text-slate-200 mx-auto" />;
-  return <span>{val}</span>;
+  if (val === true)  return <span className="inline-flex w-5 h-5 rounded-full bg-brand-50 text-brand-600 items-center justify-center"><Check size={12} strokeWidth={3} /></span>;
+  if (val === false) return <span className="inline-block w-3 h-px bg-slate-200 align-middle" />;
+  return <span className="text-slate-700">{val}</span>;
+}
+
+function FaqItem({ q, a, open, onToggle }) {
+  return (
+    <div className={`rounded-2xl border transition-all duration-300 ${open ? 'bg-white border-slate-200 shadow-lg shadow-slate-900/5' : 'bg-white/60 border-slate-200/70 hover:bg-white'}`}>
+      <button type="button" onClick={onToggle} className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
+        <span className="text-sm sm:text-[15px] font-semibold text-slate-900">{q}</span>
+        <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${open ? 'bg-brand-500 text-white rotate-45' : 'bg-slate-100 text-slate-500'}`}>
+          <Plus size={14} />
+        </span>
+      </button>
+      <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-sm text-slate-500 leading-relaxed">{a}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ─── Page ────────────────────────────────────────────────────────────── */
 export default function Pricing() {
   const [annual, setAnnual] = useState(false);
+  const [residents, setResidents] = useState(150);
+  const [openFaq, setOpenFaq] = useState(0);
+  const recommended = planFor(residents);
 
   return (
-    <div className="pt-16">
+    <div className="overflow-x-hidden">
       <Seo
         title="Pricing — Plans from ₦20,000/month"
         description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnect apps included — no hidden fees, Paystack-native."
@@ -287,260 +411,116 @@ export default function Pricing() {
         jsonLd={PRICING_SCHEMA}
       />
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <PageHero
-        tag="Pricing"
-        title={
-          <>
-            Simple pricing,<br />
-            <span className="gradient-text-brand">four clear tiers.</span>
-          </>
-        }
-        subtitle="From ₦20,000/month for small estates to custom pricing for property management companies. Every plan includes Admin, AreaMates, and Guard."
-      >
-        {/* Annual / Monthly toggle */}
-        <div className="flex items-center justify-center gap-4 mt-6">
-          <span className={`text-sm font-semibold transition-colors ${!annual ? 'text-white' : 'text-slate-500'}`}>Monthly</span>
-          <button
-            onClick={() => setAnnual(a => !a)}
-            className={`relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? 'bg-brand-500' : 'bg-slate-600'}`}
-            aria-label="Toggle annual billing"
-          >
-            <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform duration-200 ${annual ? 'translate-x-6' : 'translate-x-0'}`} />
-          </button>
-          <span className={`text-sm font-semibold transition-colors flex items-center gap-2 ${annual ? 'text-white' : 'text-slate-500'}`}>
-            Annual
-            <span className="bg-brand-500/20 border border-brand-500/30 text-brand-400 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-              Save 20%
-            </span>
-          </span>
-        </div>
-      </PageHero>
-
-      {/* ── PLAN CARDS ───────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-
-          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
-            {PLANS.map((plan, i) => {
-              const IconComp = plan.icon;
-              const isCustom = plan.price.monthly === 'Custom';
-              return (
-                <Reveal key={plan.id} delay={i * 60}>
-                  <div className={`relative rounded-2xl border p-7 flex flex-col h-full transition-all duration-200 ${
-                    plan.featured
-                      ? 'border-brand-400/40 shadow-xl shadow-brand-500/10 bg-gradient-to-b from-brand-500/5 to-white'
-                      : plan.id === 'enterprise'
-                      ? 'border-slate-800/20 bg-slate-950 text-white'
-                      : 'border-slate-200 bg-white hover:shadow-lg hover:-translate-y-0.5'
-                  }`}>
-
-                    {plan.featured && (
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow-sm whitespace-nowrap tracking-wide">
-                        Most popular
-                      </div>
-                    )}
-
-                    {/* Plan header */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2.5 mb-4">
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                          style={{ background: plan.id === 'enterprise' ? 'rgba(255,255,255,0.08)' : `${plan.accent}18` }}>
-                          <IconComp size={16} style={{ color: plan.id === 'enterprise' ? '#94A3B8' : plan.accent }} />
-                        </div>
-                        <span className={`text-sm font-black tracking-wide ${plan.id === 'enterprise' ? 'text-white' : 'text-slate-900'}`}>
-                          {plan.name}
-                        </span>
-                      </div>
-
-                      {/* Price */}
-                      <div className="mb-2">
-                        {isCustom ? (
-                          <div className={`text-3xl font-black tracking-tight ${plan.id === 'enterprise' ? 'text-white' : 'text-slate-900'}`}>
-                            Custom
-                          </div>
-                        ) : (
-                          <>
-                            <div className="flex items-baseline gap-1">
-                              <span className={`text-3xl font-black tracking-tight ${plan.featured ? 'text-brand-600' : plan.id === 'enterprise' ? 'text-white' : 'text-slate-900'}`}>
-                                {annual ? plan.perMonth.annual : plan.perMonth.monthly}
-                              </span>
-                              <span className={`text-sm font-medium ${plan.id === 'enterprise' ? 'text-slate-400' : 'text-slate-400'}`}>/mo</span>
-                            </div>
-                            {annual ? (
-                              <div className="text-[11px] font-semibold mt-0.5" style={{ color: plan.featured ? '#059669' : '#6366F1' }}>
-                                {plan.price.annual}/yr · {plan.annualNote}
-                              </div>
-                            ) : (
-                              <div className={`text-[11px] mt-0.5 ${plan.id === 'enterprise' ? 'text-slate-500' : 'text-slate-400'}`}>
-                                or {plan.price.annual}/yr — save 20%
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </div>
-
-                      <p className={`text-xs leading-relaxed mb-3 ${plan.id === 'enterprise' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        {plan.tagline}
-                      </p>
-
-                      {/* Key specs pills */}
-                      <div className="flex flex-wrap gap-1.5">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          plan.id === 'enterprise' ? 'bg-white/8 text-slate-300' : 'bg-slate-100 text-slate-600'
-                        }`}>
-                          {plan.residents} residents
-                        </span>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          plan.id === 'enterprise' ? 'bg-white/8 text-slate-300' : 'bg-slate-100 text-slate-600'
-                        }`}>
-                          {plan.gates}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* CTA */}
-                    <Link
-                      to={plan.ctaTo}
-                      className={`block text-center font-bold py-3 rounded-xl transition-all text-sm mb-6 ${
-                        plan.featured
-                          ? 'bg-brand-500 hover:bg-brand-600 text-white shadow-sm hover:shadow-md hover:-translate-y-0.5'
-                          : plan.id === 'enterprise'
-                          ? 'bg-white/10 hover:bg-white/15 text-white border border-white/15'
-                          : 'border border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50'
-                      }`}>
-                      {plan.cta} <ArrowRight size={13} className="inline ml-1" />
-                    </Link>
-
-                    {/* Feature list */}
-                    <div className={`border-t pt-5 flex-1 ${plan.id === 'enterprise' ? 'border-white/8' : 'border-slate-100'}`}>
-                      <ul className="space-y-2.5">
-                        {plan.features.map(f => (
-                          <li key={f.label} className={`flex items-start gap-2.5 text-xs leading-snug ${
-                            f.yes
-                              ? plan.id === 'enterprise' ? 'text-slate-300' : 'text-slate-700'
-                              : 'text-slate-300'
-                          }`}>
-                            {f.yes
-                              ? <CheckCircle2 size={13} className="flex-shrink-0 mt-0.5" style={{ color: plan.id === 'enterprise' ? '#10B981' : plan.accent }} />
-                              : <X size={13} className="flex-shrink-0 mt-0.5 text-slate-200" />}
-                            {f.label}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section className="relative bg-white pt-24 pb-12 sm:pt-32 sm:pb-16">
+        <HeroBackdrop />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-end">
+          <div className="text-center lg:text-left">
+            <Reveal><Pill badge="3 apps">Included on every plan</Pill></Reveal>
+            <Reveal delay={80}>
+              <h1 className="mt-6 text-[2.1rem] sm:text-[2.75rem] lg:text-[3.2rem] font-extrabold tracking-[-0.03em] leading-[1.08] text-slate-900">
+                Simple pricing that{' '}
+                <span className="bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">grows with your estate.</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
+                From ₦20,000/month for small estates to custom pricing for property firms. No setup fees, Paystack-native.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-8"><BillingToggle annual={annual} setAnnual={setAnnual} /></div>
+            </Reveal>
           </div>
+          <Reveal delay={200}>
+            <SizeSlider residents={residents} setResidents={setResidents} />
+          </Reveal>
+        </div>
+      </section>
 
+      {/* ── PLANS ────────────────────────────────────────────────────── */}
+      <section className="relative bg-white pb-16 sm:pb-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 items-stretch">
+            {PLANS.map((plan, i) => (
+              <PlanCard key={plan.id} plan={plan} annual={annual} recommended={i === recommended} i={i} />
+            ))}
+          </div>
           <Reveal delay={120}>
-            <p className="text-center text-sm text-slate-400 mt-8">
+            <p className="text-center text-xs sm:text-sm text-slate-400 mt-8">
               Prices exclude VAT. Need a tailored quote?{' '}
-              <Link to="/contact" className="text-brand-600 hover:underline font-medium">Talk to our team.</Link>
+              <Link to="/contact#book-demo" className="text-brand-600 hover:underline font-medium">Book a call with the team.</Link>
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── WHAT'S IN EVERY PLAN ─────────────────────────────────────────── */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-6">
-          <Reveal>
-            <div className="text-center mb-10">
-              <span className="section-tag mb-4 inline-flex">Every plan includes</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                The full three-app suite, always
-              </h2>
-              <p className="text-slate-500 mt-3 text-sm sm:text-base max-w-xl mx-auto">
-                No matter which tier you choose, every plan ships with all three apps. You never pay extra to give residents or guards access.
-              </p>
-            </div>
-          </Reveal>
-          <div className="grid sm:grid-cols-3 gap-5">
-            {[
-              {
-                name: 'AreaConnect Admin',
-                color: '#10B981',
-                bg: 'rgba(16,185,129,0.06)',
-                border: 'rgba(16,185,129,0.18)',
-                desc: 'The web dashboard for estate managers. Manage residents, units, payments, announcements, visitors, and analytics from any browser.',
-                bullets: ['Resident & unit management', 'Visitor log & blacklist', 'Announcement broadcasts', 'Payment reconciliation', 'Analytics & reporting'],
-              },
-              {
-                name: 'AreaMates',
-                color: '#6366F1',
-                bg: 'rgba(99,102,241,0.06)',
-                border: 'rgba(99,102,241,0.18)',
-                desc: 'The resident app. Invite visitors, pay dues, read announcements, chat with neighbours, and raise emergencies — from any device.',
-                bullets: ['Visitor pre-registration & QR', 'Pay estate dues (Paystack)', 'Estate announcements', 'Community chat & marketplace', 'Emergency panic button'],
-              },
-              {
-                name: 'AreaConnect Guard',
-                color: '#3B82F6',
-                bg: 'rgba(59,130,246,0.06)',
-                border: 'rgba(59,130,246,0.18)',
-                desc: 'The gate security app. Verify visitors by QR scan or 6-digit code, log entries and exits, and raise incidents — even offline.',
-                bullets: ['QR scan & code verification', 'Check-in / check-out logging', 'Blacklist lookup', 'Offline mode with sync', 'Incident escalation button'],
-              },
-            ].map(app => (
-              <Reveal key={app.name}>
-                <div className="rounded-2xl p-6 h-full border" style={{ background: app.bg, borderColor: app.border }}>
-                  <div className="text-sm font-black mb-1" style={{ color: app.color }}>{app.name}</div>
-                  <p className="text-xs text-slate-500 leading-relaxed mb-4">{app.desc}</p>
-                  <ul className="space-y-1.5">
+      {/* ── APPS ─────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6">
+          <div className="max-w-xl mb-10">
+            <Reveal><Eyebrow>Every plan includes</Eyebrow></Reveal>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">The full three-app suite, always.</h2>
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="mt-3 text-[15px] text-slate-500">You never pay extra to give residents or guards access.</p>
+            </Reveal>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {APPS.map((app, i) => (
+              <Reveal key={app.name} delay={i * 80} className="h-full">
+                <SpotlightCard glow={app.glow} className="h-full rounded-3xl bg-white border border-slate-200/80 p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                    <app.icon size={18} className={app.color} />
+                  </div>
+                  <h3 className="text-[15px] font-semibold text-slate-900">{app.name}</h3>
+                  <p className="mt-1.5 text-[13px] text-slate-500 leading-relaxed">{app.desc}</p>
+                  <ul className="mt-5 space-y-2">
                     {app.bullets.map(b => (
-                      <li key={b} className="flex items-center gap-2 text-xs text-slate-700">
-                        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: app.color }} />
-                        {b}
+                      <li key={b} className="flex items-center gap-2 text-[13px] text-slate-600">
+                        <Check size={13} className={app.color} strokeWidth={3} /> {b}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── COMPARISON TABLE ─────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <Reveal>
-            <div className="text-center mb-14">
-              <span className="section-tag mb-4 inline-flex">Full comparison</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Compare plans side by side</h2>
-            </div>
-          </Reveal>
-          <Reveal delay={60}>
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm overflow-x-auto">
-              <table className="w-full text-sm min-w-[640px]">
+      {/* ── COMPARISON ───────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <Reveal><Eyebrow>Full comparison</Eyebrow></Reveal>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Compare plans side by side.</h2>
+            </Reveal>
+          </div>
+          <Reveal delay={100}>
+            <div className="rounded-3xl border border-slate-200/80 overflow-x-auto bg-white">
+              <table className="w-full text-[13px] sm:text-sm min-w-[640px]">
                 <thead>
                   <tr className="border-b border-slate-100">
-                    <th className="text-left px-6 py-4 text-slate-500 font-semibold w-2/5 bg-slate-50/60">Feature</th>
-                    {PLANS.map(p => (
-                      <th key={p.id} className={`px-4 py-4 text-center font-black text-xs uppercase tracking-widest ${
-                        p.featured ? 'text-brand-600 bg-brand-50/50' : p.id === 'enterprise' ? 'text-slate-900 bg-slate-50' : 'text-slate-700 bg-slate-50/60'
-                      }`}>
-                        <div>{p.name}</div>
-                        <div className={`text-[11px] font-bold mt-0.5 normal-case tracking-normal ${
-                          p.featured ? 'text-brand-500' : 'text-slate-400'
-                        }`}>
-                          {p.id === 'enterprise' ? 'Custom' : p.perMonth.monthly + '/mo'}
+                    <th className="text-left px-5 sm:px-6 py-4 font-medium text-slate-400 w-2/5">Feature</th>
+                    {PLANS.map((p, i) => (
+                      <th key={p.id} className={`px-3 py-4 text-center transition-colors duration-300 ${i === recommended ? 'bg-brand-50/70' : ''}`}>
+                        <div className={`text-sm font-semibold ${i === recommended ? 'text-brand-700' : 'text-slate-900'}`}>{p.name}</div>
+                        <div className="text-[11px] font-medium text-slate-400 mt-0.5">
+                          {p.id === 'enterprise' ? 'Custom' : `${annual ? p.perMonth.annual : p.perMonth.monthly}/mo`}
                         </div>
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {COMPARE_ROWS.map((row, ri) => (
-                    <tr key={row.label} className={`border-b border-slate-50 last:border-0 transition-colors hover:bg-slate-50/40 ${ri % 2 === 0 ? '' : 'bg-slate-50/20'}`}>
-                      <td className="px-6 py-3 text-slate-700 font-medium text-sm">{row.label}</td>
+                  {COMPARE_ROWS.map(row => (
+                    <tr key={row.label} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/60 transition-colors">
+                      <td className="px-5 sm:px-6 py-3 text-slate-600">{row.label}</td>
                       {row.vals.map((v, ci) => (
-                        <td key={ci} className={`px-4 py-3 text-center text-sm font-semibold ${
-                          PLANS[ci].featured ? 'bg-brand-50/20' : ''
-                        } ${v === true ? 'text-brand-500' : v === false ? 'text-slate-200' : 'text-slate-700'}`}>
+                        <td key={ci} className={`px-3 py-3 text-center font-medium transition-colors duration-300 ${ci === recommended ? 'bg-brand-50/40' : ''}`}>
                           <Cell val={v} />
                         </td>
                       ))}
@@ -550,22 +530,19 @@ export default function Pricing() {
               </table>
             </div>
           </Reveal>
-        </div>
-      </section>
 
-      {/* ── PER-RESIDENT CALLOUT ─────────────────────────────────────────── */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-6">
-          <Reveal>
-            <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-6">
-              <div className="flex-1">
-                <div className="text-white font-black text-base mb-2">Prefer per-resident billing?</div>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  Pay <span className="text-brand-400 font-bold">₦500 per resident per month</span> (minimum ₦20,000) — ideal for smaller or fast-growing estates where a flat fee feels large. Same Starter-tier features. Contact us to set up per-resident billing.
+          {/* Per-resident option */}
+          <Reveal delay={80}>
+            <div className="mt-6 relative rounded-3xl bg-slate-900 overflow-hidden p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
+              <div className="about-aurora absolute -top-20 -left-10 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl" />
+              <div className="relative flex-1">
+                <div className="text-white text-[15px] font-semibold mb-1.5">Prefer per-resident billing?</div>
+                <p className="text-slate-400 text-[13px] sm:text-sm leading-relaxed">
+                  Pay <span className="text-brand-400 font-semibold">₦500 per resident per month</span> (minimum ₦20,000) with the Starter feature set — ideal for smaller or fast-growing estates.
                 </p>
               </div>
-              <Link to="/contact"
-                className="flex-shrink-0 inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 text-white text-sm font-bold px-5 py-3 rounded-xl transition-colors whitespace-nowrap">
+              <Link to="/contact#book-demo"
+                className="relative flex-shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 text-white text-sm font-semibold px-5 py-2.5 transition-colors">
                 Ask us about it <ArrowRight size={14} />
               </Link>
             </div>
@@ -573,72 +550,39 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-2xl mx-auto px-6">
-          <Reveal>
-            <div className="text-center mb-12">
-              <span className="section-tag mb-4 inline-flex">FAQ</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-3">
-                Pricing questions answered
-              </h2>
-              <p className="text-slate-500 text-sm sm:text-base">
-                Still unsure?{' '}
-                <Link to="/contact" className="text-brand-600 hover:underline font-medium">Our team is happy to help.</Link>
-              </p>
+      {/* ── FAQ ──────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
+          <div>
+            <div className="lg:sticky lg:top-28">
+              <Reveal><Eyebrow>FAQ</Eyebrow></Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Pricing questions, answered.</h2>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="mt-3 text-[15px] text-slate-500">
+                  Still unsure? <Link to="/contact#book-demo" className="text-brand-600 font-medium hover:underline">Book a 30-minute call</Link> and we'll walk you through it.
+                </p>
+              </Reveal>
             </div>
-          </Reveal>
-          <div className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <Reveal key={faq.q} delay={i * 30}>
-                <FaqItem q={faq.q} a={faq.a} />
+          </div>
+          <div className="space-y-2.5">
+            {FAQS.map((f, i) => (
+              <Reveal key={f.q} delay={i * 30}>
+                <FaqItem q={f.q} a={f.a} open={openFaq === i} onToggle={() => setOpenFaq(o => (o === i ? -1 : i))} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────────── */}
-      <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-900" />
-        <div className="absolute inset-0 dot-grid opacity-20" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-black/10 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 pointer-events-none" />
-
-        <div className="relative max-w-3xl mx-auto px-6 text-center z-10">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
-              Setup in under 10 minutes
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-5">
-              Ready to get started?
-            </h2>
-            <p className="text-brand-100 text-base sm:text-xl mb-10 leading-relaxed">
-              Join 500+ estates already running on AreaConnect.<br className="hidden sm:block" />
-              Starting from just ₦20,000 per month.
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="https://area-connector.areaconnect.pro/register" className="inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-[15px] shadow-xl shadow-black/20 hover:-translate-y-0.5">
-                Get started <ArrowRight size={18} />
-              </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-[15px] hover:bg-white/8">
-                Book a demo
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={140}>
-            <div className="flex flex-wrap items-center justify-center gap-5 mt-10 text-sm text-brand-200">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> From ₦20,000/month</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> No setup fees</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> Cancel anytime</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> 3 apps included always</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
+      <div className="h-16 sm:h-24 bg-white" />
+      <GlowCTA title="Ready to get started?" subtitle="Plans from ₦20,000/month. No setup fees. All three apps included.">
+        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Get started</PrimaryButton>
+        <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
+          Book a demo
+        </Link>
+      </GlowCTA>
     </div>
   );
 }

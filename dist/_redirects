@@ -1,1 +1,3 @@
-/*    /index.html   200
+# Every page is prerendered to static HTML at build time (scripts/prerender.mjs),
+# so there is no SPA catch-all: unknown URLs get dist/404.html with a real 404
+# status instead of a blank 200 "soft 404".

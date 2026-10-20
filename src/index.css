@@ -143,3 +143,56 @@
 /* Hide scrollbar for horizontal carousels */
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── About page motion ─────────────────────────────────────────────────── */
+@keyframes aboutSpin    { to { transform: rotate(360deg); } }
+@keyframes aboutAurora  { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.15); } }
+@keyframes aboutFeedIn  { from { opacity: 0; transform: translateY(-14px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes aboutWordIn  { from { opacity: 0; transform: translateY(55%); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes aboutBorder  { to { --about-angle: 360deg; } }
+@property --about-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+.about-grid {
+  background-image:
+    linear-gradient(to right, rgba(15,23,42,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15,23,42,.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+.about-aurora    { animation: aboutAurora 14s ease-in-out infinite; }
+.about-spin      { animation: aboutSpin 18s linear infinite; }
+.about-feed-in   { animation: aboutFeedIn .55s cubic-bezier(.22,1,.36,1) both; }
+.about-word-in   { animation: aboutWordIn .6s cubic-bezier(.22,1,.36,1) both; }
+.about-glow-border {
+  background: conic-gradient(from var(--about-angle), transparent 0 60%, #34d399 75%, #6366f1 88%, transparent 100%);
+  animation: aboutBorder 6s linear infinite;
+}
+.about-strike { position: relative; }
+.about-strike::after {
+  content: ''; position: absolute; left: 0; top: 52%; height: 2px; width: 0;
+  background: #f43f5e; border-radius: 2px; transition: width .6s cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--d, 0ms);
+}
+.about-strike.is-on::after { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-aurora, .about-spin, .about-glow-border { animation: none; }
+  .about-feed-in, .about-word-in { animation-duration: .01ms; }
+}
+
+/* ── Home page motion ──────────────────────────────────────────────────── */
+@keyframes homeScan     { 0%,100% { top: 10px; } 50% { top: calc(100% - 12px); } }
+@keyframes homeProgress { from { width: 0; } to { width: 100%; } }
+@keyframes homeRing     { 0% { transform: scale(.9); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes homeEq       { 0%,100% { height: 25%; } 50% { height: 100%; } }
+.home-scan     { animation: homeScan 2.4s ease-in-out infinite; }
+.home-progress { animation: homeProgress 6s linear forwards; }
+.home-ring     { animation: homeRing 1.4s ease-out infinite; }
+.home-eq       { height: 25%; animation: homeEq 1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .home-scan, .home-ring, .home-eq { animation: none; }
+}
+@keyframes homeBanner { 0% { opacity: 0; transform: translateY(-120%); } 12%, 70% { opacity: 1; transform: none; } 85%, 100% { opacity: 0; transform: translateY(-120%); } }
+.home-banner { animation: homeBanner 2.8s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion: reduce) { .home-banner { animation: none; } }

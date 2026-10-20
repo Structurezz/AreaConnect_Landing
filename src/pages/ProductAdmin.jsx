@@ -1,436 +1,58 @@
-import { Link } from 'react-router-dom';
 import {
-  ArrowRight, CheckCircle2, Users, CreditCard, UserCheck, BarChart2,
-  Bell, Shield, Megaphone, LayoutDashboard, Home as HomeIcon,
-  Music, MessageSquare,
+  Users, Building2, CreditCard, Megaphone, UserCheck, Bell, Shield, BarChart3, FileText, Wallet,
+  PhoneCall, Layers, Globe, Upload, Zap, Lock,
 } from 'lucide-react';
-import { Reveal } from '../components/ui/Reveal';
-import Seo from '../components/Seo';
+import ProductPage from '../components/ProductPage';
+import AdminDashboard from '../components/mockups/AdminDashboard';
+
+const FEATURES = [
+  { icon: Users,      title: 'Resident management', desc: 'Invite one by one or bulk-import a CSV. Everyone gets a welcome email with their login.' },
+  { icon: Building2,  title: 'Units & blocks',      desc: 'Create blocks and units, assign residents and see occupancy at a glance.' },
+  { icon: CreditCard, title: 'Dues collection',     desc: 'Levy schedules, automated reminders and Paystack checkout with full reconciliation.' },
+  { icon: Wallet,     title: 'Estate wallet',       desc: 'Collected funds land in your estate wallet — withdraw to any Nigerian bank.' },
+  { icon: UserCheck,  title: 'Visitor oversight',   desc: 'Live entry logs, who’s inside now, and a blacklist that syncs to every gate.' },
+  { icon: Bell,       title: 'Live alerts',         desc: 'Panic alerts appear on your dashboard instantly, and you can broadcast to all residents.' },
+  { icon: Shield,     title: 'Guard management',    desc: 'Invite security staff, suspend or reactivate them, and review their activity.', isNew: true },
+  { icon: PhoneCall,  title: 'Calls',               desc: 'Call any resident or the gate straight from the dashboard.', isNew: true },
+  { icon: Megaphone,  title: 'Announcements',       desc: 'Notices with images, push delivery and read receipts.' },
+  { icon: FileText,   title: 'Estate constitution', desc: 'Upload your rules once so residents and the AI assistant can reference them.', isNew: true },
+  { icon: BarChart3,  title: 'Analytics',           desc: 'Visitor volume, collection rates and community activity in real time.' },
+  { icon: Layers,     title: 'Multi-estate',        desc: 'Manage a whole portfolio from one login on Enterprise.' },
+];
+
+const STEPS = [
+  { title: 'Create your estate', desc: 'Sign up and add your estate details and units.' },
+  { title: 'Import residents',   desc: 'Upload a CSV — accounts and welcome emails go out automatically.' },
+  { title: 'Set up dues',        desc: 'Create levy schedules and connect your bank for payouts.' },
+  { title: 'Run it live',        desc: 'Watch visitors, payments and alerts from one dashboard.' },
+];
 
 export default function ProductAdmin() {
   return (
-    <div className="pt-16">
-      <Seo
-        title="Estate Manager Portal — Dashboard, Payments, Visitors, Analytics"
-        description="AreaConnect Admin is the command centre for your estate. Manage residents, collect dues via Paystack, broadcast alerts, and monitor everything from one dashboard."
-        path="/admin"
-        keywords="estate manager dashboard, estate admin portal Nigeria, resident management software, Paystack dues collection, estate analytics"
-      />
-
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[90vh] bg-[#050d1a] flex items-center overflow-hidden noise">
-        {/* Orbs */}
-        <div className="absolute pointer-events-none inset-0">
-          <div className="absolute -top-32 -left-32 w-[480px] h-[480px] bg-brand-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 -right-24 w-[360px] h-[360px] bg-indigo-600/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl" />
-        </div>
-        {/* Dot grid */}
-        <div className="absolute inset-0 dot-grid opacity-40" />
-
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-24 lg:py-32 w-full">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
-
-            {/* Left copy */}
-            <div className="flex-1 max-w-xl text-center lg:text-left z-10">
-              <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 bg-brand-500/10 border border-brand-500/20 text-brand-400">
-                AreaConnect Admin
-              </span>
-              <h1 className="text-3xl sm:text-5xl lg:text-[62px] font-black leading-[1.03] tracking-tight mb-6 text-white">
-                Your estate,<br />
-                <span className="gradient-text-brand">fully in control.</span>
-              </h1>
-              <p className="hidden sm:block text-lg text-slate-400 leading-relaxed mb-8">
-                AreaConnect Admin is the web dashboard for estate managers. Manage residents, collect dues, broadcast announcements, and see everything happening in your estate — from one place.
-              </p>
-              <p className="block sm:hidden text-sm text-slate-400 leading-relaxed mb-8">
-                The web dashboard for estate managers — residents, dues, announcements, and analytics in one place.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <Link
-                  to="/pricing"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 text-[15px]"
-                >
-                  Start for free <ArrowRight size={16} />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 text-white/80 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/8 text-[15px]"
-                >
-                  Request a demo
-                </Link>
-              </div>
-            </div>
-
-            {/* Right — stat cards grid */}
-            <div className="flex-1 grid grid-cols-2 gap-4 w-full max-w-md mx-auto z-10">
-              {[
-                {
-                  icon: Users,
-                  iconBg: 'bg-brand-500/20',
-                  iconColor: 'text-brand-400',
-                  label: 'Residents',
-                  value: '142 active',
-                },
-                {
-                  icon: CreditCard,
-                  iconBg: 'bg-indigo-500/20',
-                  iconColor: 'text-indigo-400',
-                  label: 'Dues',
-                  value: '₦1.2M / month',
-                },
-                {
-                  icon: UserCheck,
-                  iconBg: 'bg-blue-500/20',
-                  iconColor: 'text-blue-400',
-                  label: 'Visitors',
-                  value: '23 today',
-                },
-                {
-                  icon: BarChart2,
-                  iconBg: 'bg-amber-500/20',
-                  iconColor: 'text-amber-400',
-                  label: 'Analytics',
-                  value: 'Live dashboard',
-                },
-              ].map((c) => (
-                <div
-                  key={c.label}
-                  className="bg-white/5 border border-white/8 rounded-2xl p-5 hover:bg-white/8 transition-all duration-200"
-                >
-                  <div className={`w-10 h-10 ${c.iconBg} rounded-xl flex items-center justify-center mb-4`}>
-                    <c.icon size={18} className={c.iconColor} />
-                  </div>
-                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">{c.label}</div>
-                  <div className="font-black text-white text-sm">{c.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-[#050d1a] to-transparent pointer-events-none" />
-      </section>
-
-      {/* ── FEATURES GRID ────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <Reveal>
-            <div className="text-center mb-14">
-              <span className="section-tag mb-4 inline-flex">Built for managers</span>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                Everything an estate manager needs
-              </h2>
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              {[
-                {
-                  title: 'Resident management',
-                  desc: 'Add residents directly, invite by email, or bulk-import hundreds via CSV. Assign to units, suspend, or reactivate with one click.',
-                },
-                {
-                  title: 'Unit management',
-                  desc: 'Create blocks and units, set occupancy limits, and track which units are vacant, occupied, or over-capacity.',
-                },
-                {
-                  title: 'Payment collection',
-                  desc: 'Create levy schedules (service charge, security, generator), set due dates, and collect via Paystack with full reconciliation reports.',
-                },
-                {
-                  title: 'Announcements',
-                  desc: 'Broadcast notices to all residents with images and attachments. Track who has seen and acknowledged each announcement.',
-                },
-                {
-                  title: 'Visitor management',
-                  desc: 'View all visitor pre-registrations and live entry logs. Resolve disputes, blacklist visitors, and export logs.',
-                },
-                {
-                  title: 'Alert management',
-                  desc: 'Broadcast security alerts to all residents and track acknowledgements. View the full alert history by date and severity.',
-                },
-                {
-                  title: 'Community oversight',
-                  desc: 'Monitor polls, events, and marketplace listings. Moderate content, close polls, and manage estate-wide community settings.',
-                },
-                {
-                  title: 'Analytics dashboard',
-                  desc: 'Live stats for visitor trends, payment collection rates, resident activity, and community engagement metrics.',
-                },
-                {
-                  title: 'Settings & billing',
-                  desc: 'Manage your subscription plan, update estate details, configure notification preferences, and set up the estate wallet.',
-                },
-              ].map((f, i) => (
-                <Reveal key={f.title} delay={i * 40}>
-                  <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 h-full">
-                    <CheckCircle2 size={18} className="text-brand-500 mb-3" />
-                    <h3 className="font-bold text-slate-900 mb-2">{f.title}</h3>
-                    <p className="text-sm text-slate-500 leading-relaxed">{f.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── DASHBOARD SHOWCASE ───────────────────────────────────────── */}
-      <section className="py-14 sm:py-24 bg-slate-50 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-
-            {/* Left: Dashboard mockup */}
-            <Reveal className="flex-1 w-full">
-              <div className="relative">
-                <div className="absolute -inset-8 bg-gradient-to-br from-brand-50 to-emerald-50 rounded-3xl" />
-                <div
-                  className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/8 w-full max-w-md mx-auto"
-                  style={{ background: 'linear-gradient(145deg, #1a2235 0%, #0d1424 100%)' }}
-                >
-                  {/* Browser chrome */}
-                  <div
-                    className="flex items-center gap-2 px-4 py-3 border-b border-white/5"
-                    style={{ background: 'rgba(0,0,0,0.3)' }}
-                  >
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
-                    </div>
-                    <div className="flex-1 mx-3">
-                      <div
-                        className="rounded-md px-3 py-1 text-[10px] text-slate-500 text-center font-mono"
-                        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
-                      >
-                        area-connector.areaconnect.pro
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Dashboard body — light theme matching real admin */}
-                  <div className="flex" style={{ height: 330, background: '#F8FAFC' }}>
-                    {/* Sidebar — matches real app: sections + labels */}
-                    <div className="w-28 flex flex-col py-2 flex-shrink-0 border-r overflow-hidden"
-                         style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
-                      {/* Logo */}
-                      <div className="flex items-center gap-1.5 px-2 pb-2 mb-1 border-b" style={{ borderColor: '#E2E8F0' }}>
-                        <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#10B981' }}>
-                          <span className="text-white text-[6px] font-black">AC</span>
-                        </div>
-                        <span className="text-[7px] font-black" style={{ color: '#0F172A' }}>AreaConnect</span>
-                      </div>
-                      {/* MANAGEMENT */}
-                      <div className="px-2 mt-1 mb-0.5">
-                        <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Management</span>
-                      </div>
-                      {[
-                        { Icon: LayoutDashboard, label: 'Dashboard',     active: true  },
-                        { Icon: UserCheck,        label: 'Visitors',      active: false },
-                        { Icon: Users,            label: 'Residents',     active: false },
-                        { Icon: HomeIcon,         label: 'Units',         active: false },
-                        { Icon: Megaphone,        label: 'Announcements', active: false },
-                        { Icon: CreditCard,       label: 'Payments',      active: false },
-                        { Icon: Shield,           label: 'Guards',        active: false },
-                      ].map(({ Icon, label, active }) => (
-                        <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
-                          style={{
-                            background: active ? 'rgba(16,185,129,0.10)' : 'transparent',
-                            borderLeft: active ? '2px solid #10B981' : '2px solid transparent',
-                          }}>
-                          <Icon size={8} style={{ color: active ? '#10B981' : '#94A3B8' }} />
-                          <span className="text-[6px] font-medium truncate" style={{ color: active ? '#0F172A' : '#64748B' }}>{label}</span>
-                        </div>
-                      ))}
-                      {/* COMMUNITY */}
-                      <div className="px-2 mt-1 mb-0.5">
-                        <span className="text-[5px] font-bold uppercase tracking-widest" style={{ color: '#CBD5E1' }}>Community</span>
-                      </div>
-                      {[
-                        { Icon: Music,          label: 'Lounge & Events' },
-                        { Icon: MessageSquare,  label: 'Community Chat'  },
-                        { Icon: Bell,           label: 'Alerts'          },
-                      ].map(({ Icon, label }) => (
-                        <div key={label} className="flex items-center gap-1.5 mx-1 px-1.5 py-1 rounded-md"
-                          style={{ borderLeft: '2px solid transparent' }}>
-                          <Icon size={8} style={{ color: '#94A3B8' }} />
-                          <span className="text-[6px] font-medium truncate" style={{ color: '#64748B' }}>{label}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Main content */}
-                    <div className="flex-1 overflow-hidden flex flex-col">
-                      {/* Emerald hero strip */}
-                      <div className="px-3 pt-3 pb-3.5" style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%)' }}>
-                        <div className="text-[10px] font-black text-white mb-0.5">Good morning, Taiwo 👋</div>
-                        <div className="text-[8px] mb-2" style={{ color: 'rgba(255,255,255,0.75)' }}>Sunrise Estate — here's today at a glance</div>
-                        <div className="flex gap-1">
-                          {[
-                            { l: 'Residents',     v: '142' },
-                            { l: 'Visitors Today', v: '23' },
-                            { l: 'Inside Now',    v: '8' },
-                            { l: 'Open Alerts',   v: '2', alert: true },
-                          ].map((s) => (
-                            <div
-                              key={s.l}
-                              className="flex-1 rounded-lg px-1 py-1 text-center"
-                              style={{ background: s.alert ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}
-                            >
-                              <div className="text-[10px] font-black text-white">{s.v}</div>
-                              <div className="text-[7px]" style={{ color: 'rgba(255,255,255,0.72)' }}>{s.l}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex-1 p-3 space-y-2.5 overflow-hidden">
-                        {/* Quick Actions 2×2 */}
-                        <div>
-                          <div className="text-[7px] font-bold uppercase tracking-wider mb-1.5" style={{ color: '#94A3B8' }}>Quick Actions</div>
-                          <div className="grid grid-cols-2 gap-1.5">
-                            {[
-                              { label: 'Manage Residents', Icon: Users,     iconBg: 'rgba(99,102,241,0.10)',  iconColor: '#6366F1' },
-                              { label: 'Estate Units',     Icon: HomeIcon,  iconBg: 'rgba(167,139,250,0.10)', iconColor: '#8B5CF6' },
-                              { label: 'Post Notice',      Icon: Megaphone, iconBg: 'rgba(217,119,6,0.10)',   iconColor: '#D97706' },
-                              { label: 'View Alerts',      Icon: Bell,      iconBg: 'rgba(239,68,68,0.10)',   iconColor: '#EF4444' },
-                            ].map((a) => (
-                              <div key={a.label} className="flex items-center gap-1.5 p-1.5 rounded-xl border"
-                                style={{ background: '#FFFFFF', borderColor: 'rgba(15,23,42,0.08)' }}>
-                                <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: a.iconBg }}>
-                                  <a.Icon size={9} style={{ color: a.iconColor }} />
-                                </div>
-                                <div className="text-[7px] font-semibold leading-tight" style={{ color: '#0F172A' }}>{a.label}</div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Recent Visitors */}
-                        <div className="rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(15,23,42,0.08)' }}>
-                          <div className="px-2.5 py-1.5 text-[7px] font-bold uppercase tracking-wider border-b" style={{ color: '#94A3B8', borderColor: 'rgba(15,23,42,0.06)', background: '#FFFFFF' }}>
-                            Recent Visitors
-                          </div>
-                          {[
-                            { n: 'Chidi Okafor', u: 'Unit 4B', s: 'checked-in',  sc: '#059669', sb: 'rgba(16,185,129,0.10)',  se: 'rgba(16,185,129,0.18)' },
-                            { n: 'Fatima Bello', u: 'Unit 2A', s: 'active',      sc: '#D97706', sb: 'rgba(245,158,11,0.10)',  se: 'rgba(245,158,11,0.18)' },
-                            { n: 'Seun Afolabi', u: 'Unit 7C', s: 'checked-out', sc: '#94A3B8', sb: 'rgba(148,163,184,0.10)', se: 'rgba(148,163,184,0.18)' },
-                          ].map((v) => (
-                            <div key={v.n} className="flex items-center gap-1.5 px-2.5 py-1.5 border-b last:border-0 bg-white" style={{ borderColor: 'rgba(15,23,42,0.04)' }}>
-                              <div className="w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0"
-                                style={{ background: 'rgba(16,185,129,0.10)', color: '#059669', border: '1px solid rgba(16,185,129,0.18)' }}>
-                                {v.n[0]}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="text-[8px] font-medium truncate" style={{ color: '#0F172A' }}>{v.n}</div>
-                                <div className="text-[7px]" style={{ color: '#94A3B8' }}>{v.u}</div>
-                              </div>
-                              <span className="text-[7px] font-bold px-1.5 py-0.5 rounded-full"
-                                style={{ background: v.sb, color: v.sc, border: `1px solid ${v.se}` }}>
-                                {v.s}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Right: feature list */}
-            <div className="flex-1 max-w-lg">
-              <Reveal>
-                <span className="section-tag mb-4 inline-flex">Dashboard showcase</span>
-                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mb-5">
-                  Everything at a glance, nothing missed
-                </h2>
-                <p className="text-sm sm:text-base text-slate-500 leading-relaxed mb-8">
-                  No more chasing residents on WhatsApp, paper visitor logs, or manual bank reconciliation. AreaConnect Admin puts you in full control from your browser.
-                </p>
-              </Reveal>
-
-              <div className="space-y-4">
-                {[
-                  {
-                    icon: Users,
-                    title: 'Resident onboarding',
-                    desc: 'Invite residents one-by-one or bulk-upload via CSV. Each gets a branded welcome email with login credentials.',
-                  },
-                  {
-                    icon: CreditCard,
-                    title: 'Automated dues collection',
-                    desc: 'Schedule monthly levies, send reminders, and collect via Paystack. Full reconciliation and receipt generation.',
-                  },
-                  {
-                    icon: BarChart2,
-                    title: 'Live analytics',
-                    desc: 'Real-time dashboard for visitor trends, payment rates, and community engagement metrics.',
-                  },
-                  {
-                    icon: Bell,
-                    title: 'Broadcast alerts',
-                    desc: 'Send estate-wide security alerts with one click. Track who has acknowledged each broadcast.',
-                  },
-                ].map((f, i) => (
-                  <Reveal key={f.title} delay={i * 60}>
-                    <div className="flex gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors duration-200 cursor-default">
-                      <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <f.icon size={18} className="text-brand-600" />
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm mb-1">{f.title}</div>
-                        <div className="text-sm text-slate-500 leading-relaxed">{f.desc}</div>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <section className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-700 to-emerald-900" />
-        <div className="absolute inset-0 dot-grid opacity-20" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-black/10 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4" />
-
-        <div className="relative max-w-2xl mx-auto px-6 text-center z-10">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 border border-white/20 bg-white/10 text-white/90 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
-              Get started today
-            </div>
-            <h2 className="text-3xl sm:text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
-              Set up your estate in minutes
-            </h2>
-            <p className="text-brand-100 text-base sm:text-lg mb-10 leading-relaxed">
-              The Admin portal is free to start. No credit card, no commitment.
-            </p>
-          </Reveal>
-          <Reveal delay={100}>
-            <Link
-              to="https://area-connector.areaconnect.pro/register"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-50 transition-all duration-200 text-base shadow-xl shadow-black/20 hover:-translate-y-0.5"
-            >
-              Get started free <ArrowRight size={18} />
-            </Link>
-          </Reveal>
-          <Reveal delay={160}>
-            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-brand-200">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> Free forever plan</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-brand-300" /> No credit card needed</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-    </div>
+    <ProductPage
+      id="admin"
+      seo={{
+        title: 'AreaConnect Admin — Estate Manager Dashboard, Payments, Visitors & Analytics',
+        description: 'AreaConnect Admin is the command centre for your estate. Manage residents and guards, collect dues via Paystack, watch visitors and alerts live, and broadcast to everyone from one dashboard.',
+        path: '/admin',
+        keywords: 'estate manager software Nigeria, estate dashboard, service charge collection, visitor log, estate admin portal',
+      }}
+      title={<>Your estate’s <span className="bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">command centre.</span></>}
+      subtitle="Residents, units, guards, dues, visitors and alerts — managed from one dashboard in any browser. No app to install."
+      mockup={<AdminDashboard />}
+      pill={{ badge: 'New', text: 'Guard management & in-app calls' }}
+      facts={[
+        { icon: Globe,  value: 'Any browser',     label: 'Nothing to install' },
+        { icon: Upload, value: 'CSV import',      label: 'Onboard everyone at once' },
+        { icon: Zap,    value: 'Paystack',        label: 'Dues straight to your bank' },
+        { icon: Lock,   value: 'Fully isolated',  label: 'Your estate’s data only' },
+      ]}
+      featuresTitle="Every admin task, one dashboard."
+      features={FEATURES}
+      workflowTitle="Up and running in four steps."
+      steps={STEPS}
+      ctaTitle="Take control of your estate."
+      ctaSubtitle="Start with a 14-day free trial. Admin, AreaMates and Guard included on every plan."
+    />
   );
 }
