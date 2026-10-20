@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, ArrowRight } from 'lucide-react';
 
-export const INTRO_KEY = 'ac_intro_seen_v1';
+export const INTRO_KEY = 'ac_intro_seen_v2';
 
 // Full-screen brand intro shown once, on a visitor's first visit.
 export default function IntroVideo({ onDone }) {
   const videoRef = useRef(null);
-  const [src] = useState(() => (window.innerWidth < 768 ? '/intro/estate-540.mp4' : '/intro/estate-720.mp4'));
   const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [captionGone, setCaptionGone] = useState(false);
 
   const finish = () => {
     if (leaving) return;
@@ -40,19 +39,22 @@ export default function IntroVideo({ onDone }) {
     <div className={`fixed inset-0 z-[9999] bg-slate-950 overflow-hidden transition-opacity duration-700 ${leaving ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <video
         ref={videoRef}
-        src={src}
-        poster="/intro/estate-poster.jpg"
+        src="/intro/areaconnect-reel.mp4"
+        poster="/intro/areaconnect-reel-poster.jpg"
         autoPlay
         muted
         playsInline
         preload="auto"
-        onPlaying={() => setStarted(true)}
-        onTimeUpdate={(e) => setProgress(e.currentTarget.currentTime / (e.currentTarget.duration || 10))}
+        onTimeUpdate={(e) => {
+          const v = e.currentTarget;
+          setProgress(v.currentTime / (v.duration || 43));
+          if (v.currentTime > 5) setCaptionGone(true);
+        }}
         onEnded={finish}
         onError={finish}
-        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${started ? 'scale-110' : 'scale-100'}`}
+        className="absolute inset-0 w-full h-full object-contain sm:object-cover bg-slate-950"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-slate-950/50" />
+      <div className={`absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/40 transition-opacity duration-1000 ${captionGone ? 'opacity-40' : 'opacity-100'}`} />
 
       {/* top bar */}
       <div className="absolute top-0 inset-x-0 flex items-center justify-between p-4 sm:p-6">
@@ -75,7 +77,7 @@ export default function IntroVideo({ onDone }) {
       {/* headline */}
       <div className="absolute inset-x-0 bottom-0 p-5 sm:p-10 pb-10 sm:pb-14">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-          <div>
+          <div className={`transition-all duration-1000 ${captionGone ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100'}`}>
             <div className="intro-in text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-300" style={{ animationDelay: '.6s' }}>
               Welcome to AreaConnect
             </div>
@@ -92,7 +94,7 @@ export default function IntroVideo({ onDone }) {
           <button onClick={finish}
             className="intro-in self-start sm:self-auto group inline-flex items-center gap-2 rounded-full bg-white text-slate-900 text-sm font-semibold pl-5 pr-2 py-2 hover:bg-slate-100 transition-colors"
             style={{ animationDelay: '1.2s' }}>
-            Enter site
+            {captionGone ? 'Skip intro' : 'Enter site'}
             <span className="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform"><ArrowRight size={14} /></span>
           </button>
         </div>
