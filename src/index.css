@@ -196,3 +196,7 @@
 @keyframes homeBanner { 0% { opacity: 0; transform: translateY(-120%); } 12%, 70% { opacity: 1; transform: none; } 85%, 100% { opacity: 0; transform: translateY(-120%); } }
 .home-banner { animation: homeBanner 2.8s cubic-bezier(.22,1,.36,1) both; }
 @media (prefers-reduced-motion: reduce) { .home-banner { animation: none; } }
+
+/* ── Intro video ───────────────────────────────────────────────────────── */
+@keyframes introIn { from { opacity: 0; transform: translateY(18px); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+.intro-in { opacity: 0; animation: introIn .9s cubic-bezier(.22,1,.36,1) forwards; }

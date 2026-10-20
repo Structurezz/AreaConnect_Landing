@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
+import IntroVideo, { INTRO_KEY } from './components/ui/IntroVideo';
 import UpdateBanner from './components/ui/UpdateBanner';
 import Footer from './components/layout/Footer';
 import { useVisitBeacon } from './hooks/useVisitBeacon';
@@ -44,11 +45,24 @@ function Analytics() {
 // StaticRouter in entry-server.jsx when pages are prerendered at build time.
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [intro, setIntro] = useState(false);
   const handleDone = useCallback(() => setLoading(false), []);
+  const introDone = useCallback(() => { setIntro(false); setLoading(false); }, []);
+
+  // First-time visitors get the video intro instead of the loader. Decided on
+  // the client so the prerendered HTML stays identical for everyone.
+  useEffect(() => {
+    let seen = true;
+    try { seen = !!localStorage.getItem(INTRO_KEY); } catch { /* storage blocked */ }
+    const conn = navigator.connection;
+    const lowData = conn && (conn.saveData || /2g/.test(conn.effectiveType || ''));
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (!seen && !lowData && !reduced) setIntro(true);
+  }, []);
 
   return (
     <>
-      {loading && <LoadingScreen onDone={handleDone} />}
+      {intro ? <IntroVideo onDone={introDone} /> : loading && <LoadingScreen onDone={handleDone} />}
       <ScrollToTop />
       <Analytics />
       <Navbar />

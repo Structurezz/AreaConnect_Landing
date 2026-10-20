@@ -12,3 +12,7 @@
 # Hashed build assets are safe to cache aggressively (filename changes on new builds).
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Intro video — cache for a week so returning visitors never re-download it.
+/intro/*
+  Cache-Control: public, max-age=604800
