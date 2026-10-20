@@ -41,20 +41,52 @@ if (!template.includes('<!--app-head-->') || !template.includes('<div id="root">
   throw new Error('prerender: index.html is missing <!--app-head--> or <div id="root"></div>');
 }
 
-function renderPage(url) {
+// `data` is exposed to components as globalThis.__PRELOAD__ while rendering,
+// and embedded as window.__PRELOAD__ so the browser's first paint matches.
+function renderPage(url, data) {
+  globalThis.__PRELOAD__ = data;
   const { html, head } = render(url);
+  globalThis.__PRELOAD__ = undefined;
+  const boot = data ? `<script>window.__PRELOAD__=${JSON.stringify(data).replace(/</g, '\\u003c')}</script>` : '';
   return template
-    .replace('<!--app-head-->', head)
+    .replace('<!--app-head-->', head + boot)
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 }
+
+// ── Blog articles (written daily by the API's AI writer) ──────────────────
+const API = (process.env.VITE_API_URL || 'https://areaconnectapi-production.up.railway.app/api').replace(/\/$/, '');
+let articles = [];
+try {
+  const res = await fetch(`${API}/blog?limit=all`);
+  if (res.ok) articles = (await res.json()).items || [];
+} catch (err) {
+  console.warn(`  blog: could not fetch articles (${err.message}) — list will load client-side`);
+}
+const preloads = { '/blog': articles.length ? { blog: { items: articles.slice(0, 13), total: articles.length } } : undefined };
 
 // "/" → index.html, "/pricing" → pricing.html. Flat .html files are served at
 // the extension-less URL by Netlify and Cloudflare Pages without a redirect.
 for (const { path: route } of ROUTES) {
   const file = route === '/' ? 'index.html' : `${route.slice(1)}.html`;
-  fs.writeFileSync(path.join(dist, file), renderPage(route));
+  fs.writeFileSync(path.join(dist, file), renderPage(route, preloads[route]));
   console.log(`  prerendered ${route.padEnd(10)} → dist/${file}`);
 }
+
+// One static page per article, plus a shell for articles published after this
+// build (public/_redirects rewrites unknown /blog/* URLs to it).
+fs.mkdirSync(path.join(dist, 'blog'), { recursive: true });
+let written = 0;
+for (const a of articles) {
+  try {
+    const res = await fetch(`${API}/blog/${encodeURIComponent(a.slug)}`);
+    if (!res.ok) continue;
+    const data = await res.json();
+    fs.writeFileSync(path.join(dist, 'blog', `${a.slug}.html`), renderPage(`/blog/${a.slug}`, { article: data }));
+    written++;
+  } catch { /* skip — the shell will load it client-side */ }
+}
+fs.writeFileSync(path.join(dist, 'blog', '__shell.html'), renderPage('/blog/__shell__'));
+console.log(`  prerendered ${written} blog articles  → dist/blog/*.html`);
 
 // Real 404 page (served with a 404 status by the host for unknown URLs).
 fs.writeFileSync(path.join(dist, '404.html'), renderPage('/__not-found__'));
@@ -64,9 +96,10 @@ const today = new Date().toISOString().slice(0, 10);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${ROUTES.map(r => `  <url><loc>${SITE}${r.path}</loc><lastmod>${today}</lastmod><changefreq>${r.changefreq}</changefreq><priority>${r.priority}</priority></url>`).join('\n')}
+${articles.map(a => `  <url><loc>${SITE}/blog/${a.slug}</loc><lastmod>${String(a.publishedAt).slice(0, 10)}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`).join('\n')}
 </urlset>
 `;
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
-console.log(`  sitemap.xml with ${ROUTES.length} URLs`);
+console.log(`  sitemap.xml with ${ROUTES.length + articles.length} URLs`);
 
 fs.rmSync(ssrDir, { recursive: true, force: true });

@@ -1,4 +1,4 @@
-import { Download, FileText, Image, Link2, Mail, ArrowRight } from 'lucide-react';
+import { FileText, Image, Link2, Mail } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import Seo from '../components/Seo';
 
@@ -27,7 +27,7 @@ export default function Press() {
     <div>
       <Seo
         title="Press & Media — AreaConnect Resources"
-        description="Logos, screenshots, press releases and leadership bios for journalists covering AreaConnect and Nigeria's proptech industry."
+        description="Company background, quick facts and media contact for journalists covering AreaConnect, the estate management platform built in Lagos."
         path="/press"
         keywords="AreaConnect press, Nigerian proptech news, estate management media kit"
       />
@@ -45,7 +45,7 @@ export default function Press() {
           </h1>
           <p className="text-base sm:text-xl text-slate-400 leading-relaxed">
             Everything you need to write about AreaConnect. Press inquiries:{' '}
-            <a href="mailto:press@areaconnect.pro" className="text-brand-400 hover:text-brand-300 transition-colors font-medium">press@areaconnect.pro</a>
+            <a href="mailto:michael@areaconnect.pro" className="text-brand-400 hover:text-brand-300 transition-colors font-medium">michael@areaconnect.pro</a>
           </p>
         </div>
       </section>
@@ -56,9 +56,9 @@ export default function Press() {
         <Reveal>
           <h2 className="text-2xl font-black text-slate-900 mb-5">Company overview</h2>
           <div className="bg-slate-50 rounded-2xl border border-slate-100 p-8 space-y-4 text-sm text-slate-700 leading-relaxed">
-            <p><strong className="text-slate-900">AreaConnect</strong> is a Nigerian estate management technology company founded in 2023 and headquartered in Lekki, Lagos. The company builds software that connects estate managers, residents, and security staff on a single digital platform.</p>
+            <p><strong className="text-slate-900">AreaConnect</strong> is a Nigerian estate management technology company founded in August 2026 in Lagos, operated by Area Connector Technologies (RC 9607864). The company builds software that connects estate managers, residents, and security staff on a single digital platform.</p>
             <p>The platform includes three apps: <strong className="text-slate-900">AreaConnect Admin</strong> (estate managers), <strong className="text-slate-900">AreaMates</strong> (residents, on iOS, Android, and web), and <strong className="text-slate-900">AreaConnect Guard</strong> (security staff). All three connect to a shared real-time backend.</p>
-            <p>As of 2025, AreaConnect serves over 500 estates across Nigeria, with more than 40,000 residents onboarded and over 1.2 million visitor passes issued. Service-charge collection runs on Paystack with full reconciliation back to each estate.</p>
+            <p>The platform covers visitor passes and gate verification, Paystack-powered dues collection with invoices and receipts, panic alerts and personal safety tools, in-app calls, an escrow-protected resident marketplace, and a community lounge. AreaConnect is now onboarding its first estates.</p>
           </div>
         </Reveal>
 
@@ -67,13 +67,13 @@ export default function Press() {
           <Reveal><h2 className="text-2xl font-black text-slate-900 mb-5">Quick facts</h2></Reveal>
           <div className="grid sm:grid-cols-2 gap-3">
             {[
-              ['Founded',             '2023, Lagos, Nigeria'],
-              ['Headquarters',        'Lekki Phase 1, Lagos'],
-              ['Employees',           '27 full-time'],
-              ['Funding stage',       'Bootstrapped / seed stage'],
-              ['Estates served',      '500+'],
-              ['Residents onboarded', '40,000+'],
-              ['Visitor passes',      '1.2 million+'],
+              ['Founded',             'August 2026'],
+              ['Headquarters',        'Lagos, Nigeria'],
+              ['Founder',             'Michael Orizu'],
+              ['Company',             'Area Connector Technologies'],
+              ['Registration',        'RC 9607864'],
+              ['Products',            'Admin · AreaMates · Guard'],
+              ['Platforms',           'Web, Android, iOS'],
               ['Payment gateway',     'Paystack-native'],
             ].map(([k, v], i) => (
               <Reveal key={k} delay={i * 40}>
@@ -91,17 +91,17 @@ export default function Press() {
           <Reveal>
             <div className="flex items-end justify-between mb-5">
               <h2 className="text-2xl font-black text-slate-900">Logo & assets</h2>
-              <p className="text-xs text-slate-400">Available for editorial use with attribution</p>
+              <p className="text-xs text-slate-400">Sent on request for editorial use</p>
             </div>
           </Reveal>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
               { label: 'Logo — green on white', icon: Image,    desc: 'PNG, SVG' },
               { label: 'Logo — white on dark',  icon: Image,    desc: 'PNG, SVG' },
-              { label: 'Brand guidelines',      icon: FileText, desc: 'PDF' },
-              { label: 'Product screenshots',   icon: Image,    desc: 'ZIP — 12 images' },
-              { label: 'Press release',         icon: FileText, desc: 'DOCX, PDF' },
-              { label: 'Media mentions pack',   icon: Link2,    desc: 'PDF' },
+              { label: 'Product screenshots',   icon: Image,    desc: 'Admin, AreaMates & Guard' },
+              { label: 'Founder photo & bio',   icon: FileText, desc: 'JPG, PDF' },
+              { label: 'Product demo video',    icon: Link2,    desc: 'MP4' },
+              { label: 'Company fact sheet',    icon: FileText, desc: 'PDF' },
             ].map((a, i) => (
               <Reveal key={a.label} delay={i * 50}>
                 <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
@@ -112,38 +112,24 @@ export default function Press() {
                     <div className="font-bold text-slate-900 text-sm mb-0.5">{a.label}</div>
                     <div className="text-xs text-slate-400">{a.desc}</div>
                   </div>
-                  <button className="btn-outline text-xs py-2 w-full justify-center">
-                    <Download size={12} /> Download
-                  </button>
+                  <a href={`mailto:michael@areaconnect.pro?subject=${encodeURIComponent(`Press asset request: ${a.label}`)}`}
+                    className="btn-outline text-xs py-2 w-full justify-center">
+                    <Mail size={12} /> Request
+                  </a>
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
 
-        {/* Recent coverage */}
-        <div>
-          <Reveal><h2 className="text-2xl font-black text-slate-900 mb-5">Recent coverage</h2></Reveal>
-          <div className="space-y-3">
-            {[
-              { pub: 'TechCabal',        date: 'May 2025',     headline: '"AreaConnect raises seed round to expand estate management platform across West Africa"' },
-              { pub: 'Techpoint Africa', date: 'March 2025',   headline: '"How AreaConnect is replacing WhatsApp groups for 500 Nigerian estate managers"' },
-              { pub: 'Nairametrics',     date: 'January 2025', headline: '"Nigerian proptech startup AreaConnect scales dues collection across Lagos estates"' },
-              { pub: 'The Cable',        date: 'October 2024', headline: '"The app making Nigerian estate security more efficient — one QR code at a time"' },
-            ].map((c, i) => (
-              <Reveal key={c.headline} delay={i * 50}>
-                <div className="flex items-start gap-4 bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
-                  <span className="text-xs font-bold bg-slate-900 text-white px-3 py-1.5 rounded-full flex-shrink-0 whitespace-nowrap">{c.pub}</span>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-slate-800 leading-snug">{c.headline}</p>
-                    <p className="text-xs text-slate-400 mt-1.5">{c.date}</p>
-                  </div>
-                  <ArrowRight size={14} className="text-slate-300 flex-shrink-0 mt-0.5" />
-                </div>
-              </Reveal>
-            ))}
+        {/* Coverage */}
+        <Reveal>
+          <h2 className="text-2xl font-black text-slate-900 mb-5">Coverage</h2>
+          <div className="bg-slate-50 rounded-2xl border border-slate-100 p-8 text-sm text-slate-600 leading-relaxed">
+            AreaConnect launched in August 2026 and we're just getting started — media coverage will appear here.
+            Writing about estate management, proptech or community safety in Nigeria? We'd love to talk.
           </div>
-        </div>
+        </Reveal>
 
       </div>
 
@@ -158,10 +144,10 @@ export default function Press() {
             </div>
             <h3 className="text-3xl font-black text-white tracking-tight mb-3">Press inquiries</h3>
             <p className="text-brand-100 text-sm mb-6 leading-relaxed">
-              For interviews, quotes, background information, or additional assets, contact our communications team.
+              For interviews, quotes, background information, or assets, contact our founder directly.
             </p>
-            <a href="mailto:press@areaconnect.pro" className="btn-primary-lg bg-white text-brand-700 hover:bg-brand-50 shadow-xl">
-              press@areaconnect.pro
+            <a href="mailto:michael@areaconnect.pro" className="btn-primary-lg bg-white text-brand-700 hover:bg-brand-50 shadow-xl">
+              michael@areaconnect.pro
             </a>
           </Reveal>
         </div>
