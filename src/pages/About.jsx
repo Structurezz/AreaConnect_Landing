@@ -47,7 +47,6 @@ const FOUNDER_PHOTO = '/team/michael-orizu.jpg';
 
 const TEAM = [
   { name: 'Michael Orizu', role: 'Founder, CEO & CTO',       initials: 'MO', color: 'from-brand-400 to-emerald-700', photo: FOUNDER_PHOTO },
-  { name: 'Angela Okorie', role: 'Head of Customer Success', initials: 'AO', color: 'from-violet-400 to-violet-700' },
   { name: 'Seun Adesanya', role: 'Head of Product',          initials: 'SA', color: 'from-teal-400 to-cyan-700' },
   { name: 'Aminu Danjuma', role: 'Head of Marketing',        initials: 'AD', color: 'from-orange-400 to-rose-600' },
 ];
@@ -501,7 +500,7 @@ export default function About() {
                   <p className="mt-3 text-sm text-slate-500 leading-relaxed">The people making Nigerian estates run better.</p>
                 </Reveal>
               </div>
-              <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="flex-1 grid grid-cols-3 gap-3">
                 {TEAM.map((m, i) => (
                   <Reveal key={m.name} delay={i * 70}>
                     <div className="group h-full rounded-2xl bg-white border border-slate-200/80 p-4 text-center hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/5 transition-all duration-300">
