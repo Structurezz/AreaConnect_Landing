@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import {
   LayoutDashboard, UserCheck, Users, Home, Megaphone, CreditCard, Shield, PhoneCall, Music, ShoppingBag,
   MessageSquare, Bell, Settings, UsersRound, LogIn, ChevronRight, Sparkles, MapPin, Package, UserRound,
+  UserPlus, Activity, ShieldAlert,
 } from 'lucide-react';
 
-// Miniature of the real estatemanager Dashboard (src/pages/Dashboard.jsx + Sidebar.jsx).
+// Miniature of the real estatemanager desktop Dashboard (components/dashboard/DesktopDashboard.jsx + Sidebar.jsx).
 
 const NAV = [
-  ['MANAGEMENT', [[LayoutDashboard, 'Dashboard'], [UserCheck, 'Visitors'], [Users, 'Residents'], [Home, 'Units'], [Megaphone, 'Announcements'], [CreditCard, 'Payments'], [Shield, 'Guards'], [PhoneCall, 'Calls']]],
+  ['MANAGEMENT', [[LayoutDashboard, 'Dashboard'], [UserCheck, 'Visitors'], [Users, 'Residents'], [Home, 'Units'], [Megaphone, 'Announcements'], [CreditCard, 'Payments'], [Shield, 'Guards'], [PhoneCall, 'Calls'], [UsersRound, 'Team']]],
   ['COMMUNITY',  [[Music, 'Lounge & Events'], [ShoppingBag, 'Marketplace'], [MessageSquare, 'Community Chat'], [Bell, 'Alerts']]],
 ];
 
@@ -71,111 +72,132 @@ export default function AdminDashboard() {
               </div>
             ))}
             <div className="mt-auto flex items-center gap-1.5 pt-2 border-t border-slate-100">
-              <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#10B981] to-[#047857] text-[7px] font-bold text-white flex items-center justify-center">MO</div>
-              <div className="text-[8px] font-semibold text-slate-700 truncate">Estate Manager</div>
+              <img src="/team/michael-orizu.jpg" alt="" className="w-5 h-5 rounded-full object-cover object-[50%_15%] ring-2 ring-emerald-200" />
+              <div className="leading-tight min-w-0">
+                <div className="text-[8px] font-semibold text-slate-700 truncate">Michael Orizu</div>
+                <div className="text-[6.5px] text-slate-400 truncate">Estate manager</div>
+              </div>
             </div>
           </aside>
 
-          {/* main */}
-          <main className="flex-1 min-w-0 p-3 space-y-2.5 overflow-hidden">
-            {/* hero */}
-            <div className="relative rounded-[18px] p-3.5 overflow-hidden text-white shadow-lg shadow-emerald-700/25"
-              style={{ background: 'linear-gradient(135deg,#059669,#047857)' }}>
-              <div className="absolute -top-10 -right-6 w-32 h-32 rounded-full bg-[#34D399]/40 blur-2xl" />
-              <div className="absolute inset-0 dot-grid opacity-30" />
-              <div className="relative flex items-center gap-1.5 mb-2">
-                <span className="rounded-full bg-white/[0.18] border border-white/25 px-1.5 py-0.5 text-[7px] font-bold tracking-wider">● LIVE</span>
-                <span className="rounded-full bg-white/[0.18] border border-white/25 px-1.5 py-0.5 text-[7px] font-semibold">Tue, Oct 20</span>
-              </div>
-              <div className="relative text-[7px] font-semibold tracking-wider text-white/70">GOOD EVENING</div>
-              <div className="relative text-[20px] font-black tracking-tight leading-tight">Michael 👋</div>
-              <div className="relative flex items-center gap-1 text-[8px] font-semibold text-white/90 mb-2.5"><Sparkles size={8} className="text-[#A7F3D0]" /> Sunrise Estate, Lekki</div>
-              <div className="relative grid grid-cols-4 gap-1.5">
-                {[[UsersRound, 248, 'Residents'], [UserCheck, f.today, 'Visitors Today'], [LogIn, f.inside, 'Inside Now'], [Bell, f.alerts, 'Open Alerts']].map(([I, v, l]) => {
-                  const red = l === 'Open Alerts' && v > 0;
-                  return (
-                    <div key={l} className="rounded-xl border p-1.5 transition-colors duration-500"
-                      style={{ background: red ? 'rgba(239,68,68,.32)' : 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.22)' }}>
-                      <div className="w-4 h-4 rounded-md bg-white/20 flex items-center justify-center mb-1"><I size={8} /></div>
-                      <div key={`${l}${v}`} className="about-word-in text-[15px] font-black leading-none">{v}</div>
-                      <div className="text-[6.5px] text-white/80 mt-0.5 truncate">{l}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-[1.4fr_1fr] gap-2.5">
-              {/* recent visitors */}
-              <div className="rounded-[12px] bg-white border border-slate-900/[0.08] shadow-sm overflow-hidden">
-                <div className="flex items-center justify-between px-2.5 py-1.5 border-b border-slate-100">
-                  <div className="flex items-center gap-1 text-[9px] font-bold text-slate-900">
-                    <span className="w-4 h-4 rounded-md bg-[#ECFDF5] text-[#059669] flex items-center justify-center"><UserCheck size={8} /></span> Recent Visitors
+          {/* main — mirrors the new estatemanager DesktopDashboard */}
+          <main className="flex-1 min-w-0 p-3 space-y-2 overflow-hidden">
+            {/* welcome banner */}
+            <div className="relative rounded-[14px] px-3.5 py-3 overflow-hidden text-white"
+              style={{ background: 'linear-gradient(120deg,#022C22 0%,#064E3B 50%,#047857 100%)', boxShadow: '0 10px 22px -14px rgba(4,120,87,0.8)' }}>
+              <div className="absolute -top-10 right-16 w-28 h-28 rounded-full blur-2xl bg-[#34D399]/25" />
+              <div className="absolute inset-0 dot-grid opacity-20" />
+              <div className="relative flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 text-[7px] text-white/75">
+                    <span className="inline-flex items-center gap-1 font-semibold text-white px-1.5 py-px rounded-full bg-white/15 border border-white/20">
+                      <span className="w-1 h-1 rounded-full bg-white animate-pulse" /> Live
+                    </span>
+                    Tuesday, 20 October · 19:04
                   </div>
-                  <span className="text-[7.5px] font-semibold text-[#059669]">View all →</span>
+                  <div className="mt-1 text-[13px] font-semibold tracking-tight">Good evening, Michael 👋</div>
+                  <div className="text-[7.5px] text-white/75 flex items-center gap-1 truncate"><MapPin size={7} /> <span className="text-white font-medium">Sunrise Estate</span> · Lekki Phase 1</div>
                 </div>
-                {f.visitors.map(([name, purpose, time, host, status], i) => {
-                  const st = STATUS[status];
-                  const [pc, PI] = PURPOSE[purpose];
-                  return (
-                    <div key={name} className={`flex items-center gap-2 px-2.5 py-1.5 ${i < 2 ? 'border-b border-slate-50' : ''}`}>
-                      <div className="relative w-6 h-6 flex-shrink-0">
-                        <div className="w-6 h-6 rounded-full text-[7px] font-bold flex items-center justify-center transition-colors duration-500" style={{ background: st.bg, color: st.text }}>{initials(name)}</div>
-                        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border border-white flex items-center justify-center" style={{ background: pc }}><PI size={5} className="text-white" /></span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-[8.5px] font-semibold text-slate-900 truncate">{name}</div>
-                        <div className="text-[7px] text-slate-500 truncate"><span style={{ color: pc }} className="font-semibold">{purpose}</span> · Today, {time} · For {host}</div>
-                      </div>
-                      <span key={status} className="about-feed-in rounded-full px-1.5 py-0.5 text-[6.5px] font-bold whitespace-nowrap" style={{ background: st.bg, color: st.text }}>{st.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* live alerts + notices */}
-              <div className="space-y-2.5">
-                {f.alerts > 0 ? (
-                  <div key="alert" className="about-feed-in rounded-[12px] border border-[#FECACA] p-2" style={{ background: 'linear-gradient(135deg,#FEE2E2,#FEF2F2)' }}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="flex items-center gap-1 text-[8.5px] font-bold text-[#DC2626]"><Shield size={9} /> Live Alerts</span>
-                      <span className="rounded-full bg-[#DC2626] text-white text-[6.5px] font-bold px-1.5">1</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 rounded-lg bg-white/65 px-1.5 py-1">
-                      <span className="relative flex w-1.5 h-1.5"><span className="absolute inset-0 rounded-full bg-red-500 animate-ping" /><span className="relative w-1.5 h-1.5 rounded-full bg-red-500" /></span>
-                      <span className="text-[7.5px] font-semibold text-slate-800 flex-1 truncate">Panic · Femi K.</span>
-                      <span className="text-[7px] text-slate-500">19:04</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div key="quiet" className="about-feed-in rounded-[12px] border border-emerald-100 bg-[#ECFDF5] p-2">
-                    <div className="flex items-center gap-1 text-[8.5px] font-bold text-[#047857] mb-1"><Shield size={9} /> Live Alerts</div>
-                    <div className="text-[7.5px] text-[#047857]/80">All quiet. No open alerts right now.</div>
-                  </div>
-                )}
-                <div className="rounded-[12px] bg-white border border-slate-900/[0.08] shadow-sm p-2">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="flex items-center gap-1 text-[8.5px] font-bold text-slate-900"><Megaphone size={9} className="text-[#D97706]" /> Notices</span>
-                    <span className="text-[7px] font-semibold text-[#D97706]">Post +</span>
-                  </div>
-                  {['Water supply update', 'Estate AGM — Saturday'].map(t => (
-                    <div key={t} className="flex items-center gap-1 text-[7.5px] text-slate-600 py-0.5"><span className="w-1 h-1 rounded-full bg-amber-500" />{t}</div>
-                  ))}
-                </div>
-                <div className="rounded-[12px] bg-white border border-slate-900/[0.08] shadow-sm p-2 flex items-center gap-1.5">
-                  <MapPin size={9} className="text-pink-500" /><span className="text-[7.5px] font-semibold text-slate-700 flex-1 truncate">Estate map</span><ChevronRight size={9} className="text-slate-300" />
+                <div className="hidden md:flex items-center gap-1 flex-shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[7px] font-medium px-1.5 py-1 rounded-lg bg-white/10 border border-white/25">
+                    <Bell size={7} /> Alerts {f.alerts > 0 && <span className="min-w-[10px] h-[10px] rounded-full bg-red-500 text-[6px] leading-[10px] text-center animate-pulse">{f.alerts}</span>}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[7px] font-medium px-1.5 py-1 rounded-lg bg-white/10 border border-white/25"><Megaphone size={7} /> Post notice</span>
+                  <span className="inline-flex items-center gap-1 text-[7px] font-semibold px-1.5 py-1 rounded-lg bg-white text-emerald-700"><UserPlus size={7} /> Register visitor</span>
                 </div>
               </div>
             </div>
 
-            {/* quick actions */}
-            <div className="grid grid-cols-4 gap-1.5">
-              {[['Residents', 'from-[#6366F1] to-[#4F46E5]', Users], ['Units', 'from-[#A78BFA] to-[#8B5CF6]', Home], ['Post Notice', 'from-[#F59E0B] to-[#D97706]', Megaphone], ['Alerts', 'from-[#EF4444] to-[#DC2626]', Bell]].map(([l, g, I]) => (
-                <div key={l} className="rounded-xl bg-white border border-slate-900/[0.06] p-1.5 flex items-center gap-1.5">
-                  <div className={`w-5 h-5 rounded-md bg-gradient-to-br ${g} flex items-center justify-center`}><I size={9} className="text-white" /></div>
-                  <span className="text-[7.5px] font-bold text-slate-800 truncate">{l}</span>
+            {/* stats */}
+            <div className="grid grid-cols-5 gap-1.5">
+              {[
+                ['Residents', 248, UsersRound, '#6366F1'],
+                ['Units', 96, Home, '#8B5CF6'],
+                ['Visitors today', f.today, UserCheck, '#10B981', true],
+                ['Inside now', f.inside, LogIn, '#0EA5E9', false, true],
+                ['Open alerts', f.alerts, Bell, f.alerts ? '#EF4444' : '#F59E0B', false, f.alerts > 0],
+              ].map(([l, v, I, c, spark, live]) => (
+                <div key={l} className="relative rounded-[10px] p-1.5 border overflow-hidden transition-colors duration-500"
+                  style={{ background: `linear-gradient(140deg, ${c}1C 0%, #FFFFFF 60%)`, borderColor: `${c}33` }}>
+                  <div className="flex items-center justify-between">
+                    <span className="w-4 h-4 rounded-md flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${c}, ${c}CC)` }}><I size={8} className="text-white" /></span>
+                    {live && <span className="relative flex w-1 h-1"><span className="absolute inset-0 rounded-full animate-ping" style={{ background: c }} /><span className="relative w-1 h-1 rounded-full" style={{ background: c }} /></span>}
+                  </div>
+                  <div className="mt-1 flex items-end justify-between">
+                    <div key={`${l}${v}`} className="about-word-in text-[13px] font-semibold leading-none text-slate-900 tabular-nums">{v}</div>
+                    {spark && (
+                      <svg width="22" height="9" viewBox="0 0 22 9"><path d="M0 7 L4 6 L8 7.5 L12 4 L16 5 L22 1.5" fill="none" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    )}
+                  </div>
+                  <div className="text-[6.5px] font-medium text-slate-500 truncate mt-0.5">{l}</div>
                 </div>
               ))}
+            </div>
+
+            {/* traffic + security */}
+            <div className="grid grid-cols-[1.6fr_1fr] gap-2">
+              <div className="rounded-[12px] bg-white border border-slate-200/70 p-2">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-1 text-[8px] font-semibold text-slate-900"><span className="w-3.5 h-3.5 rounded-md bg-[#10B981] flex items-center justify-center"><Activity size={7} className="text-white" /></span> Visitor traffic</span>
+                  <span className="text-[6.5px] text-slate-400">Last 7 days</span>
+                </div>
+                <div className="mt-1 text-[11px] font-semibold text-slate-900 tabular-nums">{58 + f.today} <span className="text-[6.5px] font-normal text-slate-400">visitors · {((58 + f.today) / 7).toFixed(1)} a day</span></div>
+                <div className="mt-1.5 h-[46px] flex items-end gap-1">
+                  {[6, 9, 7, 12, 8, 10, f.today].map((v, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
+                      <div className="w-full rounded-t-[3px] transition-all duration-700" style={{ height: `${(v / 13) * 40}px`, background: i === 6 ? 'linear-gradient(180deg,#34D399,#059669)' : '#D1FAE5' }} />
+                      <span className="text-[5.5px] text-slate-400">{['W', 'T', 'F', 'S', 'S', 'M', 'T'][i]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {f.alerts > 0 ? (
+                <div key="alert" className="about-feed-in rounded-[12px] p-2 text-white overflow-hidden relative" style={{ background: 'linear-gradient(150deg,#2A0606,#7F1D1D 55%,#DC2626 130%)' }}>
+                  <div className="flex items-center gap-1 text-[8px] font-semibold"><ShieldAlert size={8} /> Security</div>
+                  <div className="mt-1.5 text-[10px] font-semibold leading-tight">1 open alert</div>
+                  <div className="mt-1.5 flex items-center gap-1.5 rounded-lg bg-white/10 border border-white/15 px-1.5 py-1">
+                    <span className="relative flex w-1.5 h-1.5"><span className="absolute inset-0 rounded-full bg-red-300 animate-ping" /><span className="relative w-1.5 h-1.5 rounded-full bg-red-300" /></span>
+                    <span className="text-[7px] font-semibold flex-1 truncate">Panic · Femi K.</span>
+                    <span className="text-[6.5px] text-white/60">19:04</span>
+                  </div>
+                </div>
+              ) : (
+                <div key="quiet" className="about-feed-in rounded-[12px] p-2 text-white overflow-hidden relative" style={{ background: 'linear-gradient(150deg,#022C22,#064E3B 55%,#047857 120%)' }}>
+                  <div className="flex items-center gap-1 text-[8px] font-semibold"><Shield size={8} /> Security</div>
+                  <div className="mt-1.5 text-[10px] font-semibold leading-tight">All secure</div>
+                  <div className="text-[7px] text-white/65 mt-0.5">No open alerts right now</div>
+                  <div className="mt-1.5 grid grid-cols-2 gap-1">
+                    {[['Guards on duty', 4], ['Gates', 2]].map(([l, v]) => (
+                      <div key={l} className="rounded-md bg-white/10 px-1 py-0.5"><div className="text-[9px] font-semibold">{v}</div><div className="text-[5.5px] text-white/60">{l}</div></div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* recent visitors */}
+            <div className="rounded-[12px] bg-white border border-slate-200/70 overflow-hidden">
+              <div className="flex items-center justify-between px-2.5 py-1.5 border-b border-slate-100">
+                <span className="flex items-center gap-1 text-[8px] font-semibold text-slate-900"><span className="w-3.5 h-3.5 rounded-md bg-[#10B981] flex items-center justify-center"><UserCheck size={7} className="text-white" /></span> Recent visitors</span>
+                <span className="text-[7px] font-medium text-slate-500">View all →</span>
+              </div>
+              {f.visitors.map(([name, purpose, time, host, status], i) => {
+                const st = STATUS[status];
+                const [pc, PI] = PURPOSE[purpose];
+                return (
+                  <div key={name} className={`flex items-center gap-2 px-2.5 py-1 ${i < 2 ? 'border-b border-slate-50' : ''}`}>
+                    <div className="relative w-5 h-5 flex-shrink-0">
+                      <div className="w-5 h-5 rounded-lg text-[6.5px] font-bold flex items-center justify-center transition-colors duration-500" style={{ background: st.bg, color: st.text }}>{initials(name)}</div>
+                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-white flex items-center justify-center" style={{ background: pc }}><PI size={4} className="text-white" /></span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[8px] font-semibold text-slate-900 truncate">{name}</div>
+                      <div className="text-[6.5px] text-slate-500 truncate"><span style={{ color: pc }} className="font-semibold">{purpose}</span> · Today, {time} · For {host}</div>
+                    </div>
+                    <span key={status} className="about-feed-in rounded-full px-1.5 py-0.5 text-[6px] font-bold whitespace-nowrap" style={{ background: st.bg, color: st.text }}>{st.label}</span>
+                  </div>
+                );
+              })}
             </div>
           </main>
         </div>
