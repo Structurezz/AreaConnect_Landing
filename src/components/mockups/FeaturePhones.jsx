@@ -7,6 +7,8 @@ import {
   Megaphone, Siren, ChevronRight, Hand, Zap,
 } from 'lucide-react';
 
+import GuardWebPhone from './GuardWebPhone';
+
 // Phone mockups for each Features section, built from the real screens in
 // residents-mobile (AreaMates) and estatemanager (Admin, mobile layout).
 
@@ -469,71 +471,122 @@ function LoungePhone() {
   );
 }
 
-/* ── 7. Admin on mobile (estatemanager Dashboard) ──────────────────────── */
+/* ── 7. Admin on mobile (estatemanager MobileDashboard) ────────────────── */
+const ADMIN_RING = 2 * Math.PI * 34;
 function AdminPhone() {
   const n = useTick(2600);
-  const inside = 7 + (n % 3);
-  const alert = n % 4 === 3;
+  const step = n % 4;
+  const today = 12 + (step >= 2 ? 1 : 0);
+  const inside = [7, 8, 8, 7][step];
+  const alert = step === 2;
+  const feed = [
+    ...(alert ? [{ k: 'a', I: Siren, c: '#EF4444', t: 'Security alert', s: 'Femi K. · Block B', w: 'now', urgent: true }] : []),
+    [{ k: 't', I: LogIn, c: '#10B981', t: 'Tunde Adeyemi arrived', s: 'Friend · for Ada O.', w: '2m' }],
+    [{ k: 'k', I: UserPlus, c: '#6366F1', t: step >= 2 ? 'Kola Bello is expected' : 'Chioma Obi arrived', s: step >= 2 ? 'Friend · for Femi K.' : 'Family · for Emeka N.', w: step >= 2 ? '7:10 PM' : '18m' }],
+    [{ k: 'n', I: Megaphone, c: '#F59E0B', t: 'Estate AGM — Saturday', s: 'Pinned notice', w: '1d' }],
+  ].flat().slice(0, 3);
+
   return (
-    <Device admin tab={0} glow="radial-gradient(circle, rgba(16,185,129,.35), rgba(14,165,233,.15))"
-      bar={
-        <div className="h-12 bg-white border-b border-[#E2E8F0] flex items-center gap-2 px-3.5 flex-shrink-0">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center text-[8px] font-extrabold text-white">AC</div>
+    <Device admin tab={0} glow="radial-gradient(circle, rgba(16,185,129,.35), rgba(14,165,233,.15))">
+      <div className="px-3 pt-1.5 flex flex-col gap-2.5">
+        {/* greeting */}
+        <div className="flex items-center gap-2">
           <div className="flex-1 min-w-0 leading-tight">
-            <div className="text-[13px] font-semibold text-[#0F172A]">Area<span className="text-[#10B981]">Connect</span></div>
-            <div className="text-[9px] text-[#94A3B8] truncate">Sunrise Estate ▾</div>
+            <div className="text-[8.5px] font-medium text-slate-400">Tuesday, 20 October</div>
+            <div className="text-[15px] font-semibold text-slate-900 tracking-tight">Good evening, Michael</div>
           </div>
-          <Phone size={14} className="text-[#64748B]" /><Bell size={14} className="text-[#64748B] mx-1.5" /><LayoutGrid size={14} className="text-[#64748B]" />
+          <div className="relative flex-shrink-0">
+            <span className="absolute -inset-[2px] rounded-full" style={{ background: 'conic-gradient(from 180deg, #34D399, #10B981, #0EA5E9, #34D399)' }} />
+            <img src="/team/michael-orizu.jpg" alt="" className="relative w-8 h-8 rounded-full object-cover object-[50%_15%] border-2 border-white" />
+          </div>
         </div>
-      }>
-      <div className="px-3 pt-3">
-        <div className="relative rounded-[18px] p-3.5 overflow-hidden text-white shadow-lg shadow-emerald-700/25" style={{ background: 'linear-gradient(135deg,#059669,#047857)' }}>
-          <div className="absolute -top-10 -right-6 w-32 h-32 rounded-full bg-[#34D399]/40 blur-2xl" />
-          <div className="absolute inset-0 dot-grid opacity-30" />
-          <div className="relative flex items-center gap-1.5 mb-2">
-            <span className="rounded-full bg-white/[0.18] border border-white/25 px-1.5 py-0.5 text-[8px] font-bold tracking-wider">● LIVE</span>
-            <span className="rounded-full bg-white/[0.18] border border-white/25 px-1.5 py-0.5 text-[8px] font-semibold">Tue, Oct 20</span>
+
+        {/* estate status */}
+        <div className="relative rounded-[18px] p-3 overflow-hidden text-white shadow-lg shadow-emerald-900/30"
+          style={{ background: 'linear-gradient(150deg,#022C22 0%,#064E3B 45%,#047857 100%)' }}>
+          <div className="absolute -top-12 -right-10 w-32 h-32 rounded-full blur-2xl bg-[#34D399]/35" />
+          <div className="absolute -bottom-14 -left-8 w-28 h-28 rounded-full blur-2xl bg-sky-500/25" />
+          <div className="relative inline-flex items-center gap-1 rounded-full bg-white/10 border border-white/15 px-2 py-0.5 text-[8px] font-semibold">
+            <span className="w-1 h-1 rounded-full bg-emerald-300 animate-pulse" /> Live · Sunrise Estate
           </div>
-          <div className="relative text-[15px] font-black tracking-tight">Good evening, Michael 👋</div>
-          <div className="relative flex items-center gap-1 text-[9px] font-semibold text-white/85 mb-2.5"><Sparkles size={9} className="text-[#A7F3D0]" /> Sunrise Estate</div>
-          <div className="relative grid grid-cols-2 gap-1.5">
-            {[[UsersRound, 248, 'Residents'], [UserCheck, 12, 'Visitors Today'], [LogIn, inside, 'Inside Now'], [Bell, alert ? 1 : 0, 'Open Alerts']].map(([I, v, l]) => {
-              const red = l === 'Open Alerts' && v > 0;
-              return (
-                <div key={l} className="rounded-xl border px-2 py-1.5 flex items-center gap-1.5 transition-colors duration-500"
-                  style={{ background: red ? 'rgba(239,68,68,.32)' : 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.22)' }}>
-                  <I size={11} />
-                  <span key={`${l}${v}`} className="about-word-in text-[14px] font-black">{v}</span>
-                  <span className="text-[8px] text-white/80 truncate">{l}</span>
+          <div className="relative mt-2.5 flex items-center gap-2.5">
+            <div className="relative w-[58px] h-[58px] flex-shrink-0">
+              <svg viewBox="0 0 80 80" className="w-full h-full -rotate-90">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="8" />
+                <circle cx="40" cy="40" r="34" fill="none" stroke="#6EE7B7" strokeWidth="8" strokeLinecap="round"
+                  strokeDasharray={ADMIN_RING} style={{ strokeDashoffset: ADMIN_RING * (1 - inside / today), transition: 'stroke-dashoffset 0.8s cubic-bezier(.22,1,.36,1)' }} />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span key={inside} className="about-word-in text-[16px] font-semibold leading-none">{inside}</span>
+                <span className="text-[6px] font-semibold uppercase tracking-wider text-emerald-200/80 mt-0.5">on site</span>
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div key={inside} className="about-feed-in text-[11px] font-semibold leading-snug text-emerald-100">{inside} visitors inside the estate</div>
+              <div className="text-[8.5px] text-white/60 mt-0.5">{today} expected or arrived today</div>
+            </div>
+          </div>
+          <div className="relative mt-2.5 pt-2 border-t border-white/10 grid grid-cols-3 gap-1">
+            {[['Residents', 248], ['Visitors today', today], ['Open alerts', alert ? 1 : 0]].map(([l, v]) => (
+              <div key={l}>
+                <div key={`${l}-${v}`} className={`about-word-in text-[14px] font-semibold leading-none ${l === 'Open alerts' && v ? 'text-red-300' : ''}`}>{v}</div>
+                <div className="text-[7.5px] text-white/55 mt-0.5">{l}</div>
+              </div>
+            ))}
+          </div>
+          {alert ? (
+            <div key="alert" className="about-feed-in relative mt-2.5 flex items-center gap-2 rounded-xl px-2 py-1.5 bg-red-500/15 border border-red-400/30">
+              <span className="relative w-6 h-6 rounded-lg bg-red-500 flex items-center justify-center flex-shrink-0">
+                <span className="absolute inset-0 rounded-lg bg-red-500 animate-ping opacity-40" />
+                <Siren size={11} className="relative text-white" />
+              </span>
+              <div className="flex-1 min-w-0 leading-tight">
+                <div className="text-[9.5px] font-semibold">1 alert needs attention</div>
+                <div className="text-[7.5px] text-red-100/75 truncate">Femi K. · just now</div>
+              </div>
+              <ChevronRight size={11} className="text-red-200/70" />
+            </div>
+          ) : (
+            <div key="calm" className="about-feed-in relative mt-2.5 flex items-center gap-1.5 rounded-xl px-2 py-1.5 bg-white/[0.06] border border-white/10">
+              <ShieldCheck size={11} className="text-emerald-300" />
+              <span className="text-[8.5px] text-white/75"><span className="font-semibold text-white">All secure.</span> No open alerts.</span>
+            </div>
+          )}
+        </div>
+
+        {/* quick actions */}
+        <div className="grid grid-cols-4 gap-1.5">
+          {[['Invite', UserPlus, '#10B981'], ['Residents', Users, '#6366F1'], ['Notice', Megaphone, '#F59E0B'], ['Go live', Mic, '#EF4444']].map(([l, I, c]) => (
+            <div key={l} className="flex flex-col items-center gap-1">
+              <div className="w-10 h-10 rounded-[14px] flex items-center justify-center border" style={{ background: `linear-gradient(145deg, ${c}1A, ${c}08)`, borderColor: `${c}2E` }}>
+                <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${c}, ${c}D9)` }}><I size={12} className="text-white" /></div>
+              </div>
+              <span className="text-[8.5px] font-medium text-slate-600">{l}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* live activity */}
+        <div>
+          <div className="flex items-end justify-between mb-1.5">
+            <div className="text-[11px] font-semibold text-slate-900 tracking-tight">Live activity</div>
+            <span className="text-[8.5px] font-semibold text-emerald-600">Visitors ↗</span>
+          </div>
+          <div className="relative rounded-[14px] bg-white border border-slate-200/70 p-1">
+            <span className="absolute left-[19px] top-4 bottom-4 w-px bg-slate-200" />
+            {feed.map((f) => (
+              <div key={f.k + f.t} className="about-feed-in relative flex items-center gap-2 px-1.5 py-1.5 rounded-xl" style={f.urgent ? { background: 'rgba(239,68,68,0.06)' } : undefined}>
+                <span className="relative z-10 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ring-[3px] ring-white" style={{ background: `${f.c}1F` }}>
+                  <f.I size={11} style={{ color: f.c }} />
+                </span>
+                <div className="flex-1 min-w-0 leading-tight">
+                  <div className={`text-[10px] font-semibold truncate ${f.urgent ? 'text-red-700' : 'text-slate-900'}`}>{f.t}</div>
+                  <div className="text-[8.5px] text-slate-500 truncate">{f.s}</div>
                 </div>
-              );
-            })}
+                <span className="text-[8px] text-slate-400 flex-shrink-0">{f.w}</span>
+              </div>
+            ))}
           </div>
-          <div className="relative mt-2.5 h-8 rounded-xl bg-white text-[#047857] text-[10px] font-bold flex items-center justify-center gap-1">
-            <Bell size={11} /> Alerts {alert && <span className="rounded-full bg-[#EF4444] text-white text-[8px] px-1.5">1</span>} <ChevronRight size={11} />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-2 mt-2.5">
-          {[['Residents', 'Manage members', 'from-[#6366F1] to-[#4F46E5]', Users], ['Units', 'View estate', 'from-[#A78BFA] to-[#8B5CF6]', HomeIcon], ['Post Notice', 'Broadcast', 'from-[#F59E0B] to-[#D97706]', Megaphone], ['Alerts', 'Security feed', 'from-[#EF4444] to-[#DC2626]', Siren]].map(([l, d, g, I]) => (
-            <div key={l} className="rounded-2xl bg-white border border-slate-900/[0.06] p-2.5 flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${g} flex items-center justify-center flex-shrink-0`}><I size={14} className="text-white" /></div>
-              <div className="min-w-0 flex-1"><div className="text-[10px] font-bold text-slate-900">{l}</div><div className="text-[8px] text-[#94A3B8]">{d}</div></div>
-              <ChevronRight size={10} className="text-slate-300" />
-            </div>
-          ))}
-        </div>
-        <div className="mt-2.5 rounded-[14px] bg-white border border-slate-900/[0.08] overflow-hidden">
-          <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100">
-            <span className="flex items-center gap-1 text-[10px] font-bold text-slate-900"><span className="w-4 h-4 rounded-md bg-[#ECFDF5] text-[#059669] flex items-center justify-center"><UserCheck size={8} /></span> Recent Visitors</span>
-            <span className="text-[8px] font-semibold text-[#059669]">View all →</span>
-          </div>
-          {[['Tunde Adeyemi', 'INSIDE NOW', '#ECFDF5', '#047857'], ['Kola Bello', 'EXPECTED', '#EEF2FF', '#4338CA']].map(([nm, st, bg, c]) => (
-            <div key={nm} className="flex items-center gap-2 px-3 py-1.5">
-              <div className="w-6 h-6 rounded-full text-[8px] font-bold flex items-center justify-center" style={{ background: bg, color: c }}>{nm.split(' ').map(w => w[0]).join('')}</div>
-              <span className="flex-1 text-[9px] font-semibold text-slate-900 truncate">{nm}</span>
-              <span className="rounded-full px-1.5 py-0.5 text-[7px] font-bold" style={{ background: bg, color: c }}>{st}</span>
-            </div>
-          ))}
         </div>
       </div>
     </Device>
@@ -541,6 +594,7 @@ function AdminPhone() {
 }
 
 const PHONES = {
+  guard: GuardWebPhone,
   visitors: VisitorsPhone,
   safety: SafetyPhone,
   calls: CallsPhone,
