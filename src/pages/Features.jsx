@@ -295,7 +295,9 @@ function CategorySection({ cat, index }) {
           </Reveal>
         </div>
 
-        <div className="grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-12 items-start">
+        {/* Phone column is fixed-width; it swaps sides on alternate sections, so the
+            column template has to swap too or the cards end up in the narrow track. */}
+        <div className={`grid gap-10 lg:gap-12 items-start ${alt ? 'lg:grid-cols-[1fr_340px]' : 'lg:grid-cols-[340px_1fr]'}`}>
           <div className={`lg:sticky lg:top-36 ${alt ? 'lg:order-2' : ''}`}>
             <Reveal delay={100}>
               <FeaturePhone id={cat.id} />

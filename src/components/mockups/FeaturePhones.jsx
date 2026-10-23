@@ -339,35 +339,75 @@ const LISTINGS = [
   ['₦5,000', 'JAMB maths lessons', 'Hauwa', '📚', '#EDE9FE', false],
 ];
 
+// Mirrors the new residents Marketplace phone layout (pages/Marketplace.jsx)
 function MarketplacePhone() {
   const n = useTick(1800);
   const liked = n % 4 >= 2;
+  const step = n % 4; // escrow strip: Pay → Held safely → Delivered → Seller paid
   return (
-    <Device bar={null} tab={4} statusDark bg="#F8FAFC" glow="radial-gradient(circle, rgba(91,79,233,.35), rgba(249,115,22,.2))">
-      <div className="absolute inset-x-0 -top-9 h-[170px] bg-[#5B4FE9] overflow-hidden">
-        <div className="absolute -top-8 -right-10 w-36 h-36 rounded-full bg-[#7C3AED]" />
-        <div className="absolute -bottom-12 -left-10 w-36 h-36 rounded-full bg-[#4F46E5]" />
-      </div>
-      <div className="relative px-3 pt-1 text-white">
-        <div className="flex items-center gap-1.5"><ShoppingBag size={15} /><span className="text-[16px] font-extrabold">Marketplace</span></div>
-        <div className="text-[8px] text-[#E0E7FF] mt-0.5">🛡 Neighbours only · protected by estate management</div>
-        <div className="mt-2 h-8 rounded-[12px] bg-white flex items-center gap-1.5 px-2.5 text-[9px] text-[#94A3B8]"><Search size={11} /> Search food, services, items…</div>
-        <div className="mt-2 rounded-[12px] bg-white/15 p-0.5 grid grid-cols-4 text-[8.5px] font-semibold">
+    <Device bar={null} tab={4} bg="#F8FAFC" glow="radial-gradient(circle, rgba(91,79,233,.35), rgba(249,115,22,.2))">
+      <div className="px-3 pt-1 flex flex-col gap-2">
+        {/* header */}
+        <div className="flex items-end justify-between">
+          <div className="leading-tight">
+            <div className="text-[8.5px] font-medium text-slate-400">Buy &amp; sell with neighbours</div>
+            <div className="text-[15px] font-semibold text-slate-900 tracking-tight">Marketplace</div>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[9px] font-semibold text-white shadow-md shadow-indigo-500/40" style={{ background: 'linear-gradient(135deg,#6366F1,#4F46E5)' }}>
+            <Plus size={10} strokeWidth={3} /> Sell
+          </span>
+        </div>
+
+        {/* safe trading card */}
+        <div className="relative rounded-[18px] p-2.5 overflow-hidden text-white shadow-lg shadow-indigo-900/30"
+          style={{ background: 'linear-gradient(150deg,#1E1B4B 0%,#312E81 50%,#4F46E5 115%)' }}>
+          <div className="absolute -top-10 -right-8 w-28 h-28 rounded-full blur-2xl bg-indigo-400/45" />
+          <ShoppingBag size={70} className="absolute -right-3 -bottom-4 text-white/[0.06]" />
+          <div className="relative inline-flex items-center gap-1 rounded-full bg-white/10 border border-white/15 px-1.5 py-0.5 text-[7.5px] font-semibold">
+            <ShieldCheck size={8} className="text-indigo-200" /> Neighbours only · protected payments
+          </div>
+          <div className="relative mt-2 grid grid-cols-3 gap-1">
+            {[['For sale', 24, '#fff'], ['To confirm', 1, '#FDE68A'], ['To handle', 2, '#FDE68A']].map(([l, v, c]) => (
+              <div key={l} className="rounded-lg bg-white/[0.07] border border-white/10 px-1.5 py-1">
+                <div className="text-[12px] font-semibold leading-none" style={{ color: c }}>{v}</div>
+                <div className="text-[6.5px] text-white/55 mt-0.5">{l}</div>
+              </div>
+            ))}
+          </div>
+          <div className="relative mt-2 flex items-center gap-1 text-[6.5px] font-semibold">
+            {['Pay', 'Held safely', 'Delivered', 'Seller paid'].map((st, i) => (
+              <span key={st} className="flex items-center gap-1 min-w-0">
+                <span className={`px-1.5 py-0.5 rounded-full whitespace-nowrap transition-colors duration-500 ${i === step ? (i === 3 ? 'bg-emerald-400 text-emerald-950' : 'bg-white text-indigo-700') : i < step ? 'bg-white/25 text-white' : 'bg-white/10 text-white/60'}`}>{st}</span>
+                {i < 3 && <span className="w-1.5 h-px bg-white/30 flex-shrink-0" />}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* search */}
+        <div className="h-8 rounded-[12px] bg-white border border-slate-200 flex items-center gap-1.5 px-2.5 text-[9px] text-slate-400"><Search size={11} /> Search food, services, items…</div>
+
+        {/* tabs */}
+        <div className="grid grid-cols-4 gap-0.5 p-0.5 rounded-[12px] bg-white border border-slate-200 text-[8.5px] font-semibold">
           {['Browse', 'Orders', 'Selling', 'Saved'].map((t, i) => (
-            <span key={t} className={`rounded-[10px] py-1 text-center ${i === 0 ? 'bg-white text-[#4338CA]' : 'text-white/85'}`}>{t}</span>
+            <span key={t} className="rounded-[10px] py-1 text-center inline-flex items-center justify-center gap-0.5"
+              style={i === 0 ? { background: 'linear-gradient(135deg,#6366F1,#4F46E5)', color: '#fff' } : { color: '#475569' }}>
+              {t}{t === 'Orders' && <span className="w-3 h-3 rounded-full bg-amber-400 text-amber-950 text-[6px] leading-3 text-center">1</span>}
+            </span>
           ))}
         </div>
-      </div>
-      <div className="relative px-3 mt-3">
-        <div className="flex gap-1.5 overflow-hidden">
+
+        {/* categories */}
+        <div className="flex gap-1 overflow-hidden">
           {['✨ All', '🍲 Food', '🔧 Services', '💡 Skills'].map((c, i) => (
-            <span key={c} className={`flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-semibold ${i === 0 ? 'bg-[#0F172A] text-white' : 'bg-white border border-[#E2E8F0] text-slate-600'}`}>{c}</span>
+            <span key={c} className={`flex-shrink-0 rounded-full px-2 py-1 text-[8.5px] font-semibold border ${i === 0 ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-slate-200 text-slate-600'}`}>{c}</span>
           ))}
         </div>
-        <div className="flex justify-between text-[9px] text-[#64748B] mt-2 mb-1.5"><span>24 listings</span><span>Newest</span></div>
+
+        {/* listings */}
         <div className="grid grid-cols-2 gap-2">
-          {LISTINGS.map(([p, t, s, e, bg, drop], i) => (
-            <div key={t}>
+          {LISTINGS.slice(0, 2).map(([p, t, sl, e, bg, drop], i) => (
+            <div key={t} className="about-feed-in" style={{ animationDelay: `${i * 80}ms` }}>
               <div className="relative aspect-square rounded-[14px] flex items-center justify-center text-3xl" style={{ background: bg }}>
                 {e}
                 <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -377,25 +417,9 @@ function MarketplacePhone() {
               </div>
               <div className="mt-1 text-[11px] font-extrabold text-slate-900">{p}</div>
               <div className="text-[9px] text-slate-600 leading-tight truncate">{t}</div>
-              <div className="text-[8px] text-[#94A3B8]">{s}</div>
+              <div className="text-[8px] text-[#94A3B8]">{sl}</div>
             </div>
           ))}
-        </div>
-      </div>
-      <span className="absolute bottom-3 right-3 rounded-full bg-[#4F46E5] text-white text-[10px] font-bold px-3 py-1.5 shadow-lg shadow-indigo-500/40 flex items-center gap-1"><Plus size={11} strokeWidth={3} /> Sell</span>
-      <div key={Math.floor(n / 4)} className="absolute left-3 right-3 bottom-12 home-banner rounded-[14px] bg-white border border-[#E2E8F0] shadow-xl p-2.5" style={{ animationDuration: '7.2s' }}>
-        <div className="flex items-center justify-between">
-          <span className="rounded-full bg-[#F0F9FF] text-[#0369A1] text-[8px] font-semibold px-2 py-0.5">Delivered · confirm receipt</span>
-          <span className="text-[10px] font-bold text-slate-900">₦8,500</span>
-        </div>
-        <div className="grid grid-cols-3 gap-1 mt-2">
-          {['Paid', 'Delivered', 'Done'].map((s, i) => (
-            <div key={s}><div className={`h-1 rounded-full ${i < 2 ? 'bg-[#6366F1]' : 'bg-[#E2E8F0]'}`} /><div className="text-[7px] text-[#64748B] mt-0.5">{s}</div></div>
-          ))}
-        </div>
-        <div className="mt-1.5 flex gap-1.5">
-          <span className="flex-1 h-6 rounded-lg bg-[#6366F1] text-white text-[9px] font-bold flex items-center justify-center">I got it</span>
-          <span className="h-6 px-2.5 rounded-lg border border-[#FECACA] text-[#DC2626] text-[9px] font-bold flex items-center justify-center">Problem</span>
         </div>
       </div>
     </Device>
