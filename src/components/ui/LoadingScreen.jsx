@@ -1,7 +1,104 @@
 import { useEffect, useState } from 'react';
 
+// Branded loading: the app logo breathing inside a progress ring, with phrases
+// that describe what's loading on the current page. Matches the loaders in the
+// estate manager, residents and security apps.
+const BRAND = {
+  logo: '/icon-192.png',
+  mark: 'AC',
+  color: '#10B981',
+  dark: '#047857',
+  name: ['Area', 'Connect'],
+  tagline: 'Estate management, connected',
+  fallback: ['Getting things ready', 'Opening AreaConnect'],
+};
+
+// [path prefix, phrases] — first match wins
+const PAGE_PHRASES = [
+  ['/features', ['Loading features', 'Setting up the tour']],
+  ['/pricing', ['Loading plans', 'Tallying prices']],
+  ['/about', ['Loading our story', 'Meeting the team']],
+  ['/contact', ['Opening contact', 'Finding a free slot']],
+  ['/blog', ['Loading articles', 'Fetching the latest reads']],
+  ['/careers', ['Loading open roles']],
+  ['/press', ['Loading press kit']],
+  ['/security', ['Loading security details']],
+  ['/privacy', ['Loading policy']],
+  ['/terms', ['Loading terms']],
+  ['/cookies', ['Loading policy']],
+  ['/admin', ['Opening the admin console']],
+  ['/mates', ['Opening AreaMates', 'Gathering your neighbours']],
+  ['/guard', ['Opening the guard app', 'Checking the gate']],
+];
+
+const HOME_PHRASES = ['Opening AreaConnect', 'Connecting your estate', 'Checking the gate', 'Almost there'];
+
+function phrasesForPath() {
+  const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+  if (path === '/') return HOME_PHRASES;
+  const hit = PAGE_PHRASES.find(([prefix]) => path === prefix || path.startsWith(`${prefix}/`));
+  return hit ? hit[1] : BRAND.fallback;
+}
+
+const CSS = `
+@keyframes acl-spin { to { transform: rotate(360deg); } }
+@keyframes acl-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes acl-glow { 0%,100% { opacity: .18; transform: scale(.85); } 50% { opacity: .38; transform: scale(1.05); } }
+@keyframes acl-phrase { 0% { opacity: 0; transform: translateY(4px); } 12%,88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes acl-dots { 0%,20% { opacity: .2; } 50% { opacity: 1; } 100% { opacity: .2; } }
+@keyframes acl-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+`;
+
+function Logo({ size }) {
+  const [broken, setBroken] = useState(!BRAND.logo);
+  if (broken) {
+    return (
+      <span style={{ width: size, height: size, borderRadius: size * 0.28, background: `linear-gradient(135deg, ${BRAND.color}, ${BRAND.dark})`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: size * 0.34, letterSpacing: '-0.02em' }}>
+        {BRAND.mark}
+      </span>
+    );
+  }
+  return <img src={BRAND.logo} alt="" onError={() => setBroken(true)} style={{ width: size, height: size, borderRadius: size * 0.28, display: 'block' }} />;
+}
+
+function LogoLoader({ size = 72 }) {
+  const [list] = useState(phrasesForPath);
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (list.length < 2) return undefined;
+    const t = setInterval(() => setI((x) => (x + 1) % list.length), 1900);
+    return () => clearInterval(t);
+  }, [list]);
+  const ring = size + 36;
+  const r = ring / 2 - 2.5;
+  const c = 2 * Math.PI * r;
+  return (
+    <div role="status" aria-live="polite"
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, padding: '8px 0' }}>
+      <div style={{ position: 'relative', width: ring, height: ring }}>
+        <span style={{ position: 'absolute', inset: 16, borderRadius: '50%', background: BRAND.color, filter: 'blur(16px)', opacity: .5, animation: 'acl-glow 2.2s ease-in-out infinite' }} />
+        <svg width={ring} height={ring} style={{ position: 'absolute', inset: 0, animation: 'acl-spin 1.1s linear infinite' }}>
+          <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke="#EEF2F6" strokeWidth="3" />
+          <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke={BRAND.color} strokeWidth="3" strokeLinecap="round"
+            strokeDasharray={`${c * 0.28} ${c}`} />
+        </svg>
+        <span style={{ position: 'absolute', inset: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'acl-breathe 2.2s ease-in-out infinite' }}>
+          <span style={{ borderRadius: size * 0.28, boxShadow: `0 10px 24px -10px ${BRAND.color}`, background: '#fff' }}><Logo size={size} /></span>
+        </span>
+      </div>
+      <p key={i} style={{ margin: 0, minHeight: 18, fontSize: 13, fontWeight: 500, color: '#475569', textAlign: 'center', animation: list.length > 1 ? 'acl-phrase 1.9s ease-in-out both' : undefined }}>
+        {list[i % list.length]}
+        <span style={{ animation: 'acl-dots 1.2s infinite' }}>.</span>
+        <span style={{ animation: 'acl-dots 1.2s .2s infinite' }}>.</span>
+        <span style={{ animation: 'acl-dots 1.2s .4s infinite' }}>.</span>
+      </p>
+    </div>
+  );
+}
+
 export default function LoadingScreen({ onDone }) {
-  const [phase, setPhase] = useState('enter'); // enter → hold → exit
+  const [phase, setPhase] = useState('enter'); // enter → exit
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('exit'), 1600);
@@ -13,88 +110,24 @@ export default function LoadingScreen({ onDone }) {
     <div
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
       style={{
-        background: '#050d1a',
+        background: '#FFFFFF',
+        padding: 24,
         transition: 'opacity 500ms ease',
         opacity: phase === 'exit' ? 0 : 1,
         pointerEvents: phase === 'exit' ? 'none' : 'all',
       }}
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/8 rounded-full blur-3xl" />
+      <style>{CSS}</style>
+      <LogoLoader size={72} />
+      <div style={{ marginTop: 18, textAlign: 'center', animation: 'acl-rise 0.6s ease 0.15s both' }}>
+        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: '#0F172A', lineHeight: 1 }}>
+          {BRAND.name[0]}<span style={{ color: BRAND.color }}>{BRAND.name[1]}</span>
+        </div>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#94A3B8', marginTop: 6 }}>{BRAND.tagline}</div>
       </div>
-      <div className="absolute inset-0 dot-grid opacity-15 pointer-events-none" />
-
-      <div className="relative flex flex-col items-center gap-8">
-        {/* Logo mark with pulse rings */}
-        <div className="relative flex items-center justify-center">
-          {/* Outer pulse ring */}
-          <div
-            className="absolute w-28 h-28 rounded-full border border-brand-500/20"
-            style={{
-              animation: 'loader-ring 2s ease-in-out infinite',
-            }}
-          />
-          {/* Middle pulse ring */}
-          <div
-            className="absolute w-20 h-20 rounded-full border border-brand-500/30"
-            style={{
-              animation: 'loader-ring 2s ease-in-out 0.3s infinite',
-            }}
-          />
-          {/* Logo box */}
-          <div
-            className="relative w-16 h-16 rounded-2xl bg-brand-500 flex items-center justify-center shadow-2xl"
-            style={{
-              boxShadow: '0 0 40px rgba(16,185,129,0.4), 0 0 80px rgba(16,185,129,0.15)',
-              animation: 'loader-logo 0.6s cubic-bezier(0.34,1.56,0.64,1) both',
-            }}
-          >
-            <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
-              <path d="M20 4L6 12v16l14 8 14-8V12L20 4z" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" fill="none" />
-              <path d="M20 9L9 15.5v13L20 35l11-6.5v-13L20 9z" fill="rgba(255,255,255,0.15)" />
-              <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
-            </svg>
-          </div>
-        </div>
-
-        {/* Wordmark */}
-        <div
-          className="text-2xl font-black tracking-tight text-white"
-          style={{ animation: 'loader-text 0.6s ease 0.2s both' }}
-        >
-          Area<span className="text-brand-400">Connect</span>
-        </div>
-
-        {/* Progress bar */}
-        <div className="w-40 h-0.5 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-brand-500 to-brand-300 rounded-full"
-            style={{ animation: 'loader-bar 1.5s ease-in-out both' }}
-          />
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes loader-logo {
-          from { opacity: 0; transform: scale(0.5); }
-          to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes loader-text {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes loader-bar {
-          from { width: 0%; opacity: 0; }
-          10%  { opacity: 1; }
-          to   { width: 100%; opacity: 1; }
-        }
-        @keyframes loader-ring {
-          0%   { opacity: 0.8; transform: scale(0.9); }
-          50%  { opacity: 0.3; transform: scale(1.05); }
-          100% { opacity: 0.8; transform: scale(0.9); }
-        }
-      `}</style>
+      <p style={{ position: 'absolute', bottom: 24, left: 0, right: 0, textAlign: 'center', fontSize: 11, color: '#94A3B8', letterSpacing: '0.03em', margin: 0, padding: '0 16px' }}>
+        Powered by <span style={{ fontWeight: 600, color: '#64748B' }}>AREA CONNECTOR TECHNOLOGIES</span> · RC&nbsp;9607864
+      </p>
     </div>
   );
 }
