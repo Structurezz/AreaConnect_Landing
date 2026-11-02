@@ -95,9 +95,9 @@ export default function LegalPage({ seo, eyebrow = 'Legal', title, highlight, up
 
       {/* ── BODY ─────────────────────────────────────────────────────── */}
       <section className="bg-white pb-16 sm:pb-24">
-        <div className="max-w-5xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-14 items-start">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6 grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-10 lg:gap-14 items-start">
           {/* contents */}
-          <aside className="lg:sticky lg:top-28">
+          <aside className="min-w-0 lg:sticky lg:top-28">
             <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400 mb-3">Contents</div>
             <nav className="flex lg:flex-col gap-1 overflow-x-auto hide-scrollbar -mx-1 px-1 pb-1">
               {toc.map((t, i) => {
