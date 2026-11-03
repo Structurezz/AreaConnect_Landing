@@ -283,7 +283,7 @@ export default function About() {
         title="About AreaConnect — Built for Nigerian Estates"
         description="AreaConnect is the all-in-one estate management platform built in Nigeria, for Nigerian estates. Our story, mission and the team behind the platform."
         path="/about"
-        keywords="about AreaConnect, Nigerian proptech, estate management company, AreaConnect Technologies"
+        keywords="about AreaConnect, Nigerian proptech, estate management company, Area Connector Technologies"
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
