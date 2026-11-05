@@ -9,6 +9,8 @@ import {
   Image, Sparkles, CalendarDays, Vote, Music, Radio,
   Building2, UserCog, FileText, LayoutDashboard, Layers, Bot,
   Gavel, Mic, Smartphone, Shield, ShoppingBag,
+  GraduationCap, School, Hotel, Factory, Hospital, Map, MapPin, Truck, BadgeCheck, HardHat, BedDouble,
+  HeartHandshake, AlarmClockOff, Baby, Stethoscope, Shapes,
 } from 'lucide-react';
 import Seo from '../components/Seo';
 import { Reveal } from '../components/ui/Reveal';
@@ -18,6 +20,24 @@ import FeaturePhone from '../components/mockups/FeaturePhones';
 /* ── Feature catalogue ────────────────────────────────────────────────── */
 
 const CATEGORIES = [
+  {
+    id: 'sectors', name: 'Built for every site', icon: Shapes, accent: '#2563eb', glow: 'rgba(37,99,235,.12)',
+    title: 'One platform for estates, campuses, hotels, plants and hospitals.',
+    desc: 'Pick your site type and AreaConnect speaks your language — students and hostel rooms, guests and rooms, employees and departments, wards and visiting hours — with the right features switched on.',
+    apps: ['AreaMates', 'Guard', 'Admin'],
+    features: [
+      { icon: Shapes,        title: 'Site types',                 desc: 'Estate, university, school, hotel, industrial site or hospital — the apps use your words and switch on the right features.', isNew: true },
+      { icon: Map,           title: 'Google Maps site map',       desc: 'Pin halls, hostels, faculties, gates, the clinic and car parks on a real Google map — members see where everything is.', isNew: true },
+      { icon: MapPin,        title: 'Directions on every pass',   desc: 'Visitor passes link to Google Maps directions to the right hall or building — no more lost guests on big campuses.', isNew: true },
+      { icon: GraduationCap, title: 'Universities & hostels',     desc: 'Hostel rooms grouped by hall, matric numbers on profiles, hostel visiting hours enforced at the gate.', isNew: true },
+      { icon: Baby,          title: 'Authorised school pickup',   desc: 'Parents issue pickup passes; the gate shows exactly which student (and class) is being collected.', isNew: true },
+      { icon: BedDouble,     title: 'Hotel guest stays',          desc: 'Guests get access from check-in to check-out — access and their visitor passes end automatically. Live room board for the front desk.', isNew: true },
+      { icon: HardHat,       title: 'Contractor safety induction', desc: 'Contractors and suppliers accept your site’s safety induction at the gate before they’re let in.', isNew: true },
+      { icon: Stethoscope,   title: 'Hospital visiting hours',    desc: 'Patient-visit passes, visiting hours and a visitors-per-patient limit — out-of-hours entry needs a logged reason.', isNew: true },
+      { icon: Truck,         title: 'Deliveries & vehicles log',  desc: 'Guards log plates, drivers, companies and goods in and out — see who’s on site right now.', isNew: true },
+      { icon: BadgeCheck,        title: 'ID & shift check',           desc: 'Look up any student or employee by name, matric or staff number and see if they’re on shift.', isNew: true },
+    ],
+  },
   {
     id: 'visitors', name: 'Visitors & gate', icon: QrCode, accent: '#10b981', glow: 'rgba(16,185,129,.12)',
     title: 'Zero-friction guest access, from invite to gate.',
@@ -30,6 +50,9 @@ const CATEGORIES = [
       { icon: ScanLine,      title: 'Fast gate verification',   desc: 'Guards type the 6-digit code in the Guard app and the pass details appear instantly.' },
       { icon: KeyRound,      title: 'Approve early arrivals',   desc: 'Guest turned up ahead of schedule? The host approves them from their phone.', isNew: true },
       { icon: Timer,         title: 'Single-use & time-limited', desc: 'Passes expire automatically and cannot be reused after check-in.' },
+      { icon: AlarmClockOff, title: 'Expired passes refused',   desc: 'An expired pass never shows as valid — the gate flags it as EXPIRED with a warning sound.', isNew: true },
+      { icon: Truck,         title: 'Pass types',               desc: 'Visitor, delivery, contractor, supplier, school pickup or patient visit — each with the details the gate needs.', isNew: true },
+      { icon: MapPin,        title: 'Directions to the door',   desc: 'Passes sent by email, SMS or WhatsApp include Google Maps directions to the host’s block or hall.', isNew: true },
       { icon: Ban,           title: 'Cancel any pass',          desc: 'Revoke a pass with one tap — the gate refuses it immediately.' },
       { icon: ClipboardList, title: 'Check-in & check-out log', desc: 'Every entry and exit is timestamped and synced to the cloud.' },
       { icon: Search,        title: 'Search & live status',     desc: 'Find any visitor fast, with counts for expected, on-site and checked-out guests.', isNew: true },
@@ -62,6 +85,10 @@ const CATEGORIES = [
       { icon: KeyRound,      title: 'Code verification',       desc: 'Type the guest’s 6-digit code and the pass details appear instantly — name, host, unit and purpose.' },
       { icon: ScanLine,      title: 'QR scanning',             desc: 'Scan the guest’s pass with the phone camera instead of typing.' },
       { icon: ClipboardList, title: 'Live entry log',          desc: 'Who’s expected, who’s inside and who has left — check visitors in and out in one tap.' },
+      { icon: AlarmClockOff, title: 'Expired-pass alarm',      desc: 'Scan an expired pass and the phone sounds an error and shows PASS EXPIRED — do not admit.', isNew: true },
+      { icon: Truck,         title: 'Deliveries tab',          desc: 'Log trucks, couriers and vehicles in and out with plate, driver and goods — mark them out when they leave.', isNew: true },
+      { icon: BadgeCheck,        title: 'ID & staff check',        desc: 'Search a name, matric or staff number to confirm who someone is and whether they’re on shift.', isNew: true },
+      { icon: MapPin,        title: '“Going to” directions',   desc: 'Every scanned pass shows the host’s hall or building with a Google Maps directions button.', isNew: true },
       { icon: Siren,         title: 'Siren alerts',            desc: 'Panic, fire and medical alerts ring every guard’s phone with a siren and show where help is needed.' },
       { icon: Navigation,    title: 'Residents’ live location', desc: 'See residents who are sharing their location while they walk home, so you can meet them.', isNew: true },
       { icon: PhoneCall,     title: 'Free calls',              desc: 'Call any resident or the estate manager from the app — staff calls are always free.', isNew: true },
@@ -98,6 +125,7 @@ const CATEGORIES = [
       { icon: Receipt,       title: 'Invoices & receipts',      desc: 'Every payment comes with a downloadable invoice and receipt.', isNew: true },
       { icon: History,       title: 'Payment history',          desc: 'Residents see everything they have paid; managers see every resident.', isNew: true },
       { icon: HandCoins,     title: 'Manual & waived payments', desc: 'Record cash payments or waive one with a reason for a clean audit trail.' },
+      { icon: ShieldAlert,   title: 'Fair dues enforcement',    desc: 'Notice, grace period, then a manager-confirmed pause of convenience services — lifted automatically on payment.', isNew: true },
       { icon: Wallet,        title: 'Estate wallet & payouts',  desc: 'Funds collect in an estate wallet — withdraw to any Nigerian bank account.' },
       { icon: BarChart3,     title: 'Reconciliation',           desc: 'Who has paid, who owes, and automatic matching of Paystack transfers.' },
     ],
@@ -142,6 +170,9 @@ const CATEGORIES = [
     features: [
       { icon: Users,       title: 'Resident management',  desc: 'Invite, suspend and reactivate residents — or bulk-invite with a CSV.' },
       { icon: Building2,   title: 'Units & blocks',       desc: 'Track occupancy and assign residents to units in seconds.' },
+      { icon: HeartHandshake, title: 'Family accounts',    desc: 'Residents add family members and choose what each can use — with optional manager approval. Family members are never billed.', isNew: true },
+      { icon: Map,         title: 'Site map',             desc: 'Pin blocks, halls, gates and amenities on Google Maps and link units to them in a few taps.', isNew: true },
+      { icon: BedDouble,   title: 'Room board',           desc: 'Hotels see every room — occupied, vacant, reserved, arriving and departing — and check guests in or out.', isNew: true },
       { icon: UserCog,     title: 'Team access',          desc: 'Invite co-managers — finance, security, communications — each seeing only their part of the estate.', isNew: true },
       { icon: UserCog,     title: 'Guard management',     desc: 'Invite security staff, suspend or reactivate them, and see who is on duty.' },
       { icon: FileText,    title: 'Estate constitution',  desc: 'Upload your estate rules once — residents and the AI assistant can reference them.', isNew: true },
@@ -166,7 +197,7 @@ const APP_ICON = { AreaMates: Smartphone, Guard: ShieldCheck, Admin: LayoutDashb
 
 /* ── Pieces ───────────────────────────────────────────────────────────── */
 
-const WORDS = ['in one place.', 'in your pocket.', 'at the gate.', 'on autopilot.'];
+const WORDS = ['in one place.', 'in your pocket.', 'at the gate.', 'on every campus.', 'on autopilot.'];
 
 function RotatingWord() {
   const [i, setI] = useState(0);
@@ -379,10 +410,10 @@ export default function Features() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="Features — Visitor QR Passes, Dues Collection, Calls, Safety & Community"
-        description="Every feature your estate needs: visitor QR passes, Paystack dues collection, in-app calls, anti-stalking safety tools, an escrow marketplace and a community lounge. Built for Nigeria."
+        title="Features — Visitor Passes, Campus Maps, Dues, Calls, Safety & Community"
+        description="Every feature your estate, campus, hotel, plant or hospital needs: visitor QR passes with Google Maps directions, hostel visiting hours, contractor inductions, deliveries log, Paystack dues, in-app calls, safety tools and a community lounge. Built for Nigeria."
         path="/features"
-        keywords="estate features Nigeria, visitor management, QR passes, service charge collection, estate security alerts, in-app calls, estate marketplace"
+        keywords="estate features Nigeria, university hostel management, campus visitor management, hotel guest access, contractor induction, visitor management, QR passes, service charge collection, campus map, estate marketplace"
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -393,13 +424,13 @@ export default function Features() {
             <Reveal><Pill badge={`${NEW_COUNT} new`}>{TOTAL}+ features across 3 apps</Pill></Reveal>
             <Reveal delay={80}>
               <h1 className="mt-6 text-[2.1rem] sm:text-[2.75rem] lg:text-[3.2rem] font-extrabold tracking-[-0.03em] leading-[1.08] text-slate-900">
-                Everything your estate needs,
+                Everything your site needs,
                 <RotatingWord />
               </h1>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Visitors, security, calls, dues, a marketplace and a whole community lounge — connected across the Admin, AreaMates and Guard apps.
+                Visitors, security, calls, dues, maps, a marketplace and a whole community lounge — for estates, universities, schools, hotels, industries and hospitals, across the Admin, AreaMates and Guard apps.
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -464,7 +495,7 @@ export default function Features() {
       </section>
 
       <div className="h-16 sm:h-24 bg-white" />
-      <GlowCTA title="All of this, one platform." subtitle="Every plan includes the Admin, AreaMates and Guard apps. Plans from ₦20,000/month.">
+      <GlowCTA title="All of this, one platform." subtitle="For estates, universities, schools, hotels, industries and hospitals. Every plan includes the Admin, AreaMates and Guard apps. Plans from ₦20,000/month.">
         <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Get started</PrimaryButton>
         <Link to="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Compare plans

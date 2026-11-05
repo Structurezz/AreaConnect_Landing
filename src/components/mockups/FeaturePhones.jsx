@@ -617,7 +617,90 @@ function AdminPhone() {
   );
 }
 
+/* ── 9. Sectors — the gate card adapts to the site type ─────────────────── */
+const SECTOR_CARDS = [
+  {
+    site: 'University of Lagos', tag: 'UNIVERSITY', color: '#2563EB', bg: '#EFF6FF',
+    name: 'Mrs Funke Bello', kind: 'Hostel visitor', host: 'Tolu A. · Room B12 · Moremi Hall',
+    lines: [['Matric no.', '190401001'], ['Visiting hours', '10:00 – 20:00 · open']],
+    place: 'Moremi Hall', verdict: 'VALID PASS', vColor: '#059669',
+  },
+  {
+    site: 'Harbour View Hotel', tag: 'HOTEL', color: '#7C3AED', bg: '#F5F3FF',
+    name: 'Chidi Okafor', kind: 'Guest visitor', host: 'Room 1204 · checks out Fri 12:00',
+    lines: [['Guest stay', 'In house · 2 nights left'], ['Pass ends', 'At guest check-out']],
+    place: 'Tower B lifts', verdict: 'VALID PASS', vColor: '#059669',
+  },
+  {
+    site: 'Ikeja Bottling Plant', tag: 'INDUSTRY', color: '#D97706', bg: '#FFFBEB',
+    name: 'Tunde Bakare', kind: 'Contractor · FixIt Ltd', host: 'Production · Generator repair',
+    lines: [['Vehicle', 'LAG-123-XY'], ['Safety induction', '✓ Accepted at gate']],
+    place: 'Workshop 3', verdict: 'VALID PASS', vColor: '#059669',
+  },
+  {
+    site: 'Reddington Hospital', tag: 'HOSPITAL', color: '#E11D48', bg: '#FFF1F2',
+    name: 'Aunty Ngozi', kind: 'Patient visit', host: 'Mr Bello · Ward B',
+    lines: [['Visiting hours', '16:00 – 19:00'], ['Visitors with patient', '1 of 2']],
+    place: 'Ward B, Block 2', verdict: 'OUTSIDE VISITING HOURS', vColor: '#DC2626',
+  },
+];
+
+function SectorsPhone() {
+  const n = useTick(2800);
+  const c = SECTOR_CARDS[n % SECTOR_CARDS.length];
+  return (
+    <Device bg="#0F172A" statusDark glow={`radial-gradient(circle, ${c.color}66, rgba(16,185,129,.15))`}>
+      <div className="px-3.5 pt-1 text-white">
+        <div className="flex items-center justify-between">
+          <div className="leading-tight">
+            <div className="text-[13px] font-bold tracking-tight">Gate <span className="text-emerald-400">Guard</span></div>
+            <div key={c.site} className="about-feed-in text-[9px] text-slate-400">{c.site}</div>
+          </div>
+          <span key={c.tag} className="about-feed-in rounded-full px-2 py-0.5 text-[7.5px] font-extrabold tracking-wider" style={{ background: `${c.color}33`, color: '#fff' }}>{c.tag}</span>
+        </div>
+        <div className="mt-3 rounded-xl bg-white/5 border border-white/10 px-3 py-2 flex items-center justify-between">
+          <span className="font-mono text-[18px] font-black tracking-[0.2em]">482913</span>
+          <span className="text-[8px] font-bold text-emerald-400">VERIFIED</span>
+        </div>
+      </div>
+
+      <div key={c.tag + 'card'} className="about-feed-in mx-3 mt-3 rounded-[18px] bg-white overflow-hidden shadow-xl">
+        <div className="px-3 py-2 text-center text-[10px] font-extrabold tracking-wider text-white" style={{ background: c.vColor }}>{c.verdict}</div>
+        <div className="p-3">
+          <div className="inline-block rounded-md px-1.5 py-0.5 text-[8px] font-bold" style={{ background: c.bg, color: c.color }}>{c.kind}</div>
+          <div className="mt-1 text-[15px] font-extrabold text-slate-900 leading-tight">{c.name}</div>
+          <div className="text-[9.5px] text-slate-500">{c.host}</div>
+          <div className="mt-2.5 space-y-1.5">
+            {c.lines.map(([k, v]) => (
+              <div key={k} className="flex items-center justify-between rounded-lg bg-slate-50 px-2 py-1.5">
+                <span className="text-[8.5px] text-slate-500">{k}</span>
+                <span className="text-[9.5px] font-semibold text-slate-800">{v}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2.5 rounded-xl border border-slate-200 p-2 flex items-center gap-2">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: c.bg }}><MapPin size={13} style={{ color: c.color }} /></span>
+            <div className="flex-1 min-w-0 leading-tight">
+              <div className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider">Going to</div>
+              <div className="text-[10.5px] font-bold text-slate-900 truncate">{c.place}</div>
+            </div>
+            <span className="rounded-lg bg-emerald-600 text-white text-[8.5px] font-bold px-2 py-1">Directions</span>
+          </div>
+          <div className="mt-2.5 rounded-xl py-2 text-center text-[10.5px] font-bold text-white" style={{ background: c.vColor === '#DC2626' ? '#0F172A' : '#059669' }}>
+            {c.vColor === '#DC2626' ? 'Override with reason & check in' : 'Check in'}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center gap-1.5 mt-3">
+        {SECTOR_CARDS.map((x, i) => <span key={x.tag} className="h-1.5 rounded-full transition-all" style={{ width: i === n % SECTOR_CARDS.length ? 16 : 6, background: i === n % SECTOR_CARDS.length ? c.color : '#334155' }} />)}
+      </div>
+    </Device>
+  );
+}
+
 const PHONES = {
+  sectors: SectorsPhone,
   guard: GuardWebPhone,
   visitors: VisitorsPhone,
   safety: SafetyPhone,
