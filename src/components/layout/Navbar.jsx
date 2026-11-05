@@ -7,6 +7,7 @@ import {
   ChevronDown, LayoutDashboard, Smartphone, ShieldCheck, X, ArrowRight, ArrowUpRight,
   Home, Zap, Tag, Info, Mail, PhoneCall, Video,
 } from 'lucide-react';
+import { SECTOR_LINKS } from '../../lib/sectors';
 
 const PRODUCTS = [
   { to: '/admin', label: 'AreaConnect Admin', desc: 'Dashboard for estate managers', icon: LayoutDashboard, accent: '#10b981' },
@@ -50,14 +51,17 @@ export default function Navbar() {
   const [open, setOpen]                 = useState(false);
   const [scrolled, setScrolled]         = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [hovered, setHovered]           = useState(null);
   const [pill, setPill]                 = useState(null);
   const dropRef  = useRef(null);
+  const solRef   = useRef(null);
   const linksRef = useRef({});
   const { pathname } = useLocation();
 
   const activeKey = NAV_ITEMS.slice(1).find(i => pathname.startsWith(i.to))?.to
-    || (PRODUCTS.some(p => pathname.startsWith(p.to)) ? 'products' : null);
+    || (PRODUCTS.some(p => pathname.startsWith(p.to)) ? 'products' : null)
+    || (SECTOR_LINKS.some(p => p.to !== '/' && pathname.startsWith(p.to)) ? 'solutions' : null);
   const pillKey = hovered ?? activeKey;
 
   useEffect(() => {
@@ -68,12 +72,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const fn = (e) => { if (dropRef.current && !dropRef.current.contains(e.target)) setProductsOpen(false); };
+    const fn = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) setProductsOpen(false);
+      if (solRef.current && !solRef.current.contains(e.target)) setSolutionsOpen(false);
+    };
     document.addEventListener('mousedown', fn);
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
-  useEffect(() => { setOpen(false); setProductsOpen(false); }, [pathname]);
+  useEffect(() => { setOpen(false); setProductsOpen(false); setSolutionsOpen(false); }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -117,7 +124,7 @@ export default function Navbar() {
             <div ref={dropRef} className="relative">
               <button ref={el => { linksRef.current.products = el; }}
                 onMouseEnter={() => setHovered('products')}
-                onClick={() => setProductsOpen(o => !o)}
+                onClick={() => { setProductsOpen(o => !o); setSolutionsOpen(false); }}
                 className={`${linkCls('products')} flex items-center gap-1`}>
                 Products <ChevronDown size={13} className={`transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -157,6 +164,36 @@ export default function Navbar() {
               )}
             </div>
 
+            <div ref={solRef} className="relative">
+              <button ref={el => { linksRef.current.solutions = el; }}
+                onMouseEnter={() => setHovered('solutions')}
+                onClick={() => { setSolutionsOpen(o => !o); setProductsOpen(false); }}
+                className={`${linkCls('solutions')} flex items-center gap-1`}>
+                Solutions <ChevronDown size={13} className={`transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {solutionsOpen && (
+                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[300px] rounded-3xl bg-white border border-slate-200/80 shadow-2xl shadow-slate-900/10 p-2 about-feed-in">
+                  <div className="px-3 pt-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Built for</div>
+                  <div className="space-y-0.5">
+                    {SECTOR_LINKS.map(p => (
+                      <Link key={p.to} to={p.to} onClick={() => setSolutionsOpen(false)}
+                        className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-slate-50 transition-colors">
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                          style={{ background: `${p.accent}18` }}>
+                          <p.icon size={16} style={{ color: p.accent }} />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-[13px] font-semibold text-slate-900">{p.label}</div>
+                          <div className="text-[11px] text-slate-400">{p.desc}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {NAV_ITEMS.slice(1).map(l => (
               <NavLink key={l.to} to={l.to}
                 ref={el => { linksRef.current[l.to] = el; }}
@@ -169,7 +206,7 @@ export default function Navbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-1">
-            <Link to="/contact#book-demo" className="px-3.5 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-900 transition-colors">
+            <Link to="/contact#book-demo" className="hidden lg:inline px-3.5 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-900 transition-colors">
               Book a demo
             </Link>
             <Link to={REGISTER}
@@ -231,6 +268,20 @@ export default function Navbar() {
                   <p.icon size={16} style={{ color: p.accent }} />
                 </div>
                 <div className="mt-2 text-[11px] font-semibold text-slate-900 leading-tight">{p.label.replace('AreaConnect ', '')}</div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="px-3 pt-4 pb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Solutions</div>
+          <div className="grid grid-cols-3 gap-2 px-1">
+            {SECTOR_LINKS.filter(p => p.to !== '/').map((p, i) => (
+              <Link key={p.to} to={p.to} onClick={() => setOpen(false)}
+                style={{ transitionDelay: open ? `${430 + i * 50}ms` : '0ms' }}
+                className={`rounded-2xl border border-slate-200/80 p-2.5 text-center transition-all duration-300 hover:bg-slate-50 ${open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                <div className="w-9 h-9 mx-auto rounded-xl flex items-center justify-center" style={{ background: `${p.accent}18` }}>
+                  <p.icon size={16} style={{ color: p.accent }} />
+                </div>
+                <div className="mt-2 text-[11px] font-semibold text-slate-900 leading-tight">{p.label}</div>
               </Link>
             ))}
           </div>

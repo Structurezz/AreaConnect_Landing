@@ -4,6 +4,7 @@ import {
   Zap, CreditCard, LayoutDashboard, Users, Shield,
   Info, BookOpen, Briefcase, MessageCircle,
   Lock, FileText, Cookie, ShieldCheck,
+  Building2, GraduationCap, School, Hotel, Factory, Hospital,
 } from 'lucide-react';
 
 const COLS = [
@@ -15,6 +16,17 @@ const COLS = [
       { label: 'AreaConnect Admin', to: '/admin',    icon: LayoutDashboard },
       { label: 'AreaMates',         to: '/mates',    icon: Users          },
       { label: 'AreaConnect Guard', to: '/guard',    icon: Shield         },
+    ],
+  },
+  {
+    title: 'Solutions',
+    links: [
+      { label: 'Estates',    to: '/',           icon: Building2     },
+      { label: 'Universities', to: '/universities', icon: GraduationCap },
+      { label: 'Schools',    to: '/schools',    icon: School        },
+      { label: 'Hotels',     to: '/hotels',     icon: Hotel         },
+      { label: 'Industries', to: '/industries', icon: Factory       },
+      { label: 'Hospitals',  to: '/hospitals',  icon: Hospital      },
     ],
   },
   {
@@ -41,10 +53,10 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white mt-0">
       <div className="max-w-6xl mx-auto px-6 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-12">
 
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-11 h-11 rounded-xl bg-brand-500 flex items-center justify-center">
                 <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
@@ -58,7 +70,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-              Smart estate management for modern communities across Nigeria and Africa. Connecting managers, residents, and security staff in one place.
+              Smart site management for estates, universities, schools, hotels, industries and hospitals across Nigeria and Africa. Connecting managers, members and security staff in one place.
             </p>
             <div className="flex items-center gap-3 mt-6">
               <a href="#" className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">

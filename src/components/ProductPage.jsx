@@ -12,7 +12,7 @@ export const APPS = {
   guard: { to: '/guard', name: 'AreaConnect Guard', who: 'For security',        icon: ShieldCheck,     accent: '#0ea5e9', blurb: 'Verify guests by code, even offline.' },
 };
 
-function Workflow({ steps, accent }) {
+export function Workflow({ steps, accent }) {
   const [ref, on] = useReveal(0.3);
   return (
     <div ref={ref} className="relative grid md:grid-cols-4 gap-5 md:gap-6">

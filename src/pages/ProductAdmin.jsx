@@ -1,13 +1,13 @@
 import {
   Users, Building2, CreditCard, Megaphone, UserCheck, Bell, Shield, BarChart3, FileText, Wallet,
-  PhoneCall, Layers, Globe, Upload, Zap, Lock,
+  PhoneCall, Layers, Globe, Upload, Zap, Lock, MapPin,
 } from 'lucide-react';
 import ProductPage from '../components/ProductPage';
 import AdminDashboard from '../components/mockups/AdminDashboard';
 
 const FEATURES = [
   { icon: Users,      title: 'Resident management', desc: 'Invite one by one or bulk-import a CSV. Everyone gets a welcome email with their login.' },
-  { icon: Building2,  title: 'Units & blocks',      desc: 'Create blocks and units, assign residents and see occupancy at a glance.' },
+  { icon: MapPin,     title: 'Units, blocks & map', desc: 'Create blocks and units, and pin your blocks and gates on a real Google Map — visitor passes include directions.', isNew: true },
   { icon: CreditCard, title: 'Dues collection',     desc: 'Levy schedules, automated reminders and Paystack checkout with full reconciliation.' },
   { icon: Wallet,     title: 'Estate wallet',       desc: 'Collected funds land in your estate wallet — withdraw to any Nigerian bank.' },
   { icon: UserCheck,  title: 'Visitor oversight',   desc: 'Live entry logs, who’s inside now, and a blacklist that syncs to every gate.' },

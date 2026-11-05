@@ -4,6 +4,7 @@ import { Check, X, ArrowRight, Plus, Zap, Building2, Shield, Star, Users, Layout
 import { Reveal } from '../components/ui/Reveal';
 import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
 import Seo from '../components/Seo';
+import { SECTOR_LINKS, SECTOR_TERMS } from '../lib/sectors';
 
 /* ─── Plan definitions ────────────────────────────────────────────────── */
 const PLANS = [
@@ -253,6 +254,48 @@ const APPS = [
 const LIMITS = [50, 200, 500, Infinity];
 const planFor = (n) => LIMITS.findIndex(l => n <= l);
 
+// Sector switcher: same plans and prices, with the limit wording each kind of
+// site uses (residents → students & staff / guests / employees / patients &
+// staff, units → classes / rooms / departments / wards). Estates is the
+// default, so the prerendered page keeps the original estate wording.
+const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
+function relabel(text, sector) {
+  if (sector === 'estate' || typeof text !== 'string') return text;
+  const t = SECTOR_TERMS[sector];
+  return text
+    .replace(/Bulk CSV resident import/g, `Bulk CSV ${t.member} import`)
+    .replace(/Resident (marketplace|lounge)/g, 'Community $1')
+    .replace(/\bresidents\b/g, t.members)
+    .replace(/\bResidents\b/g, cap(t.members))
+    .replace(/\bresident\b/g, t.member)
+    .replace(/\bunits\b/g, t.units)
+    .replace(/\bUnits\b/g, cap(t.units))
+    .replace(/\bestates\b/g, t.sites)
+    .replace(/\bestate\b/g, t.site);
+}
+
+function SectorSwitcher({ sector, setSector }) {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Pricing for</span>
+      <div className="max-w-full overflow-x-auto">
+        <div role="tablist" aria-label="Choose your sector" className="inline-flex rounded-full bg-slate-100 border border-slate-200 p-1 text-[13px] font-semibold">
+          {SECTOR_LINKS.map(sc => {
+            const on = sc.id === sector;
+            return (
+              <button key={sc.id} type="button" role="tab" aria-selected={on} onClick={() => setSector(sc.id)}
+                className={`flex items-center gap-1.5 rounded-full px-3 sm:px-4 py-2 whitespace-nowrap transition-all duration-300 ${on ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}>
+                <sc.icon size={14} style={{ color: on ? sc.accent : undefined }} />
+                {sc.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Pieces ──────────────────────────────────────────────────────────── */
 
 function BillingToggle({ annual, setAnnual }) {
@@ -269,18 +312,18 @@ function BillingToggle({ annual, setAnnual }) {
   );
 }
 
-function SizeSlider({ residents, setResidents }) {
+function SizeSlider({ residents, setResidents, sector }) {
   const pct = ((residents - 10) / (1000 - 10)) * 100;
   const plan = PLANS[planFor(residents)];
   return (
     <div className="w-full max-w-md mx-auto lg:mx-0 rounded-2xl bg-white/80 backdrop-blur border border-slate-200 shadow-sm p-4 sm:p-5">
       <div className="flex items-center justify-between text-sm mb-3">
-        <span className="flex items-center gap-2 text-slate-500"><Users size={15} className="text-brand-500" /> Residents in your estate</span>
+        <span className="flex items-center gap-2 text-slate-500"><Users size={15} className="text-brand-500" /> {relabel('Residents in your estate', sector)}</span>
         <span className="font-semibold text-slate-900 tabular-nums">{residents >= 1000 ? '1,000+' : residents}</span>
       </div>
       <input type="range" min={10} max={1000} step={10} value={residents}
         onChange={e => setResidents(Number(e.target.value))}
-        aria-label="Number of residents"
+        aria-label={relabel('Number of residents', sector)}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-brand-500"
         style={{ background: `linear-gradient(to right, #10b981 ${pct}%, #e2e8f0 ${pct}%)` }} />
       <div className="mt-3 text-xs text-slate-500">
@@ -290,7 +333,7 @@ function SizeSlider({ residents, setResidents }) {
   );
 }
 
-function PlanCard({ plan, annual, recommended, i }) {
+function PlanCard({ plan, annual, recommended, i, sector }) {
   const isCustom = plan.price.monthly === 'Custom';
   const dark = plan.featured;
   const included = plan.features.filter(f => f.yes);
@@ -324,7 +367,7 @@ function PlanCard({ plan, annual, recommended, i }) {
         <div className={`mt-2 text-xs min-h-[16px] ${dark ? 'text-brand-300' : annual ? 'text-brand-600' : 'text-slate-400'}`}>
           {isCustom ? 'Tailored to your portfolio' : annual ? `${plan.price.annual}/yr · ${plan.annualNote}` : `or ${plan.price.annual}/yr — save 20%`}
         </div>
-        <p className={`mt-4 text-[13px] leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{plan.tagline}</p>
+        <p className={`mt-4 text-[13px] leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{relabel(plan.tagline, sector)}</p>
       </div>
 
       <Link to={plan.ctaTo}
@@ -337,7 +380,7 @@ function PlanCard({ plan, annual, recommended, i }) {
 
       <div className={`relative mt-6 pt-5 border-t flex-1 ${dark ? 'border-white/10' : 'border-slate-100'}`}>
         <div className={`text-[11px] font-semibold uppercase tracking-[0.14em] mb-3 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
-          {plan.residents} residents · {plan.gates}
+          {relabel(`${plan.residents} residents`, sector)} · {plan.gates}
         </div>
         <ul className="space-y-2">
           {included.slice(1).map(f => (
@@ -345,7 +388,7 @@ function PlanCard({ plan, annual, recommended, i }) {
               <span className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${dark ? 'bg-brand-500/20 text-brand-300' : 'bg-brand-50 text-brand-600'}`}>
                 <Check size={10} strokeWidth={3} />
               </span>
-              {f.label}
+              {relabel(f.label, sector)}
             </li>
           ))}
         </ul>
@@ -399,6 +442,7 @@ export default function Pricing() {
   const [annual, setAnnual] = useState(false);
   const [residents, setResidents] = useState(150);
   const [openFaq, setOpenFaq] = useState(0);
+  const [sector, setSector] = useState('estate');
   const recommended = planFor(residents);
 
   return (
@@ -420,7 +464,7 @@ export default function Pricing() {
             <Reveal delay={80}>
               <h1 className="mt-6 text-[2.1rem] sm:text-[2.75rem] lg:text-[3.2rem] font-extrabold tracking-[-0.03em] leading-[1.08] text-slate-900">
                 Simple pricing that{' '}
-                <span className="bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">grows with your estate.</span>
+                <span className="bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">grows with your {SECTOR_TERMS[sector].site}.</span>
               </h1>
             </Reveal>
             <Reveal delay={160}>
@@ -433,7 +477,7 @@ export default function Pricing() {
             </Reveal>
           </div>
           <Reveal delay={200}>
-            <SizeSlider residents={residents} setResidents={setResidents} />
+            <SizeSlider residents={residents} setResidents={setResidents} sector={sector} />
           </Reveal>
         </div>
       </section>
@@ -441,9 +485,12 @@ export default function Pricing() {
       {/* ── PLANS ────────────────────────────────────────────────────── */}
       <section className="relative bg-white pb-16 sm:pb-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <Reveal>
+            <div className="mb-8"><SectorSwitcher sector={sector} setSector={setSector} /></div>
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 items-stretch">
             {PLANS.map((plan, i) => (
-              <PlanCard key={plan.id} plan={plan} annual={annual} recommended={i === recommended} i={i} />
+              <PlanCard key={plan.id} plan={plan} annual={annual} recommended={i === recommended} i={i} sector={sector} />
             ))}
           </div>
           <Reveal delay={120}>
@@ -518,7 +565,7 @@ export default function Pricing() {
                 <tbody>
                   {COMPARE_ROWS.map(row => (
                     <tr key={row.label} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/60 transition-colors">
-                      <td className="px-5 sm:px-6 py-3 text-slate-600">{row.label}</td>
+                      <td className="px-5 sm:px-6 py-3 text-slate-600">{relabel(row.label, sector)}</td>
                       {row.vals.map((v, ci) => (
                         <td key={ci} className={`px-3 py-3 text-center font-medium transition-colors duration-300 ${ci === recommended ? 'bg-brand-50/40' : ''}`}>
                           <Cell val={v} />

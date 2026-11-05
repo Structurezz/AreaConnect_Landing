@@ -10,6 +10,7 @@ import Seo from '../components/Seo';
 import AreaMatesPhone from '../components/mockups/AreaMatesPhone';
 import { Reveal, useReveal } from '../components/ui/Reveal';
 import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
+import { SECTOR_LINKS } from '../lib/sectors';
 
 /* ─── FAQ content — rendered on the page and mirrored into FAQPage schema ─ */
 const FAQS = [
@@ -43,7 +44,7 @@ const WORDS = ['one app.', 'connected.', 'secured.', 'sorted.'];
 
 // Illustrative notifications that float around the hero phone.
 
-const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app calls', 'Dues on autopilot', 'Invoices & receipts', 'Escrow marketplace', 'Live location sharing', 'Polls & events', 'Community DJ', 'Guard app', 'Offline gate mode'];
+const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app calls', 'Dues on autopilot', 'Invoices & receipts', 'Escrow marketplace', 'Live location sharing', 'Polls & events', 'Community DJ', 'Guard app', 'Offline gate mode', 'Google Maps directions'];
 
 const APPS = [
   {
@@ -376,6 +377,42 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── SECTORS ──────────────────────────────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+            <div className="max-w-xl">
+              <Reveal><Eyebrow>One platform · Six sectors</Eyebrow></Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Built for estates, universities, schools, hotels, industries and hospitals.</h2>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="mt-3 text-[15px] text-slate-500">The same gate, passes, alerts and Google Maps site map — with the words and features each kind of site needs.</p>
+              </Reveal>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {SECTOR_LINKS.map((sct, i) => (
+              <Reveal key={sct.id} delay={i * 60} className="h-full">
+                <Link to={sct.to === '/' ? '/features' : sct.to} className="block h-full">
+                  <SpotlightCard glow={`${sct.accent}22`}
+                    className="h-full rounded-2xl bg-white border border-slate-200/80 p-4 sm:p-5 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
+                    <div className="flex items-start justify-between">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" style={{ background: `${sct.accent}18` }}>
+                        <sct.icon size={18} style={{ color: sct.accent }} />
+                      </div>
+                      <ArrowUpRight size={15} className="text-slate-300 group-hover:text-slate-900 transition-colors" />
+                    </div>
+                    <h3 className="mt-4 text-[15px] font-semibold text-slate-900">{sct.label}</h3>
+                    <p className="mt-0.5 text-[12px] text-slate-500 leading-snug">{sct.desc}</p>
+                  </SpotlightCard>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── APPS ─────────────────────────────────────────────────────── */}
       <section className="py-16 sm:py-24 bg-slate-50">

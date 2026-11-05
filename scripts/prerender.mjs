@@ -22,6 +22,11 @@ const ROUTES = [
   { path: '/admin',    changefreq: 'monthly', priority: '0.8' },
   { path: '/mates',    changefreq: 'monthly', priority: '0.8' },
   { path: '/guard',    changefreq: 'monthly', priority: '0.8' },
+  { path: '/universities', changefreq: 'monthly', priority: '0.8' },
+  { path: '/schools',    changefreq: 'monthly', priority: '0.8' },
+  { path: '/hotels',     changefreq: 'monthly', priority: '0.8' },
+  { path: '/industries', changefreq: 'monthly', priority: '0.8' },
+  { path: '/hospitals',  changefreq: 'monthly', priority: '0.8' },
   { path: '/about',    changefreq: 'monthly', priority: '0.7' },
   { path: '/contact',  changefreq: 'monthly', priority: '0.7' },
   { path: '/blog',     changefreq: 'weekly',  priority: '0.7' },
@@ -69,7 +74,7 @@ const preloads = { '/blog': articles.length ? { blog: { items: articles.slice(0,
 for (const { path: route } of ROUTES) {
   const file = route === '/' ? 'index.html' : `${route.slice(1)}.html`;
   fs.writeFileSync(path.join(dist, file), renderPage(route, preloads[route]));
-  console.log(`  prerendered ${route.padEnd(10)} → dist/${file}`);
+  console.log(`  prerendered ${route.padEnd(13)} → dist/${file}`);
 }
 
 // One static page per article, plus a shell for articles published after this

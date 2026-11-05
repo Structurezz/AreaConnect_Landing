@@ -22,6 +22,7 @@ import Security from './pages/Security';
 import ProductAdmin from './pages/ProductAdmin';
 import ProductMates from './pages/ProductMates';
 import ProductGuard from './pages/ProductGuard';
+import SectorPage from './pages/SectorPage';
 import NotFound from './pages/NotFound';
 
 function ScrollToTop() {
@@ -85,6 +86,11 @@ export default function App() {
           <Route path="/admin"       element={<ProductAdmin />} />
           <Route path="/mates"       element={<ProductMates />} />
           <Route path="/guard"       element={<ProductGuard />} />
+          <Route path="/universities" element={<SectorPage id="university" />} />
+          <Route path="/schools"     element={<SectorPage id="school" />} />
+          <Route path="/hotels"      element={<SectorPage id="hotel" />} />
+          <Route path="/industries"  element={<SectorPage id="industrial" />} />
+          <Route path="/hospitals"   element={<SectorPage id="hospital" />} />
           <Route path="*"            element={<NotFound />} />
         </Routes>
       </main>
