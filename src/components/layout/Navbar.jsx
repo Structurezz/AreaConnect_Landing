@@ -23,7 +23,7 @@ const NAV_ITEMS = [
   { to: '/contact',  label: 'Contact',  icon: Mail },
 ];
 
-const REGISTER = 'https://manager.area-connector.com/register';
+const REGISTER = '/get-started';
 
 function Logo({ size = 36 }) {
   return (

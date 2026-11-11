@@ -345,7 +345,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <PrimaryButton to="https://manager.area-connector.com/register">Start 14-day free trial</PrimaryButton>
+                <PrimaryButton to="/get-started">Start 14-day free trial</PrimaryButton>
                 <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
                   Book a demo <ArrowUpRight size={14} />
                 </Link>
@@ -600,7 +600,7 @@ export default function Home() {
       </section>
 
       <GlowCTA title="Bring your site onto AreaConnector." subtitle="Start with a 14-day free trial — managers, everyone on site and security on one platform.">
-        <PrimaryButton to="https://manager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
+        <PrimaryButton to="/get-started" dark={false}>Start free trial</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo
         </Link>
@@ -621,7 +621,7 @@ export default function Home() {
             <div className="text-[13px] font-semibold text-slate-900 leading-tight">AreaConnector</div>
             <div className="text-[11px] text-slate-500 leading-tight">14-day free trial</div>
           </div>
-          <Link to="https://manager.area-connector.com/register"
+          <Link to="/get-started"
             className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[12px] px-4 py-2.5 rounded-full active:scale-95 transition-all flex-shrink-0">
             Get started <ArrowRight size={12} />
           </Link>

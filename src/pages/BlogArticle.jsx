@@ -192,7 +192,7 @@ export default function BlogArticle() {
                 <div className="text-white text-lg font-semibold leading-snug">Run your estate on AreaConnector.</div>
                 <p className="mt-2 text-sm text-slate-400 leading-relaxed">Visitor passes, dues, security and community in one platform — start with a 14-day free trial.</p>
                 <div className="mt-5 flex flex-col sm:flex-row gap-2.5">
-                  <PrimaryButton to="https://manager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
+                  <PrimaryButton to="/get-started" dark={false}>Start free trial</PrimaryButton>
                   <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 text-white text-sm font-semibold px-5 py-2.5 transition-colors">Book a demo</Link>
                 </div>
               </div>

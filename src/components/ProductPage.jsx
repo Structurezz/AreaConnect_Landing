@@ -69,7 +69,7 @@ export default function ProductPage({ id, seo, pill, title, subtitle, mockup, fa
             </Reveal>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <PrimaryButton to="https://manager.area-connector.com/register">Start 14-day free trial</PrimaryButton>
+                <PrimaryButton to="/get-started">Start 14-day free trial</PrimaryButton>
                 <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
                   Book a demo <ArrowUpRight size={14} />
                 </Link>
@@ -188,7 +188,7 @@ export default function ProductPage({ id, seo, pill, title, subtitle, mockup, fa
       </section>
 
       <GlowCTA title={ctaTitle} subtitle={ctaSubtitle}>
-        <PrimaryButton to="https://manager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
+        <PrimaryButton to="/get-started" dark={false}>Start free trial</PrimaryButton>
         <Link to="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           See pricing
         </Link>

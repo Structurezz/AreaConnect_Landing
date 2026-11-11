@@ -538,7 +538,7 @@ export default function About() {
                   Your residents, guards and managers — finally on one platform.
                 </p>
                 <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link to="https://manager.area-connector.com/register"
+                  <Link to="/get-started"
                     className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold pl-5 pr-2 py-2 transition-all">
                     Get started free
                     <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">

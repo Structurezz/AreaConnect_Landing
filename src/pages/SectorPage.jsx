@@ -206,7 +206,7 @@ export default function SectorPage({ id }) {
             </Reveal>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <PrimaryButton to={REGISTER}>Start 14-day free trial</PrimaryButton>
+                <PrimaryButton to={`/get-started?type=${id}`}>Start 14-day free trial</PrimaryButton>
                 <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
                   Book a demo <ArrowUpRight size={14} />
                 </Link>
@@ -422,7 +422,7 @@ export default function SectorPage({ id }) {
       </section>
 
       <GlowCTA title={s.ctaTitle} subtitle={s.ctaSubtitle}>
-        <PrimaryButton to={REGISTER} dark={false}>Start free trial</PrimaryButton>
+        <PrimaryButton to={`/get-started?type=${id}`} dark={false}>Start free trial</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo
         </Link>
