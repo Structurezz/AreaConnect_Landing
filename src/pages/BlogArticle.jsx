@@ -178,7 +178,7 @@ export default function BlogArticle() {
             <ArticleCover category={a.category} cover={a.cover} size="lg" className="aspect-[21/9] rounded-[1.75rem]" />
             {a.cover?.photographer && (
               <p className="mt-2 text-right text-[11px] text-slate-400">
-                Photo: {a.cover.photographerUrl ? <a href={a.cover.photographerUrl} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">{a.cover.photographer}</a> : a.cover.photographer} on <a href={a.cover.sourceUrl || 'https://www.pexels.com'} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">Pexels</a>
+                Photo: {a.cover.photographerUrl ? <a href={a.cover.photographerUrl} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">{a.cover.photographer}</a> : a.cover.photographer} on <a href={a.cover.sourceUrl || (a.cover.provider === 'pexels' ? 'https://www.pexels.com' : 'https://pixabay.com')} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">{a.cover.provider === 'pexels' ? 'Pexels' : 'Pixabay'}</a>
               </p>
             )}
           </div>
