@@ -121,8 +121,10 @@ export default function LoadingScreen({ onDone }) {
       <LogoLoader size={72} />
       <div style={{ marginTop: 18, textAlign: 'center', animation: 'acl-rise 0.6s ease 0.15s both' }}>
         <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: '#0F172A', lineHeight: 1 }}>
-          {BRAND.name[0]}
-          <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.24em', textTransform: 'uppercase', color: BRAND.color, marginTop: 5 }}>{BRAND.name[1]}</div>
+          <div style={{ display: 'inline-block', textAlign: 'left', lineHeight: 1.05 }}>
+            <div>{BRAND.name[0]}</div>
+            <div style={{ color: BRAND.color }}><span style={{ visibility: 'hidden' }} aria-hidden="true">{BRAND.name[0].slice(0, -1)}</span>{BRAND.name[1]}</div>
+          </div>
         </div>
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#94A3B8', marginTop: 6 }}>{BRAND.tagline}</div>
       </div>

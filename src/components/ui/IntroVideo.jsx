@@ -66,7 +66,7 @@ export default function IntroVideo({ onDone }) {
               <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
             </svg>
           </div>
-          <span className="flex flex-col leading-none"><span className="text-white text-[15px] font-bold tracking-tight">Area</span><span className="mt-[3px] text-[8.5px] font-extrabold tracking-[0.22em] text-brand-400">CONNECTOR</span></span>
+          <span className="flex flex-col text-[15px] font-bold tracking-tight leading-[1.05]"><span className="text-white">Area</span><span className="text-brand-400"><span className="invisible" aria-hidden="true">Are</span>Connector</span></span>
         </div>
         <button onClick={toggleSound} aria-label={muted ? 'Turn sound on' : 'Mute'}
           className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur border border-white/15 text-white flex items-center justify-center transition-colors">

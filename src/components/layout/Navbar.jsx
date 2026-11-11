@@ -109,9 +109,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 pl-1">
             <Logo size={34} />
-            <span className="flex flex-col leading-none">
-              <span className="text-[15px] font-bold tracking-tight text-slate-900">Area</span>
-              <span className="mt-[3px] text-[8.5px] font-extrabold tracking-[0.22em] text-brand-500">CONNECTOR</span>
+            {/* Z wordmark: "Connector" starts under the last "a" of "Area" */}
+            <span className="flex flex-col text-[15px] font-bold tracking-tight leading-[1.05]">
+              <span className="text-slate-900">Area</span>
+              <span className="text-brand-500"><span className="invisible" aria-hidden="true">Are</span>Connector</span>
             </span>
           </Link>
 
