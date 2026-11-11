@@ -209,3 +209,9 @@
 }
 .mates-scroll { animation: matesScroll 14s cubic-bezier(.45,0,.25,1) infinite; will-change: transform; }
 @media (prefers-reduced-motion: reduce) { .mates-scroll { animation: none; } }
+
+/* Navbar mega menu */
+@keyframes megaSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes megaBar  { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.mega-swap { animation: megaSwap .35s cubic-bezier(.22,1,.36,1) both; }
+.mega-bar  { transform-origin: bottom; animation: megaBar .6s cubic-bezier(.22,1,.36,1) both; }
