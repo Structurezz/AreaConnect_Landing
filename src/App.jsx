@@ -88,12 +88,12 @@ export default function App() {
           <Route path="/admin"       element={<ProductAdmin />} />
           <Route path="/mates"       element={<ProductMates />} />
           <Route path="/guard"       element={<ProductGuard />} />
-          <Route path="/estates"     element={<SectorPage id="estate" />} />
-          <Route path="/universities" element={<SectorPage id="university" />} />
-          <Route path="/schools"     element={<SectorPage id="school" />} />
-          <Route path="/hotels"      element={<SectorPage id="hotel" />} />
-          <Route path="/industries"  element={<SectorPage id="industrial" />} />
-          <Route path="/hospitals"   element={<SectorPage id="hospital" />} />
+          <Route path="/estates"     element={<SectorPage key="estate" id="estate" />} />
+          <Route path="/universities" element={<SectorPage key="university" id="university" />} />
+          <Route path="/schools"     element={<SectorPage key="school" id="school" />} />
+          <Route path="/hotels"      element={<SectorPage key="hotel" id="hotel" />} />
+          <Route path="/industries"  element={<SectorPage key="industrial" id="industrial" />} />
+          <Route path="/hospitals"   element={<SectorPage key="hospital" id="hospital" />} />
           <Route path="*"            element={<NotFound />} />
         </Routes>
       </main>
