@@ -136,6 +136,25 @@ export default function SectorPhone({ id }) {
     return () => ro?.disconnect();
   }, [type]);
 
+  // Drive the scroll with the Web Animations API once the real distance is
+  // known. (A CSS keyframe reading a custom property doesn't pick up the new
+  // distance in Safari after the page hydrates, so the phone sat still.)
+  useEffect(() => {
+    const el = body.current;
+    if (!el || !travel || !el.animate) return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const down = `translateY(-${travel}px)`;
+    const anim = el.animate([
+      { transform: 'translateY(0)', offset: 0 },
+      { transform: 'translateY(0)', offset: 0.12 },
+      { transform: down, offset: 0.48 },
+      { transform: down, offset: 0.62 },
+      { transform: 'translateY(0)', offset: 0.96 },
+      { transform: 'translateY(0)', offset: 1 },
+    ], { duration: 14000, iterations: Infinity, easing: 'cubic-bezier(.45,0,.25,1)' });
+    return () => anim.cancel();
+  }, [travel]);
+
   const sosSub = !isEstate && assign
     ? `Alerts your ${assign.toLowerCase()} and security with your ${t.unit.toLowerCase()}`
     : `Alerts security and management with your ${t.unit.toLowerCase()}`;
@@ -164,7 +183,7 @@ export default function SectorPhone({ id }) {
           </div>
 
           <div ref={vp} className="flex-1 overflow-hidden">
-            <div ref={body} className="mates-scroll px-3 pt-3 pb-4 space-y-3.5" style={{ '--mates-travel': `-${travel}px` }}>
+            <div ref={body} className="px-3 pt-3 pb-4 space-y-3.5" style={{ willChange: 'transform' }}>
               {/* Greeting */}
               <header className="flex items-center gap-2">
                 <div className="flex-1 min-w-0 leading-tight">
