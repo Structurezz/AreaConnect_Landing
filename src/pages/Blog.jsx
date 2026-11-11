@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Clock, Mail, Check, ArrowUpRight, Sparkles, Loader2 } from 'lucide-react';
 import Seo from '../components/Seo';
 import { Reveal } from '../components/ui/Reveal';
@@ -7,6 +7,7 @@ import { Eyebrow, HeroBackdrop, Pill } from '../components/ui/Modern';
 import ArticleCover from '../components/blog/ArticleCover';
 import ArticleCard from '../components/blog/ArticleCard';
 import { API, CATEGORIES, catMeta, fetchArticles, formatDate, preload } from '../lib/blog';
+import { SECTOR_LINKS } from '../lib/sectors';
 
 const TABS = ['All', ...Object.keys(CATEGORIES)];
 const PAGE = 12;
@@ -14,6 +15,11 @@ const PAGE = 12;
 export default function Blog() {
   const initial = preload('blog');
   const [tab, setTab] = useState('All');
+  // Solution filter, shareable as /blog?sector=hotel
+  const [params, setParams] = useSearchParams();
+  const sector = SECTOR_LINKS.some((s) => s.id === params.get('sector')) ? params.get('sector') : 'all';
+  const setSector = (id) => setParams(id === 'all' ? {} : { sector: id }, { replace: true });
+  const everything = tab === 'All' && sector === 'all';
   const [items, setItems] = useState(initial?.items?.slice(0, PAGE + 1) || []);
   const [pages, setPages] = useState(initial ? Math.ceil(initial.total / PAGE) : 1);
   const [page, setPage] = useState(1);
@@ -26,21 +32,21 @@ export default function Blog() {
   // Load the first page on mount (refreshes the prerendered list) and whenever the tab changes.
   useEffect(() => {
     let live = true;
-    if (!(first.current && initial)) setLoading(true);
+    if (!(first.current && initial && sector === 'all')) setLoading(true);
     first.current = false;
     setError('');
-    fetchArticles({ category: tab, page: 1, limit: PAGE + (tab === 'All' ? 1 : 0) })
+    fetchArticles({ category: tab, sector, page: 1, limit: PAGE + (everything ? 1 : 0) })
       .then(d => { if (!live) return; setItems(d.items); setPages(d.pages); setPage(1); })
       .catch(() => live && !initial && setError('Could not load articles right now.'))
       .finally(() => live && setLoading(false));
     return () => { live = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab]);
+  }, [tab, sector]);
 
   const loadMore = async () => {
     setLoading(true);
     try {
-      const d = await fetchArticles({ category: tab, page: page + 1, limit: PAGE });
+      const d = await fetchArticles({ category: tab, sector, page: page + 1, limit: PAGE });
       setItems(x => [...x, ...d.items.filter(n => !x.some(o => o.slug === n.slug))]);
       setPage(page + 1);
       setPages(d.pages);
@@ -67,7 +73,7 @@ export default function Blog() {
     }
   };
 
-  const showFeatured = tab === 'All' && items.length > 0;
+  const showFeatured = everything && items.length > 0;
   const featured = showFeatured ? items[0] : null;
   const grid = showFeatured ? items.slice(1) : items;
 
@@ -94,7 +100,7 @@ export default function Blog() {
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-xl">
-                Practical guides on visitors, dues, security and community for Nigerian estate managers and residents.
+                Practical guides on visitors, security, payments and community for Nigerian estates, campuses, schools, hotels, workplaces and hospitals.
               </p>
             </Reveal>
           </div>
@@ -144,6 +150,20 @@ export default function Blog() {
             </div>
           </div>
 
+          {/* Browse by solution */}
+          <div className="-mt-3 mb-8 flex gap-1.5 overflow-x-auto hide-scrollbar -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap" role="tablist" aria-label="Filter by solution">
+            {[{ id: 'all', label: 'All sites' }, ...SECTOR_LINKS].map((s) => {
+              const on = sector === s.id;
+              return (
+                <button key={s.id} type="button" role="tab" aria-selected={on} onClick={() => setSector(s.id)}
+                  className={`flex-shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium border transition-all ${on ? 'text-white' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-400'}`}
+                  style={on ? { background: s.accent || '#0F172A', borderColor: s.accent || '#0F172A' } : undefined}>
+                  {s.icon && <s.icon size={13} style={on ? undefined : { color: s.accent }} />} {s.label}
+                </button>
+              );
+            })}
+          </div>
+
           {error && <p className="mb-6 text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3">{error}</p>}
 
           {grid.length > 0 ? (
@@ -152,7 +172,7 @@ export default function Blog() {
             </div>
           ) : !loading && (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500">
-              No articles here yet — check back tomorrow.
+              {sector !== 'all' ? 'No articles for this solution yet — a new one is published every day.' : 'No articles here yet — check back tomorrow.'}
             </div>
           )}
 

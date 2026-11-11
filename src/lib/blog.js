@@ -22,9 +22,10 @@ export function preload(key) {
 
 export const formatDate = (d) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
-export async function fetchArticles({ category, page = 1, limit = 12 } = {}) {
+export async function fetchArticles({ category, sector, page = 1, limit = 12 } = {}) {
   const q = new URLSearchParams({ page, limit });
   if (category && category !== 'All') q.set('category', category);
+  if (sector && sector !== 'all') q.set('sector', sector);
   const res = await fetch(`${API}/blog?${q}`);
   if (!res.ok) throw new Error('Could not load articles');
   return res.json();
