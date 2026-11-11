@@ -67,7 +67,7 @@ export default function IntroVideo({ onDone }) {
               <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
             </svg>
           </div>
-          <Wordmark height={40} ink="#FFFFFF" accent="#34D399" />
+          <span className="sm:hidden text-white text-[16px] font-bold tracking-tight">Area<span className="text-brand-400">Connector</span></span><Wordmark height={40} ink="#FFFFFF" accent="#34D399" className="hidden sm:block" />
         </div>
         <button onClick={toggleSound} aria-label={muted ? 'Turn sound on' : 'Mute'}
           className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur border border-white/15 text-white flex items-center justify-center transition-colors">

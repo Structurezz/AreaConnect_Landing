@@ -66,7 +66,8 @@ export default function Footer() {
                   <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
                 </svg>
               </div>
-              <Wordmark height={48} ink="#FFFFFF" accent="#34D399" />
+              <span className="sm:hidden text-[19px] font-bold tracking-tight text-white">Area<span className="text-brand-400">Connector</span></span>
+              <Wordmark height={48} ink="#FFFFFF" accent="#34D399" className="hidden sm:block" />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
               Smart site management for estates, universities, schools, hotels, industries and hospitals across Nigeria and Africa. Connecting managers, members and security staff in one place.

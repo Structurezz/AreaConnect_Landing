@@ -110,7 +110,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 pl-1">
             <Logo size={34} />
-            <Wordmark height={42} />
+            {/* Phones: plain one-line wordmark; larger screens: the A/C monogram */}
+            <span className="sm:hidden text-[17px] font-bold tracking-tight text-slate-900">Area<span className="text-brand-500">Connector</span></span>
+            <Wordmark height={42} className="hidden sm:block" />
           </Link>
 
           {/* Desktop nav */}
