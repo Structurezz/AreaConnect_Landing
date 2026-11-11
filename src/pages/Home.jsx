@@ -48,7 +48,7 @@ const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app 
 
 const APPS = [
   {
-    id: 'admin', name: 'AreaConnect Admin', who: 'For estate managers', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
+    id: 'admin', name: 'AreaConnect Admin', who: 'For site managers', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
     desc: 'Run the whole estate from any browser — residents, units, guards, dues and reports in one dashboard.',
     points: ['Resident onboarding & CSV bulk invites', 'Payment schedules & estate wallet', 'Guard management & audit logs', 'Live analytics & collection reports'],
   },

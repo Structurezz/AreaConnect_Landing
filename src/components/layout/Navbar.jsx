@@ -10,7 +10,7 @@ import {
 import { SECTOR_LINKS } from '../../lib/sectors';
 
 const PRODUCTS = [
-  { to: '/admin', label: 'AreaConnect Admin', desc: 'Dashboard for estate managers', icon: LayoutDashboard, accent: '#10b981' },
+  { to: '/admin', label: 'AreaConnect Admin', desc: 'Dashboard for every site you manage', icon: LayoutDashboard, accent: '#10b981' },
   { to: '/mates', label: 'AreaMates',         desc: 'The resident app',              icon: Smartphone,      accent: '#6366f1' },
   { to: '/guard', label: 'AreaConnect Guard', desc: 'The gate & security app',       icon: ShieldCheck,     accent: '#0ea5e9' },
 ];

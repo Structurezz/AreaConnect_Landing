@@ -245,7 +245,7 @@ const FAQS = [
 ];
 
 const APPS = [
-  { name: 'AreaConnect Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estate managers — residents, units, payments, visitors and analytics.', bullets: ['Resident & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
+  { name: 'AreaConnect Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estates, campuses, hotels, industrial sites and hospitals — members, units, payments, visitors and analytics.', bullets: ['Member & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
   { name: 'AreaMates',         icon: Smartphone,      color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)', desc: 'The resident app — invite visitors, pay dues, read announcements and chat with neighbours.', bullets: ['Visitor pre-registration & QR', 'Pay dues with Paystack', 'Community chat & marketplace', 'Emergency panic button'] },
   { name: 'AreaConnect Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'The gate app — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
 ];
