@@ -122,7 +122,7 @@ export default function LoadingScreen({ onDone }) {
       <LogoLoader size={72} />
       <div style={{ marginTop: 18, textAlign: 'center', animation: 'acl-rise 0.6s ease 0.15s both' }}>
         <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: '#0F172A', lineHeight: 1 }}>
-          <Wordmark height={44} ink="#0F172A" accent={BRAND.color} />
+          <Wordmark height={56} ink="#0F172A" accent={BRAND.color} />
         </div>
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#94A3B8', marginTop: 6 }}>{BRAND.tagline}</div>
       </div>

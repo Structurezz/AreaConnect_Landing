@@ -110,7 +110,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 pl-1">
             <Logo size={34} />
-            <Wordmark height={34} />
+            <Wordmark height={42} />
           </Link>
 
           {/* Desktop nav */}
