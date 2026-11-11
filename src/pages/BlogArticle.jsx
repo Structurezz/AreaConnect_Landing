@@ -126,7 +126,7 @@ export default function BlogArticle() {
           author: { '@type': 'Organization', name: 'AreaConnector' },
           publisher: { '@type': 'Organization', name: 'AreaConnector', logo: { '@type': 'ImageObject', url: 'https://area-connector.com/logo-512.png' } },
           mainEntityOfPage: url,
-          image: `https://picsum.photos/seed/${encodeURIComponent(a.slug)}/1200/630`,
+          image: a.cover?.url ? coverSrc(a.cover) : 'https://area-connector.com/og-image.png',
           keywords: (a.keywords || []).join(', '),
         }}
       />

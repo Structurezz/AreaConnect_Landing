@@ -62,8 +62,8 @@ export default function Seo({
       <meta property="og:description" content={description} />
       <meta property="og:url"         content={url} />
       <meta property="og:image"       content={image} />
-      <meta property="og:image:width"  content="1200" />
-      <meta property="og:image:height" content="630" />
+      {image === DEFAULT_IMAGE && <meta property="og:image:width"  content="1200" />}
+      {image === DEFAULT_IMAGE && <meta property="og:image:height" content="630" />}
       <meta property="og:image:alt"   content={fullTitle} />
       <meta property="og:type"        content="website" />
       <meta property="og:site_name"   content={SITE_NAME} />
