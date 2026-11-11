@@ -45,7 +45,7 @@ export default function AdminDashboard() {
       <div className="relative rounded-2xl bg-white border border-slate-200 shadow-2xl shadow-slate-900/15 overflow-hidden">
         <div className="h-8 bg-slate-50 border-b border-slate-200 flex items-center gap-1.5 px-3">
           <span className="w-2.5 h-2.5 rounded-full bg-rose-400" /><span className="w-2.5 h-2.5 rounded-full bg-amber-400" /><span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-          <div className="ml-3 flex-1 max-w-[220px] h-5 rounded-md bg-white border border-slate-200 text-[9px] text-slate-400 flex items-center px-2">area-connector.areaconnect.pro</div>
+          <div className="ml-3 flex-1 max-w-[220px] h-5 rounded-md bg-white border border-slate-200 text-[9px] text-slate-400 flex items-center px-2">areamanager.area-connector.com</div>
         </div>
 
         <div className="flex h-[400px] sm:h-[430px] bg-[#F8FAFC]">

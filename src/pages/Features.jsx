@@ -23,7 +23,7 @@ const CATEGORIES = [
   {
     id: 'sectors', name: 'Built for every site', icon: Shapes, accent: '#2563eb', glow: 'rgba(37,99,235,.12)',
     title: 'One platform for estates, campuses, hotels, plants and hospitals.',
-    desc: 'Pick your site type and AreaConnect speaks your language — students and hostel rooms, guests and rooms, employees and departments, wards and visiting hours — with the right features switched on.',
+    desc: 'Pick your site type and AreaConnector speaks your language — students and hostel rooms, guests and rooms, employees and departments, wards and visiting hours — with the right features switched on.',
     apps: ['AreaMates', 'Guard', 'Admin'],
     features: [
       { icon: Shapes,        title: 'Site types',                 desc: 'Estate, university, school, hotel, industrial site or hospital — the apps use your words and switch on the right features.', isNew: true },
@@ -79,7 +79,7 @@ const CATEGORIES = [
   {
     id: 'guard', name: 'Guard app', icon: ShieldCheck, accent: '#f59e0b', glow: 'rgba(245,158,11,.14)',
     title: 'A gate terminal in every guard’s pocket.',
-    desc: 'The AreaConnect Guard app turns any phone into a gate terminal — verify passes in seconds, respond to alerts with a siren, and keep working when the network drops.',
+    desc: 'The AreaConnector Guard app turns any phone into a gate terminal — verify passes in seconds, respond to alerts with a siren, and keep working when the network drops.',
     apps: ['Guard'],
     features: [
       { icon: KeyRound,      title: 'Code verification',       desc: 'Type the guest’s 6-digit code and the pass details appear instantly — name, host, unit and purpose.' },
@@ -496,7 +496,7 @@ export default function Features() {
 
       <div className="h-16 sm:h-24 bg-white" />
       <GlowCTA title="All of this, one platform." subtitle="For estates, universities, schools, hotels, industries and hospitals. Every plan includes the Admin, AreaMates and Guard apps. Plans from ₦20,000/month.">
-        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Get started</PrimaryButton>
+        <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Get started</PrimaryButton>
         <Link to="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Compare plans
         </Link>

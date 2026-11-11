@@ -107,9 +107,9 @@ export default function BookDemo() {
   const gcalStamp = (d) => d.toISOString().replace(/[-:]|\.\d{3}/g, '');
   const addToCalendarUrl = start && 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
     action: 'TEMPLATE',
-    text: 'AreaConnect demo call',
+    text: 'AreaConnector demo call',
     dates: `${gcalStamp(start)}/${gcalStamp(end)}`,
-    details: booking?.meetLink ? `Join with Google Meet: ${booking.meetLink}` : 'AreaConnect product demo',
+    details: booking?.meetLink ? `Join with Google Meet: ${booking.meetLink}` : 'AreaConnector product demo',
   });
 
   return (
@@ -125,7 +125,7 @@ export default function BookDemo() {
                 className="w-12 h-12 rounded-2xl object-cover object-[50%_15%] ring-2 ring-white/10 shadow-lg shadow-brand-500/20" />
               <div>
                 <div className="text-sm font-semibold">Michael Orizu</div>
-                <div className="text-xs text-slate-400">AreaConnect team</div>
+                <div className="text-xs text-slate-400">AreaConnector team</div>
               </div>
             </div>
 
@@ -173,7 +173,7 @@ export default function BookDemo() {
               ) : !days ? (
                 <div className="flex items-center justify-center py-24 text-slate-400"><Spinner /></div>
               ) : !dayKeys.length ? (
-                <p className="text-sm text-slate-500 py-20 text-center">No open slots right now — email michael@areaconnect.pro and we'll find a time.</p>
+                <p className="text-sm text-slate-500 py-20 text-center">No open slots right now — email michael@area-connector.com and we'll find a time.</p>
               ) : (
                 <div className="grid md:grid-cols-[1fr_200px] gap-6 md:gap-8">
                   {/* Calendar */}

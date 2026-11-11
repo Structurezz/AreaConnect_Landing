@@ -10,7 +10,7 @@ import { HeroBackdrop, Pill } from './ui/Modern';
 
 const DOCS = [
   { to: '/privacy',  label: 'Privacy Policy',   icon: Shield,   desc: 'How we handle personal data' },
-  { to: '/terms',    label: 'Terms of Service', icon: FileText, desc: 'The rules for using AreaConnect' },
+  { to: '/terms',    label: 'Terms of Service', icon: FileText, desc: 'The rules for using AreaConnector' },
   { to: '/cookies',  label: 'Cookie Policy',    icon: Cookie,   desc: 'What we store in your browser' },
   { to: '/security', label: 'Security',         icon: Lock,     desc: 'How we protect estate data' },
 ];
@@ -126,9 +126,9 @@ export default function LegalPage({ seo, eyebrow = 'Legal', title, highlight, up
                   <div className="text-white text-[15px] font-semibold">{contactLabel}</div>
                   <p className="mt-1 text-sm text-slate-400">{contactNote}</p>
                 </div>
-                <a href="mailto:michael@areaconnect.pro"
+                <a href="mailto:michael@area-connector.com"
                   className="relative inline-flex items-center justify-center gap-2 rounded-full bg-white text-slate-900 text-sm font-semibold px-5 py-2.5 hover:bg-slate-100 transition-colors">
-                  <Mail size={14} /> michael@areaconnect.pro
+                  <Mail size={14} /> michael@area-connector.com
                 </a>
               </div>
             </Reveal>

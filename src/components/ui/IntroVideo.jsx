@@ -79,7 +79,7 @@ export default function IntroVideo({ onDone }) {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div className={`transition-all duration-1000 ${captionGone ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100'}`}>
             <div className="intro-in text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-300" style={{ animationDelay: '.6s' }}>
-              Welcome to AreaConnect
+              Welcome to AreaConnector
             </div>
             <div role="presentation" className="mt-3 text-white font-extrabold tracking-[-0.03em] leading-[1.05] text-[2.2rem] sm:text-5xl lg:text-6xl">
               <span className="intro-in block" style={{ animationDelay: '1s' }}>Beautiful estates</span>

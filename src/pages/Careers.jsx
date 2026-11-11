@@ -8,7 +8,7 @@ const ROLES = [
   { title: 'Senior Full-Stack Engineer',       dept: 'Engineering',      icon: Code2,          accent: '#10b981', type: 'Full-time', location: 'Lagos (Hybrid)',  skills: ['Node.js', 'React', 'MongoDB', 'Socket.io'],     desc: "Help build our Node.js backend and React web apps. You'll own major features end-to-end and shape our engineering culture from the start." },
   { title: 'Mobile Engineer (React Native)',   dept: 'Engineering',      icon: Smartphone,     accent: '#6366f1', type: 'Full-time', location: 'Lagos (Hybrid)',  skills: ['React Native', 'Expo', 'iOS', 'Android'],       desc: "Own the AreaMates and Guard mobile apps. You'll build features residents and guards use every day and make them work beautifully on low-end Android." },
   { title: 'Product Designer',                 dept: 'Design',           icon: PenTool,        accent: '#8b5cf6', type: 'Full-time', location: 'Lagos or Remote', skills: ['Figma', 'User research', 'Mobile UI', 'Design systems'], desc: 'Design experiences so simple an estate manager can use them without training. Own the full process, from research to shipped pixels.' },
-  { title: 'Growth Manager',                   dept: 'Marketing',        icon: TrendingUp,     accent: '#f59e0b', type: 'Full-time', location: 'Lagos',           skills: ['B2B growth', 'Content', 'Partnerships', 'Analytics'], desc: 'Bring estates onto AreaConnect across Nigeria. Run campaigns, build partnerships with property management companies, and own our growth numbers.' },
+  { title: 'Growth Manager',                   dept: 'Marketing',        icon: TrendingUp,     accent: '#f59e0b', type: 'Full-time', location: 'Lagos',           skills: ['B2B growth', 'Content', 'Partnerships', 'Analytics'], desc: 'Bring estates onto AreaConnector across Nigeria. Run campaigns, build partnerships with property management companies, and own our growth numbers.' },
   { title: 'Customer Success Manager',         dept: 'Customer Success', icon: HeartHandshake, accent: '#0ea5e9', type: 'Full-time', location: 'Lagos',           skills: ['Estate management', 'Onboarding', 'Retention'],  desc: 'Be the trusted partner for our first estate managers. Onboard new estates, gather product feedback, and make sure every estate gets real value.' },
   { title: 'DevOps / Infrastructure Engineer', dept: 'Engineering',      icon: Server,         accent: '#f43f5e', type: 'Full-time', location: 'Remote',          skills: ['Railway', 'Docker', 'CI/CD', 'Monitoring'],      desc: 'Own our cloud infrastructure, deployment pipelines, monitoring and reliability as we grow from our first estates to many more.' },
 ];
@@ -23,7 +23,7 @@ const PERKS = [
 ];
 
 const DEPTS = ['All', ...new Set(ROLES.map(r => r.dept))];
-const apply = (title) => `mailto:michael@areaconnect.pro?subject=${encodeURIComponent(`Application: ${title}`)}`;
+const apply = (title) => `mailto:michael@area-connector.com?subject=${encodeURIComponent(`Application: ${title}`)}`;
 
 function RoleCard({ role, open, onToggle }) {
   return (
@@ -70,8 +70,8 @@ export default function Careers() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="Careers — Join the AreaConnect Team"
-        description="Help build AreaConnect, the estate management platform made in Lagos. Roles for engineers, designers, growth and customer success in Lagos and remote."
+        title="Careers — Join the AreaConnector Team"
+        description="Help build AreaConnector, the estate management platform made in Lagos. Roles for engineers, designers, growth and customer success in Lagos and remote."
         path="/careers"
       />
 
@@ -109,7 +109,7 @@ export default function Careers() {
                   <img src="/team/michael-orizu.jpg" alt="Michael Orizu" className="w-12 h-12 rounded-2xl object-cover object-[50%_15%]" />
                   <div>
                     <div className="text-sm font-semibold text-slate-900">Michael Orizu</div>
-                    <div className="text-xs text-slate-400">Founder, AreaConnect</div>
+                    <div className="text-xs text-slate-400">Founder, AreaConnector</div>
                   </div>
                 </div>
                 <p className="mt-4 text-[15px] text-slate-700 leading-relaxed">
@@ -172,7 +172,7 @@ export default function Careers() {
       </section>
 
       <GlowCTA title="Don’t see a role that fits?" subtitle="We’re always keen to meet great people. Send your CV and tell us what you’d build.">
-        <a href="mailto:michael@areaconnect.pro?subject=Open%20application"
+        <a href="mailto:michael@area-connector.com?subject=Open%20application"
           className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold px-5 py-2.5 transition-colors">
           <Mail size={14} /> Send your CV
         </a>

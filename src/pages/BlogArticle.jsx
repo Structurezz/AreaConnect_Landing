@@ -100,7 +100,7 @@ export default function BlogArticle() {
   const { article: a, related } = data;
   const m = catMeta(a.category);
   const toc = a.body.filter(b => b.type === 'h2');
-  const url = `https://areaconnect.pro/blog/${a.slug}`;
+  const url = `https://area-connector.com/blog/${a.slug}`;
   const share = async () => {
     try {
       if (navigator.share) await navigator.share({ title: a.title, url });
@@ -123,8 +123,8 @@ export default function BlogArticle() {
           description: a.seoDescription || a.excerpt,
           datePublished: a.publishedAt,
           dateModified: a.updatedAt || a.publishedAt,
-          author: { '@type': 'Organization', name: 'AreaConnect' },
-          publisher: { '@type': 'Organization', name: 'AreaConnect', logo: { '@type': 'ImageObject', url: 'https://areaconnect.pro/logo-512.png' } },
+          author: { '@type': 'Organization', name: 'AreaConnector' },
+          publisher: { '@type': 'Organization', name: 'AreaConnector', logo: { '@type': 'ImageObject', url: 'https://area-connector.com/logo-512.png' } },
           mainEntityOfPage: url,
           image: `https://picsum.photos/seed/${encodeURIComponent(a.slug)}/1200/630`,
           keywords: (a.keywords || []).join(', '),
@@ -164,7 +164,7 @@ export default function BlogArticle() {
                 </span>
                 <div className="leading-tight">
                   <div className="text-[13px] font-semibold text-slate-900">{a.author}</div>
-                  <div className="text-[11px] text-slate-400">AreaConnect blog</div>
+                  <div className="text-[11px] text-slate-400">AreaConnector blog</div>
                 </div>
               </div>
               <button type="button" onClick={share} className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 hover:border-slate-900 text-slate-700 text-xs font-semibold px-3.5 py-2 transition-colors">
@@ -189,10 +189,10 @@ export default function BlogArticle() {
             <div className="mt-12 relative rounded-[1.75rem] bg-slate-900 overflow-hidden p-6 sm:p-8">
               <div className="about-aurora absolute -top-16 -right-10 w-56 h-56 bg-brand-500/25 rounded-full blur-3xl" />
               <div className="relative">
-                <div className="text-white text-lg font-semibold leading-snug">Run your estate on AreaConnect.</div>
+                <div className="text-white text-lg font-semibold leading-snug">Run your estate on AreaConnector.</div>
                 <p className="mt-2 text-sm text-slate-400 leading-relaxed">Visitor passes, dues, security and community in one platform — start with a 14-day free trial.</p>
                 <div className="mt-5 flex flex-col sm:flex-row gap-2.5">
-                  <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Start free trial</PrimaryButton>
+                  <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
                   <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 text-white text-sm font-semibold px-5 py-2.5 transition-colors">Book a demo</Link>
                 </div>
               </div>

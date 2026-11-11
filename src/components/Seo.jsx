@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 
-const SITE_URL  = 'https://areaconnect.pro';
+const SITE_URL  = 'https://area-connector.com';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
-const SITE_NAME = 'AreaConnect';
+const SITE_NAME = 'AreaConnector';
 
 // Breadcrumb trail for every page except the homepage — gives Google the
-// "AreaConnect › Pricing" path display in search results.
+// "AreaConnector › Pricing" path display in search results.
 function breadcrumbSchema(title, url) {
   return {
     '@context': 'https://schema.org',
@@ -22,7 +22,7 @@ function breadcrumbSchema(title, url) {
  * route in the SPA ships its own title / description / canonical / OG card.
  *
  * Props:
- *   title       — "{page} | AreaConnect" (page-specific headline)
+ *   title       — "{page} | AreaConnector" (page-specific headline)
  *   description — 150–160 chars, keyword-rich, action-oriented
  *   path        — "/features" (leading slash); builds canonical + og:url
  *   image       — absolute URL; falls back to the shared og-image.png

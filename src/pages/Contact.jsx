@@ -6,7 +6,7 @@ import Seo from '../components/Seo';
 import BookDemo from '../components/BookDemo';
 
 const CHANNELS = [
-  { icon: Mail,   label: 'Email',  val: 'michael@areaconnect.pro', sub: 'Reply within 2 business hours', href: 'mailto:michael@areaconnect.pro', copy: 'michael@areaconnect.pro', color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)' },
+  { icon: Mail,   label: 'Email',  val: 'michael@area-connector.com', sub: 'Reply within 2 business hours', href: 'mailto:michael@area-connector.com', copy: 'michael@area-connector.com', color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)' },
   { icon: Phone,  label: 'Phone',  val: '+234 708 922 4054',       sub: 'Mon – Fri, 9AM – 6PM WAT',      href: 'tel:+2347089224054',             copy: '+2347089224054',          color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)' },
   { icon: MapPin, label: 'Office', val: 'Lagos, Nigeria',          sub: 'Serving estates nationwide',                                                                                color: 'text-amber-500',  glow: 'rgba(245,158,11,.14)' },
 ];
@@ -83,10 +83,10 @@ export default function Contact() {
   return (
     <div className="overflow-x-hidden">
       <Seo
-        title="Contact Us — Book an AreaConnect Demo"
-        description="Book a 30-minute Google Meet demo of AreaConnect, or reach the team by email or phone. We reply within a few hours on working days."
+        title="Contact Us — Book an AreaConnector Demo"
+        description="Book a 30-minute Google Meet demo of AreaConnector, or reach the team by email or phone. We reply within a few hours on working days."
         path="/contact"
-        keywords="AreaConnect contact, estate management demo Nigeria, book demo, estate software support"
+        keywords="AreaConnector contact, estate management demo Nigeria, book demo, estate software support"
       />
 
       {/* ── HERO + BOOKING ───────────────────────────────────────────── */}
@@ -98,7 +98,7 @@ export default function Contact() {
               <Reveal><Pill badge="Live">Demos running this week</Pill></Reveal>
               <Reveal delay={80}>
                 <h1 className="mt-6 text-[2.1rem] sm:text-[2.75rem] lg:text-[3.2rem] font-extrabold tracking-[-0.03em] leading-[1.08] text-slate-900">
-                  See AreaConnect{' '}
+                  See AreaConnector{' '}
                   <span className="bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-400 bg-clip-text text-transparent">live.</span>
                 </h1>
               </Reveal>

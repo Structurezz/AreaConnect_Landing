@@ -52,7 +52,7 @@ export default function ProductMates() {
       workflowTitle="From invite to connected in minutes."
       steps={STEPS}
       ctaTitle="Give everyone on site AreaMates."
-      ctaSubtitle="Included free with every AreaConnect plan — no per-user app fees."
+      ctaSubtitle="Included free with every AreaConnector plan — no per-user app fees."
     />
   );
 }

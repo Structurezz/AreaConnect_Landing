@@ -10,7 +10,7 @@ const BRAND = {
   dark: '#047857',
   name: ['Area', 'Connect'],
   tagline: 'Estate management, connected',
-  fallback: ['Getting things ready', 'Opening AreaConnect'],
+  fallback: ['Getting things ready', 'Opening AreaConnector'],
 };
 
 // [path prefix, phrases] — first match wins
@@ -31,7 +31,7 @@ const PAGE_PHRASES = [
   ['/guard', ['Opening the guard app', 'Checking the gate']],
 ];
 
-const HOME_PHRASES = ['Opening AreaConnect', 'Connecting your estate', 'Checking the gate', 'Almost there'];
+const HOME_PHRASES = ['Opening AreaConnector', 'Connecting your estate', 'Checking the gate', 'Almost there'];
 
 function phrasesForPath() {
   const path = typeof window !== 'undefined' ? window.location.pathname : '/';

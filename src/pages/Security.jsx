@@ -17,7 +17,7 @@ const PILLARS = [
 ];
 
 const STACK = [
-  { icon: Server,     label: 'Hosting',     text: 'The AreaConnect API runs on Railway, and our web apps are served over HTTPS from a global CDN. Security headers are applied to every API response.' },
+  { icon: Server,     label: 'Hosting',     text: 'The AreaConnector API runs on Railway, and our web apps are served over HTTPS from a global CDN. Security headers are applied to every API response.' },
   { icon: Database,   label: 'Database',    text: 'Resident and estate data is stored in MongoDB Atlas, a managed cloud database with encrypted connections.' },
   { icon: CreditCard, label: 'Payments',    text: 'Card and bank details are handled exclusively by Paystack, a PCI DSS Level 1 certified processor. We never see or store card numbers.' },
   { icon: Mail,       label: 'Email',       text: 'Transactional emails are delivered via Resend with DKIM and SPF authentication to prevent spoofing.' },
@@ -28,7 +28,7 @@ const STACK = [
 const COMPLIANCE = [
   { title: 'NDPA 2023',              desc: 'We handle personal data in line with the Nigerian Data Protection Act 2023 — only what each feature needs, never sold.' },
   { title: 'PCI DSS via Paystack',   desc: 'Payment processing is handled by Paystack, which is PCI DSS Level 1 certified.' },
-  { title: 'HTTPS everywhere',       desc: 'All traffic to and from AreaConnect is encrypted in transit.' },
+  { title: 'HTTPS everywhere',       desc: 'All traffic to and from AreaConnector is encrypted in transit.' },
 ];
 
 // Animated "request path" diagram: device → HTTPS → API → estate-scoped data.
@@ -120,7 +120,7 @@ export default function Security() {
             <div className="lg:sticky lg:top-28">
               <Reveal><Eyebrow>Infrastructure</Eyebrow></Reveal>
               <Reveal delay={60}><h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Trusted providers, end to end.</h2></Reveal>
-              <Reveal delay={120}><p className="mt-3 text-[15px] text-slate-500">The services that run AreaConnect — and what each one is responsible for.</p></Reveal>
+              <Reveal delay={120}><p className="mt-3 text-[15px] text-slate-500">The services that run AreaConnector — and what each one is responsible for.</p></Reveal>
             </div>
           </div>
           <div className="space-y-2.5">
@@ -180,7 +180,7 @@ export default function Security() {
               </div>
               <div className="relative rounded-2xl bg-white/5 border border-white/10 p-6">
                 <p className="text-sm text-slate-400 leading-relaxed">Email the details, including steps to reproduce. Please don’t disclose publicly until we’ve had a chance to fix it.</p>
-                <a href="mailto:michael@areaconnect.pro?subject=Security%20report"
+                <a href="mailto:michael@area-connector.com?subject=Security%20report"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold py-2.5 transition-colors">
                   <Mail size={14} /> Report a vulnerability
                 </a>

@@ -23,7 +23,7 @@ const PLANS = [
     accent: '#64748B',
     icon: Zap,
     cta: 'Get started',
-    ctaTo: 'https://area-connector.areaconnect.pro/register?plan=starter',
+    ctaTo: 'https://areamanager.area-connector.com/register?plan=starter',
     features: [
       { label: 'Up to 50 residents',                yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -55,7 +55,7 @@ const PLANS = [
     accent: '#10B981',
     icon: Building2,
     cta: 'Get started',
-    ctaTo: 'https://area-connector.areaconnect.pro/register?plan=growth',
+    ctaTo: 'https://areamanager.area-connector.com/register?plan=growth',
     features: [
       { label: 'Up to 200 residents',               yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -88,7 +88,7 @@ const PLANS = [
     accent: '#6366F1',
     icon: Star,
     cta: 'Get started',
-    ctaTo: 'https://area-connector.areaconnect.pro/register?plan=premium',
+    ctaTo: 'https://areamanager.area-connector.com/register?plan=premium',
     features: [
       { label: 'Up to 500 residents',               yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -153,11 +153,11 @@ const toNumber = (s) => s && s.replace(/[^\d]/g, '');
 const PRICING_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  '@id': 'https://areaconnect.pro/#software',
-  name: 'AreaConnect',
+  '@id': 'https://area-connector.com/#software',
+  name: 'AreaConnector',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web, Android, iOS',
-  url: 'https://areaconnect.pro/pricing',
+  url: 'https://area-connector.com/pricing',
   offers: PLANS.filter(p => toNumber(p.price?.monthly)).map(p => ({
     '@type': 'Offer',
     name: `${p.name} plan`,
@@ -171,7 +171,7 @@ const PRICING_SCHEMA = {
       unitCode: 'MON',
       billingDuration: 'P1M',
     },
-    url: 'https://areaconnect.pro/pricing',
+    url: 'https://area-connector.com/pricing',
   })),
 };
 
@@ -204,7 +204,7 @@ const COMPARE_ROWS = [
 const FAQS = [
   {
     q: 'What is included in every plan?',
-    a: 'Every plan includes the AreaConnect Admin web portal, the AreaMates app for everyone on site, and the Guard mobile app. Visitor management, QR passes, announcements, and security alerts are available on all tiers — including Starter.',
+    a: 'Every plan includes the AreaConnector Admin web portal, the AreaMates app for everyone on site, and the Guard mobile app. Visitor management, QR passes, announcements, and security alerts are available on all tiers — including Starter.',
   },
   {
     q: 'What does the Starter plan (₦20,000/month) include?',
@@ -220,7 +220,7 @@ const FAQS = [
   },
   {
     q: 'Who is Enterprise for?',
-    a: 'Enterprise is built for property management companies, gated cities, or estate developers running multiple estates under one umbrella. You get a single login to manage all your estates, custom branding / white-labelling so residents see your brand instead of AreaConnect, full API access for custom integrations, a dedicated account manager, and an SLA guarantee with a defined uptime commitment.',
+    a: 'Enterprise is built for property management companies, gated cities, or estate developers running multiple estates under one umbrella. You get a single login to manage all your estates, custom branding / white-labelling so residents see your brand instead of AreaConnector, full API access for custom integrations, a dedicated account manager, and an SLA guarantee with a defined uptime commitment.',
   },
   {
     q: 'How does annual billing work?',
@@ -245,9 +245,9 @@ const FAQS = [
 ];
 
 const APPS = [
-  { name: 'AreaConnect Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estates, campuses, hotels, industrial sites and hospitals — members, units, payments, visitors and analytics.', bullets: ['Member & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
+  { name: 'AreaConnector Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estates, campuses, hotels, industrial sites and hospitals — members, units, payments, visitors and analytics.', bullets: ['Member & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
   { name: 'AreaMates',         icon: Smartphone,      color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)', desc: 'For residents, students, guests and staff — invite visitors, pay bills and fees, read announcements and chat.', bullets: ['Visitor pre-registration & QR', 'Pay bills & fees with Paystack', 'Community chat & marketplace', 'Emergency panic button'] },
-  { name: 'AreaConnect Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'For security and front desks — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
+  { name: 'AreaConnector Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'For security and front desks — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
 ];
 
 // Resident count → recommended plan index.
@@ -449,9 +449,9 @@ export default function Pricing() {
     <div className="overflow-x-hidden">
       <Seo
         title="Pricing — Plans from ₦20,000/month"
-        description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnect apps included — no hidden fees, Paystack-native."
+        description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnector apps included — no hidden fees, Paystack-native."
         path="/pricing"
-        keywords="estate management pricing Nigeria, AreaConnect price, service charge software cost, estate app plans"
+        keywords="estate management pricing Nigeria, AreaConnector price, service charge software cost, estate app plans"
         jsonLd={PRICING_SCHEMA}
       />
 
@@ -625,7 +625,7 @@ export default function Pricing() {
 
       <div className="h-16 sm:h-24 bg-white" />
       <GlowCTA title="Ready to get started?" subtitle="Plans from ₦20,000/month. No setup fees. All three apps included.">
-        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Get started</PrimaryButton>
+        <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Get started</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo
         </Link>

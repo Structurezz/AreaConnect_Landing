@@ -1,6 +1,6 @@
 {
-  "name": "AreaConnect",
-  "short_name": "AreaConnect",
+  "name": "AreaConnector",
+  "short_name": "AreaConnector",
   "description": "Visitor, security and payments platform for estates, campuses, hotels, workplaces and hospitals in Nigeria.",
   "start_url": "/",
   "display": "standalone",

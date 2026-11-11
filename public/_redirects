@@ -1,3 +1,8 @@
+# Old domain → new domain (works once areaconnect.pro is a domain alias on this Netlify site)
+https://areaconnect.pro/*      https://area-connector.com/:splat 301!
+https://www.areaconnect.pro/*  https://area-connector.com/:splat 301!
+https://www.area-connector.com/* https://area-connector.com/:splat 301!
+
 # Every page is prerendered to static HTML at build time (scripts/prerender.mjs),
 # so there is no SPA catch-all: unknown URLs get dist/404.html with a real 404
 # status instead of a blank 200 "soft 404".

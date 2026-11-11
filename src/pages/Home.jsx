@@ -14,14 +14,14 @@ import { SECTOR_LINKS } from '../lib/sectors';
 
 /* ─── FAQ content — rendered on the page and mirrored into FAQPage schema ─ */
 const FAQS = [
-  { q: 'How much does AreaConnect cost?',
+  { q: 'How much does AreaConnector cost?',
     a: 'Plans start at ₦20,000/month for up to 50 members (Starter), ₦47,000/month for up to 200 (Growth), and ₦80,000/month for up to 500 (Premium) — members are your residents, students, guests, employees or patients. Annual billing saves 20%. Enterprise pricing is custom for large campuses and portfolios. Every new site starts with a 14-day free trial.' },
   { q: 'How do people get their login details?',
-    a: "When a manager, admin office or front desk invites someone — individually or via CSV — AreaConnect instantly creates the account and emails a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
+    a: "When a manager, admin office or front desk invites someone — individually or via CSV — AreaConnector instantly creates the account and emails a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
   { q: 'How does the visitor QR code system work?',
     a: "A resident, student, guest or staff member pre-registers their visitor from the AreaMates app in seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate or reception, security types the code into the Guard app to verify and check in the visitor." },
   { q: 'How are payments processed?',
-    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Service charge, school or hostel fees and other bills are paid in the AreaMates app by card or bank transfer, with an invoice and receipt for every payment. Funds settle to your site's registered bank account." },
+    a: "AreaConnector uses Paystack — Nigeria's leading PCI-compliant payment gateway. Service charge, school or hostel fees and other bills are paid in the AreaMates app by card or bank transfer, with an invoice and receipt for every payment. Funds settle to your site's registered bank account." },
   { q: 'Is our data safe?',
     a: "Yes. Every site's data is completely isolated from every other site on the platform. All traffic is encrypted in transit, passwords are hashed with bcrypt, and payment card data is never stored on our servers — it is handled exclusively by Paystack." },
   { q: 'Do I need any technical skills to get started?',
@@ -48,7 +48,7 @@ const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app 
 
 const APPS = [
   {
-    id: 'admin', name: 'AreaConnect Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
+    id: 'admin', name: 'AreaConnector Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
     desc: 'Run your estate, campus, hotel or site from any browser — people, units, guards, payments and reports in one dashboard.',
     points: ['Onboarding & CSV bulk invites', 'Payment schedules & wallet', 'Guard management & audit logs', 'Live analytics & collection reports'],
   },
@@ -58,7 +58,7 @@ const APPS = [
     points: ['Visitor passes in seconds', 'Pay bills & fees with Paystack', 'In-app calls & messaging', 'Marketplace, lounge, polls & events'],
   },
   {
-    id: 'guard', name: 'AreaConnect Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', to: '/guard',
+    id: 'guard', name: 'AreaConnector Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', to: '/guard',
     desc: 'For security and front desks — verify guests by code, respond to panic alerts and keep working even offline.',
     points: ['6-digit code verification', 'Siren on panic alerts', 'Offline mode with auto-sync', 'Incident escalation'],
   },
@@ -129,7 +129,7 @@ function AppsTabs() {
                   <div className="text-sm font-semibold text-slate-900 truncate">{a.name}</div>
                   <div className="text-[11px] text-slate-400">{a.who}</div>
                 </div>
-                <div className="sm:hidden text-[12px] font-semibold text-slate-900 leading-tight">{a.name.replace('AreaConnect ', '')}</div>
+                <div className="sm:hidden text-[12px] font-semibold text-slate-900 leading-tight">{a.name.replace('AreaConnector ', '')}</div>
               </div>
               {on && (
                 <span key={`${active}-${paused}`} className="absolute left-0 bottom-0 h-0.5 home-progress" style={{ background: a.accent, animationPlayState: paused ? 'paused' : 'running' }} />
@@ -145,7 +145,7 @@ function AppsTabs() {
           <h3 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-slate-900">{app.name}</h3>
           <p className="mt-3 text-[15px] text-slate-500 leading-relaxed">{app.desc}</p>
           <Link to={app.to} className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold group" style={{ color: app.accent }}>
-            Explore {app.name.replace('AreaConnect ', '')} <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            Explore {app.name.replace('AreaConnector ', '')} <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
         <ul className="space-y-2.5">
@@ -319,10 +319,10 @@ export default function Home() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="AreaConnect — Visitor, Security & Payments Platform for Estates, Campuses, Hotels & Hospitals in Nigeria"
+        title="AreaConnector — Visitor, Security & Payments Platform for Estates, Campuses, Hotels & Hospitals in Nigeria"
         description="One platform for estates, universities, schools, hotels, industrial sites and hospitals in Nigeria. Visitor QR passes, gate security, bills and fees via Paystack, in-app calls and community — all in one place."
         path="/"
-        keywords="AreaConnect, visitor management system Nigeria, estate management Nigeria, campus security app, hostel management, hotel visitor management, factory gate app, hospital visitor management, service charge collection, school fees collection"
+        keywords="AreaConnector, visitor management system Nigeria, estate management Nigeria, campus security app, hostel management, hotel visitor management, factory gate app, hospital visitor management, service charge collection, school fees collection"
         jsonLd={FAQ_SCHEMA}
       />
 
@@ -345,7 +345,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <PrimaryButton to="https://area-connector.areaconnect.pro/register">Start 14-day free trial</PrimaryButton>
+                <PrimaryButton to="https://areamanager.area-connector.com/register">Start 14-day free trial</PrimaryButton>
                 <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
                   Book a demo <ArrowUpRight size={14} />
                 </Link>
@@ -495,7 +495,7 @@ export default function Home() {
             <Link to="/about" className="group relative block mx-auto w-full max-w-md">
               <div className="absolute -inset-3 rounded-[2.25rem] bg-gradient-to-br from-brand-400/40 via-transparent to-indigo-400/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative rounded-[2rem] overflow-hidden bg-slate-900 aspect-[4/5] shadow-2xl shadow-slate-900/20">
-                <img src="/team/michael-orizu.jpg" alt="Michael Orizu, founder of AreaConnect" loading="lazy"
+                <img src="/team/michael-orizu.jpg" alt="Michael Orizu, founder of AreaConnector" loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_20%] scale-105 group-hover:scale-110 transition-transform duration-[1200ms] ease-out" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/20 to-transparent" />
                 <div className="absolute left-6 right-6 bottom-6">
@@ -505,7 +505,7 @@ export default function Home() {
                   <div className="mt-4 flex items-center justify-between">
                     <div>
                       <div className="text-white text-sm font-semibold">Michael Orizu</div>
-                      <div className="text-slate-400 text-xs">Founder, AreaConnect</div>
+                      <div className="text-slate-400 text-xs">Founder, AreaConnector</div>
                     </div>
                     <span className="w-9 h-9 rounded-full bg-white/10 backdrop-blur border border-white/15 text-white flex items-center justify-center group-hover:bg-brand-500 group-hover:border-brand-500 transition-colors">
                       <ArrowUpRight size={15} />
@@ -599,8 +599,8 @@ export default function Home() {
         </div>
       </section>
 
-      <GlowCTA title="Bring your site onto AreaConnect." subtitle="Start with a 14-day free trial — managers, everyone on site and security on one platform.">
-        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Start free trial</PrimaryButton>
+      <GlowCTA title="Bring your site onto AreaConnector." subtitle="Start with a 14-day free trial — managers, everyone on site and security on one platform.">
+        <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo
         </Link>
@@ -618,10 +618,10 @@ export default function Home() {
             <Shield size={16} className="text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-slate-900 leading-tight">AreaConnect</div>
+            <div className="text-[13px] font-semibold text-slate-900 leading-tight">AreaConnector</div>
             <div className="text-[11px] text-slate-500 leading-tight">14-day free trial</div>
           </div>
-          <Link to="https://area-connector.areaconnect.pro/register"
+          <Link to="https://areamanager.area-connector.com/register"
             className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[12px] px-4 py-2.5 rounded-full active:scale-95 transition-all flex-shrink-0">
             Get started <ArrowRight size={12} />
           </Link>

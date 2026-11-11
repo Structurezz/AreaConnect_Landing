@@ -158,7 +158,7 @@ function BeforeAfter() {
       </div>
       <div className="relative rounded-3xl bg-slate-900 p-5 sm:p-6 overflow-hidden">
         <div className="absolute -top-16 -right-16 w-48 h-48 bg-brand-500/25 rounded-full blur-3xl" />
-        <div className="relative text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-400 mb-4">With AreaConnect</div>
+        <div className="relative text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-400 mb-4">With AreaConnector</div>
         <ul className="relative space-y-3">
           {AFTER.map((a, i) => (
             <li key={a}
@@ -280,10 +280,10 @@ export default function About() {
   return (
     <div className="overflow-x-hidden">
       <Seo
-        title="About AreaConnect — Built for Nigerian Estates"
-        description="AreaConnect is the all-in-one estate management platform built in Nigeria, for Nigerian estates. Our story, mission and the team behind the platform."
+        title="About AreaConnector — Built for Nigerian Estates"
+        description="AreaConnector is the all-in-one estate management platform built in Nigeria, for Nigerian estates. Our story, mission and the team behind the platform."
         path="/about"
-        keywords="about AreaConnect, Nigerian proptech, estate management company, Area Connector Technologies"
+        keywords="about AreaConnector, Nigerian proptech, estate management company, Area Connector Technologies"
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -308,7 +308,7 @@ export default function About() {
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                AreaConnect brings managers, residents and security onto one platform — so visitors, dues and alerts stop living in WhatsApp groups and paper log books.
+                AreaConnector brings managers, residents and security onto one platform — so visitors, dues and alerts stop living in WhatsApp groups and paper log books.
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -398,7 +398,7 @@ export default function About() {
             <div className="group relative mx-auto w-full max-w-md">
               <div className="absolute -inset-3 rounded-[2.25rem] bg-gradient-to-br from-brand-400/40 via-transparent to-indigo-400/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative rounded-[2rem] overflow-hidden bg-slate-900 aspect-[4/5] shadow-2xl shadow-slate-900/20">
-                <img src={FOUNDER_PHOTO} alt="Michael Orizu, founder of AreaConnect" loading="lazy"
+                <img src={FOUNDER_PHOTO} alt="Michael Orizu, founder of AreaConnector" loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_20%] scale-105 group-hover:scale-110 transition-transform duration-[1200ms] ease-out" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
                 <div className="absolute left-5 right-5 bottom-5 flex items-end justify-between gap-3">
@@ -428,7 +428,7 @@ export default function About() {
             <Reveal delay={160}>
               <div className="mt-7 flex items-center gap-3">
                 <span className="h-px w-10 bg-slate-300" />
-                <span className="text-sm text-slate-500"><span className="font-semibold text-slate-900">Michael Orizu</span> · Founder, AreaConnect</span>
+                <span className="text-sm text-slate-500"><span className="font-semibold text-slate-900">Michael Orizu</span> · Founder, AreaConnector</span>
               </div>
             </Reveal>
             <Reveal delay={220}>
@@ -532,13 +532,13 @@ export default function About() {
               <div className="absolute inset-0 dot-grid opacity-20" />
               <div className="relative">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-                  Bring AreaConnect to your estate.
+                  Bring AreaConnector to your estate.
                 </h2>
                 <p className="mt-3 text-sm sm:text-[15px] text-slate-400 max-w-md mx-auto">
                   Your residents, guards and managers — finally on one platform.
                 </p>
                 <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link to="https://area-connector.areaconnect.pro/register"
+                  <Link to="https://areamanager.area-connector.com/register"
                     className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm font-semibold pl-5 pr-2 py-2 transition-all">
                     Get started free
                     <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">

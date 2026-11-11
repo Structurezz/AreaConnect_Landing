@@ -10,7 +10,7 @@ import { SECTORS, SECTOR_LINKS, SECTOR_TERMS, REGISTER } from '../lib/sectors';
 // One data-driven page for /schools, /hotels, /industries and /hospitals.
 // Content lives in src/lib/sectors.js.
 
-const SITE_URL = 'https://areaconnect.pro';
+const SITE_URL = 'https://area-connector.com';
 
 function schemas(s) {
   const url = `${SITE_URL}${s.path}`;
@@ -19,7 +19,7 @@ function schemas(s) {
       '@context': 'https://schema.org',
       '@type': 'Service',
       '@id': `${url}#service`,
-      name: `AreaConnect for ${s.name}`,
+      name: `AreaConnector for ${s.name}`,
       serviceType: s.seo.serviceType,
       description: s.seo.description,
       url,
@@ -28,7 +28,7 @@ function schemas(s) {
       audience: { '@type': 'BusinessAudience', name: s.name },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: `AreaConnect for ${s.name} features`,
+        name: `AreaConnector for ${s.name} features`,
         itemListElement: s.features.map(f => ({
           '@type': 'Offer',
           itemOffered: { '@type': 'Service', name: f.title, description: f.desc },
@@ -339,7 +339,7 @@ export default function SectorPage({ id }) {
                       ))}
                     </ul>
                     <Link to={app.to} className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold group/link" style={{ color: app.accent }}>
-                      Explore {app.name.replace('AreaConnect ', '')} <ArrowRight size={14} className="group-hover/link:translate-x-0.5 transition-transform" />
+                      Explore {app.name.replace('AreaConnector ', '')} <ArrowRight size={14} className="group-hover/link:translate-x-0.5 transition-transform" />
                     </Link>
                   </SpotlightCard>
                 </Reveal>

@@ -10,9 +10,9 @@ import {
 import { SECTOR_LINKS } from '../../lib/sectors';
 
 const PRODUCTS = [
-  { to: '/admin', label: 'AreaConnect Admin', desc: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981' },
+  { to: '/admin', label: 'AreaConnector Admin', desc: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981' },
   { to: '/mates', label: 'AreaMates',         desc: 'For residents, students, guests & staff', icon: Smartphone,      accent: '#6366f1' },
-  { to: '/guard', label: 'AreaConnect Guard', desc: 'For security & front desk',     icon: ShieldCheck,     accent: '#0ea5e9' },
+  { to: '/guard', label: 'AreaConnector Guard', desc: 'For security & front desk',     icon: ShieldCheck,     accent: '#0ea5e9' },
 ];
 
 const NAV_ITEMS = [
@@ -23,7 +23,7 @@ const NAV_ITEMS = [
   { to: '/contact',  label: 'Contact',  icon: Mail },
 ];
 
-const REGISTER = 'https://area-connector.areaconnect.pro/register';
+const REGISTER = 'https://areamanager.area-connector.com/register';
 
 function Logo({ size = 36 }) {
   return (
@@ -267,7 +267,7 @@ export default function Navbar() {
                 <div className="w-9 h-9 mx-auto rounded-xl flex items-center justify-center" style={{ background: `${p.accent}18` }}>
                   <p.icon size={16} style={{ color: p.accent }} />
                 </div>
-                <div className="mt-2 text-[11px] font-semibold text-slate-900 leading-tight">{p.label.replace('AreaConnect ', '')}</div>
+                <div className="mt-2 text-[11px] font-semibold text-slate-900 leading-tight">{p.label.replace('AreaConnector ', '')}</div>
               </Link>
             ))}
           </div>

@@ -32,7 +32,7 @@ export default function ProductGuard() {
     <ProductPage
       id="guard"
       seo={{
-        title: 'AreaConnect Guard — Gate & Reception App for Every Site',
+        title: 'AreaConnector Guard — Gate & Reception App for Every Site',
         description: '6-digit code verification, one-tap check-in/out, panic alerts with a siren and offline mode. The gate app for security, porters and front desks at estates, campuses, hotels, plants and hospitals.',
         path: '/guard',
         keywords: 'security guard app Nigeria, gate management, visitor verification app, hostel porter app, hotel reception visitor log, factory gate app, hospital visitor control, panic alert app',
@@ -51,7 +51,7 @@ export default function ProductGuard() {
       features={FEATURES}
       workflowTitle="Ready for the next shift in minutes."
       steps={STEPS}
-      ctaTitle="Put your gate on AreaConnect."
+      ctaTitle="Put your gate on AreaConnector."
       ctaSubtitle="The Guard app is included with every plan — invite your whole security and front-desk team."
     />
   );

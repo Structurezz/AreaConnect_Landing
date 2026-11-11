@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /version.json
 
-Sitemap: https://areaconnect.pro/sitemap.xml
+Sitemap: https://area-connector.com/sitemap.xml

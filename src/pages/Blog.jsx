@@ -58,7 +58,7 @@ export default function Blog() {
       const res = await fetch(`${API}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'Blog subscriber', email, subject: 'Newsletter sign-up', message: `Please add ${email} to the AreaConnect blog updates.` }),
+        body: JSON.stringify({ name: 'Blog subscriber', email, subject: 'Newsletter sign-up', message: `Please add ${email} to the AreaConnector blog updates.` }),
       });
       if (!res.ok) throw new Error();
       setSub('done');
@@ -75,7 +75,7 @@ export default function Blog() {
     <div className="overflow-x-clip">
       <Seo
         title="Blog — Estate Management Insights for Nigeria"
-        description="Practical guides on visitor management, estate dues, security and community for Nigerian estate managers and residents — new articles every day from AreaConnect."
+        description="Practical guides on visitor management, estate dues, security and community for Nigerian estate managers and residents — new articles every day from AreaConnector."
         path="/blog"
         keywords="estate management blog Nigeria, visitor management guide, estate dues collection, gated community security, service charge Nigeria"
       />

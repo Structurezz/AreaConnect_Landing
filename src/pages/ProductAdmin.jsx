@@ -101,8 +101,8 @@ export default function ProductAdmin() {
     <ProductPage
       id="admin"
       seo={{
-        title: 'AreaConnect Admin — Dashboard for Estates, Campuses, Hotels, Industrial Sites & Hospitals',
-        description: 'AreaConnect Admin is the command centre for your estate, university, school, hotel, industrial site or hospital. Manage members, staff and guards, collect dues and fees via Paystack, watch visitors and alerts live, and broadcast to everyone from one dashboard.',
+        title: 'AreaConnector Admin — Dashboard for Estates, Campuses, Hotels, Industrial Sites & Hospitals',
+        description: 'AreaConnector Admin is the command centre for your estate, university, school, hotel, industrial site or hospital. Manage members, staff and guards, collect dues and fees via Paystack, watch visitors and alerts live, and broadcast to everyone from one dashboard.',
         path: '/admin',
         keywords: 'estate manager software Nigeria, estate dashboard, university hostel management dashboard, school visitor management, hotel room board, facility management software Nigeria, hospital visitor management, service charge collection, visitor log',
       }}

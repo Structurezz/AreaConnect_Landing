@@ -7,9 +7,9 @@ import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } fr
 // Shared layout for the /admin, /mates and /guard product pages.
 
 export const APPS = {
-  admin: { to: '/admin', name: 'AreaConnect Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', blurb: 'Run your estate, campus, hotel or site from one dashboard.' },
+  admin: { to: '/admin', name: 'AreaConnector Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', blurb: 'Run your estate, campus, hotel or site from one dashboard.' },
   mates: { to: '/mates', name: 'AreaMates',         who: 'For everyone on site', icon: Smartphone,      accent: '#6366f1', blurb: 'Residents, students, guests & staff — passes, payments, calls and community.' },
-  guard: { to: '/guard', name: 'AreaConnect Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', blurb: 'Verify guests by code at any gate or reception, even offline.' },
+  guard: { to: '/guard', name: 'AreaConnector Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', blurb: 'Verify guests by code at any gate or reception, even offline.' },
 };
 
 export function Workflow({ steps, accent }) {
@@ -69,7 +69,7 @@ export default function ProductPage({ id, seo, pill, title, subtitle, mockup, fa
             </Reveal>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <PrimaryButton to="https://area-connector.areaconnect.pro/register">Start 14-day free trial</PrimaryButton>
+                <PrimaryButton to="https://areamanager.area-connector.com/register">Start 14-day free trial</PrimaryButton>
                 <Link to="/contact#book-demo" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white/70 hover:bg-white text-slate-700 text-sm font-semibold px-5 py-2.5 transition-all">
                   Book a demo <ArrowUpRight size={14} />
                 </Link>
@@ -188,7 +188,7 @@ export default function ProductPage({ id, seo, pill, title, subtitle, mockup, fa
       </section>
 
       <GlowCTA title={ctaTitle} subtitle={ctaSubtitle}>
-        <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Start free trial</PrimaryButton>
+        <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Start free trial</PrimaryButton>
         <Link to="/pricing" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           See pricing
         </Link>

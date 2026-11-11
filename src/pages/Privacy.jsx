@@ -11,7 +11,7 @@ const TOC = [
 export default function Privacy() {
   return (
     <LegalPage
-      seo={{ title: 'Privacy Policy', description: 'How AreaConnect collects, uses and protects personal data for residents, estate managers and security staff.', path: '/privacy' }}
+      seo={{ title: 'Privacy Policy', description: 'How AreaConnector collects, uses and protects personal data for residents, estate managers and security staff.', path: '/privacy' }}
       title="Privacy"
       highlight="Policy"
       updated="20 October 2026"
@@ -26,7 +26,7 @@ export default function Privacy() {
       contactNote="Email us to access, correct or delete your personal data."
     >
       <DocSection num={1} title="Introduction">
-        <p>Area Connector Technologies (RC 9607864) (&ldquo;AreaConnect&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you use the AreaConnect platform, including the AreaConnect Admin web portal, the AreaMates mobile and web application, and the AreaConnect Guard mobile application (collectively, the &ldquo;Services&rdquo;).</p>
+        <p>Area Connector Technologies (RC 9607864) (&ldquo;AreaConnector&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you use the AreaConnector platform, including the AreaConnector Admin web portal, the AreaMates mobile and web application, and the AreaConnector Guard mobile application (collectively, the &ldquo;Services&rdquo;).</p>
         <p>By using our Services, you agree to the collection and use of information in accordance with this policy.</p>
       </DocSection>
 
@@ -90,7 +90,7 @@ export default function Privacy() {
             </li>
           ))}
         </ul>
-        <p className="mt-3">To exercise these rights, contact: <a href="mailto:michael@areaconnect.pro" className="text-brand-600 hover:underline font-medium">michael@areaconnect.pro</a></p>
+        <p className="mt-3">To exercise these rights, contact: <a href="mailto:michael@area-connector.com" className="text-brand-600 hover:underline font-medium">michael@area-connector.com</a></p>
       </DocSection>
 
       <DocSection num={8} title="Cookies">
@@ -107,7 +107,7 @@ export default function Privacy() {
 
       <DocSection num={11} title="Contact">
         <p>Area Connector Technologies (RC 9607864), Lagos, Nigeria</p>
-        <p>Email: <a href="mailto:michael@areaconnect.pro" className="text-brand-600 hover:underline font-medium">michael@areaconnect.pro</a></p>
+        <p>Email: <a href="mailto:michael@area-connector.com" className="text-brand-600 hover:underline font-medium">michael@area-connector.com</a></p>
       </DocSection>
     </LegalPage>
   );

@@ -12,7 +12,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root    = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist    = path.join(root, 'dist');
 const ssrDir  = path.join(root, 'dist-ssr');
-const SITE    = 'https://areaconnect.pro';
+const SITE    = 'https://area-connector.com';
 
 // Every indexable route. Keep in sync with <Routes> in src/App.jsx.
 const ROUTES = [

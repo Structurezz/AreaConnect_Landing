@@ -4,9 +4,9 @@ import { KeyRound, BarChart3, Ban } from 'lucide-react';
 const TOC = ['What are cookies?', 'Cookies we use', 'Browser storage', 'What we don’t use', 'Managing cookies', 'Changes to this policy', 'Contact'];
 
 const COOKIES = [
-  ['refreshToken', 'AreaConnect apps', 'Keeps you signed in to Admin, AreaMates or Guard. HTTP-only, so page scripts can’t read it.', '7 days', 'Essential'],
-  ['_ga', 'areaconnect.pro', 'Google Analytics — distinguishes anonymous visitors to our public website. IP addresses are anonymised.', 'Up to 2 years', 'Analytics'],
-  ['_ga_<ID>', 'areaconnect.pro', 'Google Analytics — keeps the state of an anonymous website visit.', 'Up to 2 years', 'Analytics'],
+  ['refreshToken', 'AreaConnector apps', 'Keeps you signed in to Admin, AreaMates or Guard. HTTP-only, so page scripts can’t read it.', '7 days', 'Essential'],
+  ['_ga', 'area-connector.com', 'Google Analytics — distinguishes anonymous visitors to our public website. IP addresses are anonymised.', 'Up to 2 years', 'Analytics'],
+  ['_ga_<ID>', 'area-connector.com', 'Google Analytics — keeps the state of an anonymous website visit.', 'Up to 2 years', 'Analytics'],
 ];
 
 const STORAGE = [
@@ -19,7 +19,7 @@ const TYPE = { Essential: 'bg-brand-50 text-brand-700', Analytics: 'bg-amber-50 
 export default function Cookies() {
   return (
     <LegalPage
-      seo={{ title: 'Cookie Policy', description: 'The cookies and browser storage AreaConnect uses: an essential sign-in cookie in the apps and anonymous analytics on our website.', path: '/cookies' }}
+      seo={{ title: 'Cookie Policy', description: 'The cookies and browser storage AreaConnector uses: an essential sign-in cookie in the apps and anonymous analytics on our website.', path: '/cookies' }}
       title="Cookie"
       highlight="Policy"
       updated="20 October 2026"
@@ -106,7 +106,7 @@ export default function Cookies() {
       </DocSection>
 
       <DocSection num={7} title="Contact">
-        <p>Questions about cookies? Email <a href="mailto:michael@areaconnect.pro" className="text-brand-600 hover:underline font-medium">michael@areaconnect.pro</a>.</p>
+        <p>Questions about cookies? Email <a href="mailto:michael@area-connector.com" className="text-brand-600 hover:underline font-medium">michael@area-connector.com</a>.</p>
       </DocSection>
     </LegalPage>
   );
