@@ -60,7 +60,7 @@ function SectorAdmins() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {SECTOR_LINKS.map((l, i) => {
-            const a = l.id === 'estate' ? ESTATE_ADMIN : SECTORS[l.id]?.apps?.admin;
+            const a = SECTORS[l.id]?.apps?.admin || (l.id === 'estate' ? ESTATE_ADMIN : null);
             if (!a) return null;
             return (
               <Reveal key={l.id} delay={(i % 3) * 70} className="h-full">

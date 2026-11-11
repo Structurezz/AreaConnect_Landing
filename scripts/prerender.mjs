@@ -22,6 +22,7 @@ const ROUTES = [
   { path: '/admin',    changefreq: 'monthly', priority: '0.8' },
   { path: '/mates',    changefreq: 'monthly', priority: '0.8' },
   { path: '/guard',    changefreq: 'monthly', priority: '0.8' },
+  { path: '/estates',    changefreq: 'monthly', priority: '0.8' },
   { path: '/universities', changefreq: 'monthly', priority: '0.8' },
   { path: '/schools',    changefreq: 'monthly', priority: '0.8' },
   { path: '/hotels',     changefreq: 'monthly', priority: '0.8' },

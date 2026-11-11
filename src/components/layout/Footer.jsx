@@ -21,7 +21,7 @@ const COLS = [
   {
     title: 'Solutions',
     links: [
-      { label: 'Estates',    to: '/',           icon: Building2     },
+      { label: 'Estates',    to: '/estates',    icon: Building2     },
       { label: 'Universities', to: '/universities', icon: GraduationCap },
       { label: 'Schools',    to: '/schools',    icon: School        },
       { label: 'Hotels',     to: '/hotels',     icon: Hotel         },

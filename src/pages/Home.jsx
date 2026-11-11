@@ -15,17 +15,17 @@ import { SECTOR_LINKS } from '../lib/sectors';
 /* ─── FAQ content — rendered on the page and mirrored into FAQPage schema ─ */
 const FAQS = [
   { q: 'How much does AreaConnect cost?',
-    a: 'Plans start at ₦20,000/month for up to 50 residents (Starter), ₦47,000/month for up to 200 residents (Growth), and ₦80,000/month for up to 500 residents (Premium). Annual billing saves 20%. Enterprise pricing is custom for large portfolios. Every new estate starts with a 14-day free trial.' },
-  { q: 'How do residents get their login credentials?',
-    a: "When an estate manager invites a resident — individually or via CSV — the system instantly creates an account and emails the resident a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
+    a: 'Plans start at ₦20,000/month for up to 50 members (Starter), ₦47,000/month for up to 200 (Growth), and ₦80,000/month for up to 500 (Premium) — members are your residents, students, guests, employees or patients. Annual billing saves 20%. Enterprise pricing is custom for large campuses and portfolios. Every new site starts with a 14-day free trial.' },
+  { q: 'How do people get their login details?',
+    a: "When a manager, admin office or front desk invites someone — individually or via CSV — AreaConnect instantly creates the account and emails a branded welcome message with their login email and a temporary password. They sign in and change it on first access." },
   { q: 'How does the visitor QR code system work?',
-    a: "A resident pre-registers their guest from the AreaMates app in seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate, the security officer types the code into the Guard app to verify and check in the visitor." },
+    a: "A resident, student, guest or staff member pre-registers their visitor from the AreaMates app in seconds. The system generates a unique QR code and 6-digit access code and emails the pass to the guest — they can also forward it via WhatsApp. At the gate or reception, security types the code into the Guard app to verify and check in the visitor." },
   { q: 'How are payments processed?',
-    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Residents pay directly from within the AreaMates app by card or bank transfer, and get an invoice and receipt for every payment. Funds are settled to the estate's registered bank account." },
-  { q: 'Is our estate data safe?',
-    a: "Yes. Every estate's data is completely isolated from other estates on the platform. All traffic is encrypted in transit, passwords are hashed with bcrypt, and payment card data is never stored on our servers — it is handled exclusively by Paystack." },
+    a: "AreaConnect uses Paystack — Nigeria's leading PCI-compliant payment gateway. Service charge, school or hostel fees and other bills are paid in the AreaMates app by card or bank transfer, with an invoice and receipt for every payment. Funds settle to your site's registered bank account." },
+  { q: 'Is our data safe?',
+    a: "Yes. Every site's data is completely isolated from every other site on the platform. All traffic is encrypted in transit, passwords are hashed with bcrypt, and payment card data is never stored on our servers — it is handled exclusively by Paystack." },
   { q: 'Do I need any technical skills to get started?',
-    a: 'None at all. The setup wizard walks you through creating your estate, adding units, and inviting residents step by step. If you would like a hand, book a call and we will walk you through it.' },
+    a: 'None at all. The setup wizard walks you through creating your site, adding your units, rooms or wards, and inviting your people step by step. If you would like a hand, book a call and we will walk you through it.' },
 ];
 
 const FAQ_SCHEMA = {
@@ -44,7 +44,7 @@ const WORDS = ['one app.', 'connected.', 'secured.', 'sorted.'];
 
 // Illustrative notifications that float around the hero phone.
 
-const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app calls', 'Dues on autopilot', 'Invoices & receipts', 'Escrow marketplace', 'Live location sharing', 'Polls & events', 'Community DJ', 'Guard app', 'Offline gate mode', 'Google Maps directions'];
+const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app calls', 'Bills & fees on autopilot', 'Invoices & receipts', 'Escrow marketplace', 'Live location sharing', 'Polls & events', 'Community DJ', 'Guard app', 'Offline gate mode', 'Google Maps directions'];
 
 const APPS = [
   {
@@ -65,23 +65,23 @@ const APPS = [
 ];
 
 const STEPS = [
-  { title: 'Create your estate',    desc: 'Sign up, add your estate details and units.' },
-  { title: 'Invite your residents', desc: 'Upload a CSV or invite one by one — everyone gets a welcome email.' },
+  { title: 'Create your site',      desc: 'Sign up, pick estate, campus, hotel, workplace or hospital, and add your units, rooms or wards.' },
+  { title: 'Invite your people',    desc: 'Upload a CSV or invite one by one — everyone gets a welcome email.' },
   { title: 'Onboard your guards',   desc: 'Create gate officer accounts. They sign in to the Guard app and go.' },
-  { title: 'Go live',               desc: 'Residents pay, register visitors and connect with neighbours.' },
+  { title: 'Go live',               desc: 'Everyone registers visitors, pays bills and stays connected.' },
 ];
 
 const NIGERIA = [
-  { icon: CreditCard, title: 'Paystack-native',      desc: 'Dues, marketplace checkout and payouts all run on Paystack.' },
+  { icon: CreditCard, title: 'Paystack-native',      desc: 'Bills, fees, marketplace checkout and payouts all run on Paystack.' },
   { icon: WifiOff,    title: 'Offline-first gate',   desc: 'The Guard app keeps working without signal and syncs later.' },
-  { icon: Lock,       title: 'Total data isolation', desc: 'No estate can ever see another estate’s data.' },
+  { icon: Lock,       title: 'Total data isolation', desc: 'No site can ever see another site’s data.' },
   { icon: Globe,      title: 'Works on any device',  desc: 'Light enough for everyday Android phones; Admin runs in any browser.' },
 ];
 
 const PLANS = [
-  { name: 'Starter', price: '₦20,000', residents: 'Up to 50 residents',  note: 'Visitors, alerts & announcements' },
-  { name: 'Growth',  price: '₦47,000', residents: 'Up to 200 residents', note: 'Adds payments, marketplace & community', featured: true },
-  { name: 'Premium', price: '₦80,000', residents: 'Up to 500 residents', note: 'Adds the lounge, exports & priority support' },
+  { name: 'Starter', price: '₦20,000', residents: 'Up to 50 members',  note: 'Visitors, alerts & announcements' },
+  { name: 'Growth',  price: '₦47,000', residents: 'Up to 200 members', note: 'Adds payments, marketplace & community', featured: true },
+  { name: 'Premium', price: '₦80,000', residents: 'Up to 500 members', note: 'Adds the lounge, exports & priority support' },
 ];
 
 /* ─── Hero visual ─────────────────────────────────────────────────────── */
@@ -200,7 +200,7 @@ function Bento() {
       {/* Dues */}
       <SpotlightCard glow="rgba(245,158,11,.14)" className="md:col-span-2 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
         <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-5"><Wallet size={18} /></div>
-        <h3 className="text-lg font-semibold text-slate-900">Dues on autopilot.</h3>
+        <h3 className="text-lg font-semibold text-slate-900">Bills & fees on autopilot.</h3>
         <p className="mt-2 text-sm text-slate-500 leading-relaxed">Schedules, reminders, receipts and payouts.</p>
         <div className="mt-5 h-2 rounded-full bg-slate-100 overflow-hidden">
           <div className="h-full rounded-full bg-gradient-to-r from-amber-400 to-brand-500 transition-[width] duration-[1600ms] ease-out" style={{ width: on ? '82%' : '0%' }} />
@@ -215,13 +215,13 @@ function Bento() {
           <div className="relative w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center"><PhoneCall size={18} /></div>
         </div>
         <h3 className="text-lg font-semibold text-slate-900">Call the gate in-app.</h3>
-        <p className="mt-2 text-sm text-slate-500 leading-relaxed">Neighbours, security and managers — no numbers exposed.</p>
+        <p className="mt-2 text-sm text-slate-500 leading-relaxed">The people on site, security and managers — no numbers exposed.</p>
       </SpotlightCard>
 
       {/* Community */}
       <SpotlightCard glow="rgba(139,92,246,.14)" className="md:col-span-2 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
         <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-500 flex items-center justify-center mb-5"><Music size={18} /></div>
-        <h3 className="text-lg font-semibold text-slate-900">A lounge for the estate.</h3>
+        <h3 className="text-lg font-semibold text-slate-900">A lounge for your community.</h3>
         <p className="mt-2 text-sm text-slate-500 leading-relaxed">Feed, stories, events, polls and a shared DJ queue.</p>
         <div className="mt-5 flex items-end gap-1 h-6">
           {[0, 1, 2, 3, 4, 5, 6].map(i => (
@@ -236,7 +236,7 @@ function Bento() {
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center flex-shrink-0"><ShoppingBag size={18} /></div>
             <div>
-              <h3 className="text-lg font-semibold">A marketplace your neighbours can trust.</h3>
+              <h3 className="text-lg font-semibold">A marketplace your community can trust.</h3>
               <p className="mt-1 text-sm text-slate-400">Escrow checkout holds the money until the buyer confirms delivery.</p>
             </div>
           </div>
@@ -319,10 +319,10 @@ export default function Home() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="AreaConnect — Estate Management Platform Nigeria | Visitor Passes, Payments & Community"
-        description="The estate management platform built in Nigeria. Issue visitor QR passes, collect service charges via Paystack, call the gate in-app and keep your community connected — all in one place."
+        title="AreaConnect — Visitor, Security & Payments Platform for Estates, Campuses, Hotels & Hospitals in Nigeria"
+        description="One platform for estates, universities, schools, hotels, industrial sites and hospitals in Nigeria. Visitor QR passes, gate security, bills and fees via Paystack, in-app calls and community — all in one place."
         path="/"
-        keywords="AreaConnect, estate management Nigeria, property management software Nigeria, visitor management system, estate manager app, resident portal Nigeria, service charge collection, Lagos estate management"
+        keywords="AreaConnect, visitor management system Nigeria, estate management Nigeria, campus security app, hostel management, hotel visitor management, factory gate app, hospital visitor management, service charge collection, school fees collection"
         jsonLd={FAQ_SCHEMA}
       />
 
@@ -334,13 +334,13 @@ export default function Home() {
             <Reveal><Pill badge="New">In-app calls & safety tools</Pill></Reveal>
             <Reveal delay={80}>
               <h1 className="mt-6 text-[2.2rem] sm:text-[2.9rem] lg:text-[3.4rem] font-extrabold tracking-[-0.03em] leading-[1.06] text-slate-900">
-                Your whole estate,
+                Every gate, guest and payment,
                 <RotatingWord />
               </h1>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Visitor passes, dues, security and community — one platform connecting managers, the people on site and security.
+                For estates, campuses, hotels, workplaces and hospitals — visitor passes, payments, security and community on one platform for managers, the people on site and security.
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -395,7 +395,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {SECTOR_LINKS.map((sct, i) => (
               <Reveal key={sct.id} delay={i * 60} className="h-full">
-                <Link to={sct.to === '/' ? '/features' : sct.to} className="block h-full">
+                <Link to={sct.to} className="block h-full">
                   <SpotlightCard glow={`${sct.accent}22`}
                     className="h-full rounded-2xl bg-white border border-slate-200/80 p-4 sm:p-5 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
                     <div className="flex items-start justify-between">
@@ -420,10 +420,10 @@ export default function Home() {
           <div className="max-w-xl mb-10">
             <Reveal><Eyebrow>Three apps · One platform</Eyebrow></Reveal>
             <Reveal delay={60}>
-              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Built for every role in your estate.</h2>
+              <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Built for every role on site.</h2>
             </Reveal>
             <Reveal delay={120}>
-              <p className="mt-3 text-[15px] text-slate-500">Managers, residents and security — all connected in real time.</p>
+              <p className="mt-3 text-[15px] text-slate-500">Managers, the people on site and security — all connected in real time.</p>
             </Reveal>
           </div>
           <Reveal delay={100}><AppsTabs /></Reveal>
@@ -437,7 +437,7 @@ export default function Home() {
             <div className="max-w-xl">
               <Reveal><Eyebrow>Highlights</Eyebrow></Reveal>
               <Reveal delay={60}>
-                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Everything your estate runs on.</h2>
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight text-slate-900">Everything your site runs on.</h2>
               </Reveal>
             </div>
             <Reveal delay={120}>
@@ -473,7 +473,7 @@ export default function Home() {
             <Reveal><Eyebrow>Built for Nigeria</Eyebrow></Reveal>
             <Reveal delay={60}>
               <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold tracking-tight leading-tight text-slate-900">
-                Designed for the way Nigerian estates actually work.
+                Designed for the way Nigerian estates, campuses and workplaces actually work.
               </h2>
             </Reveal>
             <div className="mt-8 grid sm:grid-cols-2 gap-3">
@@ -500,7 +500,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/20 to-transparent" />
                 <div className="absolute left-6 right-6 bottom-6">
                   <p className="text-white text-[15px] sm:text-base font-medium leading-snug">
-                    “Estates deserve better than WhatsApp groups and paper log books.”
+                    “Communities deserve better than WhatsApp groups and paper log books.”
                   </p>
                   <div className="mt-4 flex items-center justify-between">
                     <div>
@@ -568,7 +568,7 @@ export default function Home() {
             ))}
           </div>
           <Reveal delay={120}>
-            <p className="text-center text-xs sm:text-sm text-slate-400 mt-6">Every new estate starts with a 14-day free trial. Enterprise pricing for portfolios.</p>
+            <p className="text-center text-xs sm:text-sm text-slate-400 mt-6">Every new site starts with a 14-day free trial. Enterprise pricing for large campuses and portfolios.</p>
           </Reveal>
         </div>
       </section>
@@ -599,7 +599,7 @@ export default function Home() {
         </div>
       </section>
 
-      <GlowCTA title="Bring your estate onto AreaConnect." subtitle="Start with a 14-day free trial — residents, guards and managers on one platform.">
+      <GlowCTA title="Bring your site onto AreaConnect." subtitle="Start with a 14-day free trial — managers, everyone on site and security on one platform.">
         <PrimaryButton to="https://area-connector.areaconnect.pro/register" dark={false}>Start free trial</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo

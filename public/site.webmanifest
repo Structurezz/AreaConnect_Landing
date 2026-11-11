@@ -1,7 +1,7 @@
 {
   "name": "AreaConnect",
   "short_name": "AreaConnect",
-  "description": "Smart estate management platform for Nigeria — visitor passes, payments, community tools.",
+  "description": "Visitor, security and payments platform for estates, campuses, hotels, workplaces and hospitals in Nigeria.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

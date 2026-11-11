@@ -3,10 +3,11 @@ import {
   Users, UserCheck, ClipboardCheck, Clock, Truck, HardHat, Megaphone, Siren, CreditCard,
   CalendarClock, LogOut, BedDouble, ConciergeBell, Package, Briefcase, Network, KeyRound,
   HeartPulse, Timer, Ban, BadgeCheck, ScanLine, BellRing, Car, Baby, NotebookPen, FileWarning,
+  QrCode, Wallet, PhoneCall, Vote,
 } from 'lucide-react';
 
-// Sector pages (/universities, /schools, /hotels, /industries, /hospitals) and the sector
-// strip on Home / switcher on Pricing all read from here. Wording follows the
+// Sector pages (/estates, /universities, /schools, /hotels, /industries, /hospitals) and the
+// sector strip on Home / switcher on Pricing all read from here. Wording follows the
 // server's site types (server/utils/siteTypes.js → TERMS), so the marketing
 // copy uses the same words the apps show once a site is set to that type.
 
@@ -25,7 +26,7 @@ export const SECTOR_TERMS = {
 
 // Every sector, including estates (whose "page" is the homepage).
 export const SECTOR_LINKS = [
-  { id: 'estate',     to: '/',             label: 'Estates',      desc: 'Gated estates & communities',    icon: Building2,     accent: '#10b981' },
+  { id: 'estate',     to: '/estates',      label: 'Estates',      desc: 'Gated estates & communities',    icon: Building2,     accent: '#10b981' },
   { id: 'university', to: '/universities', label: 'Universities', desc: 'Hostels, halls & campus maps',   icon: GraduationCap, accent: '#2563eb' },
   { id: 'school',     to: '/schools',      label: 'Schools',      desc: 'Primary & secondary schools',    icon: School,        accent: '#f59e0b' },
   { id: 'hotel',      to: '/hotels',     label: 'Hotels',     desc: 'Guest stays & room board',     icon: Hotel,         accent: '#8b5cf6' },
@@ -34,6 +35,75 @@ export const SECTOR_LINKS = [
 ];
 
 export const SECTORS = {
+  /* ─── ESTATES ───────────────────────────────────────────────────────── */
+  estate: {
+    path: '/estates',
+    accent: '#10b981',
+    icon: Building2,
+    name: 'Estates',
+    pill: 'AreaConnect for gated estates & communities',
+    title: 'Your whole estate,',
+    titleAccent: 'in one app.',
+    subtitle: 'Visitor passes the gate verifies in seconds, service charge collected through Paystack, in-app calls to the gate and a community your residents actually use — for gated estates, closes, apartment blocks and housing cooperatives.',
+    seo: {
+      title: 'AreaConnect for Estates — Estate Management Software in Nigeria | Visitor Passes, Service Charge & Security',
+      serviceType: 'Estate and residential community management software',
+      description: 'Estate management software built in Nigeria: visitor QR passes verified at the gate, service charge and levies via Paystack, dues reminders, panic alerts, in-app calls, announcements and a resident community app.',
+      keywords: 'estate management Nigeria, estate management software Lagos, gated estate security app, visitor management estate, service charge collection app, resident portal Nigeria, estate manager app, estate levy payment',
+    },
+    facts: [
+      { icon: QrCode,    value: 'Visitor passes',  label: 'Verified at the gate in seconds' },
+      { icon: Wallet,    value: 'Service charge',  label: 'Collected via Paystack' },
+      { icon: PhoneCall, value: 'In-app calls',    label: 'Residents, gate & manager' },
+      { icon: Siren,     value: 'Panic alerts',    label: 'Siren on every guard’s phone' },
+    ],
+    gate: {
+      app: 'Guard app · Main gate',
+      status: 'Visitor pass · Valid',
+      rows: [['Visitor', 'Chidi Okeke'], ['Visiting', 'Block C · Unit 14'], ['Host', 'Mrs. Bisi Lawal'], ['Purpose', 'Family visit']],
+      action: 'Check in',
+      chip: { icon: Navigation, title: 'Directions sent', text: 'Google Maps to Block C' },
+    },
+    problems: [
+      { title: 'Calling residents from the gate', desc: 'Guards phone every host to confirm a visitor while cars queue outside.' },
+      { title: 'Paper visitor books',            desc: 'Handwritten logs are hard to read, easy to fake and impossible to search after an incident.' },
+      { title: 'Chasing service charge',         desc: 'Transfer screenshots, bank tellers and spreadsheets to reconcile every month.' },
+      { title: 'WhatsApp group chaos',           desc: 'Notices get buried, numbers are exposed and nobody knows what was decided.' },
+    ],
+    featuresTitle: 'Built around estate life.',
+    features: [
+      { icon: QrCode,      title: 'Visitor QR passes',        desc: 'Residents invite guests in seconds; the gate verifies a QR or 6-digit code and checks them in with one tap.' },
+      { icon: KeyRound,    title: 'Instant passes & approvals', desc: 'Guest already at the gate? Issue a pass on the spot, or approve an early arrival from your phone.' },
+      { icon: CreditCard,  title: 'Service charge & levies',  desc: 'Levy schedules, reminders and Paystack checkout, with an invoice and receipt for every payment.' },
+      { icon: Ban,         title: 'Dues enforcement',         desc: 'Notice, grace period, then pause convenience services for long-overdue accounts — lifted automatically on payment.' },
+      { icon: PhoneCall,   title: 'In-app calls',             desc: 'Call the gate, a neighbour or the manager without exposing phone numbers.' },
+      { icon: Siren,       title: 'Panic alerts',             desc: 'One tap sounds a siren on every guard’s phone and notifies the manager instantly.' },
+      { icon: Users,       title: 'Households',               desc: 'The head of the house adds family, drivers and staff with only the access they allow.' },
+      { icon: ShoppingBag, title: 'Marketplace',              desc: 'Neighbours buy and sell with escrow — money is held until delivery is confirmed.' },
+      { icon: Vote,        title: 'Polls, events & lounge',   desc: 'Vote on estate decisions, RSVP to events and keep the community talking.' },
+    ],
+    apps: {
+      admin: { who: 'For estate managers', desc: 'Residents and units, service charge, visitors, guards and alerts for gated estates and communities.', points: ['Residents, units & households', 'Service charge & levies', 'Visitor log & blacklist', 'Dues enforcement'] },
+      mates: { who: 'For residents', desc: 'Invite visitors, pay service charge, call the gate and join the community from one app.', points: ['Visitor passes in seconds', 'Pay dues with Paystack', 'In-app calls & chat', 'Marketplace, polls & events'] },
+      guard: { who: 'For gate security', desc: 'Verify passes by code, check visitors in and out and respond to panic alerts — even offline.', points: ['6-digit code verification', 'One-tap check-in/out', 'Siren on panic alerts', 'Offline mode'] },
+    },
+    steps: [
+      { title: 'Create your estate',    desc: 'Sign up, add your estate details, blocks and units.' },
+      { title: 'Invite your residents', desc: 'Upload a CSV or invite one by one — everyone gets a welcome email.' },
+      { title: 'Onboard your guards',   desc: 'Create gate officer accounts. They sign in to the Guard app and go.' },
+      { title: 'Go live',               desc: 'Residents pay, register visitors and connect with neighbours.' },
+    ],
+    faqs: [
+      { q: 'How do residents get their login details?', a: 'When the estate manager invites a resident — one by one or by CSV — AreaConnect creates the account and emails a welcome message with their login email and a temporary password. They change it the first time they sign in.' },
+      { q: 'How does the visitor pass work?', a: 'A resident creates a pass in AreaMates in seconds. The guest gets a QR code, a 6-digit code and Google Maps directions to the right block. At the gate, security types the code into the Guard app, sees who they are visiting and checks them in.' },
+      { q: 'Can we collect service charge through AreaConnect?', a: 'Yes. Set up levy schedules and residents pay by card, transfer or USSD through Paystack. Every payment gets an invoice and receipt, reminders go out automatically and funds settle to your estate account.' },
+      { q: 'What happens to residents who don’t pay?', a: 'You can turn on dues enforcement: residents get a notice and a grace period, then the manager confirms a pause of convenience services such as visitor passes. Everything is restored automatically the moment they pay.' },
+      { q: 'What does it cost for an estate?', a: 'Plans start at ₦20,000/month for up to 50 residents, ₦47,000/month for up to 200 and ₦80,000/month for up to 500. Annual billing saves 20%, and every new estate starts with a 14-day free trial.' },
+    ],
+    ctaTitle: 'Bring your estate onto AreaConnect.',
+    ctaSubtitle: 'Start a 14-day free trial — residents, guards and managers on one platform.',
+  },
+
   /* ─── UNIVERSITIES / POLYTECHNICS ───────────────────────────────────── */
   university: {
     path: '/universities',

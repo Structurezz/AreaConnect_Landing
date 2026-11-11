@@ -86,6 +86,7 @@ export default function App() {
           <Route path="/admin"       element={<ProductAdmin />} />
           <Route path="/mates"       element={<ProductMates />} />
           <Route path="/guard"       element={<ProductGuard />} />
+          <Route path="/estates"     element={<SectorPage id="estate" />} />
           <Route path="/universities" element={<SectorPage id="university" />} />
           <Route path="/schools"     element={<SectorPage id="school" />} />
           <Route path="/hotels"      element={<SectorPage id="hotel" />} />
