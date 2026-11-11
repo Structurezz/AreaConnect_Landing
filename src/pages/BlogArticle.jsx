@@ -6,7 +6,7 @@ import { Reveal } from '../components/ui/Reveal';
 import { PrimaryButton } from '../components/ui/Modern';
 import ArticleCover from '../components/blog/ArticleCover';
 import ArticleCard from '../components/blog/ArticleCard';
-import { catMeta, fetchArticle, formatDate, preload } from '../lib/blog';
+import { catMeta, coverSrc, fetchArticle, formatDate, preload } from '../lib/blog';
 
 // **bold** → <strong>; everything else stays plain text (no HTML injection).
 function Inline({ text }) {
@@ -114,7 +114,7 @@ export default function BlogArticle() {
         title={a.title}
         description={a.seoDescription || a.excerpt}
         path={`/blog/${a.slug}`}
-        image={`https://picsum.photos/seed/${encodeURIComponent(a.slug)}/1200/630`}
+        image={a.cover?.url ? coverSrc(a.cover) : undefined}
         keywords={(a.keywords || []).join(', ')}
         jsonLd={{
           '@context': 'https://schema.org',
@@ -175,7 +175,12 @@ export default function BlogArticle() {
         </div>
         <Reveal delay={240}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-8">
-            <ArticleCover category={a.category} seed={a.slug} size="lg" className="aspect-[21/9] rounded-[1.75rem]" />
+            <ArticleCover category={a.category} cover={a.cover} size="lg" className="aspect-[21/9] rounded-[1.75rem]" />
+            {a.cover?.photographer && (
+              <p className="mt-2 text-right text-[11px] text-slate-400">
+                Photo: {a.cover.photographerUrl ? <a href={a.cover.photographerUrl} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">{a.cover.photographer}</a> : a.cover.photographer} on <a href={a.cover.sourceUrl || 'https://www.pexels.com'} target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline-offset-2 hover:underline">Pexels</a>
+              </p>
+            )}
           </div>
         </Reveal>
       </header>

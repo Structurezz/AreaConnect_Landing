@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { catMeta } from '../../lib/blog';
+import { catMeta, coverSrc } from '../../lib/blog';
 
-// Placeholder photo per article from Lorem Picsum, seeded by the slug so each
-// article always gets the same image. Falls back to the category gradient.
-const photo = (seed, w, h) => `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
-
-export default function ArticleCover({ category, seed, className = '', size = 'md' }) {
+// The article's cover photo (picked to fit the topic and stored in GridFS by
+// the API). Articles without one show the category gradient.
+export default function ArticleCover({ category, cover, className = '', size = 'md' }) {
   const m = catMeta(category);
   const Icon = m.icon;
   const big = size === 'lg';
@@ -19,10 +17,10 @@ export default function ArticleCover({ category, seed, className = '', size = 'm
         style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px)', backgroundSize: big ? '40px 40px' : '28px 28px' }} />
       <Icon className="absolute right-[8%] bottom-[10%] text-white/25" size={big ? 180 : 96} strokeWidth={1.25} />
 
-      {seed && !failed && (
+      {cover?.url && !failed && (
         <img
-          src={photo(seed, big ? 1600 : 800, big ? 900 : 450)}
-          alt=""
+          src={coverSrc(cover)}
+          alt={cover.alt || ''}
           loading={big ? 'eager' : 'lazy'}
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}

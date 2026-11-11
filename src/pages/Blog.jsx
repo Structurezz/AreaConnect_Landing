@@ -108,7 +108,7 @@ export default function Blog() {
           {featured && (
             <Reveal delay={200}>
               <Link to={`/blog/${featured.slug}`} className="group mt-10 grid lg:grid-cols-[1.1fr_1fr] rounded-[1.75rem] overflow-hidden bg-slate-900 shadow-2xl shadow-slate-900/15">
-                <ArticleCover category={featured.category} seed={featured.slug} size="lg" className="aspect-[16/9] lg:aspect-auto lg:min-h-[340px]" />
+                <ArticleCover category={featured.category} cover={featured.cover} size="lg" className="aspect-[16/9] lg:aspect-auto lg:min-h-[340px]" />
                 <div className="relative p-6 sm:p-8 flex flex-col">
                   <div className="about-aurora absolute -top-16 -right-10 w-56 h-56 bg-brand-500/20 rounded-full blur-3xl" />
                   <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-300">

@@ -8,7 +8,7 @@ export default function ArticleCard({ a }) {
   const sec = SECTOR_LINKS.find((s) => s.id === (a.sector || 'estate'));
   return (
     <Link to={`/blog/${a.slug}`} className="group h-full flex flex-col rounded-[1.5rem] bg-white border border-slate-200/80 overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
-      <ArticleCover category={a.category} seed={a.slug} className="aspect-[16/9]" />
+      <ArticleCover category={a.category} cover={a.cover} className="aspect-[16/9]" />
       <div className="flex-1 flex flex-col p-5">
         <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
           <span className={`rounded-full px-2 py-0.5 font-semibold ${catMeta(a.category).chip}`}>{a.category}</span>

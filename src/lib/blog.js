@@ -1,6 +1,8 @@
 import { BookOpen, Shield, Wallet, Users, LayoutDashboard, Sparkles } from 'lucide-react';
 
 export const API = import.meta.env.VITE_API_URL || 'https://areaconnectapi-production.up.railway.app/api';
+// Cover photos live in the API's GridFS (/files/:id)
+export const coverSrc = (cover) => (cover?.url ? (/^https?:/.test(cover.url) ? cover.url : `${API.replace(/\/api\/?$/, '')}${cover.url}`) : '');
 
 export const CATEGORIES = {
   Guide:      { icon: BookOpen,        chip: 'bg-brand-50 text-brand-700',   from: '#059669', to: '#0d9488' },
