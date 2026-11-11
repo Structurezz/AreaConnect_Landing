@@ -11,7 +11,7 @@ import {
 // server's site types (server/utils/siteTypes.js → TERMS), so the marketing
 // copy uses the same words the apps show once a site is set to that type.
 
-export const REGISTER = 'https://areamanager.area-connector.com/register';
+export const REGISTER = 'https://manager.area-connector.com/register';
 
 // Plan-limit wording per sector, used by the Pricing switcher.
 // `members` replaces "residents", `units` replaces "units".

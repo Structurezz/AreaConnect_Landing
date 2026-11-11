@@ -23,7 +23,7 @@ const PLANS = [
     accent: '#64748B',
     icon: Zap,
     cta: 'Get started',
-    ctaTo: 'https://areamanager.area-connector.com/register?plan=starter',
+    ctaTo: 'https://manager.area-connector.com/register?plan=starter',
     features: [
       { label: 'Up to 50 residents',                yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -55,7 +55,7 @@ const PLANS = [
     accent: '#10B981',
     icon: Building2,
     cta: 'Get started',
-    ctaTo: 'https://areamanager.area-connector.com/register?plan=growth',
+    ctaTo: 'https://manager.area-connector.com/register?plan=growth',
     features: [
       { label: 'Up to 200 residents',               yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -88,7 +88,7 @@ const PLANS = [
     accent: '#6366F1',
     icon: Star,
     cta: 'Get started',
-    ctaTo: 'https://areamanager.area-connector.com/register?plan=premium',
+    ctaTo: 'https://manager.area-connector.com/register?plan=premium',
     features: [
       { label: 'Up to 500 residents',               yes: true  },
       { label: 'Visitor management & QR passes',    yes: true  },
@@ -625,7 +625,7 @@ export default function Pricing() {
 
       <div className="h-16 sm:h-24 bg-white" />
       <GlowCTA title="Ready to get started?" subtitle="Plans from ₦20,000/month. No setup fees. All three apps included.">
-        <PrimaryButton to="https://areamanager.area-connector.com/register" dark={false}>Get started</PrimaryButton>
+        <PrimaryButton to="https://manager.area-connector.com/register" dark={false}>Get started</PrimaryButton>
         <Link to="/contact#book-demo" className="inline-flex items-center justify-center rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-all">
           Book a demo
         </Link>
