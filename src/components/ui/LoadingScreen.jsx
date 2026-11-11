@@ -1,10 +1,11 @@
-import Wordmark from './Wordmark';
 import { useEffect, useState } from 'react';
 
 // Branded loading: the app logo breathing inside a progress ring, with phrases
 // that describe what's loading on the current page. Matches the loaders in the
 // estate manager, residents and security apps.
 const BRAND = {
+  logo: '/icon-192.png',
+  mark: 'AC',
   color: '#10B981',
   dark: '#047857',
   name: ['Area', 'Connector'],
@@ -48,6 +49,19 @@ const CSS = `
 @keyframes acl-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 `;
 
+function Logo({ size }) {
+  const [broken, setBroken] = useState(!BRAND.logo);
+  if (broken) {
+    return (
+      <span style={{ width: size, height: size, borderRadius: size * 0.28, background: `linear-gradient(135deg, ${BRAND.color}, ${BRAND.dark})`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: size * 0.34, letterSpacing: '-0.02em' }}>
+        {BRAND.mark}
+      </span>
+    );
+  }
+  return <img src={BRAND.logo} alt="" onError={() => setBroken(true)} style={{ width: size, height: size, borderRadius: size * 0.28, display: 'block' }} />;
+}
+
 function LogoLoader({ size = 72 }) {
   const [list] = useState(phrasesForPath);
   const [i, setI] = useState(0);
@@ -70,9 +84,7 @@ function LogoLoader({ size = 72 }) {
             strokeDasharray={`${c * 0.28} ${c}`} />
         </svg>
         <span style={{ position: 'absolute', inset: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'acl-breathe 2.2s ease-in-out infinite' }}>
-          <span style={{ width: size, height: size, borderRadius: size * 0.28, boxShadow: `0 10px 24px -10px ${BRAND.color}`, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Wordmark monogram height={size * 0.7} ink="#0F172A" accent={BRAND.color} />
-          </span>
+          <span style={{ borderRadius: size * 0.28, boxShadow: `0 10px 24px -10px ${BRAND.color}`, background: '#fff' }}><Logo size={size} /></span>
         </span>
       </div>
       <p key={i} style={{ margin: 0, minHeight: 18, fontSize: 13, fontWeight: 500, color: '#475569', textAlign: 'center', animation: list.length > 1 ? 'acl-phrase 1.9s ease-in-out both' : undefined }}>
@@ -108,9 +120,6 @@ export default function LoadingScreen({ onDone }) {
       <style>{CSS}</style>
       <LogoLoader size={72} />
       <div style={{ marginTop: 18, textAlign: 'center', animation: 'acl-rise 0.6s ease 0.15s both' }}>
-        <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: '#0F172A', lineHeight: 1 }}>
-          <Wordmark height={56} ink="#0F172A" accent={BRAND.color} />
-        </div>
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#94A3B8', marginTop: 6 }}>{BRAND.tagline}</div>
       </div>
       <p style={{ position: 'absolute', bottom: 24, left: 0, right: 0, textAlign: 'center', fontSize: 11, color: '#94A3B8', letterSpacing: '0.03em', margin: 0, padding: '0 16px' }}>
