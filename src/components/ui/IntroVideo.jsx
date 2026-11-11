@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import Wordmark from './Wordmark';
 import { Volume2, VolumeX, ArrowRight } from 'lucide-react';
 
 export const INTRO_KEY = 'ac_intro_seen_v2';
@@ -67,7 +66,7 @@ export default function IntroVideo({ onDone }) {
               <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
             </svg>
           </div>
-          <span className="sm:hidden text-white text-[16px] font-bold tracking-tight">Area<span className="text-brand-400">Connector</span></span><Wordmark height={40} ink="#FFFFFF" accent="#34D399" className="hidden sm:block" />
+          <span className="text-white text-[16px] sm:text-[18px] font-bold tracking-tight">Area<span className="text-brand-400">Connector</span></span>
         </div>
         <button onClick={toggleSound} aria-label={muted ? 'Turn sound on' : 'Mute'}
           className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur border border-white/15 text-white flex items-center justify-center transition-colors">

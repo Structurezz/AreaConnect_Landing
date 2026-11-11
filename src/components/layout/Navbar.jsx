@@ -8,7 +8,6 @@ import {
   Home, Zap, Tag, Info, Mail, PhoneCall, Video,
 } from 'lucide-react';
 import { SECTOR_LINKS } from '../../lib/sectors';
-import Wordmark from '../ui/Wordmark';
 
 const PRODUCTS = [
   { to: '/admin', label: 'AreaConnector Admin', desc: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981' },
@@ -110,9 +109,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 pl-1">
             <Logo size={34} />
-            {/* Phones: plain one-line wordmark; larger screens: the A/C monogram */}
-            <span className="sm:hidden text-[17px] font-bold tracking-tight text-slate-900">Area<span className="text-brand-500">Connector</span></span>
-            <Wordmark height={42} className="hidden sm:block" />
+            <span className="text-[17px] sm:text-[19px] font-bold tracking-tight text-slate-900">Area<span className="text-brand-500">Connector</span></span>
           </Link>
 
           {/* Desktop nav */}

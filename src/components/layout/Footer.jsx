@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Wordmark from '../ui/Wordmark';
 import {
   Mail, Twitter, Linkedin, Instagram,
   Zap, CreditCard, LayoutDashboard, Users, Shield,
@@ -66,8 +65,7 @@ export default function Footer() {
                   <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
                 </svg>
               </div>
-              <span className="sm:hidden text-[19px] font-bold tracking-tight text-white">Area<span className="text-brand-400">Connector</span></span>
-              <Wordmark height={48} ink="#FFFFFF" accent="#34D399" className="hidden sm:block" />
+              <span className="text-[19px] sm:text-[21px] font-bold tracking-tight text-white">Area<span className="text-brand-400">Connector</span></span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
               Smart site management for estates, universities, schools, hotels, industries and hospitals across Nigeria and Africa. Connecting managers, members and security staff in one place.
