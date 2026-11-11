@@ -74,10 +74,10 @@ export default function Blog() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="Blog — Estate Management Insights for Nigeria"
-        description="Practical guides on visitor management, estate dues, security and community for Nigerian estate managers and residents — new articles every day from AreaConnector."
+        title="Blog — Visitor, Security & Payments Insights for Nigerian Sites"
+        description="Practical guides on visitor management, security, payments and community for Nigerian estates, campuses, schools, hotels, workplaces and hospitals — new articles every day from AreaConnector."
         path="/blog"
-        keywords="estate management blog Nigeria, visitor management guide, estate dues collection, gated community security, service charge Nigeria"
+        keywords="estate management blog Nigeria, visitor management guide, campus security, hotel guest access, school pickup safety, hospital visiting hours, estate dues collection, service charge Nigeria"
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}

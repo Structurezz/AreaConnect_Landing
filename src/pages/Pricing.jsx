@@ -449,9 +449,9 @@ export default function Pricing() {
     <div className="overflow-x-hidden">
       <Seo
         title="Pricing — Plans from ₦20,000/month"
-        description="Simple, honest pricing for Nigerian estates. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnector apps included — no hidden fees, Paystack-native."
+        description="Simple, honest pricing for Nigerian estates, campuses, schools, hotels, workplaces and hospitals. Plans from ₦20,000/month (Starter) up to Enterprise. All three AreaConnector apps included — no hidden fees, Paystack-native."
         path="/pricing"
-        keywords="estate management pricing Nigeria, AreaConnector price, service charge software cost, estate app plans"
+        keywords="AreaConnector pricing, estate management pricing Nigeria, school visitor management cost, hostel management software price, hotel guest app pricing, hospital visitor management cost"
         jsonLd={PRICING_SCHEMA}
       />
 

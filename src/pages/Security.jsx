@@ -63,8 +63,8 @@ export default function Security() {
   return (
     <div className="overflow-x-clip">
       <Seo
-        title="Security — How We Protect Your Estate Data"
-        description="Data isolation per estate, HTTPS encryption in transit, bcrypt password hashing, short-lived auth tokens and Paystack-handled payment data — on every plan."
+        title="Security — How We Protect Your Data"
+        description="Data isolation per site, HTTPS encryption in transit, bcrypt password hashing, short-lived auth tokens and Paystack-handled payment data — on every plan."
         path="/security"
       />
 

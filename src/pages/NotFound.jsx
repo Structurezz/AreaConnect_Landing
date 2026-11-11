@@ -6,7 +6,7 @@ export default function NotFound() {
     <div>
       <Seo
         title="Page Not Found"
-        description="The page you're looking for doesn't exist. Explore AreaConnector's estate management platform for Nigerian communities."
+        description="The page you're looking for doesn't exist. Explore AreaConnector — visitor, security and payments for estates, campuses, hotels, workplaces and hospitals."
         path="/404"
         noindex
       />

@@ -71,7 +71,7 @@ export default function Careers() {
     <div className="overflow-x-clip">
       <Seo
         title="Careers — Join the AreaConnector Team"
-        description="Help build AreaConnector, the estate management platform made in Lagos. Roles for engineers, designers, growth and customer success in Lagos and remote."
+        description="Help build AreaConnector, the visitor, security and payments platform made in Lagos for estates, campuses, hotels, workplaces and hospitals. Roles for engineers, designers, growth and customer success in Lagos and remote."
         path="/careers"
       />
 

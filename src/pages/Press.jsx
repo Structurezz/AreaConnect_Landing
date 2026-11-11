@@ -27,9 +27,9 @@ export default function Press() {
     <div>
       <Seo
         title="Press & Media — AreaConnector Resources"
-        description="Company background, quick facts and media contact for journalists covering AreaConnector, the estate management platform built in Lagos."
+        description="Company background, quick facts and media contact for journalists covering AreaConnector, the visitor, security and payments platform built in Lagos for estates, campuses, hotels, workplaces and hospitals."
         path="/press"
-        keywords="AreaConnector press, Nigerian proptech news, estate management media kit"
+        keywords="AreaConnector press, AreaConnect, Nigerian proptech news, AreaConnector media kit"
       />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-20 pb-14 sm:pt-32 sm:pb-24 overflow-hidden noise">

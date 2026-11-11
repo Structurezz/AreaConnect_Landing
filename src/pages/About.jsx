@@ -280,10 +280,10 @@ export default function About() {
   return (
     <div className="overflow-x-hidden">
       <Seo
-        title="About AreaConnector — Built for Nigerian Estates"
-        description="AreaConnector is the all-in-one estate management platform built in Nigeria, for Nigerian estates. Our story, mission and the team behind the platform."
+        title="About AreaConnector — Built in Nigeria for Every Gate, Guest and Payment"
+        description="AreaConnector is the visitor, security and payments platform built in Nigeria for estates, universities, schools, hotels, industrial sites and hospitals. Our story, mission and the team behind the platform."
         path="/about"
-        keywords="about AreaConnector, Nigerian proptech, estate management company, Area Connector Technologies"
+        keywords="about AreaConnector, AreaConnect, Area Connector Technologies, Nigerian proptech, visitor management company Nigeria, estate management company, campus security company"
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
