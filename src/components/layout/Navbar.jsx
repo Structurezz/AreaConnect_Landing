@@ -4,15 +4,18 @@ import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
-  ChevronDown, LayoutDashboard, Smartphone, ShieldCheck, X, ArrowRight, ArrowUpRight,
-  Home, Zap, Tag, Info, Mail, PhoneCall, Video,
+  ChevronDown, LayoutDashboard, Smartphone, ShieldCheck, ArrowRight, ArrowUpRight,
+  Home, Zap, Tag, Info, Mail, Video, PhoneCall, Check,
 } from 'lucide-react';
-import { SECTOR_LINKS } from '../../lib/sectors';
+import { SECTOR_LINKS, SECTORS } from '../../lib/sectors';
 
 const PRODUCTS = [
-  { to: '/admin', label: 'AreaConnector Admin', desc: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981' },
-  { to: '/mates', label: 'AreaMates',         desc: 'For residents, students, guests & staff', icon: Smartphone,      accent: '#6366f1' },
-  { to: '/guard', label: 'AreaConnector Guard', desc: 'For security & front desk',     icon: ShieldCheck,     accent: '#0ea5e9' },
+  { to: '/admin', label: 'AreaConnector Admin', desc: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981',
+    tag: 'Web dashboard', features: ['Dues, levies & invoices', 'Residents & units', 'Dues enforcement', 'Reports & exports'] },
+  { to: '/mates', label: 'AreaMates',         desc: 'For residents, students, guests & staff', icon: Smartphone,      accent: '#6366f1',
+    tag: 'iOS & Android', features: ['Visitor QR passes', 'Pay with Paystack', 'Community lounge', 'In-app calls'] },
+  { to: '/guard', label: 'AreaConnector Guard', desc: 'For security & front desk',     icon: ShieldCheck,     accent: '#0ea5e9',
+    tag: 'Gate app', features: ['Scan QR & codes', 'Live gate log', 'Panic alerts', 'Call residents'] },
 ];
 
 const NAV_ITEMS = [
@@ -50,12 +53,10 @@ function MenuIcon({ open }) {
 export default function Navbar() {
   const [open, setOpen]                 = useState(false);
   const [scrolled, setScrolled]         = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [menuOpen, setMenuOpen]         = useState(null); // 'products' | 'solutions' | null
   const [hovered, setHovered]           = useState(null);
   const [pill, setPill]                 = useState(null);
-  const dropRef  = useRef(null);
-  const solRef   = useRef(null);
+  const closeTimer = useRef(null);
   const linksRef = useRef({});
   const { pathname } = useLocation();
 
@@ -71,16 +72,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  useEffect(() => {
-    const fn = (e) => {
-      if (dropRef.current && !dropRef.current.contains(e.target)) setProductsOpen(false);
-      if (solRef.current && !solRef.current.contains(e.target)) setSolutionsOpen(false);
-    };
-    document.addEventListener('mousedown', fn);
-    return () => document.removeEventListener('mousedown', fn);
-  }, []);
+  const openMenu = (key) => { clearTimeout(closeTimer.current); setMenuOpen(key); };
+  const closeMenuSoon = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMenuOpen(null), 200);
+  };
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
 
-  useEffect(() => { setOpen(false); setProductsOpen(false); setSolutionsOpen(false); }, [pathname]);
+  useEffect(() => { setOpen(false); setMenuOpen(null); }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -119,77 +118,24 @@ export default function Navbar() {
                 style={{ left: pill.left, width: pill.width }} />
             )}
 
-            <div ref={dropRef} className="relative">
+            {/* Products */}
+            <div className="relative" onMouseEnter={() => openMenu('products')} onMouseLeave={closeMenuSoon}>
               <button ref={el => { linksRef.current.products = el; }}
                 onMouseEnter={() => setHovered('products')}
-                onClick={() => { setProductsOpen(o => !o); setSolutionsOpen(false); }}
+                onClick={() => (menuOpen === 'products' ? setMenuOpen(null) : openMenu('products'))}
                 className={`${linkCls('products')} flex items-center gap-1`}>
-                Products <ChevronDown size={13} className={`transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
+                Products <ChevronDown size={13} className={`transition-transform duration-200 ${menuOpen === 'products' ? 'rotate-180' : ''}`} />
               </button>
-
-              {productsOpen && (
-                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[440px] rounded-3xl bg-white border border-slate-200/80 shadow-2xl shadow-slate-900/10 p-2 about-feed-in">
-                  <div className="grid grid-cols-[1fr_150px] gap-2">
-                    <div className="space-y-0.5">
-                      {PRODUCTS.map(p => (
-                        <Link key={p.to} to={p.to} onClick={() => setProductsOpen(false)}
-                          className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-slate-50 transition-colors">
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                            style={{ background: `${p.accent}18` }}>
-                            <p.icon size={16} style={{ color: p.accent }} />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-[13px] font-semibold text-slate-900">{p.label}</div>
-                            <div className="text-[11px] text-slate-400">{p.desc}</div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                    <Link to="/features#calls" onClick={() => setProductsOpen(false)}
-                      className="group relative rounded-2xl bg-slate-900 p-3.5 overflow-hidden flex flex-col justify-between">
-                      <div className="absolute -top-10 -right-10 w-28 h-28 bg-brand-500/30 rounded-full blur-2xl" />
-                      <span className="relative inline-flex w-fit rounded-full bg-brand-500 text-white text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5">New</span>
-                      <div className="relative">
-                        <PhoneCall size={16} className="text-brand-400 mb-2" />
-                        <div className="text-[13px] font-semibold text-white leading-snug">In-app calls & safety tools</div>
-                        <div className="mt-1 inline-flex items-center gap-1 text-[11px] text-slate-400 group-hover:text-white transition-colors">
-                          See what’s new <ArrowUpRight size={11} />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              )}
             </div>
 
-            <div ref={solRef} className="relative">
+            {/* Solutions */}
+            <div className="relative" onMouseEnter={() => openMenu('solutions')} onMouseLeave={closeMenuSoon}>
               <button ref={el => { linksRef.current.solutions = el; }}
                 onMouseEnter={() => setHovered('solutions')}
-                onClick={() => { setSolutionsOpen(o => !o); setProductsOpen(false); }}
+                onClick={() => (menuOpen === 'solutions' ? setMenuOpen(null) : openMenu('solutions'))}
                 className={`${linkCls('solutions')} flex items-center gap-1`}>
-                Solutions <ChevronDown size={13} className={`transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
+                Solutions <ChevronDown size={13} className={`transition-transform duration-200 ${menuOpen === 'solutions' ? 'rotate-180' : ''}`} />
               </button>
-
-              {solutionsOpen && (
-                <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[300px] rounded-3xl bg-white border border-slate-200/80 shadow-2xl shadow-slate-900/10 p-2 about-feed-in">
-                  <div className="px-3 pt-1.5 pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Built for</div>
-                  <div className="space-y-0.5">
-                    {SECTOR_LINKS.map(p => (
-                      <Link key={p.to} to={p.to} onClick={() => setSolutionsOpen(false)}
-                        className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-slate-50 transition-colors">
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                          style={{ background: `${p.accent}18` }}>
-                          <p.icon size={16} style={{ color: p.accent }} />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-[13px] font-semibold text-slate-900">{p.label}</div>
-                          <div className="text-[11px] text-slate-400">{p.desc}</div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
             {NAV_ITEMS.slice(1).map(l => (
@@ -225,6 +171,112 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Desktop mega menu — spans the full nav width under the bar. pt-2 bridges the hover gap. */}
+        {menuOpen && (
+          <div className="hidden md:block max-w-6xl mx-auto relative">
+            <div className="absolute inset-x-0 top-0 pt-2" onMouseEnter={() => openMenu(menuOpen)} onMouseLeave={closeMenuSoon}>
+              <div key={menuOpen} className="rounded-[28px] bg-white/95 backdrop-blur-xl border border-slate-200/80 shadow-2xl shadow-slate-900/10 p-3 about-feed-in">
+                {menuOpen === 'products' ? (
+                  <div className="grid grid-cols-[1fr_1fr_1fr_240px] gap-3">
+                    {PRODUCTS.map(p => (
+                      <Link key={p.to} to={p.to} onClick={() => setMenuOpen(null)}
+                        className="group relative rounded-3xl border border-slate-100 bg-gradient-to-b from-slate-50/80 to-white p-5 overflow-hidden hover:border-slate-200 hover:shadow-lg hover:shadow-slate-900/5 hover:-translate-y-0.5 transition-all duration-300">
+                        <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
+                          style={{ background: `${p.accent}40` }} />
+                        <div className="relative flex items-center justify-between">
+                          <div className="w-11 h-11 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                            style={{ background: `${p.accent}18` }}>
+                            <p.icon size={20} style={{ color: p.accent }} />
+                          </div>
+                          <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                            style={{ background: `${p.accent}14`, color: p.accent }}>{p.tag}</span>
+                        </div>
+                        <div className="relative mt-4 text-[15px] font-semibold text-slate-900">{p.label}</div>
+                        <div className="relative text-[12px] text-slate-500">{p.desc}</div>
+                        <ul className="relative mt-4 space-y-1.5">
+                          {p.features.map(f => (
+                            <li key={f} className="flex items-center gap-2 text-[12px] text-slate-600">
+                              <span className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${p.accent}18` }}>
+                                <Check size={10} style={{ color: p.accent }} />
+                              </span>
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="relative mt-5 inline-flex items-center gap-1 text-[12px] font-semibold" style={{ color: p.accent }}>
+                          Explore <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </Link>
+                    ))}
+
+                    <div className="flex flex-col gap-3">
+                      <Link to="/features#calls" onClick={() => setMenuOpen(null)}
+                        className="group relative flex-1 rounded-3xl bg-slate-900 p-5 overflow-hidden flex flex-col justify-between">
+                        <div className="absolute -top-12 -right-12 w-36 h-36 bg-brand-500/40 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-500" />
+                        <span className="relative inline-flex w-fit rounded-full bg-brand-500 text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5">New</span>
+                        <div className="relative">
+                          <PhoneCall size={20} className="text-brand-400 mb-2" />
+                          <div className="text-[14px] font-semibold text-white leading-snug">In-app calls & safety tools</div>
+                          <div className="mt-1 text-[12px] text-slate-400 leading-snug">Call the gate, raise a panic alert and share live location.</div>
+                          <div className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-brand-300 group-hover:text-white transition-colors">
+                            See what’s new <ArrowUpRight size={12} />
+                          </div>
+                        </div>
+                      </Link>
+                      <Link to="/features" onClick={() => setMenuOpen(null)}
+                        className="group rounded-3xl bg-slate-50 hover:bg-slate-100 px-5 py-4 transition-colors">
+                        <div className="text-[13px] font-semibold text-slate-900 flex items-center gap-1">All features <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" /></div>
+                        <div className="text-[11px] text-slate-500">Passes, payments, calls & more</div>
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-3 gap-3">
+                      {SECTOR_LINKS.map(p => (
+                        <Link key={p.to} to={p.to} onClick={() => setMenuOpen(null)}
+                          className="group relative rounded-3xl border border-slate-100 bg-gradient-to-b from-slate-50/80 to-white p-4 overflow-hidden hover:border-slate-200 hover:shadow-lg hover:shadow-slate-900/5 hover:-translate-y-0.5 transition-all duration-300">
+                          <div className="absolute -top-16 -right-16 w-36 h-36 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
+                            style={{ background: `${p.accent}40` }} />
+                          <div className="relative flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                              style={{ background: `${p.accent}18` }}>
+                              <p.icon size={18} style={{ color: p.accent }} />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="text-[14px] font-semibold text-slate-900">{p.label}</div>
+                              <div className="text-[11px] text-slate-500 truncate">{p.desc}</div>
+                            </div>
+                            <ArrowUpRight size={14} className="text-slate-300 group-hover:text-slate-900 transition-colors" />
+                          </div>
+                          <div className="relative mt-3 flex flex-wrap gap-1.5">
+                            {(SECTORS[p.id]?.facts || []).map(f => (
+                              <span key={f.value} className="inline-flex items-center gap-1 rounded-full bg-white border border-slate-200/80 px-2 py-0.5 text-[10.5px] font-medium text-slate-600">
+                                <f.icon size={10} style={{ color: p.accent }} /> {f.value}
+                              </span>
+                            ))}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="mt-3 rounded-3xl bg-slate-50 px-5 py-3.5 flex items-center gap-4">
+                      <img src="/team/michael-orizu.jpg" alt="" className="w-10 h-10 rounded-xl object-cover object-[50%_15%]" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[13px] font-semibold text-slate-900">Not sure which fits your site?</div>
+                        <div className="text-[12px] text-slate-500 flex items-center gap-1"><Video size={11} /> Book a 30-min Google Meet and we’ll set it up with you.</div>
+                      </div>
+                      <Link to="/contact#book-demo" onClick={() => setMenuOpen(null)}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-[12px] font-semibold px-4 py-2 transition-colors">
+                        Book a demo <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ── Mobile menu ── */}
