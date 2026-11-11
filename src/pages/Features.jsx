@@ -16,6 +16,7 @@ import Seo from '../components/Seo';
 import { Reveal } from '../components/ui/Reveal';
 import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
 import FeaturePhone from '../components/mockups/FeaturePhones';
+import { SectorPhoneCycle } from '../components/mockups/SectorPhone';
 
 /* ── Feature catalogue ────────────────────────────────────────────────── */
 
@@ -331,7 +332,7 @@ function CategorySection({ cat, index }) {
         <div className={`grid gap-10 lg:gap-12 items-start ${alt ? 'lg:grid-cols-[1fr_340px]' : 'lg:grid-cols-[340px_1fr]'}`}>
           <div className={`lg:sticky lg:top-36 ${alt ? 'lg:order-2' : ''}`}>
             <Reveal delay={100}>
-              <FeaturePhone id={cat.id} />
+              {cat.id === 'sectors' ? <SectorPhoneCycle /> : <FeaturePhone id={cat.id} />}
             </Reveal>
           </div>
 

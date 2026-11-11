@@ -5,6 +5,7 @@ import Seo from '../components/Seo';
 import { APPS, Workflow } from '../components/ProductPage';
 import { Reveal } from '../components/ui/Reveal';
 import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } from '../components/ui/Modern';
+import SectorPhone from '../components/mockups/SectorPhone';
 import { SECTORS, SECTOR_LINKS, SECTOR_TERMS, REGISTER } from '../lib/sectors';
 
 // One data-driven page for /schools, /hotels, /industries and /hospitals.
@@ -45,110 +46,6 @@ function schemas(s) {
       })),
     },
   ];
-}
-
-/* ─── Hero visual: what the gate / front desk sees ──────────────────────── */
-
-function GateMock({ s }) {
-  const g = s.gate;
-  const tone = g.warn ? '#f59e0b' : s.accent;
-  return (
-    <div className="relative mx-auto w-full max-w-md">
-      <div className="absolute -inset-6 rounded-[2.5rem] blur-3xl opacity-60 pointer-events-none" style={{ background: `${s.accent}26` }} />
-      <div className="relative rounded-[1.75rem] bg-white border border-slate-200/80 shadow-2xl shadow-slate-900/10 overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
-          <div className="flex items-center gap-2 text-[12px] font-semibold text-slate-700">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white" style={{ background: s.accent }}>
-              <s.icon size={14} />
-            </span>
-            {g.app}
-          </div>
-          <span className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" /> Live
-          </span>
-        </div>
-
-        <div className="p-5">
-          <div className="flex items-center gap-2 rounded-xl px-3 py-2 text-[12px] font-semibold"
-            style={{ background: `${tone}14`, color: tone }}>
-            {g.warn ? <AlertTriangle size={14} /> : <ShieldCheck size={14} />}
-            {g.status}
-          </div>
-
-          {g.hours && (
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-[11px] font-medium text-emerald-700">
-              <Timer size={12} /> {g.hours}
-            </div>
-          )}
-
-          {g.board && (
-            <div className="mt-4 grid grid-cols-5 gap-1.5">
-              {g.board.map(b => (
-                <div key={b.label} className="rounded-xl bg-slate-50 border border-slate-100 px-1 py-2.5 text-center">
-                  <div className="text-lg font-bold leading-none" style={{ color: b.c }}>{b.n}</div>
-                  <div className="mt-1 text-[9px] font-medium text-slate-400 uppercase tracking-wide">{b.label}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <dl className="mt-4 divide-y divide-slate-100 rounded-xl border border-slate-100">
-            {g.rows.map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between gap-3 px-3.5 py-2.5 text-[12px]">
-                <dt className="text-slate-400">{k}</dt>
-                <dd className="font-semibold text-slate-800 text-right">{v}</dd>
-              </div>
-            ))}
-          </dl>
-
-          {g.place && (
-            <div className="mt-3 flex items-center gap-3 rounded-xl border p-3" style={{ borderColor: `${s.accent}33`, background: `${s.accent}0d` }}>
-              <span className="w-9 h-9 rounded-lg flex items-center justify-center text-white flex-shrink-0" style={{ background: s.accent }}><MapPin size={16} /></span>
-              <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Going to</div>
-                <div className="text-[13px] font-semibold text-slate-900 leading-tight">{g.place.name}</div>
-                <div className="text-[11px] text-slate-500 truncate">{g.place.sub}</div>
-              </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white border border-slate-200 px-2.5 py-1 text-[11px] font-semibold" style={{ color: s.accent }}>
-                <Navigation size={11} /> Directions
-              </span>
-            </div>
-          )}
-
-          {g.induction && (
-            <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50/70 p-3">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-700"><ClipboardCheck size={12} /> Site safety induction</div>
-              <p className="mt-1 text-[11px] text-amber-800/80 leading-relaxed">{g.induction}</p>
-              <div className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                <span className="w-4 h-4 rounded flex items-center justify-center text-white" style={{ background: s.accent }}><Check size={10} strokeWidth={3} /></span>
-                Visitor has read and accepted
-              </div>
-            </div>
-          )}
-
-          {g.override && (
-            <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-[11px] text-slate-600 leading-relaxed">{g.override}</div>
-          )}
-
-          <div className="mt-4 flex items-center justify-center gap-1.5 rounded-full text-white text-[13px] font-semibold py-2.5" style={{ background: s.accent }}>
-            {g.action} <ArrowRight size={13} />
-          </div>
-        </div>
-      </div>
-
-      {g.chip && (
-        <div className="absolute -bottom-6 -left-2 sm:-left-8 animate-float flex items-center gap-2.5 rounded-2xl bg-white border border-slate-200/80 shadow-xl shadow-slate-900/10 px-3.5 py-2.5">
-          <span className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${s.accent}18` }}>
-            <g.chip.icon size={15} style={{ color: s.accent }} />
-          </span>
-          <div>
-            <div className="text-[12px] font-semibold text-slate-900 leading-tight">{g.chip.title}</div>
-            <div className="text-[11px] text-slate-400 leading-tight">{g.chip.text}</div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
 }
 
 function FaqItem({ q, a, open, onToggle }) {
@@ -221,7 +118,7 @@ export default function SectorPage({ id }) {
               </Reveal>
             )}
           </div>
-          <Reveal delay={200}><GateMock s={s} /></Reveal>
+          <Reveal delay={200}><SectorPhone id={id} accent={s.accent} /></Reveal>
         </div>
 
         {/* facts bar */}
