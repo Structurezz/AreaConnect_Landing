@@ -201,14 +201,10 @@
 @keyframes introIn { from { opacity: 0; transform: translateY(18px); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
 .intro-in { opacity: 0; animation: introIn .9s cubic-bezier(.22,1,.36,1) forwards; }
 
-/* AreaMates sector phone: scrolls through the real home screen like a recording */
-@keyframes matesScroll {
-  0%, 12%  { transform: translateY(0); }
-  48%, 62% { transform: translateY(var(--mates-travel, 0px)); }
-  96%, 100% { transform: translateY(0); }
-}
-.mates-scroll { animation: matesScroll 14s cubic-bezier(.45,0,.25,1) infinite; will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .mates-scroll { animation: none; } }
+/* AreaMates sector phone: screens slide in like the app */
+@keyframes matesScreenIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+.mates-screen-in { animation: matesScreenIn .45s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion: reduce) { .mates-screen-in { animation-duration: .01ms; } }
 
 /* Navbar mega menu */
 @keyframes megaSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }

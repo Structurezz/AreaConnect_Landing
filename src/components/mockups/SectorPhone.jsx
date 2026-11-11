@@ -1,7 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-
-// useLayoutEffect warns during prerender; fall back to useEffect on the server.
-const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+import { useEffect, useRef, useState } from 'react';
+import FeatureScreen, { FEATURE, Tap } from './SectorFeatures';
 import {
   Signal, BatteryFull, Home, ShieldCheck, Siren, UserPlus, ShoppingBag, MessageSquare, Music, CreditCard,
   Phone, Scale, ClipboardList, Map as MapIcon, Users, Bell, LayoutDashboard, UserCheck, LogIn, LogOut,
@@ -125,35 +123,40 @@ export default function SectorPhone({ id }) {
     ? [`${d.guests[0][0]} has arrived`, 'Checked in at the gate']
     : [d.notices[0][0], `${t.site} notice`];
 
-  // Scroll the screen like a recording: measure how far it can travel
+  // Like a short clip of the app: home → tap the solution's feature → it
+  // opens → a second tap inside it → back home.
+  const feat = FEATURE[type];
+  const [phase, setPhase] = useState('home'); // home (scrolls down and back) | tap | open | done
   const vp = useRef(null), body = useRef(null);
-  const [travel, setTravel] = useState(0);
-  useIsoLayoutEffect(() => {
-    const measure = () => setTravel(Math.max(0, (body.current?.scrollHeight || 0) - (vp.current?.clientHeight || 0)));
-    measure();
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
-    ro?.observe(body.current);
-    return () => ro?.disconnect();
-  }, [type]);
-
-  // Drive the scroll with the Web Animations API once the real distance is
-  // known. (A CSS keyframe reading a custom property doesn't pick up the new
-  // distance in Safari after the page hydrates, so the phone sat still.)
   useEffect(() => {
-    const el = body.current;
-    if (!el || !travel || !el.animate) return undefined;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const down = `translateY(-${travel}px)`;
-    const anim = el.animate([
-      { transform: 'translateY(0)', offset: 0 },
-      { transform: 'translateY(0)', offset: 0.12 },
-      { transform: down, offset: 0.48 },
-      { transform: down, offset: 0.62 },
-      { transform: 'translateY(0)', offset: 0.96 },
-      { transform: 'translateY(0)', offset: 1 },
-    ], { duration: 14000, iterations: Infinity, easing: 'cubic-bezier(.45,0,.25,1)' });
-    return () => anim.cancel();
-  }, [travel]);
+    if (phase === 'home') {
+      // Scroll down through the whole home screen and back up, then tap.
+      const el = body.current;
+      const travel = el && vp.current ? Math.max(0, el.scrollHeight - vp.current.clientHeight) : 0;
+      const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      if (el?.animate && travel > 0 && !reduce) {
+        const down = `translateY(-${travel}px)`;
+        const anim = el.animate([
+          { transform: 'translateY(0)', offset: 0 },
+          { transform: 'translateY(0)', offset: 0.1 },
+          { transform: down, offset: 0.45 },
+          { transform: down, offset: 0.58 },
+          { transform: 'translateY(0)', offset: 0.92 },
+          { transform: 'translateY(0)', offset: 1 },
+        ], { duration: 7500, easing: 'cubic-bezier(.45,0,.25,1)' });
+        anim.onfinish = () => setPhase('tap');
+        return () => { anim.onfinish = null; anim.cancel(); };
+      }
+      const id = setTimeout(() => setPhase('tap'), 3200);
+      return () => clearTimeout(id);
+    }
+    const next = { tap: ['open', 900], open: ['done', 2600], done: ['home', 2800] }[phase];
+    const id = setTimeout(() => setPhase(next[0]), next[1]);
+    return () => clearTimeout(id);
+  }, [phase]);
+  const inFeature = phase === 'open' || phase === 'done';
+  const tapTile = phase === 'tap' && feat.tile;
+  const tapBanner = (phase === 'home' || phase === 'tap') && feat.banner;
 
   const sosSub = !isEstate && assign
     ? `Alerts your ${assign.toLowerCase()} and security with your ${t.unit.toLowerCase()}`
@@ -171,18 +174,25 @@ export default function SectorPhone({ id }) {
           </div>
 
           {/* push banner */}
-          <div className="absolute top-10 left-2.5 right-2.5 z-30 pointer-events-none">
-            <div key={n} className="home-banner flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/70 shadow-xl p-2.5">
+          {!inFeature && <div className="absolute top-10 left-2.5 right-2.5 z-30 pointer-events-none">
+            <div key={tapBanner ? 'rc' : n} className={`${tapBanner ? '' : 'home-banner'} relative flex items-center gap-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/70 shadow-xl p-2.5`}>
               <img src="/apps/areamates.png" alt="" className="w-7 h-7 rounded-lg flex-shrink-0" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between"><span className="text-[9px] font-semibold uppercase tracking-wide text-slate-400">AreaMates</span><span className="text-[9px] text-slate-400">now</span></div>
-                <div className="text-[11px] font-semibold text-slate-900 truncate">{banner[0]}</div>
-                <div className="text-[10px] text-slate-500 truncate">{banner[1]}</div>
+                <div className="text-[11px] font-semibold text-slate-900 truncate">{tapBanner ? feat.banner[0] : banner[0]}</div>
+                <div className="text-[10px] text-slate-500 truncate">{tapBanner ? feat.banner[1] : banner[1]}</div>
               </div>
+              {tapBanner && phase === 'tap' && <Tap />}
             </div>
-          </div>
+          </div>}
 
-          <div ref={vp} className="flex-1 overflow-hidden">
+          <div ref={vp} className="relative flex-1 overflow-hidden">
+            {inFeature ? (
+              <div key="feature" className="mates-screen-in px-3 pt-3 pb-4 h-full">
+                <FeatureScreen type={type} step={phase === 'done' ? 1 : 0} />
+              </div>
+            ) : (
+            <div key="home" className="mates-screen-in">
             <div ref={body} className="px-3 pt-3 pb-4 space-y-3.5" style={{ willChange: 'transform' }}>
               {/* Greeting */}
               <header className="flex items-center gap-2">
@@ -237,7 +247,8 @@ export default function SectorPhone({ id }) {
               {/* Quick actions — the site's modules decide which tiles show */}
               <section className="grid grid-cols-4 gap-x-1.5 gap-y-2.5">
                 {actions.map(({ label, Icon, color }) => (
-                  <div key={label} className="flex flex-col items-center gap-1">
+                  <div key={label} className="relative flex flex-col items-center gap-1">
+                    {tapTile === label && <Tap />}
                     <span className="w-[42px] h-[42px] rounded-[14px] flex items-center justify-center border" style={{ background: `linear-gradient(145deg, ${color}1A, ${color}08)`, borderColor: `${color}2E` }}>
                       <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${color}, ${color}D9)` }}><Icon size={12} className="text-white" /></span>
                     </span>
@@ -334,6 +345,8 @@ export default function SectorPhone({ id }) {
                 </div>
               </section>
             </div>
+            </div>
+            )}
           </div>
 
           {/* Bottom tabs — the bills tab only where payments are on */}
@@ -354,7 +367,7 @@ export default function SectorPhone({ id }) {
 const CYCLE = [['estate', 'Estates', '#10b981'], ['university', 'Universities', '#2563eb'], ['school', 'Schools', '#f59e0b'], ['hotel', 'Hotels', '#8b5cf6'], ['industrial', 'Industries', '#f97316'], ['hospital', 'Hospitals', '#f43f5e']];
 export function SectorPhoneCycle() {
   const [i, setI] = useState(0);
-  useEffect(() => { const x = setInterval(() => setI((v) => (v + 1) % CYCLE.length), 14000); return () => clearInterval(x); }, [i]);
+  useEffect(() => { const x = setInterval(() => setI((v) => (v + 1) % CYCLE.length), 9500); return () => clearInterval(x); }, [i]);
   return (
     <div className="relative">
       <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 rounded-full bg-white border border-slate-200 shadow-md px-1.5 py-1">
