@@ -54,7 +54,7 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-1.5 mb-3">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center text-[7px] font-extrabold text-white">AC</div>
               <div className="leading-tight">
-                <div className="text-[9px] font-semibold text-[#0F172A]">Area<span className="text-[#10B981]">Connect</span></div>
+                <div className="text-[9px] font-semibold text-[#0F172A]">Area<span className="text-[#10B981]">Connector</span></div>
                 <div className="text-[7px] text-[#94A3B8]">Sunrise Estate</div>
               </div>
             </div>

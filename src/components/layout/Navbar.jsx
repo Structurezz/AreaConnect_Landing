@@ -109,8 +109,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 pl-1">
             <Logo size={34} />
-            <span className="text-[15px] font-bold tracking-tight text-slate-900">
-              Area<span className="text-brand-500">Connect</span>
+            <span className="flex flex-col leading-none">
+              <span className="text-[15px] font-bold tracking-tight text-slate-900">Area</span>
+              <span className="mt-[3px] text-[8.5px] font-extrabold tracking-[0.22em] text-brand-500">CONNECTOR</span>
             </span>
           </Link>
 

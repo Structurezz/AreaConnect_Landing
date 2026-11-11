@@ -65,8 +65,9 @@ export default function Footer() {
                   <text x="20" y="25" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="system-ui,sans-serif">AC</text>
                 </svg>
               </div>
-              <span className="text-base font-black tracking-tight">
-                Area<span className="text-brand-400">Connect</span>
+              <span className="flex flex-col leading-none">
+                <span className="text-[17px] font-black tracking-tight">Area</span>
+                <span className="mt-1 text-[9.5px] font-extrabold tracking-[0.22em] text-brand-400">CONNECTOR</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
