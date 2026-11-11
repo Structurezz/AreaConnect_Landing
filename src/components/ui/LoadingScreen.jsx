@@ -5,12 +5,10 @@ import { useEffect, useState } from 'react';
 // that describe what's loading on the current page. Matches the loaders in the
 // estate manager, residents and security apps.
 const BRAND = {
-  logo: '/icon-192.png',
-  mark: 'AC',
   color: '#10B981',
   dark: '#047857',
   name: ['Area', 'Connector'],
-  tagline: 'Estate management, connected',
+  tagline: 'Every gate, guest and payment',
   fallback: ['Getting things ready', 'Opening AreaConnector'],
 };
 
@@ -28,11 +26,11 @@ const PAGE_PHRASES = [
   ['/terms', ['Loading terms']],
   ['/cookies', ['Loading policy']],
   ['/admin', ['Opening the admin console']],
-  ['/mates', ['Opening AreaMates', 'Gathering your neighbours']],
+  ['/mates', ['Opening AreaMates', 'Gathering your community']],
   ['/guard', ['Opening the guard app', 'Checking the gate']],
 ];
 
-const HOME_PHRASES = ['Opening AreaConnector', 'Connecting your estate', 'Checking the gate', 'Almost there'];
+const HOME_PHRASES = ['Opening AreaConnector', 'Connecting your site', 'Checking the gate', 'Almost there'];
 
 function phrasesForPath() {
   const path = typeof window !== 'undefined' ? window.location.pathname : '/';
@@ -49,19 +47,6 @@ const CSS = `
 @keyframes acl-dots { 0%,20% { opacity: .2; } 50% { opacity: 1; } 100% { opacity: .2; } }
 @keyframes acl-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 `;
-
-function Logo({ size }) {
-  const [broken, setBroken] = useState(!BRAND.logo);
-  if (broken) {
-    return (
-      <span style={{ width: size, height: size, borderRadius: size * 0.28, background: `linear-gradient(135deg, ${BRAND.color}, ${BRAND.dark})`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: size * 0.34, letterSpacing: '-0.02em' }}>
-        {BRAND.mark}
-      </span>
-    );
-  }
-  return <img src={BRAND.logo} alt="" onError={() => setBroken(true)} style={{ width: size, height: size, borderRadius: size * 0.28, display: 'block' }} />;
-}
 
 function LogoLoader({ size = 72 }) {
   const [list] = useState(phrasesForPath);
@@ -85,7 +70,9 @@ function LogoLoader({ size = 72 }) {
             strokeDasharray={`${c * 0.28} ${c}`} />
         </svg>
         <span style={{ position: 'absolute', inset: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'acl-breathe 2.2s ease-in-out infinite' }}>
-          <span style={{ borderRadius: size * 0.28, boxShadow: `0 10px 24px -10px ${BRAND.color}`, background: '#fff' }}><Logo size={size} /></span>
+          <span style={{ width: size, height: size, borderRadius: size * 0.28, boxShadow: `0 10px 24px -10px ${BRAND.color}`, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Wordmark monogram height={size * 0.7} ink="#0F172A" accent={BRAND.color} />
+          </span>
         </span>
       </div>
       <p key={i} style={{ margin: 0, minHeight: 18, fontSize: 13, fontWeight: 500, color: '#475569', textAlign: 'center', animation: list.length > 1 ? 'acl-phrase 1.9s ease-in-out both' : undefined }}>
