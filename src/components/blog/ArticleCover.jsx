@@ -28,7 +28,7 @@ export default function ArticleCover({ category, cover, className = '', size = '
         />
       )}
       {/* category tint keeps covers on-brand */}
-      {seed && !failed && (
+      {cover?.url && !failed && (
         <div className="absolute inset-0 mix-blend-multiply opacity-30" style={{ background: `linear-gradient(135deg, ${m.from}, ${m.to})` }} />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
