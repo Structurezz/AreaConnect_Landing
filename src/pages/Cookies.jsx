@@ -11,7 +11,7 @@ const COOKIES = [
 
 const STORAGE = [
   ['ac_s', 'Session storage', 'An anonymous id for the current website visit, used for our own page-view counts. Cleared when you close the tab.'],
-  ['ac_intro_seen_v2', 'Local storage', 'Remembers that you have already seen the intro video, so it only plays once.'],
+  ['ac_intro_seen_v3', 'Local storage', 'Remembers that you have already seen the intro video, so it only plays once.'],
 ];
 
 const TYPE = { Essential: 'bg-brand-50 text-brand-700', Analytics: 'bg-amber-50 text-amber-700' };

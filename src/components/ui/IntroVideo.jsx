@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, ArrowRight } from 'lucide-react';
 
-export const INTRO_KEY = 'ac_intro_seen_v2';
+export const INTRO_KEY = 'ac_intro_seen_v3';
 
 // Full-screen brand intro shown once, on a visitor's first visit.
 export default function IntroVideo({ onDone }) {
@@ -39,15 +39,15 @@ export default function IntroVideo({ onDone }) {
     <div className={`fixed inset-0 z-[9999] bg-slate-950 overflow-hidden transition-opacity duration-700 ${leaving ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <video
         ref={videoRef}
-        src="/intro/areaconnect-reel.mp4"
-        poster="/intro/areaconnect-reel-poster.jpg"
+        src="/intro/areaconnector-reel.mp4"
+        poster="/intro/areaconnector-reel-poster.jpg"
         autoPlay
         muted
         playsInline
         preload="auto"
         onTimeUpdate={(e) => {
           const v = e.currentTarget;
-          setProgress(v.currentTime / (v.duration || 43));
+          setProgress(v.currentTime / (v.duration || 39));
           if (v.currentTime > 5) setCaptionGone(true);
         }}
         onEnded={finish}
@@ -82,13 +82,13 @@ export default function IntroVideo({ onDone }) {
               Welcome to AreaConnector
             </div>
             <div role="presentation" className="mt-3 text-white font-extrabold tracking-[-0.03em] leading-[1.05] text-[2.2rem] sm:text-5xl lg:text-6xl">
-              <span className="intro-in block" style={{ animationDelay: '1s' }}>Beautiful estates</span>
+              <span className="intro-in block" style={{ animationDelay: '1s' }}>Every site deserves</span>
               <span className="intro-in block bg-gradient-to-r from-brand-300 via-emerald-200 to-teal-200 bg-clip-text text-transparent" style={{ animationDelay: '1.6s' }}>
-                deserve smarter living.
+                smarter management.
               </span>
             </div>
             <p className="intro-in mt-4 text-sm sm:text-base text-white/70 max-w-md" style={{ animationDelay: '2.4s' }}>
-              Visitors, dues, security and community — one platform for every estate in Nigeria.
+              Visitors, payments, security and community — one platform for estates, campuses, schools, hotels, industries and hospitals.
             </p>
           </div>
           <button onClick={finish}
