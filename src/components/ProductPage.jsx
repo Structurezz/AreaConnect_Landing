@@ -7,9 +7,9 @@ import { Eyebrow, HeroBackdrop, Pill, PrimaryButton, SpotlightCard, GlowCTA } fr
 // Shared layout for the /admin, /mates and /guard product pages.
 
 export const APPS = {
-  admin: { to: '/admin', name: 'AreaConnect Admin', who: 'For site managers', icon: LayoutDashboard, accent: '#10b981', blurb: 'Run the whole site from one dashboard.' },
-  mates: { to: '/mates', name: 'AreaMates',         who: 'For residents',       icon: Smartphone,      accent: '#6366f1', blurb: 'Passes, payments, calls and community.' },
-  guard: { to: '/guard', name: 'AreaConnect Guard', who: 'For security',        icon: ShieldCheck,     accent: '#0ea5e9', blurb: 'Verify guests by code, even offline.' },
+  admin: { to: '/admin', name: 'AreaConnect Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', blurb: 'Run your estate, campus, hotel or site from one dashboard.' },
+  mates: { to: '/mates', name: 'AreaMates',         who: 'For everyone on site', icon: Smartphone,      accent: '#6366f1', blurb: 'Residents, students, guests & staff — passes, payments, calls and community.' },
+  guard: { to: '/guard', name: 'AreaConnect Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', blurb: 'Verify guests by code at any gate or reception, even offline.' },
 };
 
 export function Workflow({ steps, accent }) {

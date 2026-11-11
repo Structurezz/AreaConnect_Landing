@@ -48,18 +48,18 @@ const MARQUEE = ['Visitor QR passes', 'Instant passes', 'Panic alerts', 'In-app 
 
 const APPS = [
   {
-    id: 'admin', name: 'AreaConnect Admin', who: 'For site managers', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
-    desc: 'Run the whole estate from any browser — residents, units, guards, dues and reports in one dashboard.',
-    points: ['Resident onboarding & CSV bulk invites', 'Payment schedules & estate wallet', 'Guard management & audit logs', 'Live analytics & collection reports'],
+    id: 'admin', name: 'AreaConnect Admin', who: 'For managers & administrators', icon: LayoutDashboard, accent: '#10b981', to: '/admin',
+    desc: 'Run your estate, campus, hotel or site from any browser — people, units, guards, payments and reports in one dashboard.',
+    points: ['Onboarding & CSV bulk invites', 'Payment schedules & wallet', 'Guard management & audit logs', 'Live analytics & collection reports'],
   },
   {
-    id: 'mates', name: 'AreaMates', who: 'For residents', icon: Smartphone, accent: '#6366f1', to: '/mates',
-    desc: 'The resident app — invite visitors, pay dues, call the gate and join the community, all from one place.',
-    points: ['Visitor passes in seconds', 'Pay dues with Paystack', 'In-app calls & messaging', 'Marketplace, lounge, polls & events'],
+    id: 'mates', name: 'AreaMates', who: 'For everyone on site', icon: Smartphone, accent: '#6366f1', to: '/mates',
+    desc: 'For residents, students, guests and staff — invite visitors, pay bills, call the gate and join the community, all from one place.',
+    points: ['Visitor passes in seconds', 'Pay bills & fees with Paystack', 'In-app calls & messaging', 'Marketplace, lounge, polls & events'],
   },
   {
-    id: 'guard', name: 'AreaConnect Guard', who: 'For security', icon: ShieldCheck, accent: '#0ea5e9', to: '/guard',
-    desc: 'The gate app — verify guests by code, respond to panic alerts and keep working even offline.',
+    id: 'guard', name: 'AreaConnect Guard', who: 'For security & front desk', icon: ShieldCheck, accent: '#0ea5e9', to: '/guard',
+    desc: 'For security and front desks — verify guests by code, respond to panic alerts and keep working even offline.',
     points: ['6-digit code verification', 'Siren on panic alerts', 'Offline mode with auto-sync', 'Incident escalation'],
   },
 ];
@@ -340,7 +340,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-5 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Visitor passes, dues, security and community — one platform connecting estate managers, residents and guards.
+                Visitor passes, dues, security and community — one platform connecting managers, the people on site and security.
               </p>
             </Reveal>
             <Reveal delay={240}>

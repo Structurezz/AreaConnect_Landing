@@ -204,7 +204,7 @@ const COMPARE_ROWS = [
 const FAQS = [
   {
     q: 'What is included in every plan?',
-    a: 'Every plan includes the AreaConnect Admin web portal, AreaMates resident app, and the Guard mobile app. Visitor management, QR passes, announcements, and security alerts are available on all tiers — including Starter.',
+    a: 'Every plan includes the AreaConnect Admin web portal, the AreaMates app for everyone on site, and the Guard mobile app. Visitor management, QR passes, announcements, and security alerts are available on all tiers — including Starter.',
   },
   {
     q: 'What does the Starter plan (₦20,000/month) include?',
@@ -246,8 +246,8 @@ const FAQS = [
 
 const APPS = [
   { name: 'AreaConnect Admin', icon: LayoutDashboard, color: 'text-brand-500',  glow: 'rgba(16,185,129,.12)', desc: 'The web dashboard for estates, campuses, hotels, industrial sites and hospitals — members, units, payments, visitors and analytics.', bullets: ['Member & unit management', 'Visitor log & blacklist', 'Payment reconciliation', 'Analytics & reporting'] },
-  { name: 'AreaMates',         icon: Smartphone,      color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)', desc: 'The resident app — invite visitors, pay dues, read announcements and chat with neighbours.', bullets: ['Visitor pre-registration & QR', 'Pay dues with Paystack', 'Community chat & marketplace', 'Emergency panic button'] },
-  { name: 'AreaConnect Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'The gate app — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
+  { name: 'AreaMates',         icon: Smartphone,      color: 'text-indigo-500', glow: 'rgba(99,102,241,.12)', desc: 'For residents, students, guests and staff — invite visitors, pay bills and fees, read announcements and chat.', bullets: ['Visitor pre-registration & QR', 'Pay bills & fees with Paystack', 'Community chat & marketplace', 'Emergency panic button'] },
+  { name: 'AreaConnect Guard', icon: ShieldCheck,     color: 'text-blue-500',   glow: 'rgba(59,130,246,.12)', desc: 'For security and front desks — verify visitors by 6-digit code, log entries and raise incidents, even offline.', bullets: ['6-digit code verification', 'Check-in / check-out logging', 'Offline mode with sync', 'Incident escalation'] },
 ];
 
 // Resident count → recommended plan index.
