@@ -39,7 +39,7 @@ const Cell = ({ Icon, label, value, sub, accent }) => (
   </div>
 );
 
-export default function GuardPhone() {
+export default function GuardPhone({ chips = true }) {
   const [t, setT] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setT((x) => (x + 1) % LOOP), 650);
@@ -185,6 +185,7 @@ export default function GuardPhone() {
       </div>
 
       {/* floating chips */}
+      {chips && <>
       <div className="hidden sm:block absolute -left-24 top-28 z-20 animate-float">
         <div className="rounded-2xl bg-white/95 backdrop-blur border border-slate-200 shadow-xl px-3.5 py-2.5">
           <div className="text-[10px] uppercase tracking-[0.14em] text-slate-400 font-semibold">Works offline</div>
@@ -197,6 +198,7 @@ export default function GuardPhone() {
           <div className="text-sm font-semibold">{alert ? '🔊 Someone needs help' : 'Never missed'}</div>
         </div>
       </div>
+      </>}
     </div>
   );
 }

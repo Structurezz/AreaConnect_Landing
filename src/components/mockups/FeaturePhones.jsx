@@ -7,7 +7,7 @@ import {
   Megaphone, Siren, ChevronRight, Hand, Zap,
 } from 'lucide-react';
 
-import GuardWebPhone from './GuardWebPhone';
+import GuardPhone from './GuardPhone';
 
 // Phone mockups for each Features section, built from the real screens in
 // residents-mobile (AreaMates) and estatemanager (Admin, mobile layout).
@@ -701,7 +701,7 @@ function SectorsPhone() {
 
 const PHONES = {
   sectors: SectorsPhone,
-  guard: GuardWebPhone,
+  guard: () => <GuardPhone chips={false} />,
   visitors: VisitorsPhone,
   safety: SafetyPhone,
   calls: CallsPhone,
